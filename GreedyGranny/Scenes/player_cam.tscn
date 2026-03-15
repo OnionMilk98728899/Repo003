@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://bv3swtr6cggfv"]
+
+[ext_resource type="Script" path="res://Scripts/PlayerCam.cs" id="1_qwvyc"]
+
+[node name="PlayerCam" type="Camera2D"]
+z_index = 20
+position = Vector2(115, 86)
+rotation = 0.261799
+offset = Vector2(0, -16)
+position_smoothing_enabled = true
+position_smoothing_speed = 100.0
+rotation_smoothing_speed = 100.0
+script = ExtResource("1_qwvyc")
+FollowSpeed = 20.0
+offset = Vector2(0, -16)

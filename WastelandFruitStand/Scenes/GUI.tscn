@@ -1,0 +1,983 @@
+[gd_scene load_steps=61 format=3 uid="uid://hmqomyaffewh"]
+
+[ext_resource type="Script" path="res://Scripts/GUI/GUI.cs" id="1_bjmfq"]
+[ext_resource type="FontFile" uid="uid://068hxnk42ejm" path="res://Fonts/BitSpace.ttf" id="2_au7cu"]
+[ext_resource type="Texture2D" uid="uid://cdlw3v7n8quvm" path="res://Art/StandGUI/Tabletop001.png" id="5_wbrit"]
+[ext_resource type="Texture2D" uid="uid://buy57prt34l5c" path="res://Art/StandGUI/Buttons/ButtonUnpressed.png" id="6_x56wi"]
+[ext_resource type="Texture2D" uid="uid://brfw8wytp0gqh" path="res://Art/StandGUI/DirtyTable_Sprites.png" id="7_6wju0"]
+[ext_resource type="Texture2D" uid="uid://6pv0r2p3bdm7" path="res://Art/StandGUI/Buttons/ButtonPressed.png" id="7_q7jf1"]
+[ext_resource type="Texture2D" uid="uid://k1kcbke4qge1" path="res://Art/StandGUI/Buttons/ButtonDisabled.png" id="8_1d7a2"]
+[ext_resource type="Script" path="res://Scripts/Systems_and_Components/CupSystem.cs" id="8_ub25x"]
+[ext_resource type="Texture2D" uid="uid://c4iw83algmti7" path="res://Art/StandGUI/Buttons/ButtonFocused.png" id="9_8aha2"]
+[ext_resource type="PackedScene" uid="uid://n1ta4sfpomam" path="res://Scenes/Cup.tscn" id="9_slt74"]
+[ext_resource type="Script" path="res://Scripts/Systems_and_Components/SliceSystem.cs" id="10_m3vc8"]
+[ext_resource type="Script" path="res://Scripts/Systems_and_Components/PitcherSystem.cs" id="12_7guau"]
+[ext_resource type="Texture2D" uid="uid://emeb8wwfcpiw" path="res://Art/StandGUI/FruitSprites_001_Spritesheet.png" id="12_xxe0h"]
+[ext_resource type="Texture2D" uid="uid://bsbedi7clwug7" path="res://Art/StandGUI/KnifeAnimations_Sprite_Sheet.png" id="13_aepk1"]
+[ext_resource type="Texture2D" uid="uid://cfhfagmdppagp" path="res://Art/StandGUI/SliceFX_Spritesheet.png" id="14_sn7md"]
+[ext_resource type="Texture2D" uid="uid://cxnx7pjefrr1m" path="res://Art/StandGUI/MidLine.png" id="15_waarh"]
+[ext_resource type="Texture2D" uid="uid://bolible70ure3" path="res://Art/StandGUI/Pitcher_Spritesheet_2.png" id="17_lh1ca"]
+[ext_resource type="Texture2D" uid="uid://b3if0nquj7wyf" path="res://Art/StandGUI/Pitcher_FX_Sheet_1.png" id="18_w5hfy"]
+[ext_resource type="Texture2D" uid="uid://dwla2yy5av7oj" path="res://Art/StandGUI/Meters/PitcherMeterBack.png" id="19_of4cc"]
+[ext_resource type="Texture2D" uid="uid://d2edab221j3ti" path="res://Art/StandGUI/Meters/PitcherMeterOver.png" id="20_0pd5l"]
+[ext_resource type="Texture2D" uid="uid://635miiwvyt3f" path="res://Art/StandGUI/Meters/PitcherMeterGreen.png" id="20_4dls8"]
+[ext_resource type="Texture2D" uid="uid://47lnu5sjlnct" path="res://Art/StandGUI/Meters/PitcherMeterPurple.png" id="21_e5n2p"]
+[ext_resource type="Script" path="res://Scripts/Systems_and_Components/CleaningSystem.cs" id="21_xc7ay"]
+[ext_resource type="Texture2D" uid="uid://hkx7iv6jhkkc" path="res://Art/StandGUI/Wipe_Spritesheet_1.png" id="22_akpaf"]
+[ext_resource type="Texture2D" uid="uid://cnj6skxx4xy02" path="res://Art/StandGUI/Wipe_Spritesheet_2.png" id="23_agsv3"]
+[ext_resource type="Texture2D" uid="uid://n8gluw5tqcl5" path="res://Art/StandGUI/Wipe_Spritesheet_3.png" id="24_2oowu"]
+[ext_resource type="Texture2D" uid="uid://xe11idt2tj57" path="res://Art/StandGUI/Wipe_Spritesheet_4.png" id="25_018dd"]
+[ext_resource type="Texture2D" uid="uid://dskrljkikgsks" path="res://Art/StandGUI/Wipe_Spritesheet_5.png" id="26_xwidp"]
+[ext_resource type="Texture2D" uid="uid://db08ka3doljqd" path="res://Art/StandGUI/Wipe_Spritesheet_6.png" id="27_2i8ng"]
+
+[sub_resource type="Animation" id="Animation_4ttpb"]
+resource_name = "FruitStand_Enter"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StandDisplay:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-279, 100), Vector2(-279, -70)]
+}
+
+[sub_resource type="Animation" id="Animation_y21e7"]
+resource_name = "FruitStand_Exit"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StandDisplay:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-279, -70), Vector2(-279, 100)]
+}
+
+[sub_resource type="Animation" id="Animation_gw7e4"]
+resource_name = "FruitStand_Shake"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StandDisplay:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-279, -70), Vector2(-279, -67), Vector2(-279, -72), Vector2(-279, -70)]
+}
+
+[sub_resource type="Animation" id="Animation_l1a0q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StandDisplay:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-279, 100)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wr5ce"]
+_data = {
+"FruitStand_Enter": SubResource("Animation_4ttpb"),
+"FruitStand_Exit": SubResource("Animation_y21e7"),
+"FruitStand_Shake": SubResource("Animation_gw7e4"),
+"RESET": SubResource("Animation_l1a0q")
+}
+
+[sub_resource type="Animation" id="Animation_yedri"]
+resource_name = "Move"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FruitSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FruitSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-160, 197), Vector2(-16, 197), Vector2(-160, 197)]
+}
+
+[sub_resource type="Animation" id="Animation_idjfo"]
+resource_name = "PerfectSlice"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FruitSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_w3r7e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FruitSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FruitSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-144, 197)]
+}
+
+[sub_resource type="Animation" id="Animation_f58d8"]
+resource_name = "WeakSliceLeft"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FruitSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [11, 12, 13, 14]
+}
+
+[sub_resource type="Animation" id="Animation_47yyi"]
+resource_name = "WeakSliceRight"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FruitSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_7ii0k"]
+resource_name = "WhiffLeft"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FruitSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [21, 22, 23, 24]
+}
+
+[sub_resource type="Animation" id="Animation_f5lwe"]
+resource_name = "WhiffRight"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FruitSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m3xvg"]
+_data = {
+"Move": SubResource("Animation_yedri"),
+"PerfectSlice": SubResource("Animation_idjfo"),
+"RESET": SubResource("Animation_w3r7e"),
+"WeakSliceLeft": SubResource("Animation_f58d8"),
+"WeakSliceRight": SubResource("Animation_47yyi"),
+"WhiffLeft": SubResource("Animation_7ii0k"),
+"WhiffRight": SubResource("Animation_f5lwe")
+}
+
+[sub_resource type="Animation" id="Animation_8dmvw"]
+resource_name = "Chop"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KnifeSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"OnKnifeStruckTable"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_gb2t6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KnifeSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lkahu"]
+_data = {
+"Chop": SubResource("Animation_8dmvw"),
+"RESET": SubResource("Animation_gb2t6")
+}
+
+[sub_resource type="Animation" id="Animation_khhck"]
+resource_name = "Chop"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FXSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 4]
+}
+
+[sub_resource type="Animation" id="Animation_2qfu3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FXSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ewddm"]
+_data = {
+"Chop": SubResource("Animation_khhck"),
+"RESET": SubResource("Animation_2qfu3")
+}
+
+[sub_resource type="Animation" id="Animation_ivudu"]
+resource_name = "PitcherPourEnter1"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PitcherSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [8, 9]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PitcherSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(155, 48), Vector2(155, 45)]
+}
+
+[sub_resource type="Animation" id="Animation_3c1t2"]
+resource_name = "PitcherPourExit1"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PitcherSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [9, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PitcherSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(155, 45), Vector2(155, 48), Vector2(340, 99)]
+}
+
+[sub_resource type="Animation" id="Animation_yv4dc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PitcherSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PitcherSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(340, 99)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4x4p2"]
+_data = {
+"PitcherPourEnter1": SubResource("Animation_ivudu"),
+"PitcherPourExit1": SubResource("Animation_3c1t2"),
+"RESET": SubResource("Animation_yv4dc")
+}
+
+[sub_resource type="Animation" id="Animation_1y87s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RagSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("22_akpaf")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RagSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [12]
+}
+
+[sub_resource type="Animation" id="Animation_2dj85"]
+resource_name = "Wipe1"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RagSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("22_akpaf")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RagSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+}
+
+[sub_resource type="Animation" id="Animation_st6f5"]
+resource_name = "Wipe2"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RagSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("23_agsv3")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RagSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+}
+
+[sub_resource type="Animation" id="Animation_oyqec"]
+resource_name = "Wipe3"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RagSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("24_2oowu")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RagSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+}
+
+[sub_resource type="Animation" id="Animation_lrgd5"]
+resource_name = "Wipe4"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RagSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("25_018dd")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RagSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+}
+
+[sub_resource type="Animation" id="Animation_hejfj"]
+resource_name = "Wipe5"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RagSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("26_xwidp")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RagSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+}
+
+[sub_resource type="Animation" id="Animation_7oqns"]
+resource_name = "Wipe6"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RagSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("27_2i8ng")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RagSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pkhuk"]
+_data = {
+"RESET": SubResource("Animation_1y87s"),
+"Wipe1": SubResource("Animation_2dj85"),
+"Wipe2": SubResource("Animation_st6f5"),
+"Wipe3": SubResource("Animation_oyqec"),
+"Wipe4": SubResource("Animation_lrgd5"),
+"Wipe5": SubResource("Animation_hejfj"),
+"Wipe6": SubResource("Animation_7oqns")
+}
+
+[node name="GUI" type="Control" node_paths=PackedStringArray("cupSystem", "cleaningSystem", "pitcherSystem", "sliceSystem", "myDisplay1", "mainAnim", "clickBuffer", "buttonPressTimer", "cupsButton", "juiceButton", "pourButton", "cleanButton", "standDirt")]
+z_index = 1000
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bjmfq")
+cupSystem = NodePath("StandDisplay/CupSystem")
+cleaningSystem = NodePath("StandDisplay/CleaningSystem")
+pitcherSystem = NodePath("StandDisplay/PitcherSystem")
+sliceSystem = NodePath("StandDisplay/SliceSystem")
+pressedButtonTexture = ExtResource("7_q7jf1")
+normalTexture = ExtResource("6_x56wi")
+focusedTexture = ExtResource("9_8aha2")
+myDisplay1 = NodePath("MyDisplay")
+mainAnim = NodePath("MainAnim")
+clickBuffer = NodePath("ClickBuffer")
+buttonPressTimer = NodePath("ButtonPressTimer")
+cupsButton = NodePath("StandDisplay/SetCupsButton")
+juiceButton = NodePath("StandDisplay/JuiceButton")
+pourButton = NodePath("StandDisplay/PourButton")
+cleanButton = NodePath("StandDisplay/CleanButton")
+standDirt = NodePath("StandDisplay/DirtSprite")
+
+[node name="MyDisplay" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = -177.0
+offset_top = -108.0
+offset_right = 43.0
+offset_bottom = -53.0
+theme_override_fonts/normal_font = ExtResource("2_au7cu")
+text = "Testing Player Gui"
+
+[node name="MainAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wr5ce")
+}
+
+[node name="ButtonPressTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="ClickBuffer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="StandDisplay" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -279.0
+offset_top = 100.0
+offset_right = -279.0
+offset_bottom = 103.0
+
+[node name="StandTexture" type="TextureRect" parent="StandDisplay"]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 27.0
+offset_right = 409.0
+offset_bottom = 226.0
+texture = ExtResource("5_wbrit")
+stretch_mode = 2
+
+[node name="DirtSprite" type="Sprite2D" parent="StandDisplay"]
+position = Vector2(243, 133)
+texture = ExtResource("7_6wju0")
+hframes = 11
+
+[node name="SetCupsButton" type="TextureButton" parent="StandDisplay"]
+layout_mode = 0
+offset_left = 366.0
+offset_top = 42.0
+offset_right = 546.0
+offset_bottom = 96.0
+focus_neighbor_top = NodePath("../CleanButton")
+focus_neighbor_bottom = NodePath("../JuiceButton")
+texture_normal = ExtResource("6_x56wi")
+texture_pressed = ExtResource("7_q7jf1")
+texture_disabled = ExtResource("8_1d7a2")
+texture_focused = ExtResource("9_8aha2")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="StandDisplay/SetCupsButton"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 16.0
+offset_right = 82.0
+offset_bottom = 56.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(1, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_au7cu")
+text = "SET CUPS"
+
+[node name="JuiceButton" type="TextureButton" parent="StandDisplay"]
+layout_mode = 0
+offset_left = 371.0
+offset_top = 71.0
+offset_right = 551.0
+offset_bottom = 125.0
+focus_neighbor_top = NodePath("../SetCupsButton")
+focus_neighbor_bottom = NodePath("../PourButton")
+texture_normal = ExtResource("6_x56wi")
+texture_pressed = ExtResource("7_q7jf1")
+texture_disabled = ExtResource("8_1d7a2")
+texture_focused = ExtResource("9_8aha2")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="StandDisplay/JuiceButton"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 16.0
+offset_right = 88.0
+offset_bottom = 56.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(1, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_au7cu")
+text = "JUICE"
+
+[node name="PourButton" type="TextureButton" parent="StandDisplay"]
+layout_mode = 0
+offset_left = 376.0
+offset_top = 101.0
+offset_right = 556.0
+offset_bottom = 155.0
+focus_neighbor_top = NodePath("../JuiceButton")
+focus_neighbor_bottom = NodePath("../CleanButton")
+texture_normal = ExtResource("6_x56wi")
+texture_pressed = ExtResource("7_q7jf1")
+texture_disabled = ExtResource("8_1d7a2")
+texture_focused = ExtResource("9_8aha2")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="StandDisplay/PourButton"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 16.0
+offset_right = 91.0
+offset_bottom = 56.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(1, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_au7cu")
+text = "POUR
+
+"
+
+[node name="CleanButton" type="TextureButton" parent="StandDisplay"]
+layout_mode = 0
+offset_left = 381.0
+offset_top = 131.0
+offset_right = 561.0
+offset_bottom = 185.0
+focus_neighbor_top = NodePath("../PourButton")
+focus_neighbor_bottom = NodePath("../SetCupsButton")
+texture_normal = ExtResource("6_x56wi")
+texture_pressed = ExtResource("7_q7jf1")
+texture_disabled = ExtResource("8_1d7a2")
+texture_focused = ExtResource("9_8aha2")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="StandDisplay/CleanButton"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 16.0
+offset_right = 90.0
+offset_bottom = 56.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(1, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_au7cu")
+text = "WIPE
+
+"
+
+[node name="CupBuffer" type="Timer" parent="StandDisplay"]
+wait_time = 0.1
+one_shot = true
+
+[node name="CupSystem" type="Control" parent="StandDisplay" node_paths=PackedStringArray("cupBuffer")]
+anchors_preset = 0
+offset_left = 123.0
+offset_top = 73.0
+offset_right = 375.0
+offset_bottom = 156.0
+script = ExtResource("8_ub25x")
+cupScene = ExtResource("9_slt74")
+cupBuffer = NodePath("../CupBuffer")
+
+[node name="SliceSystem" type="Control" parent="StandDisplay" node_paths=PackedStringArray("pitcherSystem", "knifeAnim", "fruitAnim", "fxAnim", "mainAnim", "fruitSprite", "lineSprite", "fruitTimer")]
+anchors_preset = 0
+offset_left = 347.0
+offset_top = -70.0
+offset_right = 387.0
+offset_bottom = -30.0
+script = ExtResource("10_m3vc8")
+pitcherSystem = NodePath("../PitcherSystem")
+knifeAnim = NodePath("KnifeAnim")
+fruitAnim = NodePath("FruitAnim")
+fxAnim = NodePath("FXAnim")
+mainAnim = NodePath("../../MainAnim")
+fruitSprite = NodePath("FruitSprite")
+lineSprite = NodePath("LineSprite")
+fruitTimer = NodePath("FruitTimer")
+
+[node name="FruitSprite" type="Sprite2D" parent="StandDisplay/SliceSystem"]
+position = Vector2(-144, 197)
+texture = ExtResource("12_xxe0h")
+hframes = 25
+
+[node name="KnifeSprite" type="Sprite2D" parent="StandDisplay/SliceSystem"]
+z_index = 10
+position = Vector2(-52, 154)
+texture = ExtResource("13_aepk1")
+hframes = 7
+
+[node name="FXSprite" type="Sprite2D" parent="StandDisplay/SliceSystem"]
+position = Vector2(-89, 203)
+texture = ExtResource("14_sn7md")
+hframes = 5
+
+[node name="FruitAnim" type="AnimationPlayer" parent="StandDisplay/SliceSystem"]
+libraries = {
+"": SubResource("AnimationLibrary_m3xvg")
+}
+
+[node name="KnifeAnim" type="AnimationPlayer" parent="StandDisplay/SliceSystem"]
+libraries = {
+"": SubResource("AnimationLibrary_lkahu")
+}
+
+[node name="FXAnim" type="AnimationPlayer" parent="StandDisplay/SliceSystem"]
+libraries = {
+"": SubResource("AnimationLibrary_ewddm")
+}
+
+[node name="FruitTimer" type="Timer" parent="StandDisplay/SliceSystem"]
+wait_time = 0.5
+one_shot = true
+
+[node name="LineSprite" type="Sprite2D" parent="StandDisplay/SliceSystem"]
+position = Vector2(-90, 207)
+texture = ExtResource("15_waarh")
+
+[node name="PitcherSystem" type="Control" parent="StandDisplay" node_paths=PackedStringArray("pitcherAnim", "fxAnim", "pitcherSprite", "fillLevelBar", "fillLabel", "cupSystem", "fillTimer")]
+anchors_preset = 0
+offset_left = -11.0
+offset_top = -36.0
+offset_right = 140.0
+offset_bottom = 114.0
+script = ExtResource("12_7guau")
+maxJuiceLevel = 1000
+pitcherAnim = NodePath("PitcherAnim")
+fxAnim = NodePath("PitcherFXAnim")
+pitcherSprite = NodePath("PitcherSprite")
+fillLevelBar = NodePath("TextureProgressBar")
+fillLabel = NodePath("FillLabel")
+cupSystem = NodePath("../CupSystem")
+fillTimer = NodePath("FillTimer")
+
+[node name="PitcherSprite" type="Sprite2D" parent="StandDisplay/PitcherSystem"]
+position = Vector2(340, 99)
+texture = ExtResource("17_lh1ca")
+hframes = 11
+
+[node name="PitcherFX" type="Sprite2D" parent="StandDisplay/PitcherSystem"]
+position = Vector2(336, 71)
+texture = ExtResource("18_w5hfy")
+hframes = 13
+frame = 12
+
+[node name="PitcherAnim" type="AnimationPlayer" parent="StandDisplay/PitcherSystem"]
+libraries = {
+"": SubResource("AnimationLibrary_4x4p2")
+}
+
+[node name="PitcherFXAnim" type="AnimationPlayer" parent="StandDisplay/PitcherSystem"]
+
+[node name="TextureProgressBar2" type="TextureProgressBar" parent="StandDisplay/PitcherSystem"]
+layout_mode = 0
+offset_left = 284.0
+offset_top = 66.0
+offset_right = 324.0
+offset_bottom = 130.0
+texture_under = ExtResource("19_of4cc")
+texture_progress = ExtResource("20_4dls8")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="StandDisplay/PitcherSystem"]
+layout_mode = 0
+offset_left = 284.0
+offset_top = 66.0
+offset_right = 340.0
+offset_bottom = 192.0
+max_value = 500.0
+value = 17.0
+fill_mode = 3
+stretch_margin_top = 100
+stretch_margin_bottom = 20
+texture_over = ExtResource("20_0pd5l")
+texture_progress = ExtResource("21_e5n2p")
+
+[node name="FillLabel" type="RichTextLabel" parent="StandDisplay/PitcherSystem"]
+layout_mode = 0
+offset_left = 263.0
+offset_top = 33.0
+offset_right = 307.0
+offset_bottom = 62.0
+theme_override_fonts/normal_font = ExtResource("2_au7cu")
+
+[node name="FillTimer" type="Timer" parent="StandDisplay/PitcherSystem"]
+wait_time = 0.5
+one_shot = true
+
+[node name="CleaningSystem" type="Control" parent="StandDisplay" node_paths=PackedStringArray("gui", "ragSprite", "ragAnim", "debugLabel", "wipeTimer")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("21_xc7ay")
+gui = NodePath("../..")
+ragSprite = NodePath("RagSprite")
+ragAnim = NodePath("RagAnim")
+debugLabel = NodePath("DebugLabel")
+wipeTimer = NodePath("WipeTimer")
+
+[node name="RagSprite" type="Sprite2D" parent="StandDisplay/CleaningSystem"]
+position = Vector2(241, 132)
+texture = ExtResource("22_akpaf")
+hframes = 13
+frame = 12
+
+[node name="RagAnim" type="AnimationPlayer" parent="StandDisplay/CleaningSystem"]
+libraries = {
+"": SubResource("AnimationLibrary_pkhuk")
+}
+
+[node name="DebugLabel" type="Label" parent="StandDisplay/CleaningSystem"]
+layout_mode = 0
+offset_left = 299.0
+offset_top = 138.0
+offset_right = 371.0
+offset_bottom = 167.0
+theme_override_fonts/font = ExtResource("2_au7cu")
+
+[node name="WipeTimer" type="Timer" parent="StandDisplay/CleaningSystem"]
+wait_time = 1.2
+one_shot = true
+
+[connection signal="timeout" from="ButtonPressTimer" to="." method="OnButtonPressTimerTimeout"]
+[connection signal="timeout" from="ClickBuffer" to="." method="OnClickBufferTimeout"]
+[connection signal="pressed" from="StandDisplay/SetCupsButton" to="." method="OnSetCupsButtonPressed"]
+[connection signal="pressed" from="StandDisplay/JuiceButton" to="." method="OnJuiceButtonPressed"]
+[connection signal="pressed" from="StandDisplay/PourButton" to="." method="OnPourButtonPressed"]
+[connection signal="pressed" from="StandDisplay/CleanButton" to="." method="OnCleanButtonPressed"]
+[connection signal="timeout" from="StandDisplay/CupBuffer" to="StandDisplay/CupSystem" method="OnCupBufferTimeout"]
+[connection signal="FruitMess" from="StandDisplay/SliceSystem" to="." method="OnSlicedFruitMessMade"]
+[connection signal="RagWipe" from="StandDisplay/CleaningSystem" to="." method="OnRagWipe"]
+[connection signal="timeout" from="StandDisplay/CleaningSystem/WipeTimer" to="StandDisplay/CleaningSystem" method="OnWipeTimerTimeout"]

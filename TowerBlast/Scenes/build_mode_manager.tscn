@@ -1,0 +1,68 @@
+[gd_scene load_steps=12 format=3 uid="uid://cd72nd5db2lsu"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/BuildModeManager.cs" id="1_3s7sa"]
+[ext_resource type="Texture2D" uid="uid://ci2tec6wc0ppe" path="res://GUI/BuildModeGUI/GreenLadder.png" id="2_goxhx"]
+[ext_resource type="Texture2D" uid="uid://p7wveu21hg4y" path="res://GUI/BuildModeGUI/GreenWall.png" id="3_rfivt"]
+[ext_resource type="Texture2D" uid="uid://beg5toqbg5vgd" path="res://Tiles/TestSprite.png" id="3_xevir"]
+[ext_resource type="Texture2D" uid="uid://d1lqxybuiarhh" path="res://GUI/BuildModeGUI/RedLadder.png" id="4_0a0ek"]
+[ext_resource type="Texture2D" uid="uid://cl1jnfagvtcjn" path="res://GUI/BuildModeGUI/RedWall.png" id="5_s4dqi"]
+[ext_resource type="Texture2D" uid="uid://cj5x30x3xoq8" path="res://GUI/BuildModeGUI/WhiteTrapCursor.png" id="6_m2wby"]
+[ext_resource type="Texture2D" uid="uid://ckjenpilj1luv" path="res://GUI/BuildModeGUI/RedTrapCursor.png" id="7_xqx6i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fdcpn"]
+size = Vector2(46, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dfu5u"]
+size = Vector2(14, 75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ywi33"]
+size = Vector2(14, 29)
+
+[node name="BuildModeManager" type="Node2D" node_paths=PackedStringArray("_cursorSprite")]
+script = ExtResource("1_3s7sa")
+_cursorSprite = NodePath("CursorSprite")
+_buildLadderPrice = 150
+_buildFloorPrice = 500
+_buildWallPrice = 100
+_greenLadderTexture = ExtResource("2_goxhx")
+_greenWallTexture = ExtResource("3_rfivt")
+_redLadderTexture = ExtResource("4_0a0ek")
+_redWallTexture = ExtResource("5_s4dqi")
+_whiteTrapCursor = ExtResource("6_m2wby")
+_redTrapCursor = ExtResource("7_xqx6i")
+
+[node name="CursorSprite" type="Sprite2D" parent="."]
+z_index = 6
+position = Vector2(88, -8)
+texture = ExtResource("3_xevir")
+
+[node name="ForbiddenObjectDetector" type="Area2D" parent="CursorSprite"]
+collision_layer = 0
+collision_mask = 7
+
+[node name="ForObCollider" type="CollisionShape2D" parent="CursorSprite/ForbiddenObjectDetector"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_fdcpn")
+
+[node name="ForbiddenObjectDetector2" type="Area2D" parent="CursorSprite"]
+collision_layer = 0
+collision_mask = 7
+
+[node name="ForObCollider2" type="CollisionShape2D" parent="CursorSprite/ForbiddenObjectDetector2"]
+position = Vector2(0, -17.5)
+shape = SubResource("RectangleShape2D_dfu5u")
+
+[node name="CursorAreaDetector" type="Area2D" parent="CursorSprite"]
+collision_layer = 0
+collision_mask = 7
+
+[node name="CursorAreaCollider" type="CollisionShape2D" parent="CursorSprite/CursorAreaDetector"]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_ywi33")
+
+[connection signal="body_entered" from="CursorSprite/ForbiddenObjectDetector" to="." method="OnForbiddenObjectDetectorEntered"]
+[connection signal="body_exited" from="CursorSprite/ForbiddenObjectDetector" to="." method="OnForbiddenObjectDetectorExited"]
+[connection signal="body_entered" from="CursorSprite/ForbiddenObjectDetector2" to="." method="OnForbiddenObjectDetector2Entered"]
+[connection signal="body_exited" from="CursorSprite/ForbiddenObjectDetector2" to="." method="OnForbiddenObjectDetector2Exited"]
+[connection signal="body_entered" from="CursorSprite/CursorAreaDetector" to="." method="OnCursorAreaBodyEntered"]
+[connection signal="body_exited" from="CursorSprite/CursorAreaDetector" to="." method="OnCursorAreaBodyExited"]

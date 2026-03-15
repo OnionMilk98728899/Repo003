@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddvgpdkeyaut0"]
+
+[ext_resource type="Script" path="res://Scripts/GlobalResources/MyGlobalResources.cs" id="1_msmv2"]
+[ext_resource type="Script" path="res://Scripts/GlobalResources/GlobalSignals.cs" id="2_eqrrm"]
+
+[node name="GlobalResources" type="Node"]
+script = ExtResource("1_msmv2")
+
+[node name="GlobalSignals" type="Node" parent="."]
+script = ExtResource("2_eqrrm")

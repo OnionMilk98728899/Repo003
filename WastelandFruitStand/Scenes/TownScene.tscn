@@ -1,0 +1,87 @@
+[gd_scene load_steps=12 format=3 uid="uid://cyyecmsr8h5mr"]
+
+[ext_resource type="Texture2D" uid="uid://bax2o3fvnillx" path="res://Art/Tiles/Background002.png" id="1_4d2bq"]
+[ext_resource type="PackedScene" uid="uid://bk1djurx5ey7v" path="res://Scenes/PlayerPackage.tscn" id="2_b76y4"]
+[ext_resource type="PackedScene" uid="uid://c1evshs4gmq7o" path="res://Scenes/MonsterManager.tscn" id="4_8w8x7"]
+[ext_resource type="PackedScene" uid="uid://b6qdu8dawyhmh" path="res://Scenes/FruitStand.tscn" id="4_ploc7"]
+[ext_resource type="PackedScene" uid="uid://cnel8jdokmknu" path="res://Scenes/FruitTree.tscn" id="5_h61oi"]
+[ext_resource type="PackedScene" uid="uid://hmqomyaffewh" path="res://Scenes/GUI.tscn" id="7_5xpts"]
+[ext_resource type="PackedScene" uid="uid://bhdoqf7kyvg03" path="res://Scenes/Mutant.tscn" id="8_kd52s"]
+[ext_resource type="PackedScene" uid="uid://da2vwos4rnf3y" path="res://Scenes/Monster.tscn" id="8_tgfl8"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yn3hp"]
+distance = -89.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_txvi2"]
+distance = -48.75
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_opdi8"]
+distance = 29.4872
+
+[node name="TownScene" type="Node2D"]
+
+[node name="Background002" type="Sprite2D" parent="."]
+position = Vector2(364, 108)
+texture = ExtResource("1_4d2bq")
+
+[node name="ShadowBoundary" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="ShadowBoundaryUpper" type="CollisionShape2D" parent="ShadowBoundary"]
+position = Vector2(330, 514)
+rotation = 3.14159
+scale = Vector2(4, 4)
+shape = SubResource("WorldBoundaryShape2D_yn3hp")
+
+[node name="WorldBody" type="StaticBody2D" parent="."]
+position = Vector2(0, 5)
+collision_layer = 3
+collision_mask = 0
+
+[node name="WorldBoundaryLower" type="CollisionShape2D" parent="WorldBody"]
+position = Vector2(351, 134)
+scale = Vector2(4.32, 1.6)
+shape = SubResource("WorldBoundaryShape2D_txvi2")
+
+[node name="WorldBoundaryUpper" type="CollisionShape2D" parent="WorldBody"]
+position = Vector2(331, 42)
+rotation = -3.14159
+scale = Vector2(5.68, 3.12)
+shape = SubResource("WorldBoundaryShape2D_opdi8")
+
+[node name="PlayerPackage" parent="." instance=ExtResource("2_b76y4")]
+
+[node name="FruitStand" parent="." instance=ExtResource("4_ploc7")]
+position = Vector2(211, 162)
+
+[node name="MonsterManager" parent="." instance=ExtResource("4_8w8x7")]
+
+[node name="FruitTree" parent="." instance=ExtResource("5_h61oi")]
+position = Vector2(415, 182)
+
+[node name="GUICanvas" type="CanvasLayer" parent="."]
+
+[node name="GUI" parent="GUICanvas" instance=ExtResource("7_5xpts")]
+offset_left = 188.0
+offset_top = 107.0
+offset_right = 188.0
+offset_bottom = 107.0
+
+[node name="Mutant" parent="." instance=ExtResource("8_kd52s")]
+position = Vector2(269, 187)
+
+[node name="Monster" parent="." instance=ExtResource("8_tgfl8")]
+position = Vector2(166, 182)
+
+[node name="Monster3" parent="." instance=ExtResource("8_tgfl8")]
+position = Vector2(122, 185)
+
+[node name="Monster4" parent="." instance=ExtResource("8_tgfl8")]
+position = Vector2(316, 181)
+
+[node name="Monster5" parent="." instance=ExtResource("8_tgfl8")]
+position = Vector2(73, 186)
+
+[node name="Monster2" parent="." instance=ExtResource("8_tgfl8")]
+position = Vector2(248, 165)

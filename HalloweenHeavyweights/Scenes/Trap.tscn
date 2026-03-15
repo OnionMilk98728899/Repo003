@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://cyabfi4ones5x"]
+
+[node name="Trap" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

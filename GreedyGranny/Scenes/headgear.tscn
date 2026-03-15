@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://crgfi584p1nun"]
+
+[ext_resource type="Script" path="res://Scripts/Headgear.cs" id="1_sout7"]
+
+[node name="Headgear" type="Node"]
+script = ExtResource("1_sout7")

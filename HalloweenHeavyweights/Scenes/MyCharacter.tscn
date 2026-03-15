@@ -1,0 +1,188 @@
+[gd_scene load_steps=14 format=3 uid="uid://u22oi5sfca6t"]
+
+[ext_resource type="PackedScene" uid="uid://dtwumxrwlogp7" path="res://Models/PumpkinFace/PumpkinFace.gltf" id="1_5o0yh"]
+[ext_resource type="Script" path="res://Scripts/CharacterScripts/BasicMovement.cs" id="1_f7v7r"]
+[ext_resource type="Animation" uid="uid://dsb6isfjc51in" path="res://Models/PumpkinFace/Animations/Hurt.res" id="2_4e8ic"]
+[ext_resource type="Script" path="res://Scripts/CharacterScripts/Abilities.cs" id="2_sh4iq"]
+[ext_resource type="PackedScene" uid="uid://dkq1xdwjwc12m" path="res://Models/BoxingGloves/BoxingGlove_Left.gltf" id="2_tunw4"]
+[ext_resource type="PackedScene" uid="uid://cof2iyyp0c6ji" path="res://Models/BoxingGloves/BoxingGlove_Right.gltf" id="3_r5wcg"]
+[ext_resource type="Animation" uid="uid://daknoqtmet4yv" path="res://Models/PumpkinFace/Animations/Move.res" id="3_t3ok1"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_juluj"]
+_data = {
+"Hurt": ExtResource("2_4e8ic"),
+"Move": ExtResource("3_t3ok1")
+}
+
+[sub_resource type="Animation" id="Animation_hj4vh"]
+resource_name = "Left_Jab"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pumpkin/GloveLeft:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(0.0824694, 1, 1),
+"update": 0,
+"values": [Vector3(0.544437, -0.196751, 0.460015), Vector3(-0.179286, -0.538968, 2.7713), Vector3(0.544437, -0.196751, 0.460015)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pumpkin/GloveLeft:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.141372, -3.14159, 0), Vector3(0.141372, -3.14159, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pumpkin/GloveLeft:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(0.0738306, 1, 1),
+"update": 0,
+"values": [Vector3(1, 0.999999, 0.999999), Vector3(1.6, 1.6, 1.6), Vector3(1, 0.999999, 0.999999)]
+}
+
+[sub_resource type="Animation" id="Animation_k420p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pumpkin/GloveLeft:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.544437, -0.196751, 0.460015)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pumpkin/GloveLeft:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.141372, -3.14159, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pumpkin/GloveLeft:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 0.999999, 0.999999)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Pumpkin/GloveRight:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.441844, -0.198344, 0.557416)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pumpkin/GloveRight:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 0.999999, 0.999999)]
+}
+
+[sub_resource type="Animation" id="Animation_e3fio"]
+resource_name = "Right_Jab"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pumpkin/GloveRight:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(0.0980731, 1, 1),
+"update": 0,
+"values": [Vector3(-0.441844, -0.198344, 0.557416), Vector3(0.293782, -0.644358, 2.88302), Vector3(-0.441844, -0.198344, 0.557416)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pumpkin/GloveRight:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(0.064704, 1, 1),
+"update": 0,
+"values": [Vector3(1, 0.999999, 0.999999), Vector3(1.6, 1.6, 1.6), Vector3(1, 0.999999, 0.999999)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_42nv1"]
+_data = {
+"Left_Jab": SubResource("Animation_hj4vh"),
+"RESET": SubResource("Animation_k420p"),
+"Right_Jab": SubResource("Animation_e3fio")
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_16iny"]
+radius = 0.597127
+
+[node name="MyChar" type="CharacterBody3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.1544)
+script = ExtResource("1_f7v7r")
+
+[node name="Abilities" type="Node" parent="."]
+script = ExtResource("2_sh4iq")
+
+[node name="Pumpkin" parent="." instance=ExtResource("1_5o0yh")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.111074, 0, -0.098399)
+
+[node name="PumpkinAnim" type="AnimationPlayer" parent="Pumpkin"]
+libraries = {
+"Pumpkin_BB_Animations": SubResource("AnimationLibrary_juluj")
+}
+autoplay = "Pumpkin_BB_Animations/Move"
+
+[node name="AbilityAnim" type="AnimationPlayer" parent="Pumpkin"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_42nv1")
+}
+
+[node name="GloveLeft" parent="Pumpkin" instance=ExtResource("2_tunw4")]
+transform = Transform3D(-1, -3.57211e-07, -2.50989e-06, 0, 0.990023, -0.140901, 2.53518e-06, -0.140901, -0.990023, 0.544437, -0.196751, 0.460015)
+
+[node name="GloveRight" parent="Pumpkin" instance=ExtResource("3_r5wcg")]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 0.999999, 0, 1.50996e-07, 0, -0.999999, -0.441844, -0.198344, 0.557416)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.109685, 0.530251, -1.49012e-08)
+shape = SubResource("SphereShape3D_16iny")

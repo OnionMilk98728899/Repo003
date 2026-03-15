@@ -1,0 +1,8 @@
+# Made in Blockbench 4.11.2
+newmtl m_c47ffa41-722a-3f83-f1d7-0ebd59034bdd
+map_Kd Block.png
+newmtl m_d41c1e32-d403-8846-f784-28cc69dda1fe
+map_Kd MiniBlock.png
+newmtl m_049494e4-6eea-9ec4-e649-dc8c4d9b6b83
+map_Kd MiniBlock2.png
+newmtl none

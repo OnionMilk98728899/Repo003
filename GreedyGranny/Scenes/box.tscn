@@ -1,0 +1,85 @@
+[gd_scene load_steps=12 format=3 uid="uid://11eb3n2ba3d8"]
+
+[ext_resource type="Script" path="res://Scripts/carryable_item.cs" id="1_efll7"]
+[ext_resource type="Texture2D" uid="uid://d00v0k40ngq3u" path="res://Sprites/Box/BrownBox1.png" id="2_kn8ld"]
+[ext_resource type="FontFile" uid="uid://b358ukqmgs2nq" path="res://Fonts/BitBoyBold (4).ttf" id="2_t4p4d"]
+[ext_resource type="Texture2D" uid="uid://b0jjtg57qawee" path="res://Sprites/Particles/DustExplosionSheetWBLANK.png" id="3_j3mha"]
+[ext_resource type="PackedScene" uid="uid://brfbjigosytqc" path="res://Scenes/collectible_item.tscn" id="4_6vly5"]
+[ext_resource type="Script" path="res://Scripts/Container.cs" id="4_p4h01"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jhugb"]
+size = Vector2(24, 27)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f2f5w"]
+size = Vector2(16, 16)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4b47p"]
+particles_animation = true
+particles_anim_h_frames = 6
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5oudf"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0vms5"]
+emission_shape = 1
+emission_sphere_radius = 30.58
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+angular_velocity_min = -1.45
+angular_velocity_max = 2.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_min = -720.0
+angle_max = -720.0
+color_ramp = SubResource("GradientTexture1D_5oudf")
+anim_speed_min = 1.32
+anim_speed_max = 3.85
+
+[node name="CarryableItem" type="CharacterBody2D" groups=["Breakable"]]
+collision_layer = 3
+script = ExtResource("1_efll7")
+gravity = 300
+speed = 95
+acceleration = 500
+itemImage = ExtResource("2_kn8ld")
+
+[node name="Container" type="Node2D" parent="."]
+script = ExtResource("4_p4h01")
+itemToGenerate = ExtResource("4_6vly5")
+
+[node name="ItemSprite" type="Sprite2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="PlayerDetector" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_jhugb")
+
+[node name="ItemBorder" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_f2f5w")
+
+[node name="StateLabel" type="Label" parent="."]
+offset_left = -19.0
+offset_top = -50.0
+offset_right = 21.0
+offset_bottom = -23.0
+theme_override_fonts/font = ExtResource("2_t4p4d")
+
+[node name="BreakTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="DustParticles" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_4b47p")
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_0vms5")
+texture = ExtResource("3_j3mha")
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.5
+
+[connection signal="body_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]
+[connection signal="body_exited" from="Area2D" to="." method="OnArea2DBodyExited"]
+[connection signal="timeout" from="BreakTimer" to="." method="OnBreakTimerTimeout"]

@@ -1,0 +1,254 @@
+[gd_scene load_steps=19 format=3 uid="uid://mc1a7vyf0x7c"]
+
+[ext_resource type="Script" path="res://Scripts/giantgrub.cs" id="1_ip7g5"]
+[ext_resource type="Texture2D" uid="uid://b64qe4kl6ggd3" path="res://Sprites/Enemies/BigGrub/BigGrub_SpriteSheet.png" id="2_dsocd"]
+[ext_resource type="PackedScene" uid="uid://n5syl6p31aha" path="res://Scenes/player_projectile.tscn" id="2_f0uar"]
+[ext_resource type="Script" path="res://Scripts/BossDamageable.cs" id="3_2ag50"]
+[ext_resource type="FontFile" uid="uid://b358ukqmgs2nq" path="res://Fonts/BitBoyBold (4).ttf" id="3_r75t4"]
+
+[sub_resource type="Animation" id="Animation_hyclf"]
+resource_name = "Dead"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GrubSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [43, 43, 43]
+}
+
+[sub_resource type="Animation" id="Animation_pkmdx"]
+resource_name = "Death"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GrubSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43]
+}
+
+[sub_resource type="Animation" id="Animation_ksk7j"]
+resource_name = "Hurt"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GrubSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [22, 23, 24, 25, 26, 27]
+}
+
+[sub_resource type="Animation" id="Animation_hvdor"]
+resource_name = "Move"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GrubSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_f8270"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GrubSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_1gm5s"]
+resource_name = "Scurry"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GrubSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19, 20, 21]
+}
+
+[sub_resource type="Animation" id="Animation_pj5gd"]
+resource_name = "Shoot"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GrubSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10, 11, 12, 13, 14, 15]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ck1yy"]
+_data = {
+"Dead": SubResource("Animation_hyclf"),
+"Death": SubResource("Animation_pkmdx"),
+"Hurt": SubResource("Animation_ksk7j"),
+"Move": SubResource("Animation_hvdor"),
+"RESET": SubResource("Animation_f8270"),
+"Scurry": SubResource("Animation_1gm5s"),
+"Shoot": SubResource("Animation_pj5gd")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w5en5"]
+size = Vector2(43, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mgxm7"]
+size = Vector2(37, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_23bly"]
+size = Vector2(43, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ywdgm"]
+size = Vector2(71, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wa2no"]
+size = Vector2(65.5, 10)
+
+[node name="GiantGrub" type="CharacterBody2D"]
+collision_layer = 16
+script = ExtResource("1_ip7g5")
+walkSpeed = 30
+scurrySpeed = 90
+MAX_WALK_SPEED = 45
+MAX_SCURRY_SPEED = 80
+myProjectile = ExtResource("2_f0uar")
+
+[node name="GrubSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_dsocd")
+offset = Vector2(0, -40)
+hframes = 45
+frame = 1
+
+[node name="BigGrubAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ck1yy")
+}
+
+[node name="BossDamageable" type="Node2D" parent="."]
+script = ExtResource("3_2ag50")
+hitPoints = 8
+
+[node name="BigGrubArea" type="Area2D" parent="BossDamageable"]
+collision_layer = 0
+collision_mask = 37
+
+[node name="BigGrubCollider" type="CollisionShape2D" parent="BossDamageable/BigGrubArea"]
+position = Vector2(2.5, -8.5)
+shape = SubResource("RectangleShape2D_w5en5")
+
+[node name="BigGrubJumpArea" type="Area2D" parent="BossDamageable"]
+collision_layer = 0
+collision_mask = 37
+
+[node name="JumpAreaCollider" type="CollisionShape2D" parent="BossDamageable/BigGrubJumpArea"]
+position = Vector2(1, -41)
+shape = SubResource("RectangleShape2D_mgxm7")
+
+[node name="IdleTimer" type="Timer" parent="."]
+
+[node name="GrubBoundary" type="CollisionShape2D" parent="."]
+position = Vector2(2.5, -10.5)
+shape = SubResource("RectangleShape2D_23bly")
+debug_color = Color(6.16074e-06, 0.585944, 0.774581, 0.42)
+
+[node name="LeftWallDetector" type="RayCast2D" parent="."]
+position = Vector2(-6, -12)
+target_position = Vector2(-22, 0)
+
+[node name="RightWallDetector" type="RayCast2D" parent="."]
+position = Vector2(12, -12)
+target_position = Vector2(20, 0)
+
+[node name="StateLabel" type="Label" parent="."]
+offset_left = -24.0
+offset_top = -45.0
+offset_right = 32.0
+offset_bottom = -22.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_r75t4")
+theme_override_font_sizes/font_size = 16
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 1.2
+one_shot = true
+
+[node name="PlayerDetectArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="PlayerDetectLeft" type="CollisionShape2D" parent="PlayerDetectArea"]
+position = Vector2(-53, -6.5)
+shape = SubResource("RectangleShape2D_ywdgm")
+
+[node name="PlayerDetectRight" type="CollisionShape2D" parent="PlayerDetectArea"]
+position = Vector2(56.25, -6)
+shape = SubResource("RectangleShape2D_wa2no")
+
+[node name="ScurryTimer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.9
+one_shot = true
+
+[node name="ShootDelayTimer" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
+
+[node name="DyingTimer" type="Timer" parent="."]
+
+[connection signal="canDamagePlayerAgain" from="BossDamageable" to="." method="OnCanDamagePlayerAgain"]
+[connection signal="isDying" from="BossDamageable" to="." method="OnBossDying"]
+[connection signal="isHurt" from="BossDamageable" to="." method="OnBossHurt"]
+[connection signal="body_entered" from="BossDamageable/BigGrubArea" to="BossDamageable" method="OnBodyEntered"]
+[connection signal="body_entered" from="BossDamageable/BigGrubJumpArea" to="BossDamageable" method="OnJumpAreaEntered"]
+[connection signal="body_exited" from="BossDamageable/BigGrubJumpArea" to="BossDamageable" method="OnJumpAreaExited"]
+[connection signal="timeout" from="HurtTimer" to="BossDamageable" method="OnHurtTimerTimeout"]
+[connection signal="body_entered" from="PlayerDetectArea" to="." method="OnPlayerDetectBodyEntered"]
+[connection signal="timeout" from="ScurryTimer" to="." method="OnScurryTimerTimeout"]
+[connection signal="timeout" from="ShootTimer" to="." method="OnShootTimerTimeout"]
+[connection signal="timeout" from="ShootDelayTimer" to="." method="OnShootDelayTimerTimeout"]
+[connection signal="timeout" from="DyingTimer" to="." method="OnDyingTimerTimeout"]

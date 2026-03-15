@@ -1,0 +1,163 @@
+[gd_scene load_steps=20 format=3 uid="uid://p3jrk6bkn0f0"]
+
+[ext_resource type="Script" path="res://Scripts/carryable_item.cs" id="1_y4agm"]
+[ext_resource type="Script" path="res://Scripts/Container.cs" id="2_24xsb"]
+[ext_resource type="FontFile" uid="uid://b358ukqmgs2nq" path="res://Fonts/BitBoyBold (4).ttf" id="3_54esd"]
+[ext_resource type="PackedScene" uid="uid://brfbjigosytqc" path="res://Scenes/collectible_item.tscn" id="3_bvu8g"]
+[ext_resource type="Texture2D" uid="uid://b0jjtg57qawee" path="res://Sprites/Particles/DustExplosionSheetWBLANK.png" id="4_bbcgd"]
+[ext_resource type="Texture2D" uid="uid://blnmpxiakrveq" path="res://Sprites/Particles/basic_RoundSplat_spritesheet.png" id="6_tec7t"]
+[ext_resource type="Texture2D" uid="uid://doqw1fvi5867o" path="res://Sprites/Particles/goo_spritesheet.png" id="7_glfiq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jhugb"]
+size = Vector2(24, 27)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f2f5w"]
+size = Vector2(16, 16)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4b47p"]
+particles_animation = true
+particles_anim_h_frames = 6
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0vms5"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 30.58
+angle_min = -720.0
+angle_max = -720.0
+angular_velocity_min = -1.45
+angular_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 1.32
+anim_speed_max = 3.85
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_e5dit"]
+particles_animation = true
+particles_anim_h_frames = 6
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_e1n3q"]
+offsets = PackedFloat32Array(0, 0.376068, 0.995726)
+colors = PackedColorArray(1, 1, 1, 1, 0.568627, 1, 1, 1, 0, 0.462745, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pu4rv"]
+gradient = SubResource("Gradient_e1n3q")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8frta"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 22.18
+radial_velocity_max = 27.59
+gravity = Vector3(0, 20, 0)
+color_ramp = SubResource("GradientTexture1D_pu4rv")
+anim_speed_max = 1.0
+anim_offset_max = 1.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mmtoq"]
+particles_animation = true
+particles_anim_h_frames = 6
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_t4tp5"]
+colors = PackedColorArray(0.498039, 0.909804, 0, 1, 0, 0.513726, 0.0705882, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gfvf3"]
+gradient = SubResource("Gradient_t4tp5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7c3if"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 20.42
+radial_velocity_max = 30.0
+gravity = Vector3(0, 16, 0)
+color_ramp = SubResource("GradientTexture1D_gfvf3")
+anim_speed_max = 0.4
+anim_offset_max = 1.0
+
+[node name="CarryableItem" type="CharacterBody2D" node_paths=PackedStringArray("dustParticles", "gooParticles", "iceParticles") groups=["Throwable"]]
+collision_layer = 130
+collision_mask = 129
+script = ExtResource("1_y4agm")
+gravity = 300
+speed = 95
+acceleration = 500
+dustParticles = NodePath("DustParticles")
+gooParticles = NodePath("GooParticles")
+iceParticles = NodePath("IceParticles")
+
+[node name="Container" type="Node2D" parent="."]
+script = ExtResource("2_24xsb")
+itemToGenerate = ExtResource("3_bvu8g")
+
+[node name="ItemSprite" type="Sprite2D" parent="."]
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="PlayerDetectorSpace" type="CollisionShape2D" parent="PlayerDetector"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_jhugb")
+
+[node name="ItemBorder" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_f2f5w")
+
+[node name="StateLabel" type="Label" parent="."]
+offset_left = -19.0
+offset_top = -50.0
+offset_right = 21.0
+offset_bottom = -23.0
+theme_override_fonts/font = ExtResource("3_54esd")
+
+[node name="BreakTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="StompTimer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[node name="DustParticles" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_4b47p")
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_0vms5")
+texture = ExtResource("4_bbcgd")
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.5
+
+[node name="BoxCheckDown" type="RayCast2D" parent="."]
+target_position = Vector2(0, 10)
+
+[node name="BoxCheckUp" type="RayCast2D" parent="."]
+target_position = Vector2(0, -19)
+
+[node name="IceParticles" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_e5dit")
+position = Vector2(1, 0)
+emitting = false
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_8frta")
+texture = ExtResource("6_tec7t")
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+randomness = 0.25
+
+[node name="GooParticles" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_mmtoq")
+emitting = false
+amount = 18
+process_material = SubResource("ParticleProcessMaterial_7c3if")
+texture = ExtResource("7_glfiq")
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.3
+randomness = 0.1
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="OnArea2DBodyEntered"]
+[connection signal="body_exited" from="PlayerDetector" to="." method="OnArea2DBodyExited"]
+[connection signal="timeout" from="BreakTimer" to="." method="OnBreakTimerTimeout"]
+[connection signal="timeout" from="StompTimer" to="." method="OnStompTimerTimeout"]

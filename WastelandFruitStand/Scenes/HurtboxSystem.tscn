@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://bq863v5chf48s"]
+
+[ext_resource type="Script" path="res://Scripts/Systems_and_Components/HurtboxSystem.cs" id="1_v1fx0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oid3i"]
+size = Vector2(15, 20.5)
+
+[node name="HurtboxSystem" type="Node2D" node_paths=PackedStringArray("hurtBoxArea")]
+script = ExtResource("1_v1fx0")
+hurtBoxArea = NodePath("HurtArea")
+
+[node name="HurtArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="HurtBox" type="CollisionShape2D" parent="HurtArea"]
+position = Vector2(0.5, 0.25)
+shape = SubResource("RectangleShape2D_oid3i")
+debug_color = Color(0.435294, 0, 1, 0.388235)
+
+[connection signal="body_entered" from="HurtArea" to="." method="OnHurtAreaBodyEntered"]

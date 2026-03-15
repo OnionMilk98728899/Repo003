@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c26rvpilpd5q2"]
+
+[ext_resource type="PackedScene" uid="uid://dtwumxrwlogp7" path="res://Models/PumpkinFace/PumpkinFace.gltf" id="1_q1xlw"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="blockbench_export" parent="." instance=ExtResource("1_q1xlw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.111074, 0, -0.0949178)

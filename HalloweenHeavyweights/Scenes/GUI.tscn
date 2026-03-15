@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://ys81wf28afga"]
+
+[ext_resource type="Texture2D" uid="uid://cfl131wt1dhke" path="res://2DRoughAssets/GUI/HealthBar001/HealthBarBorder2.png" id="1_7fx53"]
+[ext_resource type="Texture2D" uid="uid://e3wm20rsxb8k" path="res://2DRoughAssets/GUI/HealthBar001/HealthBarTop.png" id="1_aeh0r"]
+[ext_resource type="Script" path="res://Scripts/GUI/GUI.cs" id="1_boqg0"]
+[ext_resource type="Texture2D" uid="uid://b12ucayqoivyi" path="res://2DRoughAssets/GUI/HealthBar001/HealthBarBorder1.png" id="2_qpmti"]
+[ext_resource type="Texture2D" uid="uid://hyr42x3h43s" path="res://2DRoughAssets/GUI/HealthBar001/HealthBarBottom.png" id="3_yn0kn"]
+[ext_resource type="FontFile" uid="uid://hhu6sy4yy5ff" path="res://Fonts/MicroBitFont.ttf" id="6_7g4jb"]
+
+[node name="GUI" type="Control" node_paths=PackedStringArray("healthBarSprites", "healthLabel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_boqg0")
+healthBarSprites = [NodePath("HealthBar/HealthBarTop"), NodePath("HealthBar/HealthBarBottom")]
+healthLabel = NodePath("HealthBar/HealthLabel")
+
+[node name="HealthBar" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HealthBarBorder2" type="Sprite2D" parent="HealthBar"]
+position = Vector2(57, 331)
+texture = ExtResource("1_7fx53")
+
+[node name="HealthBarBorder1" type="Sprite2D" parent="HealthBar"]
+position = Vector2(57, 331)
+texture = ExtResource("2_qpmti")
+
+[node name="HealthBarBottom" type="Sprite2D" parent="HealthBar"]
+position = Vector2(57, 331)
+texture = ExtResource("3_yn0kn")
+
+[node name="HealthBarTop" type="Sprite2D" parent="HealthBar"]
+position = Vector2(57, 331)
+texture = ExtResource("1_aeh0r")
+
+[node name="HealthLabel" type="Label" parent="HealthBar"]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 307.0
+offset_right = 111.0
+offset_bottom = 346.0
+theme_override_fonts/font = ExtResource("6_7g4jb")

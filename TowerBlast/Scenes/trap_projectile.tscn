@@ -1,0 +1,546 @@
+[gd_scene load_steps=30 format=3 uid="uid://cgl70d180c0e4"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/TrapProjectile.cs" id="1_mowvk"]
+[ext_resource type="Texture2D" uid="uid://duh1n6m4e05k6" path="res://Sprites/Traps/ArrowSprite.png" id="2_7a06f"]
+[ext_resource type="Texture2D" uid="uid://5vlcn1ckqwig" path="res://Sprites/Traps/Projectiles/Spear.png" id="3_1cg37"]
+[ext_resource type="Texture2D" uid="uid://ck5t3baxtw2u4" path="res://Sprites/Traps/Projectiles/Shuriken.png" id="4_5yyig"]
+[ext_resource type="Texture2D" uid="uid://b2m81yv01s0t8" path="res://Sprites/Traps/Projectiles/Cannonball.png" id="5_nnelf"]
+[ext_resource type="Texture2D" uid="uid://b4upktoc6rww7" path="res://Sprites/Traps/Projectiles/BigCannonball.png" id="6_h6e4h"]
+[ext_resource type="Texture2D" uid="uid://ic8c4mulw6pm" path="res://Sprites/Traps/Magic_Projectile_Spritesheet.png" id="7_0bpq8"]
+[ext_resource type="PackedScene" uid="uid://b6jv31wgquk3v" path="res://Scenes/explosion.tscn" id="7_imyae"]
+[ext_resource type="Texture2D" uid="uid://mrmiexknmqph" path="res://Sprites/Traps/Fire_Projectile_Spritesheet.png" id="8_1gaqf"]
+[ext_resource type="Texture2D" uid="uid://bdxetlnc76pr0" path="res://Sprites/Traps/Ice_Projectile_Spritesheet.png" id="9_0odbf"]
+[ext_resource type="Texture2D" uid="uid://b2f205euyvns6" path="res://Sprites/Traps/Lightning_Projectile_Spritesheet.png" id="10_e35ib"]
+[ext_resource type="Texture2D" uid="uid://d26mo10bs4hb8" path="res://Sprites/Traps/Poison_Projectile_Spritesheet.png" id="11_3u4r5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_os4ff"]
+size = Vector2(14, 3)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hvgjc"]
+radius = 5.09902
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wfkqv"]
+size = Vector2(16, 3)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xfema"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nav7n"]
+radius = 6.0
+
+[sub_resource type="Animation" id="Animation_7rny7"]
+resource_name = "FireOrb"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ProjectileSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("8_1gaqf")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ProjectileSprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ProjectileSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_5ly13"]
+resource_name = "FireOrbExplosion"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ProjectileSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("8_1gaqf")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ProjectileSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13, 14, 15]
+}
+
+[sub_resource type="Animation" id="Animation_7uurd"]
+resource_name = "IceOrb"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ProjectileSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("9_0odbf")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ProjectileSprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ProjectileSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_nk2jo"]
+resource_name = "IceOrbExplosion"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ProjectileSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13, 14, 15, 16]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ProjectileSprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("9_0odbf")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ProjectileSprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+
+[sub_resource type="Animation" id="Animation_ug4m8"]
+resource_name = "LightningOrb"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ProjectileSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("10_e35ib")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ProjectileSprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ProjectileSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_0bpg4"]
+resource_name = "LightningOrbExplosion"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ProjectileSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("10_e35ib")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ProjectileSprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ProjectileSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13, 14]
+}
+
+[sub_resource type="Animation" id="Animation_8t81n"]
+resource_name = "MagicOrb"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ProjectileSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_0bpq8")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ProjectileSprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ProjectileSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_m3wx8"]
+resource_name = "MagicOrbExplosion"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ProjectileSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_0bpq8")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ProjectileSprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ProjectileSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13, 14]
+}
+
+[sub_resource type="Animation" id="Animation_s3p25"]
+resource_name = "PoisonOrb"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ProjectileSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("11_3u4r5")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ProjectileSprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ProjectileSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_sa6mh"]
+resource_name = "PoisonOrbExplosion"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ProjectileSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("11_3u4r5")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ProjectileSprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ProjectileSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13, 14, 15, 16]
+}
+
+[sub_resource type="Animation" id="Animation_c1e5s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ProjectileSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_0bpq8")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ProjectileSprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ProjectileSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yv4yg"]
+_data = {
+"FireOrb": SubResource("Animation_7rny7"),
+"FireOrbExplosion": SubResource("Animation_5ly13"),
+"IceOrb": SubResource("Animation_7uurd"),
+"IceOrbExplosion": SubResource("Animation_nk2jo"),
+"LightningOrb": SubResource("Animation_ug4m8"),
+"LightningOrbExplosion": SubResource("Animation_0bpg4"),
+"MagicOrb": SubResource("Animation_8t81n"),
+"MagicOrbExplosion": SubResource("Animation_m3wx8"),
+"PoisonOrb": SubResource("Animation_s3p25"),
+"PoisonOrbExplosion": SubResource("Animation_sa6mh"),
+"RESET": SubResource("Animation_c1e5s")
+}
+
+[node name="TrapProjectile" type="Node2D" node_paths=PackedStringArray("_projectileBody", "_arrowDetector", "_floorDetector", "_arrowShape", "_orbDetector", "_orbShape", "_projectileSprite", "_projAnim", "_destroyTimer")]
+z_index = 3
+script = ExtResource("1_mowvk")
+_arrowTexture = ExtResource("2_7a06f")
+_spearTexture = ExtResource("3_1cg37")
+_shurikenTexture = ExtResource("4_5yyig")
+_cannonballTexture = ExtResource("5_nnelf")
+_bigCannonballTexture = ExtResource("6_h6e4h")
+_magicOrbTexture = ExtResource("7_0bpq8")
+_fireOrbTexture = ExtResource("8_1gaqf")
+_iceOrbTexture = ExtResource("9_0odbf")
+_lightningOrbTexture = ExtResource("10_e35ib")
+_poisonOrbTexture = ExtResource("11_3u4r5")
+_projectileBody = NodePath("ProjectileBody")
+_arrowDetector = NodePath("ProjectileBody/ArrowDetector/ArrowCollider")
+_floorDetector = NodePath("ProjectileBody/FloorDetector/FloorCollider")
+_arrowShape = NodePath("ProjectileBody/ArrowShape")
+_orbDetector = NodePath("ProjectileBody/OrbDetector/OrbCollider")
+_orbShape = NodePath("ProjectileBody/OrbShape")
+_projectileSprite = NodePath("ProjectileBody/ProjectileSprite")
+_explosionScene = ExtResource("7_imyae")
+_projAnim = NodePath("ProjectileBody/ProjAnim")
+_destroyTimer = NodePath("DestroyTimer")
+
+[node name="ProjectileBody" type="CharacterBody2D" parent="." groups=["Projectile"]]
+collision_layer = 128
+collision_mask = 32
+
+[node name="ProjectileSprite" type="Sprite2D" parent="ProjectileBody"]
+texture = ExtResource("7_0bpq8")
+hframes = 17
+
+[node name="ArrowShape" type="CollisionShape2D" parent="ProjectileBody"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_os4ff")
+
+[node name="OrbShape" type="CollisionShape2D" parent="ProjectileBody"]
+shape = SubResource("CircleShape2D_hvgjc")
+
+[node name="ArrowDetector" type="Area2D" parent="ProjectileBody"]
+collision_layer = 0
+collision_mask = 32
+
+[node name="ArrowCollider" type="CollisionShape2D" parent="ProjectileBody/ArrowDetector"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_wfkqv")
+
+[node name="FloorDetector" type="Area2D" parent="ProjectileBody"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="FloorCollider" type="CollisionShape2D" parent="ProjectileBody/FloorDetector"]
+shape = SubResource("CircleShape2D_xfema")
+
+[node name="OrbDetector" type="Area2D" parent="ProjectileBody"]
+collision_layer = 0
+collision_mask = 32
+
+[node name="OrbCollider" type="CollisionShape2D" parent="ProjectileBody/OrbDetector"]
+shape = SubResource("CircleShape2D_nav7n")
+
+[node name="ProjAnim" type="AnimationPlayer" parent="ProjectileBody"]
+libraries = {
+"": SubResource("AnimationLibrary_yv4yg")
+}
+
+[node name="DestroyTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="body_entered" from="ProjectileBody/ArrowDetector" to="." method="OnArrowDetectorBodyEntered"]
+[connection signal="body_entered" from="ProjectileBody/FloorDetector" to="." method="OnFloorDetectorTriggered"]
+[connection signal="body_entered" from="ProjectileBody/OrbDetector" to="." method="OnOrbDetectorBodyEntered"]
+[connection signal="timeout" from="DestroyTimer" to="." method="OnDestroyTimerTimeout"]

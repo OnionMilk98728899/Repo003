@@ -1,0 +1,379 @@
+[gd_scene load_steps=53 format=3 uid="uid://5y2acthbq3dg"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/TrapManager.cs" id="1_tpi76"]
+[ext_resource type="Texture2D" uid="uid://btfb2l5yq4w4d" path="res://Sprites/TrapMenu/BallistaSprite.png" id="2_asfvf"]
+[ext_resource type="PackedScene" uid="uid://k4frc2usf18" path="res://Scenes/ranged_trap.tscn" id="2_o45yy"]
+[ext_resource type="Texture2D" uid="uid://cbgx7uks27q4v" path="res://Sprites/TrapMenu/CannonSprite.png" id="3_am843"]
+[ext_resource type="PackedScene" uid="uid://dsbx8ph2nvynw" path="res://Scenes/static_trap.tscn" id="3_ph8gh"]
+[ext_resource type="Texture2D" uid="uid://ciurhspy3w0cg" path="res://Sprites/TrapMenu/MagicSprite.png" id="4_5kcs5"]
+[ext_resource type="Script" path="res://Scripts/Managers/TrapMenuManager.cs" id="4_u037x"]
+[ext_resource type="Texture2D" uid="uid://bw3fot6kl4f7k" path="res://Sprites/TrapMenu/SpikesSprite.png" id="5_21326"]
+[ext_resource type="Texture2D" uid="uid://bnl6kojp80sc6" path="res://Sprites/TrapMenu/SwarmSprite.png" id="6_hoqux"]
+[ext_resource type="Texture2D" uid="uid://dqvybs4334j63" path="res://Sprites/TrapMenu/BallistaSpritePressed.png" id="11_3ob6j"]
+[ext_resource type="Texture2D" uid="uid://cwnrfcrnnwc6a" path="res://Sprites/TrapMenu/BallistaSpriteFocused.png" id="12_37ucc"]
+[ext_resource type="Texture2D" uid="uid://dtim2kexat7y0" path="res://Sprites/TrapMenu/CannonSpritePressed.png" id="13_wa17u"]
+[ext_resource type="Texture2D" uid="uid://dlchlr8o2x10n" path="res://Sprites/TrapMenu/CannonSpriteFocused.png" id="14_k7ou2"]
+[ext_resource type="Texture2D" uid="uid://cqgbr3dwdpr4o" path="res://Sprites/TrapMenu/SpikeSpritePressed.png" id="15_w2i0f"]
+[ext_resource type="Texture2D" uid="uid://bkeg54gjl0xmc" path="res://Sprites/TrapMenu/SpikeSpriteFocused.png" id="16_7t310"]
+[ext_resource type="Texture2D" uid="uid://bam1r5op4fj6s" path="res://Sprites/TrapMenu/MagicOrbSpritePressed.png" id="17_lyfde"]
+[ext_resource type="Texture2D" uid="uid://dji8c06auh1ta" path="res://Sprites/TrapMenu/MagicSpriteFocused.png" id="18_dl7cr"]
+[ext_resource type="Texture2D" uid="uid://b68kv0vx0wnmm" path="res://Sprites/TrapMenu/SwarmSpritePressed.png" id="19_3tp5f"]
+[ext_resource type="Texture2D" uid="uid://bfrxmg57olufd" path="res://Sprites/TrapMenu/TreasureChestSprite2.png" id="20_py8vb"]
+[ext_resource type="Texture2D" uid="uid://b3fyjig3hqi1l" path="res://Sprites/TrapMenu/SwarmSpriteFocused.png" id="20_vvu7x"]
+[ext_resource type="Texture2D" uid="uid://cuktdm5vpebx" path="res://Sprites/TrapMenu/TreasureChestSpritePressed2.png" id="21_5a8n4"]
+[ext_resource type="Texture2D" uid="uid://mmrfmaoj7r0b" path="res://Sprites/TrapMenu/SpearSprite.png" id="21_hnqrg"]
+[ext_resource type="Texture2D" uid="uid://dsxfli8cx12fm" path="res://Sprites/TrapMenu/SpearSpritePressed.png" id="22_28gev"]
+[ext_resource type="Texture2D" uid="uid://ce66usamv2c1v" path="res://Sprites/TrapMenu/TreasureChestSpriteFocused2t.png" id="22_f7bkc"]
+[ext_resource type="Texture2D" uid="uid://bxum72nr4hry4" path="res://Sprites/TrapMenu/SpearSpriteFocused.png" id="23_t8y4d"]
+[ext_resource type="Texture2D" uid="uid://dpdb5xkgnuxn4" path="res://Sprites/TrapMenu/ShurikenSprite.png" id="24_1g5ve"]
+[ext_resource type="Texture2D" uid="uid://bdw5o3cv7a6sv" path="res://Sprites/TrapMenu/ShurikenSpritePressed.png" id="25_jo64h"]
+[ext_resource type="Texture2D" uid="uid://cpjb1l5vbs370" path="res://Sprites/TrapMenu/ShurikenSpriteFocused.png" id="26_ysum3"]
+[ext_resource type="Texture2D" uid="uid://3xl4r0w5owvy" path="res://Sprites/TrapMenu/BigCannonSprite.png" id="27_1nb2m"]
+[ext_resource type="Texture2D" uid="uid://dj7rn6dqacbeg" path="res://Sprites/TrapMenu/BigCannonSpritePressed.png" id="28_keb88"]
+[ext_resource type="Texture2D" uid="uid://bpvnwc6clq0eo" path="res://Sprites/TrapMenu/BigCannonSpriteFocused.png" id="29_6ry6k"]
+[ext_resource type="Texture2D" uid="uid://bqhgisinqq5sm" path="res://Sprites/TrapMenu/TriCannonSprite.png" id="30_emh01"]
+[ext_resource type="Texture2D" uid="uid://du24bttm6n6lm" path="res://Sprites/TrapMenu/TriCannonSpritePressed.png" id="31_vlb0f"]
+[ext_resource type="Texture2D" uid="uid://b1oy835yf8ejt" path="res://Sprites/TrapMenu/TriCannonSpriteFocused.png" id="32_tvk1k"]
+[ext_resource type="Texture2D" uid="uid://dkdww0n7w4uqr" path="res://Sprites/TrapMenu/FireSprite.png" id="33_4psh5"]
+[ext_resource type="Texture2D" uid="uid://cplagnk2kxlet" path="res://Sprites/TrapMenu/FireSpritePressed.png" id="34_e8ve1"]
+[ext_resource type="Texture2D" uid="uid://cgobklhpo1dji" path="res://Sprites/TrapMenu/FireSpriteFocused.png" id="35_5f7gd"]
+[ext_resource type="Texture2D" uid="uid://d0gx4wa6jbx3q" path="res://Sprites/TrapMenu/IceSprite.png" id="36_aeg6a"]
+[ext_resource type="Texture2D" uid="uid://cyj5blmklxlw1" path="res://Sprites/TrapMenu/IceSpritePressed.png" id="37_emjf8"]
+[ext_resource type="Texture2D" uid="uid://dvdip36aougde" path="res://Sprites/TrapMenu/IceSpriteFocused.png" id="38_cpyfj"]
+[ext_resource type="Texture2D" uid="uid://bvetkianfgwsq" path="res://Sprites/TrapMenu/ElecSprite.png" id="39_wakrw"]
+[ext_resource type="Texture2D" uid="uid://dlyakxvfd66xu" path="res://Sprites/TrapMenu/LightningSpritePressed.png" id="40_tdlgj"]
+[ext_resource type="Texture2D" uid="uid://baip7d2xthqdv" path="res://Sprites/TrapMenu/LightningSpriteFocused.png" id="41_bv7h8"]
+[ext_resource type="Texture2D" uid="uid://c4ausdb7baesq" path="res://Sprites/TrapMenu/PoisonSprite.png" id="42_jarge"]
+[ext_resource type="Texture2D" uid="uid://cq8o2lami28js" path="res://Sprites/TrapMenu/PoisonSpritePressed.png" id="43_xegm8"]
+[ext_resource type="Texture2D" uid="uid://by65axef65t20" path="res://Sprites/TrapMenu/PoisonSpriteFocused.png" id="44_tjroe"]
+[ext_resource type="Texture2D" uid="uid://bi1d4qgb03xkq" path="res://Sprites/TrapMenu/RatSprite.png" id="45_ojaak"]
+[ext_resource type="Texture2D" uid="uid://5f3qyuil1tik" path="res://Sprites/TrapMenu/RatSpritePressed.png" id="46_3nlcd"]
+[ext_resource type="Texture2D" uid="uid://o5oxo3m76x8" path="res://Sprites/TrapMenu/RatSpriteFocused.png" id="47_hvflc"]
+[ext_resource type="Texture2D" uid="uid://brxfq0btqy7c8" path="res://Sprites/TrapMenu/BugSprite.png" id="48_wtpb0"]
+[ext_resource type="Texture2D" uid="uid://rtxk5ah8o6yb" path="res://Sprites/TrapMenu/BugSpritePressed.png" id="49_x58e5"]
+[ext_resource type="Texture2D" uid="uid://dsi6is6yj8ei4" path="res://Sprites/TrapMenu/BugSpriteFocused.png" id="50_wokli"]
+
+[node name="TrapManager" type="Control" node_paths=PackedStringArray("_ballistaButton", "_cannonButton", "_spikesButton", "_magicOrbButton", "_swarmButton", "_spearButton", "_shurikenButton", "_bigCannonButton", "_triCannonButton", "_fireTileButton", "_iceTileButton", "_poisonTileButton", "_elecTileButton", "_fireOrbButton", "_iceOrbButton", "_elecOrbButton", "_poisonOrbButton", "_ratSwarmButton", "_bugSwarmButton", "_treasureChestButton", "_trapIcons")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_tpi76")
+_ballistaButton = NodePath("TrapMenuManager/Ballista")
+_cannonButton = NodePath("TrapMenuManager/Cannon")
+_spikesButton = NodePath("TrapMenuManager/Spikes")
+_magicOrbButton = NodePath("TrapMenuManager/MagicOrb")
+_swarmButton = NodePath("TrapMenuManager/Swarm")
+_spearButton = NodePath("BallistaUpgrades/Spear")
+_shurikenButton = NodePath("BallistaUpgrades/Shuriken")
+_bigCannonButton = NodePath("CannonUpgrades/BigCannon")
+_triCannonButton = NodePath("CannonUpgrades/TriCannon")
+_fireTileButton = NodePath("SpikeUpgrades/FireTile")
+_iceTileButton = NodePath("SpikeUpgrades/IceTile")
+_poisonTileButton = NodePath("SpikeUpgrades/PoisonTile")
+_elecTileButton = NodePath("SpikeUpgrades/ElectricTile")
+_fireOrbButton = NodePath("MagicOrbUpgrades/FireOrb")
+_iceOrbButton = NodePath("MagicOrbUpgrades/IceOrb")
+_elecOrbButton = NodePath("MagicOrbUpgrades/ElectricOrb")
+_poisonOrbButton = NodePath("MagicOrbUpgrades/PoisonOrb")
+_ratSwarmButton = NodePath("SwarmUpgrades/RatSwarm")
+_bugSwarmButton = NodePath("SwarmUpgrades/BugSwarm")
+_treasureChestButton = NodePath("TrapMenuManager/GoldChest")
+_rangedTrapScene = ExtResource("2_o45yy")
+_staticTrapScene = ExtResource("3_ph8gh")
+_trapIcons = [null, null, null, null, null]
+
+[node name="TrapMenuManager" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_u037x")
+_ballistaCost = 50
+_cannonCost = 80
+_spikeCost = 40
+_swarmCost = 60
+_magicOrbCost = 65
+_treasureCost = 50
+_spearCost = 30
+_shurikenCost = 30
+_triCannonCost = 30
+_bigCannonCost = 30
+_fireOrbCost = 30
+_iceOrbCost = 30
+_poisonOrbCost = 30
+_elecOrbCost = 30
+_fireTileCost = 30
+_iceTileCost = 30
+_poisonTileCost = 30
+_elecTileCost = 30
+_ratTrapCost = 30
+_bugTrapCost = 30
+_rangedTrapScene = ExtResource("2_o45yy")
+
+[node name="Ballista" type="TextureButton" parent="TrapMenuManager"]
+visible = false
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+button_mask = 0
+texture_normal = ExtResource("2_asfvf")
+texture_pressed = ExtResource("11_3ob6j")
+texture_focused = ExtResource("12_37ucc")
+
+[node name="Cannon" type="TextureButton" parent="TrapMenuManager"]
+visible = false
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture_normal = ExtResource("3_am843")
+texture_pressed = ExtResource("13_wa17u")
+texture_focused = ExtResource("14_k7ou2")
+
+[node name="Spikes" type="TextureButton" parent="TrapMenuManager"]
+visible = false
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture_normal = ExtResource("5_21326")
+texture_pressed = ExtResource("15_w2i0f")
+texture_focused = ExtResource("16_7t310")
+
+[node name="MagicOrb" type="TextureButton" parent="TrapMenuManager"]
+visible = false
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture_normal = ExtResource("4_5kcs5")
+texture_pressed = ExtResource("17_lyfde")
+texture_focused = ExtResource("18_dl7cr")
+
+[node name="Swarm" type="TextureButton" parent="TrapMenuManager"]
+visible = false
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture_normal = ExtResource("6_hoqux")
+texture_pressed = ExtResource("19_3tp5f")
+texture_focused = ExtResource("20_vvu7x")
+
+[node name="GoldChest" type="TextureButton" parent="TrapMenuManager"]
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture_normal = ExtResource("20_py8vb")
+texture_pressed = ExtResource("21_5a8n4")
+texture_focused = ExtResource("22_f7bkc")
+
+[node name="BallistaUpgrades" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Spear" type="TextureButton" parent="BallistaUpgrades"]
+visible = false
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture_normal = ExtResource("21_hnqrg")
+texture_pressed = ExtResource("22_28gev")
+texture_focused = ExtResource("23_t8y4d")
+
+[node name="Shuriken" type="TextureButton" parent="BallistaUpgrades"]
+visible = false
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture_normal = ExtResource("24_1g5ve")
+texture_pressed = ExtResource("25_jo64h")
+texture_focused = ExtResource("26_ysum3")
+
+[node name="CannonUpgrades" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BigCannon" type="TextureButton" parent="CannonUpgrades"]
+visible = false
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture_normal = ExtResource("27_1nb2m")
+texture_pressed = ExtResource("28_keb88")
+texture_focused = ExtResource("29_6ry6k")
+
+[node name="TriCannon" type="TextureButton" parent="CannonUpgrades"]
+visible = false
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture_normal = ExtResource("30_emh01")
+texture_pressed = ExtResource("31_vlb0f")
+texture_focused = ExtResource("32_tvk1k")
+
+[node name="SpikeUpgrades" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FireTile" type="TextureButton" parent="SpikeUpgrades"]
+visible = false
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture_normal = ExtResource("33_4psh5")
+texture_pressed = ExtResource("34_e8ve1")
+texture_focused = ExtResource("35_5f7gd")
+
+[node name="IceTile" type="TextureButton" parent="SpikeUpgrades"]
+visible = false
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture_normal = ExtResource("36_aeg6a")
+texture_pressed = ExtResource("37_emjf8")
+texture_focused = ExtResource("38_cpyfj")
+
+[node name="ElectricTile" type="TextureButton" parent="SpikeUpgrades"]
+visible = false
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture_normal = ExtResource("39_wakrw")
+texture_pressed = ExtResource("40_tdlgj")
+texture_focused = ExtResource("41_bv7h8")
+
+[node name="PoisonTile" type="TextureButton" parent="SpikeUpgrades"]
+visible = false
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture_normal = ExtResource("42_jarge")
+texture_pressed = ExtResource("43_xegm8")
+texture_focused = ExtResource("44_tjroe")
+
+[node name="MagicOrbUpgrades" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FireOrb" type="TextureButton" parent="MagicOrbUpgrades"]
+visible = false
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture_normal = ExtResource("33_4psh5")
+texture_pressed = ExtResource("34_e8ve1")
+texture_focused = ExtResource("35_5f7gd")
+
+[node name="IceOrb" type="TextureButton" parent="MagicOrbUpgrades"]
+visible = false
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture_normal = ExtResource("36_aeg6a")
+texture_pressed = ExtResource("37_emjf8")
+texture_focused = ExtResource("38_cpyfj")
+
+[node name="ElectricOrb" type="TextureButton" parent="MagicOrbUpgrades"]
+visible = false
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture_normal = ExtResource("39_wakrw")
+texture_pressed = ExtResource("40_tdlgj")
+texture_focused = ExtResource("41_bv7h8")
+
+[node name="PoisonOrb" type="TextureButton" parent="MagicOrbUpgrades"]
+visible = false
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture_normal = ExtResource("42_jarge")
+texture_pressed = ExtResource("43_xegm8")
+texture_focused = ExtResource("44_tjroe")
+
+[node name="SwarmUpgrades" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RatSwarm" type="TextureButton" parent="SwarmUpgrades"]
+visible = false
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture_normal = ExtResource("45_ojaak")
+texture_pressed = ExtResource("46_3nlcd")
+texture_focused = ExtResource("47_hvflc")
+
+[node name="BugSwarm" type="TextureButton" parent="SwarmUpgrades"]
+visible = false
+layout_mode = 0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 16.0
+texture_normal = ExtResource("48_wtpb0")
+texture_pressed = ExtResource("49_x58e5")
+texture_focused = ExtResource("50_wokli")
+
+[connection signal="BuildRangedTrap" from="TrapMenuManager" to="." method="OnBuildRangedTrap"]
+[connection signal="BuildStaticTrap" from="TrapMenuManager" to="." method="OnBuildStaticTrap"]
+[connection signal="UpgradeRangedTrap" from="TrapMenuManager" to="." method="OnUpgradeRangedTrap"]
+[connection signal="UpgradeStaticTrap" from="TrapMenuManager" to="." method="OnUpgradeStaticTrap"]
+[connection signal="pressed" from="TrapMenuManager/Ballista" to="TrapMenuManager" method="OnBallistaPressed"]
+[connection signal="pressed" from="TrapMenuManager/Cannon" to="TrapMenuManager" method="OnCannonPressed"]
+[connection signal="pressed" from="TrapMenuManager/Spikes" to="TrapMenuManager" method="OnSpikesPressed"]
+[connection signal="pressed" from="TrapMenuManager/MagicOrb" to="TrapMenuManager" method="OnMagicOrbPressed"]
+[connection signal="pressed" from="TrapMenuManager/Swarm" to="TrapMenuManager" method="OnSwarmPressed"]
+[connection signal="pressed" from="TrapMenuManager/GoldChest" to="TrapMenuManager" method="OnGoldChestPressed"]
+[connection signal="pressed" from="BallistaUpgrades/Spear" to="TrapMenuManager" method="OnSpearPressed"]
+[connection signal="pressed" from="BallistaUpgrades/Shuriken" to="TrapMenuManager" method="OnShurikenPressed"]
+[connection signal="pressed" from="CannonUpgrades/BigCannon" to="TrapMenuManager" method="OnBigCannonPressed"]
+[connection signal="pressed" from="CannonUpgrades/TriCannon" to="TrapMenuManager" method="OnTriCannonPressed"]
+[connection signal="pressed" from="SpikeUpgrades/FireTile" to="TrapMenuManager" method="OnFireTilePressed"]
+[connection signal="pressed" from="SpikeUpgrades/IceTile" to="TrapMenuManager" method="OnIceTilePressed"]
+[connection signal="pressed" from="SpikeUpgrades/ElectricTile" to="TrapMenuManager" method="OnElectricTilePressed"]
+[connection signal="pressed" from="SpikeUpgrades/PoisonTile" to="TrapMenuManager" method="OnPoisonTilePressed"]
+[connection signal="pressed" from="MagicOrbUpgrades/FireOrb" to="TrapMenuManager" method="OnFireOrbPressed"]
+[connection signal="pressed" from="MagicOrbUpgrades/IceOrb" to="TrapMenuManager" method="OnIceOrbPressed"]
+[connection signal="pressed" from="MagicOrbUpgrades/ElectricOrb" to="TrapMenuManager" method="OnElectricOrbPressed"]
+[connection signal="pressed" from="MagicOrbUpgrades/PoisonOrb" to="TrapMenuManager" method="OnPoisonOrbPressed"]
+[connection signal="pressed" from="SwarmUpgrades/RatSwarm" to="TrapMenuManager" method="OnRatSwarmPressed"]
+[connection signal="pressed" from="SwarmUpgrades/BugSwarm" to="TrapMenuManager" method="OnBugSwarmPressed"]

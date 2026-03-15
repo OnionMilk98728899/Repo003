@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://nbmsfdhfkffh"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Trap.cs" id="1_pe2sy"]
+[ext_resource type="PackedScene" uid="uid://cgl70d180c0e4" path="res://Scenes/trap_projectile.tscn" id="2_1yhul"]
+[ext_resource type="Texture2D" uid="uid://csydka5w5tee0" path="res://Sprites/Traps/Ballista_SpriteSheet.png" id="2_hqanr"]
+[ext_resource type="Script" path="res://Scripts/Objects/RangedTrap.cs" id="3_2n4ko"]
+[ext_resource type="FontFile" uid="uid://da4mhxundwaxu" path="res://Fonts/BitCrusher8.ttf" id="4_7wvuq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tkb8m"]
+size = Vector2(14, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_66cxl"]
+radius = 55.0091
+
+[node name="Trap" type="Node2D"]
+script = ExtResource("1_pe2sy")
+_damage = 20
+
+[node name="RangedTrap" type="Node2D" parent="." node_paths=PackedStringArray("_trapAnim", "_attackBufferTimer", "_debugTimer", "_rangedArea")]
+script = ExtResource("3_2n4ko")
+_trapAnim = NodePath("../TrapBody/TrapAnim")
+_attackBufferTimer = NodePath("../AttackBufferTimer")
+_debugTimer = NodePath("../DebugTimer")
+_projectileScene = ExtResource("2_1yhul")
+_damage = 25
+_rangedArea = NodePath("../TrapBody/RangeDetector")
+
+[node name="TrapBody" type="CharacterBody2D" parent="." groups=["Traps"]]
+collision_layer = 4
+collision_mask = 0
+
+[node name="TrapCollider" type="CollisionShape2D" parent="TrapBody"]
+shape = SubResource("RectangleShape2D_tkb8m")
+
+[node name="TrapSprite" type="Sprite2D" parent="TrapBody"]
+texture = ExtResource("2_hqanr")
+hframes = 78
+frame = 1
+
+[node name="TrapAnim" type="AnimationPlayer" parent="TrapBody"]
+
+[node name="RangeDetector" type="Area2D" parent="TrapBody"]
+collision_layer = 0
+collision_mask = 32
+
+[node name="RangeDetectorCollider" type="CollisionShape2D" parent="TrapBody/RangeDetector"]
+shape = SubResource("CircleShape2D_66cxl")
+
+[node name="DebugLabel" type="Label" parent="TrapBody"]
+offset_left = -27.0
+offset_top = -25.0
+offset_right = 24.0
+offset_bottom = 5.0
+theme_override_fonts/font = ExtResource("4_7wvuq")
+
+[node name="AttackBufferTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="DebugTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="body_entered" from="TrapBody/RangeDetector" to="RangedTrap" method="OnRangeDetectorBodyEntered"]
+[connection signal="body_exited" from="TrapBody/RangeDetector" to="RangedTrap" method="OnRangeDetectorBodyExited"]

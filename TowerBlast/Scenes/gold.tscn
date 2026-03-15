@@ -1,0 +1,186 @@
+[gd_scene load_steps=11 format=3 uid="uid://d34vsf0argg4"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Gold.cs" id="1_1e2l0"]
+[ext_resource type="Texture2D" uid="uid://csp6beyo37o0n" path="res://Sprites/Gold/GoldSpritesheet.png" id="1_j1v6a"]
+[ext_resource type="Texture2D" uid="uid://cgglkrp2b4hnl" path="res://Sprites/Gold/GoldAnimationsStackedSpritesheet2.png" id="2_q3vsa"]
+[ext_resource type="Texture2D" uid="uid://q24ht7wbwdar" path="res://Sprites/Gold/GoldCollectSpritesheet.png" id="3_rxty6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_agjvg"]
+radius = 4.0
+
+[sub_resource type="Animation" id="Animation_y7jxi"]
+resource_name = "GoldCollect"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GoldBody/GoldSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_rxty6")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GoldBody/GoldSprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GoldBody/GoldSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_ymdpt"]
+resource_name = "GoldSpin"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GoldBody/GoldSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_j1v6a")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GoldBody/GoldSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GoldBody/GoldSprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="Animation" id="Animation_8q58s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GoldBody/GoldSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_j1v6a")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GoldBody/GoldSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GoldBody/GoldSprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gebw8"]
+_data = {
+"GoldCollect": SubResource("Animation_y7jxi"),
+"GoldSpin": SubResource("Animation_ymdpt"),
+"RESET": SubResource("Animation_8q58s")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_36nak"]
+radius = 4.0
+
+[node name="Gold" type="Node2D" node_paths=PackedStringArray("_goldBody", "_goldAnim", "_goldSprite", "_collectTimer", "_spinTimer")]
+z_index = 10
+script = ExtResource("1_1e2l0")
+_stackedTexture = ExtResource("2_q3vsa")
+_goldBody = NodePath("GoldBody")
+_goldAnim = NodePath("GoldBody/GoldAnim")
+_goldSprite = NodePath("GoldBody/GoldSprite")
+_gravity = 35
+_speed = 40
+_collectTimer = NodePath("GoldBody/CollectTimer")
+_spinTimer = NodePath("GoldBody/SpinTimer")
+
+[node name="GoldBody" type="CharacterBody2D" parent="."]
+collision_layer = 0
+collision_mask = 72
+
+[node name="GoldCollider" type="CollisionShape2D" parent="GoldBody"]
+shape = SubResource("CircleShape2D_agjvg")
+
+[node name="GoldSprite" type="Sprite2D" parent="GoldBody"]
+texture = ExtResource("1_j1v6a")
+hframes = 4
+
+[node name="GoldAnim" type="AnimationPlayer" parent="GoldBody"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_gebw8")
+}
+
+[node name="CollectionArea" type="Area2D" parent="GoldBody"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoldBody/CollectionArea"]
+shape = SubResource("CircleShape2D_36nak")
+
+[node name="CollectTimer" type="Timer" parent="GoldBody"]
+wait_time = 0.4
+one_shot = true
+
+[node name="SpinTimer" type="Timer" parent="GoldBody"]
+autostart = true
+
+[connection signal="body_entered" from="GoldBody/CollectionArea" to="." method="OnCollectionAreaEntered"]
+[connection signal="timeout" from="GoldBody/CollectTimer" to="." method="OnCollectTimerTimeout"]
+[connection signal="timeout" from="GoldBody/SpinTimer" to="." method="OnSpinTimerTimeout"]

@@ -1,0 +1,359 @@
+[gd_scene load_steps=23 format=3 uid="uid://bdbuykgech6d8"]
+
+[ext_resource type="Script" path="res://Scripts/SlotInterface.cs" id="1_7hnov"]
+[ext_resource type="Script" path="res://Scripts/FruityLooty.cs" id="2_38g7c"]
+[ext_resource type="Texture2D" uid="uid://whtt1q57it6q" path="res://Sprites/Machines/FruityLootyInterface.png" id="3_leg1l"]
+[ext_resource type="PackedScene" uid="uid://brfbjigosytqc" path="res://Scenes/collectible_item.tscn" id="3_s5245"]
+[ext_resource type="Texture2D" uid="uid://c04ym27ufabdn" path="res://Sprites/Machines/FruitSlotImagesSheetII.png" id="4_01sn3"]
+[ext_resource type="FontFile" uid="uid://b358ukqmgs2nq" path="res://Fonts/BitBoyBold (4).ttf" id="4_sti7h"]
+[ext_resource type="Texture2D" uid="uid://c1xjpd78u7k64" path="res://Sprites/Menus/BasicButton1.png" id="6_scgxg"]
+[ext_resource type="Texture2D" uid="uid://bxmfkon2hu4su" path="res://Sprites/Menus/BasicButton1Pressed2.png" id="7_3qx0r"]
+[ext_resource type="Texture2D" uid="uid://dn1vyimpymgjv" path="res://Sprites/Menus/BasicButton1Focus.png" id="8_rshj0"]
+
+[sub_resource type="Animation" id="Animation_kaqm1"]
+resource_name = "GodotScreenSlideIn"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FruityLooty:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(170, -72), Vector2(-32, -72)]
+}
+
+[sub_resource type="Animation" id="Animation_s0ltb"]
+resource_name = "GodotScreenSlideOut"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FruityLooty:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-32, -72), Vector2(170, -72)]
+}
+
+[sub_resource type="Animation" id="Animation_xj161"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FruityLooty:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(170, -72)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lt3p1"]
+_data = {
+"GodotScreenSlideIn": SubResource("Animation_kaqm1"),
+"GodotScreenSlideOut": SubResource("Animation_s0ltb"),
+"RESET": SubResource("Animation_xj161")
+}
+
+[sub_resource type="Animation" id="Animation_74g6c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Slot1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_bv8nl"]
+resource_name = "SpinSlot1"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Slot1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m1v4v"]
+_data = {
+"RESET": SubResource("Animation_74g6c"),
+"SpinSlot1": SubResource("Animation_bv8nl")
+}
+
+[sub_resource type="Animation" id="Animation_q61y4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Slot2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_f2dno"]
+resource_name = "SpinSlot2"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Slot2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tsvj6"]
+_data = {
+"RESET": SubResource("Animation_q61y4"),
+"SpinSlot2": SubResource("Animation_f2dno")
+}
+
+[sub_resource type="Animation" id="Animation_3o047"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Slot3:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_iyv7d"]
+resource_name = "SpinSlot3"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Slot3:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fadg5"]
+_data = {
+"RESET": SubResource("Animation_3o047"),
+"SpinSlot3": SubResource("Animation_iyv7d")
+}
+
+[node name="SlotInterface" type="Control"]
+z_index = 20
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 3.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7hnov")
+
+[node name="MyAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lt3p1")
+}
+
+[node name="FruityLooty" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 170.0
+offset_top = -72.0
+offset_right = 298.0
+offset_bottom = 56.0
+script = ExtResource("2_38g7c")
+coinToGenerate = ExtResource("3_s5245")
+
+[node name="TextureRect" type="TextureRect" parent="FruityLooty"]
+layout_mode = 2
+offset_left = -11.0
+offset_top = -9.0
+offset_right = 163.0
+offset_bottom = 134.0
+texture = ExtResource("3_leg1l")
+stretch_mode = 2
+
+[node name="Slot1" type="Sprite2D" parent="FruityLooty"]
+position = Vector2(75, 60)
+texture = ExtResource("4_01sn3")
+hframes = 10
+
+[node name="Slot2" type="Sprite2D" parent="FruityLooty"]
+position = Vector2(95, 60)
+texture = ExtResource("4_01sn3")
+hframes = 10
+
+[node name="Slot3" type="Sprite2D" parent="FruityLooty"]
+position = Vector2(115, 60)
+texture = ExtResource("4_01sn3")
+hframes = 10
+
+[node name="SlotAnim1" type="AnimationPlayer" parent="FruityLooty"]
+libraries = {
+"": SubResource("AnimationLibrary_m1v4v")
+}
+
+[node name="SlotAnim2" type="AnimationPlayer" parent="FruityLooty"]
+libraries = {
+"": SubResource("AnimationLibrary_tsvj6")
+}
+
+[node name="SlotAnim3" type="AnimationPlayer" parent="FruityLooty"]
+libraries = {
+"": SubResource("AnimationLibrary_fadg5")
+}
+
+[node name="COINS" type="RichTextLabel" parent="FruityLooty"]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 41.0
+offset_right = 82.0
+offset_bottom = 81.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_sti7h")
+text = "COINS"
+
+[node name="CoinCount" type="RichTextLabel" parent="FruityLooty"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 53.0
+offset_right = 90.0
+offset_bottom = 93.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_sti7h")
+theme_override_font_sizes/normal_font_size = 16
+text = "5"
+
+[node name="WinLose" type="RichTextLabel" parent="FruityLooty"]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 71.0
+offset_right = 122.0
+offset_bottom = 110.0
+theme_override_fonts/normal_font = ExtResource("4_sti7h")
+theme_override_font_sizes/normal_font_size = 16
+text = "WIN!"
+
+[node name="SpinButton" type="TextureButton" parent="FruityLooty"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 69.0
+offset_right = 79.0
+offset_bottom = 87.0
+focus_neighbor_top = NodePath("../QuitButton")
+focus_neighbor_bottom = NodePath("../BetButton")
+button_mask = 0
+texture_normal = ExtResource("6_scgxg")
+texture_pressed = ExtResource("7_3qx0r")
+texture_focused = ExtResource("8_rshj0")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="FruityLooty/SpinButton"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 1.0
+offset_right = 51.0
+offset_bottom = 41.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_sti7h")
+text = "Spin"
+
+[node name="BetButton" type="TextureButton" parent="FruityLooty"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 82.0
+offset_right = 79.0
+offset_bottom = 100.0
+focus_neighbor_top = NodePath("../SpinButton")
+focus_neighbor_bottom = NodePath("../QuitButton")
+button_mask = 0
+texture_normal = ExtResource("6_scgxg")
+texture_pressed = ExtResource("7_3qx0r")
+texture_focused = ExtResource("8_rshj0")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="FruityLooty/BetButton"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 1.0
+offset_right = 51.0
+offset_bottom = 41.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_sti7h")
+text = "Bet
+"
+
+[node name="QuitButton" type="TextureButton" parent="FruityLooty"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 95.0
+offset_right = 79.0
+offset_bottom = 113.0
+focus_neighbor_top = NodePath("../BetButton")
+focus_neighbor_bottom = NodePath("../SpinButton")
+button_mask = 0
+texture_normal = ExtResource("6_scgxg")
+texture_pressed = ExtResource("7_3qx0r")
+texture_focused = ExtResource("8_rshj0")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="FruityLooty/QuitButton"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 1.0
+offset_right = 51.0
+offset_bottom = 41.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_sti7h")
+text = "Quit
+"
+
+[node name="SpinTimer" type="Timer" parent="FruityLooty"]
+wait_time = 2.0
+one_shot = true
+
+[node name="TextTimer" type="Timer" parent="FruityLooty"]
+one_shot = true
+
+[connection signal="QuitMinigame" from="FruityLooty" to="." method="OnFruityLootyQuitMinigame"]
+[connection signal="pressed" from="FruityLooty/SpinButton" to="FruityLooty" method="OnSpinButtonPressed"]
+[connection signal="pressed" from="FruityLooty/BetButton" to="FruityLooty" method="OnBetButtonPressed"]
+[connection signal="pressed" from="FruityLooty/QuitButton" to="FruityLooty" method="OnQuitButtonPressed"]
+[connection signal="timeout" from="FruityLooty/SpinTimer" to="FruityLooty" method="OnSpinTimerTimeout"]
+[connection signal="timeout" from="FruityLooty/TextTimer" to="FruityLooty" method="OnTextTimerTimeout"]

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="AudioLibrary" load_steps=3 format=3 uid="uid://bnjtwpvewf66x"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/AudioLibrary.cs" id="1_eqogd"]
+[ext_resource type="AudioStream" uid="uid://ddugajxiytewo" path="res://Audio/SoundFX/MenuSelect.wav" id="1_ju5ks"]
+
+[resource]
+script = ExtResource("1_eqogd")
+Hit = ExtResource("1_ju5ks")

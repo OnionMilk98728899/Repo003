@@ -1,0 +1,684 @@
+[gd_scene load_steps=51 format=3 uid="uid://d2nfkquls1x7a"]
+
+[ext_resource type="Texture2D" uid="uid://cwnlri1dew31j" path="res://2DRoughAssets/Sprite Sheets/CharacterBodies/Pumpkin_Head_SpriteSheet.png" id="1_ebxlt"]
+[ext_resource type="PackedScene" uid="uid://bson7p4let468" path="res://Scenes/Components/basic_controller_component.tscn" id="2_fwrka"]
+[ext_resource type="Script" path="res://Scripts/Components/PunchActionComponent.cs" id="2_lsy7i"]
+[ext_resource type="Texture2D" uid="uid://culj7ldttjqc0" path="res://2DRoughAssets/Sprite Sheets/GloveAnimationsV6/GL6_LeftGloveDown.png" id="4_c1nc8"]
+[ext_resource type="Texture2D" uid="uid://by41g46d611ll" path="res://2DRoughAssets/Sprite Sheets/GloveAnimationsV3/GL3_LeftGloveDown.png" id="4_d1nrf"]
+[ext_resource type="FontFile" uid="uid://hhu6sy4yy5ff" path="res://Fonts/MicroBitFont.ttf" id="4_mqa3l"]
+[ext_resource type="Texture2D" uid="uid://rwbc067mg05x" path="res://2DRoughAssets/Sprite Sheets/GloveAnimationsV6/GL6_LeftGloveDownLeft.png" id="5_8xepm"]
+[ext_resource type="Texture2D" uid="uid://cft6npydcil3n" path="res://2DRoughAssets/Sprite Sheets/GloveAnimationsV6/GL6_LeftGloveLeft.png" id="6_2h5pl"]
+[ext_resource type="PackedScene" uid="uid://dw55bhhwldqtw" path="res://Scenes/Components/health_component.tscn" id="6_eoch1"]
+[ext_resource type="PackedScene" uid="uid://b3pl2yb4y4yhn" path="res://Scenes/Components/hurtbox_component.tscn" id="7_gtl3g"]
+[ext_resource type="Texture2D" uid="uid://c6q13u02jttdw" path="res://2DRoughAssets/Sprite Sheets/GloveAnimationsV6/GL6_LeftGloveLeftUp.png" id="7_pt18n"]
+[ext_resource type="Texture2D" uid="uid://bdyjetihojxvt" path="res://2DRoughAssets/Sprite Sheets/GloveAnimationsV6/GL6_LeftGloveRight.png" id="8_mrxnp"]
+[ext_resource type="Texture2D" uid="uid://s4ube3w6ti6j" path="res://2DRoughAssets/Sprite Sheets/GloveAnimationsV6/GL6_LeftGloveRightDown.png" id="9_m8hf7"]
+[ext_resource type="Texture2D" uid="uid://dhin0lph3ruc0" path="res://2DRoughAssets/Sprite Sheets/GloveAnimationsV6/GL6_LeftGloveUpRight.png" id="10_gty62"]
+[ext_resource type="Texture2D" uid="uid://cs785bdgm4xj8" path="res://2DRoughAssets/Sprite Sheets/GloveAnimationsV6/GL6_LeftGloveUp.png" id="11_h2khv"]
+[ext_resource type="Texture2D" uid="uid://o6duocobmusp" path="res://2DRoughAssets/Sprite Sheets/GloveAnimationsV6/GL6_RightGloveDown.png" id="12_smuaj"]
+[ext_resource type="Texture2D" uid="uid://838me00wcg8j" path="res://2DRoughAssets/Sprite Sheets/GloveAnimationsV3/GL3_RightGloveDownt.png" id="12_yynih"]
+[ext_resource type="Texture2D" uid="uid://co41so37ny631" path="res://2DRoughAssets/Sprite Sheets/GloveAnimationsV6/GL6_RightGloveLeftDown.png" id="13_bytjv"]
+[ext_resource type="Texture2D" uid="uid://dq0hxpy0we1ti" path="res://2DRoughAssets/Sprite Sheets/GloveAnimationsV6/GL6_RightGloveLeft.png" id="14_whdc3"]
+[ext_resource type="Texture2D" uid="uid://dxx51aswkmrpw" path="res://2DRoughAssets/Sprite Sheets/GloveAnimationsV6/GL6_RightGloveUpLeft.png" id="15_qppv2"]
+[ext_resource type="Texture2D" uid="uid://dlg6vsqqh52mo" path="res://2DRoughAssets/Sprite Sheets/GloveAnimationsV6/GL6_RightGloveUp.png" id="16_7gvp8"]
+[ext_resource type="Texture2D" uid="uid://bw6qnkr0nuesg" path="res://2DRoughAssets/Sprite Sheets/GloveAnimationsV6/GL6_RightGloveUpRight.png" id="17_xpddb"]
+[ext_resource type="Texture2D" uid="uid://bmitslkdgy66s" path="res://2DRoughAssets/Sprite Sheets/GloveAnimationsV6/GL6_RightGloveRight.png" id="18_divby"]
+[ext_resource type="Texture2D" uid="uid://bd286u3g7hhm" path="res://2DRoughAssets/Sprite Sheets/GloveAnimationsV6/GL6_RightGloveDownRight.png" id="19_krgro"]
+[ext_resource type="PackedScene" uid="uid://j26xjwuwxyod" path="res://Scenes/HitEffect.tscn" id="25_7e3pl"]
+[ext_resource type="PackedScene" uid="uid://ys81wf28afga" path="res://Scenes/GUI.tscn" id="25_cbjoj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cuai2"]
+radius = 15.0333
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u8ydj"]
+size = Vector2(48, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_da5r2"]
+size = Vector2(49.9667, 13.8398)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a6hr1"]
+size = Vector2(25, 42.5)
+
+[sub_resource type="Animation" id="Animation_h14ga"]
+resource_name = "Block"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PunchActionComponent/LeftHand/LeftHandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [26, 26]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PunchActionComponent/RightHand/RightHandSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [26, 26]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PunchActionComponent/RightHand/BlockCollider:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_h72iu"]
+resource_name = "Left_Charge"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PunchActionComponent/LeftHand/LeftHandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19]
+}
+
+[sub_resource type="Animation" id="Animation_20xe8"]
+resource_name = "Left_Hold"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PunchActionComponent/LeftHand/LeftHandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 0]
+}
+
+[sub_resource type="Animation" id="Animation_k43p1"]
+resource_name = "Left_Hook"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PunchActionComponent/LeftHand/LeftHandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [9, 10, 11, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PunchActionComponent/LeftHand/LeftJabCollider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_4mfg5"]
+resource_name = "Left_Jab"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PunchActionComponent/LeftHand/LeftHandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [5, 6, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PunchActionComponent/LeftHand/LeftJabCollider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_ohj87"]
+resource_name = "Left_Kick"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PunchActionComponent/LeftHand/LeftHandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [20, 21, 22]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PunchActionComponent/LeftHand/LeftJabCollider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_ybti2"]
+resource_name = "Left_PowerPunch"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PunchActionComponent/LeftHand/LeftHandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [13, 14, 12]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PunchActionComponent/LeftHand/LeftJabCollider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_esrgc"]
+resource_name = "Left_Throw"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PunchActionComponent/LeftHand/LeftHandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_gw1eg"]
+resource_name = "Left_Uppercut"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PunchActionComponent/LeftHand/LeftHandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [23, 24, 25]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PunchActionComponent/LeftHand/LeftJabCollider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_a0dbp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PunchActionComponent/LeftHand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PunchActionComponent/RightHand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, 4)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PunchActionComponent/LeftHand/LeftJabCollider:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PunchActionComponent/RightHand/RightHandSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PunchActionComponent/RightHand/RightJabCollider:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("PunchActionComponent/LeftHand/LeftHandSprite:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PunchActionComponent/RightHand/BlockCollider:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ibxff"]
+resource_name = "Right_Charge"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PunchActionComponent/RightHand/RightHandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19]
+}
+
+[sub_resource type="Animation" id="Animation_nqdel"]
+resource_name = "Right_Hold"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PunchActionComponent/RightHand/RightHandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 0]
+}
+
+[sub_resource type="Animation" id="Animation_qeajx"]
+resource_name = "Right_Hook"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PunchActionComponent/RightHand/RightHandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [9, 10, 11, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PunchActionComponent/RightHand/RightJabCollider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_edkys"]
+resource_name = "Right_Jab"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PunchActionComponent/RightHand/RightHandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [5, 6, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PunchActionComponent/RightHand/RightJabCollider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_i7vds"]
+resource_name = "Right_Kick"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PunchActionComponent/RightHand/RightHandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [20, 21, 22]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PunchActionComponent/RightHand/RightJabCollider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_7tvnk"]
+resource_name = "Right_PowerPunch"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PunchActionComponent/RightHand/RightHandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [13, 14, 12]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PunchActionComponent/RightHand/RightJabCollider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_25e0c"]
+resource_name = "Right_Throw"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PunchActionComponent/RightHand/RightHandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_a1xpc"]
+resource_name = "Right_Uppercut"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PunchActionComponent/RightHand/RightHandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [23, 24, 25]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PunchActionComponent/RightHand/RightJabCollider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a15w1"]
+_data = {
+"Block": SubResource("Animation_h14ga"),
+"Left_Charge": SubResource("Animation_h72iu"),
+"Left_Hold": SubResource("Animation_20xe8"),
+"Left_Hook": SubResource("Animation_k43p1"),
+"Left_Jab": SubResource("Animation_4mfg5"),
+"Left_Kick": SubResource("Animation_ohj87"),
+"Left_PowerPunch": SubResource("Animation_ybti2"),
+"Left_Throw": SubResource("Animation_esrgc"),
+"Left_Uppercut": SubResource("Animation_gw1eg"),
+"RESET": SubResource("Animation_a0dbp"),
+"Right_Charge": SubResource("Animation_ibxff"),
+"Right_Hold": SubResource("Animation_nqdel"),
+"Right_Hook": SubResource("Animation_qeajx"),
+"Right_Jab": SubResource("Animation_edkys"),
+"Right_Kick": SubResource("Animation_i7vds"),
+"Right_PowerPunch": SubResource("Animation_7tvnk"),
+"Right_Throw": SubResource("Animation_25e0c"),
+"Right_Uppercut": SubResource("Animation_a1xpc")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ogw54"]
+radius = 15.0333
+
+[node name="2DTestChar" type="CharacterBody2D" groups=["Player"]]
+z_index = 1
+collision_layer = 4
+
+[node name="BodyCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cuai2")
+
+[node name="BodySprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_ebxlt")
+hframes = 8
+frame = 1
+
+[node name="BasicControllerComponent" parent="." node_paths=PackedStringArray("characterBodyComponent") instance=ExtResource("2_fwrka")]
+characterBodyComponent = NodePath("..")
+
+[node name="HeadAnim" type="AnimationPlayer" parent="BasicControllerComponent"]
+
+[node name="PunchActionComponent" type="Node2D" parent="." node_paths=PackedStringArray("headSprite", "punchTimer")]
+position = Vector2(1, 0)
+script = ExtResource("2_lsy7i")
+headSprite = NodePath("../BodySprite")
+gloveSheets = Array[Texture2D]([ExtResource("4_c1nc8"), ExtResource("5_8xepm"), ExtResource("6_2h5pl"), ExtResource("7_pt18n"), ExtResource("8_mrxnp"), ExtResource("9_m8hf7"), ExtResource("10_gty62"), ExtResource("11_h2khv"), ExtResource("12_smuaj"), ExtResource("13_bytjv"), ExtResource("14_whdc3"), ExtResource("15_qppv2"), ExtResource("16_7gvp8"), ExtResource("17_xpddb"), ExtResource("18_divby"), ExtResource("19_krgro")])
+punchTimer = NodePath("PunchTimer")
+punchDamage = 40
+
+[node name="LeftHand" type="CharacterBody2D" parent="PunchActionComponent" groups=["Glove"]]
+position = Vector2(-1, 0)
+collision_layer = 8
+collision_mask = 17
+
+[node name="LeftHandSprite" type="Sprite2D" parent="PunchActionComponent/LeftHand"]
+position = Vector2(27, -12)
+texture = ExtResource("4_d1nrf")
+hframes = 27
+frame = 4
+
+[node name="LeftJabCollider" type="CollisionShape2D" parent="PunchActionComponent/LeftHand"]
+position = Vector2(43, 6)
+shape = SubResource("RectangleShape2D_u8ydj")
+disabled = true
+
+[node name="LeftLabel" type="Label" parent="PunchActionComponent/LeftHand"]
+offset_left = 42.0
+offset_top = -27.0
+offset_right = 92.0
+offset_bottom = 12.0
+theme_override_fonts/font = ExtResource("4_mqa3l")
+
+[node name="RightHand" type="CharacterBody2D" parent="PunchActionComponent" groups=["Glove"]]
+position = Vector2(-1, 4)
+collision_layer = 8
+collision_mask = 17
+
+[node name="RightHandSprite" type="Sprite2D" parent="PunchActionComponent/RightHand"]
+position = Vector2(27, 8)
+texture = ExtResource("12_yynih")
+hframes = 27
+frame = 4
+
+[node name="RightJabCollider" type="CollisionShape2D" parent="PunchActionComponent/RightHand"]
+position = Vector2(27, 8)
+scale = Vector2(0.980654, 1.41406)
+shape = SubResource("RectangleShape2D_da5r2")
+disabled = true
+
+[node name="BlockCollider" type="CollisionShape2D" parent="PunchActionComponent/RightHand"]
+position = Vector2(37, -8)
+shape = SubResource("RectangleShape2D_a6hr1")
+disabled = true
+
+[node name="PunchAnim" type="AnimationPlayer" parent="PunchActionComponent"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_a15w1")
+}
+
+[node name="PunchTimer" type="Timer" parent="PunchActionComponent"]
+wait_time = 0.4
+one_shot = true
+
+[node name="ButtonHoldTimer" type="Timer" parent="PunchActionComponent"]
+wait_time = 0.2
+autostart = true
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("playerBodySprite", "hurtTimer") instance=ExtResource("6_eoch1")]
+playerBodySprite = NodePath("../BodySprite")
+hurtTimer = NodePath("HurtTimer")
+maximumHealth = 100
+
+[node name="HurtTimer" type="Timer" parent="HealthComponent"]
+wait_time = 0.6
+one_shot = true
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("7_gtl3g")]
+collision_layer = 0
+collision_mask = 3
+healthComponent = NodePath("../HealthComponent")
+hitFXScene = ExtResource("25_7e3pl")
+
+[node name="HurtboxCollider" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CircleShape2D_ogw54")
+
+[node name="GUI" parent="." instance=ExtResource("25_cbjoj")]
+offset_left = -207.0
+offset_top = -255.0
+offset_right = -207.0
+offset_bottom = -255.0
+
+[connection signal="timeout" from="PunchActionComponent/PunchTimer" to="PunchActionComponent" method="OnPunchTimerTimeout"]
+[connection signal="timeout" from="PunchActionComponent/ButtonHoldTimer" to="PunchActionComponent" method="OnButtonHoldTimerTimeout"]
+[connection signal="healthToGUI" from="HealthComponent" to="GUI" method="OnPlayerHurt"]
+[connection signal="hurtPlayer" from="HealthComponent" to="PunchActionComponent" method="OnPlayerHurt"]
+[connection signal="timeout" from="HealthComponent/HurtTimer" to="HealthComponent" method="OnHurtTimerTimeout"]

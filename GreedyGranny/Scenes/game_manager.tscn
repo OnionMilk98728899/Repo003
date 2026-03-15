@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqnfvofirflxh"]
+
+[ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_8xrty"]
+[ext_resource type="Script" path="res://Scripts/ScoreManager.cs" id="2_csmnr"]
+[ext_resource type="PackedScene" uid="uid://bdbuykgech6d8" path="res://Scenes/slot_interface.tscn" id="3_otbkm"]
+
+[node name="GameManager" type="Node2D"]
+script = ExtResource("1_8xrty")
+
+[node name="ScoreManager" type="Node2D" parent="."]
+script = ExtResource("2_csmnr")
+
+[node name="SlotInterface" parent="." instance=ExtResource("3_otbkm")]
+
+[connection signal="GetScore" from="SlotInterface" to="." method="OnSlotsGetScore"]
+[connection signal="SetScore" from="SlotInterface" to="." method="OnSlotsSetScore"]

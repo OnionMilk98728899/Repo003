@@ -1,0 +1,100 @@
+[gd_scene load_steps=22 format=3 uid="uid://n5syl6p31aha"]
+
+[ext_resource type="Script" path="res://Scripts/PlayerProjectile.cs" id="1_4v2jb"]
+[ext_resource type="Texture2D" uid="uid://dwwke8b6j8vwd" path="res://Sprites/Projectiles/Fireball2.png" id="2_0an8s"]
+[ext_resource type="Texture2D" uid="uid://fot41rgjflh7" path="res://Sprites/Projectiles/Iceball2.png" id="3_7hmxh"]
+[ext_resource type="Texture2D" uid="uid://bs85hs70fghvl" path="res://Sprites/Particles/Trail_Sheet2.png" id="4_33sw7"]
+[ext_resource type="Texture2D" uid="uid://d13ka7nt2fsu6" path="res://Sprites/Projectiles/Slimeball.png" id="4_kut4h"]
+[ext_resource type="Texture2D" uid="uid://cxy7avs6s163n" path="res://Sprites/Projectiles/Egg.png" id="5_4s37j"]
+[ext_resource type="PackedScene" uid="uid://coyqf84cceglr" path="res://Scenes/greedy_grub.tscn" id="6_qrg63"]
+[ext_resource type="Texture2D" uid="uid://c0okp8sxpomqm" path="res://Sprites/Particles/Particle_Speck_1.png" id="7_wvnyk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c33ln"]
+radius = 5.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_d806s"]
+
+[sub_resource type="Gradient" id="Gradient_s6o6v"]
+offsets = PackedFloat32Array(0, 0.175214, 0.286325, 1)
+colors = PackedColorArray(0.2, 0.282353, 1, 1, 0.152941, 0.819608, 1, 1, 0.5808, 0.88, 0.810187, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lb0pw"]
+gradient = SubResource("Gradient_s6o6v")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ub4la"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_lb0pw")
+
+[sub_resource type="Gradient" id="Gradient_3hgbh"]
+offsets = PackedFloat32Array(0, 0.183761, 0.393162, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.52549, 0.133333, 1, 1, 0.870588, 0.0313726, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_j1ofc"]
+gradient = SubResource("Gradient_3hgbh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tx060"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_j1ofc")
+
+[sub_resource type="Gradient" id="Gradient_ouqnk"]
+offsets = PackedFloat32Array(0.042735, 0.521368, 1)
+colors = PackedColorArray(0, 0.439216, 0.254902, 1, 0.34902, 0.780392, 0.254902, 1, 0.6, 0.917647, 0.160784, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lx0cf"]
+gradient = SubResource("Gradient_ouqnk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cvxhi"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_lx0cf")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hd6i8"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_udrw3"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 50, 0)
+color = Color(0, 1, 0.027451, 1)
+
+[node name="PlayerProjectile" type="CharacterBody2D" groups=["Projectile"]]
+z_index = 5
+collision_layer = 4
+script = ExtResource("1_4v2jb")
+fireballTexture = ExtResource("2_0an8s")
+iceballTexture = ExtResource("3_7hmxh")
+slimeballTexture = ExtResource("4_kut4h")
+eggTexture = ExtResource("5_4s37j")
+myBabyGrubScene = ExtResource("6_qrg63")
+gravity = 50.0
+speed = 200.0
+
+[node name="BallSprite" type="Sprite2D" parent="."]
+z_index = 2
+texture = ExtResource("2_0an8s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_c33ln")
+
+[node name="IceTrail" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_d806s")
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_ub4la")
+texture = ExtResource("4_33sw7")
+lifetime = 0.2
+
+[node name="FlameTrail" type="GPUParticles2D" parent="."]
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_tx060")
+texture = ExtResource("4_33sw7")
+lifetime = 0.2
+
+[node name="SlimeTrail" type="GPUParticles2D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_cvxhi")
+texture = ExtResource("4_33sw7")
+lifetime = 0.4
+
+[node name="EggTrail" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_hd6i8")
+process_material = SubResource("ParticleProcessMaterial_udrw3")
+texture = ExtResource("7_wvnyk")

@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3 uid="uid://b6qdu8dawyhmh"]
+
+[ext_resource type="Texture2D" uid="uid://diwlswitd8xe7" path="res://Art/Stands/Stand001.png" id="1_2apnt"]
+[ext_resource type="Script" path="res://Scripts/FruitStand/FruitStand.cs" id="1_8ffve"]
+[ext_resource type="FontFile" uid="uid://068hxnk42ejm" path="res://Fonts/BitSpace.ttf" id="3_rktbh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wu8ui"]
+size = Vector2(40, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s2u3v"]
+size = Vector2(28, 2)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ohc7o"]
+radius = 6.32456
+
+[node name="FruitStand" type="Node2D" node_paths=PackedStringArray("standSprite", "standBody", "debugLabel")]
+z_index = 1
+script = ExtResource("1_8ffve")
+standSprite = NodePath("StandSprite")
+visibility = 100
+lineLength = 5
+standBody = NodePath("StandBody")
+debugLabel = NodePath("DebugLabel")
+
+[node name="StandSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_2apnt")
+
+[node name="StandArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 40
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StandArea"]
+shape = SubResource("RectangleShape2D_wu8ui")
+
+[node name="StandBody" type="CharacterBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="StandShape" type="CollisionShape2D" parent="StandBody"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_s2u3v")
+
+[node name="NotifierAnim" type="AnimationPlayer" parent="."]
+
+[node name="NotifierSprite" type="Sprite2D" parent="."]
+
+[node name="QueueAreaBody" type="CharacterBody2D" parent="." groups=["Stand"]]
+position = Vector2(1, 0)
+collision_layer = 16
+collision_mask = 0
+
+[node name="QueueCollider" type="CollisionShape2D" parent="QueueAreaBody"]
+position = Vector2(0, 15)
+shape = SubResource("CircleShape2D_ohc7o")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -21.0
+offset_top = -25.0
+offset_right = 19.0
+offset_bottom = -2.0
+theme_override_fonts/font = ExtResource("3_rktbh")
+
+[connection signal="body_entered" from="StandArea" to="." method="OnStandAreaBodyEntered"]
+[connection signal="body_exited" from="StandArea" to="." method="OnStandAreaBodyExited"]

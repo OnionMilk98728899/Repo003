@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://1y3n4ttq3kwg"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/PopUp.cs" id="1_nwxl7"]
+[ext_resource type="FontFile" uid="uid://da4mhxundwaxu" path="res://Fonts/BitCrusher8.ttf" id="2_htkac"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b0g2t"]
+
+[node name="PopUp" type="Node2D" node_paths=PackedStringArray("_decayTimer", "_popUpBody", "_popUpLabel", "_labelBackground")]
+z_index = 11
+script = ExtResource("1_nwxl7")
+_decayTimer = NodePath("PopUpBody/DecayTimer")
+_popUpBody = NodePath("PopUpBody")
+_popUpLabel = NodePath("PopUpBody/PopUpLabel")
+_labelBackground = NodePath("PopUpBody/PopUpLabelBackground")
+
+[node name="PopUpBody" type="CharacterBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="PopUpCollider" type="CollisionShape2D" parent="PopUpBody"]
+shape = SubResource("CircleShape2D_b0g2t")
+
+[node name="PopUpLabelBackground" type="RichTextLabel" parent="PopUpBody"]
+offset_right = 117.0
+offset_bottom = 67.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_htkac")
+theme_override_font_sizes/normal_font_size = 32
+text = "TEST"
+
+[node name="PopUpLabel" type="RichTextLabel" parent="PopUpBody"]
+offset_left = 1.0
+offset_top = -1.0
+offset_right = 110.0
+offset_bottom = 59.0
+theme_override_fonts/normal_font = ExtResource("2_htkac")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "TEST"
+
+[node name="DecayTimer" type="Timer" parent="PopUpBody"]
+
+[connection signal="timeout" from="PopUpBody/DecayTimer" to="." method="OnDecayTimerTimeout"]

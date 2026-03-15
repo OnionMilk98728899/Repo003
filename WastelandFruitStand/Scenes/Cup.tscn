@@ -1,0 +1,66 @@
+[gd_scene load_steps=11 format=3 uid="uid://n1ta4sfpomam"]
+
+[ext_resource type="Script" path="res://Scripts/FruitStand/Cup.cs" id="1_o08fy"]
+[ext_resource type="Texture2D" uid="uid://2du6bqhxebnh" path="res://Art/Tiles/Prog_Bar_2_Progress002.png" id="2_4oya5"]
+[ext_resource type="Texture2D" uid="uid://cidnkd8a01nj1" path="res://Art/Tiles/Prog_Bar_2_Progress003.png" id="3_cqctr"]
+[ext_resource type="Texture2D" uid="uid://bjjaxeloi7o2s" path="res://Art/Tiles/Prog_Bar_2_Under.png" id="3_pxog2"]
+[ext_resource type="Texture2D" uid="uid://7j58sxgg3rxl" path="res://Art/StandGUI/Cup_Sheet_01.png" id="4_b4mdu"]
+[ext_resource type="Texture2D" uid="uid://dv8dr8s8uyqh8" path="res://Art/Tiles/Prog_Bar_2_Progress001.png" id="4_ttxhk"]
+[ext_resource type="Texture2D" uid="uid://b4ms1l5spq1lp" path="res://Art/StandGUI/Cup_Sheet_02.png" id="5_sbrie"]
+[ext_resource type="Texture2D" uid="uid://b1vo2mo5gw6e" path="res://Art/StandGUI/Cup_Sheet_03.png" id="6_43e4q"]
+[ext_resource type="Texture2D" uid="uid://b1i5w6l2be7r" path="res://Art/StandGUI/Cup_Sheet_04.png" id="7_q7e8d"]
+[ext_resource type="Texture2D" uid="uid://clqc3lc13u412" path="res://Art/StandGUI/Meters/CupMeter_SpriteSheet.png" id="11_pac0x"]
+
+[node name="Cup" type="Control" node_paths=PackedStringArray("fillBar", "cupSprite", "meterSprite", "meterFXSprite", "debugLabel")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_o08fy")
+fillBar = NodePath("TextureProgressBar")
+cupSprite = NodePath("CupSprite")
+meterSprite = NodePath("MeterSprite")
+meterFXSprite = NodePath("MeterFXSprite")
+progBarGreen = ExtResource("2_4oya5")
+progBarRed = ExtResource("3_cqctr")
+recycledTexture = ExtResource("4_b4mdu")
+paperTexture = ExtResource("5_sbrie")
+waxTexture = ExtResource("6_43e4q")
+plasticTexture = ExtResource("7_q7e8d")
+debugLabel = NodePath("DebugLabel")
+
+[node name="CupSprite" type="Sprite2D" parent="."]
+position = Vector2(-1, -9)
+texture = ExtResource("4_b4mdu")
+hframes = 20
+
+[node name="CupAnim" type="AnimationPlayer" parent="."]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -65.0
+offset_top = -75.0
+offset_right = 6.0
+offset_bottom = 51.0
+fill_mode = 3
+texture_under = ExtResource("3_pxog2")
+texture_progress = ExtResource("4_ttxhk")
+
+[node name="DebugLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = -46.0
+offset_top = -32.0
+offset_right = -6.0
+offset_bottom = -9.0
+
+[node name="MeterSprite" type="Sprite2D" parent="."]
+position = Vector2(24, -1)
+texture = ExtResource("11_pac0x")
+hframes = 14
+
+[node name="MeterFXSprite" type="Sprite2D" parent="."]
+position = Vector2(-25, -2)
+
+[node name="MeterFXAnim" type="AnimationPlayer" parent="."]
+root_node = NodePath("../MeterSprite")

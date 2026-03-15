@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://yyd8x1t8k7dd"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/jewel.cs" id="1_g7xst"]
+[ext_resource type="Texture2D" uid="uid://coir40aspedyg" path="res://Tiles/JewelSprite.png" id="2_t1jad"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h2g2n"]
+size = Vector2(16, 16)
+
+[node name="Jewel" type="Node2D"]
+z_index = 5
+script = ExtResource("1_g7xst")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 5
+position = Vector2(8, -8)
+texture = ExtResource("2_t1jad")
+
+[node name="JewelArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JewelArea"]
+position = Vector2(8, -8)
+shape = SubResource("RectangleShape2D_h2g2n")

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1evshs4gmq7o"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/MonsterManager.cs" id="1_5fhlt"]
+[ext_resource type="PackedScene" uid="uid://da2vwos4rnf3y" path="res://Scenes/Monster.tscn" id="2_awafi"]
+
+[node name="MonsterManager" type="Node2D" node_paths=PackedStringArray("monsterBufferTimer")]
+script = ExtResource("1_5fhlt")
+monsterScene = ExtResource("2_awafi")
+monsterBufferTimer = NodePath("MonsterBufferTimer")
+
+[node name="MonsterBufferTimer" type="Timer" parent="."]
+wait_time = 5.1
+
+[connection signal="timeout" from="MonsterBufferTimer" to="." method="OnMonsterBufferTimerTimeout"]

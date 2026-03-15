@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://du3luun4q8hn5"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/ItemManager.cs" id="1_uysfg"]
+[ext_resource type="PackedScene" uid="uid://d34vsf0argg4" path="res://Scenes/gold.tscn" id="2_nr2tl"]
+
+[node name="ItemManager" type="Node2D"]
+z_index = 10
+script = ExtResource("1_uysfg")
+_coinScene = ExtResource("2_nr2tl")
+
+[node name="ConsolidateTimer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[connection signal="timeout" from="ConsolidateTimer" to="." method="OnConsolidateTimerTimeout"]

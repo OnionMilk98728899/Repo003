@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj0s47bwi4asu"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/ProjectileManager.cs" id="1_rgtg3"]
+
+[node name="ProjectileManager" type="Node2D"]
+script = ExtResource("1_rgtg3")

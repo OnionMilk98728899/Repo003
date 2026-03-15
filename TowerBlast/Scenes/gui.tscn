@@ -1,0 +1,1107 @@
+[gd_scene load_steps=65 format=3 uid="uid://tft6tgog74jq"]
+
+[ext_resource type="Script" path="res://Scripts/GUI/GUI.cs" id="1_5mo07"]
+[ext_resource type="Texture2D" uid="uid://bvebmv6yre8a8" path="res://GUI/Buttons/PostWaveMenu/BuildModeButton.png" id="2_eqjsu"]
+[ext_resource type="Texture2D" uid="uid://cttl1qn8k4ewj" path="res://GUI/Buttons/PurpleButton.png" id="2_jlva8"]
+[ext_resource type="FontFile" uid="uid://da4mhxundwaxu" path="res://Fonts/BitCrusher8.ttf" id="2_k2v2w"]
+[ext_resource type="Texture2D" uid="uid://r0lqiiq1awrt" path="res://GUI/Buttons/GreenButton.png" id="3_pmncx"]
+[ext_resource type="Texture2D" uid="uid://dmrxxpbavt7y7" path="res://GUI/Buttons/PostWaveMenu/BuildModeButtonFocused.png" id="3_xu23b"]
+[ext_resource type="Texture2D" uid="uid://7fi87bkqd18y" path="res://GUI/Buttons/GrayButton.png" id="4_pwu1p"]
+[ext_resource type="Texture2D" uid="uid://m168sqc4j12v" path="res://GUI/Buttons/LitePurpleButton.png" id="5_1whbn"]
+[ext_resource type="Texture2D" uid="uid://b5hn6lgsda5vk" path="res://GUI/Buttons/PostWaveMenu/UpgradeButton.png" id="5_cx46h"]
+[ext_resource type="Script" path="res://Scripts/GUI/BuildMenu.cs" id="6_aixmg"]
+[ext_resource type="Script" path="res://Scripts/GUI/UpgradeMenu.cs" id="7_7jw57"]
+[ext_resource type="Texture2D" uid="uid://ctiv7o020e7jg" path="res://GUI/Buttons/PostWaveMenu/UpgradeButtonFocused.png" id="8_0g5kf"]
+[ext_resource type="Script" path="res://Scripts/GUI/WeaponShopMenu.cs" id="8_a1xd8"]
+[ext_resource type="Texture2D" uid="uid://citkcgl5rxbvk" path="res://GUI/Buttons/PostWaveMenu/DemoModeButton.png" id="9_gfhs7"]
+[ext_resource type="Texture2D" uid="uid://c0besrtgjtock" path="res://GUI/Buttons/PostWaveMenu/DemoModeButtonFocused.png" id="10_hid07"]
+[ext_resource type="Texture2D" uid="uid://di26d82of850k" path="res://GUI/Buttons/PostWaveMenu/WeaponShopButton.png" id="11_ye6d1"]
+[ext_resource type="Texture2D" uid="uid://dodhp7gcula1p" path="res://GUI/Buttons/PostWaveMenu/WeaponShopButtonFocused.png" id="12_jy5lu"]
+[ext_resource type="Texture2D" uid="uid://poijkewkut1p" path="res://GUI/Buttons/PostWaveMenu/StartWaveButton.png" id="13_wxkbi"]
+[ext_resource type="Texture2D" uid="uid://c3r2giubennx8" path="res://GUI/Buttons/PostWaveMenu/StartWaveButtonFocused.png" id="14_l1hii"]
+[ext_resource type="Texture2D" uid="uid://00xj0ala0bwj" path="res://GUI/Buttons/PostWaveMenu/BuildFloorButton.png" id="16_fxq3l"]
+[ext_resource type="Texture2D" uid="uid://bwemog5ib1omn" path="res://GUI/Buttons/PostWaveMenu/BuildFloorButtonFocused.png" id="17_o5mu8"]
+[ext_resource type="Texture2D" uid="uid://b2wwehy6p4is8" path="res://GUI/Buttons/PostWaveMenu/BuildWallButton.png" id="18_b5w8v"]
+[ext_resource type="Texture2D" uid="uid://dlu6ppuvbrib2" path="res://GUI/Buttons/PostWaveMenu/BuildWallButtonFocused.png" id="19_8p1fw"]
+[ext_resource type="Texture2D" uid="uid://ciqbtj2vonbrh" path="res://GUI/Buttons/PostWaveMenu/BuildLadderButton.png" id="20_fkrpb"]
+[ext_resource type="Texture2D" uid="uid://bk7a4r33t5exl" path="res://GUI/Buttons/PostWaveMenu/BuildLadderButtonFocused.png" id="21_16tv7"]
+[ext_resource type="Texture2D" uid="uid://dwoswi7jpfvgv" path="res://GUI/Buttons/PostWaveMenu/BuildTrapButton.png" id="22_5nibs"]
+[ext_resource type="Texture2D" uid="uid://7n5dgnalh4w6" path="res://GUI/Buttons/PostWaveMenu/BuildTrapButtonFocused.png" id="23_fyeu2"]
+[ext_resource type="Texture2D" uid="uid://csmt1jlvilib6" path="res://GUI/Buttons/PostWaveMenu/BackButton.png" id="24_b6lld"]
+[ext_resource type="Texture2D" uid="uid://d1nqph05qte1e" path="res://GUI/Buttons/PostWaveMenu/BackButtonFocused.png" id="25_utrgo"]
+[ext_resource type="Texture2D" uid="uid://dvqjninsj1qru" path="res://GUI/Buttons/WoodButton.png" id="27_ejy88"]
+[ext_resource type="Texture2D" uid="uid://dtevgde0msoio" path="res://GUI/Buttons/WoodenButtonDeactive.png" id="28_yypcp"]
+[ext_resource type="Texture2D" uid="uid://1sc1kldiiw1" path="res://GUI/Buttons/WoodenButtonFocused.png" id="29_u7cey"]
+[ext_resource type="Texture2D" uid="uid://dehucp3lee5o5" path="res://GUI/Buttons/Weapon1IndexButton.png" id="32_0qwln"]
+[ext_resource type="Texture2D" uid="uid://celkfmmjlwc18" path="res://GUI/Buttons/Weapon2IndexButton.png" id="33_n2abf"]
+[ext_resource type="Script" path="res://Scripts/GUI/GameStats.cs" id="44_27n05"]
+[ext_resource type="Texture2D" uid="uid://c070dqpd3r4oi" path="res://GUI/HeadsUpGUI/Gold.png" id="45_fp4u4"]
+[ext_resource type="Texture2D" uid="uid://cyioopl8ns6m5" path="res://Sprites/Weapons/WeaponIcons/SwordIcon.png" id="45_kxvrg"]
+[ext_resource type="Texture2D" uid="uid://0nd2pp8mf4c6" path="res://GUI/HeadsUpGUI/Sword1.png" id="45_pi4nu"]
+[ext_resource type="Texture2D" uid="uid://bwmqo5ujqsehv" path="res://GUI/HeadsUpGUI/Caduceus.png" id="45_rndyb"]
+[ext_resource type="Texture2D" uid="uid://ix1h7hj2ndqn" path="res://Sprites/Weapons/WeaponIcons/HammerIcon.png" id="46_0jsn1"]
+[ext_resource type="Texture2D" uid="uid://d2f0p4217dhhq" path="res://GUI/HeadsUpGUI/Sword2.png" id="46_e23ds"]
+[ext_resource type="Texture2D" uid="uid://dxjueqfl4bbux" path="res://GUI/HeadsUpGUI/Sword1Cooldown.png" id="46_xdeey"]
+[ext_resource type="Texture2D" uid="uid://clei3jonj27pl" path="res://Sprites/Weapons/WeaponIcons/AxeIcon.png" id="47_3qjjr"]
+[ext_resource type="Texture2D" uid="uid://cxlse3qumcacq" path="res://Sprites/Weapons/WeaponIcons/DaggerIcon.png" id="48_xakqx"]
+[ext_resource type="Texture2D" uid="uid://ds606yjfmdmm3" path="res://GUI/HeadsUpGUI/Sword2Cooldown.png" id="48_xn4jr"]
+[ext_resource type="Texture2D" uid="uid://17icn6f7kti8" path="res://Sprites/Weapons/WeaponIcons/SpearIcon.png" id="49_osd1s"]
+[ext_resource type="Texture2D" uid="uid://djrnvj00w6nq3" path="res://Sprites/Weapons/WeaponIcons/ClubIcon.png" id="50_iavrg"]
+[ext_resource type="Texture2D" uid="uid://dm6gd3pmd620f" path="res://Sprites/Weapons/WeaponIcons/BombIcon.png" id="51_n0of7"]
+[ext_resource type="Texture2D" uid="uid://88e5k4p7ajuo" path="res://Sprites/Weapons/WeaponIcons/ScepterIcon.png" id="52_jy8cm"]
+[ext_resource type="Texture2D" uid="uid://dlrbu6d2c5x4c" path="res://Sprites/Weapons/WeaponIcons/BowIcon.png" id="53_bwrkf"]
+[ext_resource type="Texture2D" uid="uid://b24c4ofmd1sqq" path="res://Sprites/Weapons/WeaponIcons/ShieldIcon.png" id="54_0ika3"]
+[ext_resource type="Texture2D" uid="uid://c1vcstbd54xl6" path="res://Sprites/Weapons/WeaponIcons/PotionIcon.png" id="55_racll"]
+[ext_resource type="Texture2D" uid="uid://b1e648hkg5gei" path="res://Sprites/Weapons/WeaponIcons/ShurikenIcon.png" id="56_05ptx"]
+[ext_resource type="Texture2D" uid="uid://brllnbch1rwdt" path="res://GUI/HeadsUpGUI/background.png" id="57_2em54"]
+
+[sub_resource type="Animation" id="Animation_53pfm"]
+resource_name = "EnterBuildTier"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainTierButtons:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BuildTierButtons:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_g2acf"]
+resource_name = "EnterUpgradeTier"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainTierButtons:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UpgradeTierButtons:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UpgradeLabels:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_pq1ns"]
+resource_name = "EnterWeaponIndexSelect"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponIndexButtons:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_hdsqd"]
+resource_name = "EnterWeaponShopTier"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainTierButtons:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponShopTierButtons:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_d07lq"]
+resource_name = "ExitBuildTier"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BuildTierButtons:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MainTierButtons:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_etetg"]
+resource_name = "ExitUpgradeTier"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UpgradeTierButtons:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MainTierButtons:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UpgradeLabels:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_fkpxd"]
+resource_name = "ExitWeaponIndexSelect"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponIndexButtons:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_o5trf"]
+resource_name = "ExitWeaponShopTier"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponShopTierButtons:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MainTierButtons:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_jqdpf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainTierButtons:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BuildTierButtons:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UpgradeTierButtons:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WeaponShopTierButtons:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("WeaponIndexButtons:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("UpgradeLabels:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7qlfe"]
+_data = {
+"EnterBuildTier": SubResource("Animation_53pfm"),
+"EnterUpgradeTier": SubResource("Animation_g2acf"),
+"EnterWeaponIndexSelect": SubResource("Animation_pq1ns"),
+"EnterWeaponShopTier": SubResource("Animation_hdsqd"),
+"ExitBuildTier": SubResource("Animation_d07lq"),
+"ExitUpgradeTier": SubResource("Animation_etetg"),
+"ExitWeaponIndexSelect": SubResource("Animation_fkpxd"),
+"ExitWeaponShopTier": SubResource("Animation_o5trf"),
+"RESET": SubResource("Animation_jqdpf")
+}
+
+[node name="GUI" type="Control" node_paths=PackedStringArray("_buildButton", "_upgradeButton", "_demolishButton", "_weaponShopButton", "_exitBuildModeButton", "_buildFloorButton", "_weaponUpgrade1Button", "_back3Button", "_upgradeMenu", "_weaponMenu", "_exitCurrentModeLabel", "_guiAnim")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_5mo07")
+_buildButton = NodePath("MainTierButtons/BuildButton")
+_upgradeButton = NodePath("MainTierButtons/UpgradeButton")
+_demolishButton = NodePath("MainTierButtons/DemolishButton")
+_weaponShopButton = NodePath("MainTierButtons/WeaponShopButton")
+_exitBuildModeButton = NodePath("MainTierButtons/ExitBuildModeButton")
+_buildFloorButton = NodePath("BuildTierButtons/BuildFloorButton")
+_weaponUpgrade1Button = NodePath("UpgradeTierButtons/Weapon1Button")
+_back3Button = NodePath("WeaponShopTierButtons/BackButton3")
+_upgradeMenu = NodePath("UpgradeTierButtons")
+_weaponMenu = NodePath("WeaponShopTierButtons")
+_exitCurrentModeLabel = NodePath("BuildTierButtons/EscapeModeText")
+_guiAnim = NodePath("GUIAnim")
+
+[node name="GUIAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7qlfe")
+}
+
+[node name="MainTierButtons" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 16.0
+offset_right = 50.0
+offset_bottom = 56.0
+
+[node name="BuildButton" type="TextureButton" parent="MainTierButtons"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = -8.0
+offset_right = 74.0
+offset_bottom = 72.0
+focus_neighbor_top = NodePath("../ExitBuildModeButton")
+focus_neighbor_bottom = NodePath("../UpgradeButton")
+texture_normal = ExtResource("2_eqjsu")
+texture_focused = ExtResource("3_xu23b")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainTierButtons/BuildButton"]
+layout_mode = 0
+offset_left = 390.0
+offset_top = 58.0
+offset_right = 430.0
+offset_bottom = 98.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+text = "Build"
+
+[node name="UpgradeButton" type="TextureButton" parent="MainTierButtons"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 29.0
+offset_right = 74.0
+offset_bottom = 109.0
+focus_neighbor_top = NodePath("../BuildButton")
+focus_neighbor_bottom = NodePath("../DemolishButton")
+texture_normal = ExtResource("5_cx46h")
+texture_focused = ExtResource("8_0g5kf")
+
+[node name="UpgradeLabel" type="RichTextLabel" parent="MainTierButtons/UpgradeButton"]
+layout_mode = 0
+offset_left = 390.0
+offset_top = 21.0
+offset_right = 430.0
+offset_bottom = 61.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+text = "Upgrade"
+
+[node name="DemolishButton" type="TextureButton" parent="MainTierButtons"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 66.0
+offset_right = 74.0
+offset_bottom = 146.0
+focus_neighbor_top = NodePath("../UpgradeButton")
+focus_neighbor_bottom = NodePath("../WeaponShopButton")
+texture_normal = ExtResource("9_gfhs7")
+texture_pressed = ExtResource("3_pmncx")
+texture_disabled = ExtResource("4_pwu1p")
+texture_focused = ExtResource("10_hid07")
+
+[node name="DemolishLabel" type="RichTextLabel" parent="MainTierButtons/DemolishButton"]
+layout_mode = 0
+offset_left = 390.0
+offset_top = -16.0
+offset_right = 462.0
+offset_bottom = 24.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+text = "Demolish
+
+
+"
+
+[node name="WeaponShopButton" type="TextureButton" parent="MainTierButtons"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 103.0
+offset_right = 74.0
+offset_bottom = 183.0
+focus_neighbor_top = NodePath("../DemolishButton")
+focus_neighbor_bottom = NodePath("../ExitBuildModeButton")
+texture_normal = ExtResource("11_ye6d1")
+texture_focused = ExtResource("12_jy5lu")
+
+[node name="WeaponShopButtonText" type="RichTextLabel" parent="MainTierButtons/WeaponShopButton"]
+layout_mode = 0
+offset_left = 390.0
+offset_top = -53.0
+offset_right = 452.0
+offset_bottom = -13.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+text = "WEAPON SHOP"
+
+[node name="ExitBuildModeButton" type="TextureButton" parent="MainTierButtons"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 140.0
+offset_right = 74.0
+offset_bottom = 220.0
+focus_neighbor_top = NodePath("../WeaponShopButton")
+focus_neighbor_bottom = NodePath("../BuildButton")
+texture_normal = ExtResource("13_wxkbi")
+texture_focused = ExtResource("14_l1hii")
+
+[node name="ExitBuildModeLabel" type="RichTextLabel" parent="MainTierButtons/ExitBuildModeButton"]
+layout_mode = 0
+offset_left = 390.0
+offset_top = -90.0
+offset_right = 460.0
+offset_bottom = -50.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+text = "START WAVE
+"
+
+[node name="BuildTierButtons" type="Control" parent="." node_paths=PackedStringArray("_buildButton", "_buildFloorButton", "_buildLadderButton", "_buildTrapButton", "_buildWallButton", "_backButton", "_guiAnim", "_exitCurrentModeLabel", "myGUI")]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("6_aixmg")
+_buildButton = NodePath("../MainTierButtons/BuildButton")
+_buildFloorButton = NodePath("BuildFloorButton")
+_buildLadderButton = NodePath("BuildLadderButton")
+_buildTrapButton = NodePath("BuildTrapButton")
+_buildWallButton = NodePath("BuildWallButton")
+_backButton = NodePath("BackButton")
+_guiAnim = NodePath("../GUIAnim")
+_exitCurrentModeLabel = NodePath("EscapeModeText")
+myGUI = NodePath("..")
+
+[node name="BuildFloorButton" type="TextureButton" parent="BuildTierButtons"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 8.0
+offset_right = 84.0
+offset_bottom = 88.0
+focus_neighbor_top = NodePath("../BackButton")
+focus_neighbor_bottom = NodePath("../BuildWallButton")
+texture_normal = ExtResource("16_fxq3l")
+texture_focused = ExtResource("17_o5mu8")
+
+[node name="BuildFloorLabel" type="RichTextLabel" parent="BuildTierButtons/BuildFloorButton"]
+layout_mode = 0
+offset_left = 390.0
+offset_top = 58.0
+offset_right = 484.0
+offset_bottom = 98.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+text = "Build Floor"
+
+[node name="BuildWallButton" type="TextureButton" parent="BuildTierButtons"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 45.0
+offset_right = 84.0
+offset_bottom = 125.0
+focus_neighbor_top = NodePath("../BuildFloorButton")
+focus_neighbor_bottom = NodePath("../BuildLadderButton")
+texture_normal = ExtResource("18_b5w8v")
+texture_focused = ExtResource("19_8p1fw")
+
+[node name="BuildWallLabel" type="RichTextLabel" parent="BuildTierButtons/BuildWallButton"]
+layout_mode = 0
+offset_left = 390.0
+offset_top = 21.0
+offset_right = 466.0
+offset_bottom = 61.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+text = "Build Wall"
+
+[node name="BuildLadderButton" type="TextureButton" parent="BuildTierButtons"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 82.0
+offset_right = 84.0
+offset_bottom = 162.0
+focus_neighbor_top = NodePath("../BuildWallButton")
+focus_neighbor_bottom = NodePath("../BuildTrapButton")
+texture_normal = ExtResource("20_fkrpb")
+texture_focused = ExtResource("21_16tv7")
+
+[node name="BuildLadderLabel" type="RichTextLabel" parent="BuildTierButtons/BuildLadderButton"]
+layout_mode = 0
+offset_left = 390.0
+offset_top = -16.0
+offset_right = 489.0
+offset_bottom = 24.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+text = "Build Ladder
+"
+
+[node name="BuildTrapButton" type="TextureButton" parent="BuildTierButtons"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 119.0
+offset_right = 84.0
+offset_bottom = 199.0
+focus_neighbor_top = NodePath("../BuildLadderButton")
+focus_neighbor_bottom = NodePath("../BackButton")
+texture_normal = ExtResource("22_5nibs")
+texture_focused = ExtResource("23_fyeu2")
+
+[node name="BuildTrapLabel" type="RichTextLabel" parent="BuildTierButtons/BuildTrapButton"]
+layout_mode = 0
+offset_left = 390.0
+offset_top = -53.0
+offset_right = 476.0
+offset_bottom = -13.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+text = "Build Trap
+"
+
+[node name="BackButton" type="TextureButton" parent="BuildTierButtons"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 156.0
+offset_right = 84.0
+offset_bottom = 236.0
+focus_neighbor_top = NodePath("../BuildTrapButton")
+focus_neighbor_bottom = NodePath("../BuildFloorButton")
+texture_normal = ExtResource("24_b6lld")
+texture_focused = ExtResource("25_utrgo")
+
+[node name="BackButtonText" type="RichTextLabel" parent="BuildTierButtons/BackButton"]
+layout_mode = 0
+offset_left = 390.0
+offset_top = -90.0
+offset_right = 476.0
+offset_bottom = -50.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+text = "BACK
+
+"
+
+[node name="EscapeModeText" type="RichTextLabel" parent="BuildTierButtons"]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 1.0
+offset_right = 427.0
+offset_bottom = 34.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+theme_override_font_sizes/normal_font_size = 32
+text = "Press [ESC] to exit current build mode"
+
+[node name="UpgradeTierButtons" type="Control" parent="." node_paths=PackedStringArray("_weaponUpgrade1Button", "_weaponUpgrade2Button", "_weaponUpgrade3Button", "_trapUpgrade1Button", "_trapUpgrade2Button", "_trapUpgrade3Button", "_reRollbutton", "_back2Button", "_upgradeButton", "_weaponIndexButton1", "_weaponIndexButton2", "_weapon1Label", "_weapon1Description", "_weapon2Label", "_weapon2Description", "_weapon3Label", "_weapon3Description", "_trap1Label", "_trap1Description", "_trap2Label", "_trap2Description", "_trap3Label", "_trap3Description", "_guiAnim", "_myGUI", "_gameStats")]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_7jw57")
+_weaponUpgrade1Button = NodePath("Weapon1Button")
+_weaponUpgrade2Button = NodePath("Weapon2Button")
+_weaponUpgrade3Button = NodePath("Weapon3Button")
+_trapUpgrade1Button = NodePath("Trap1Button")
+_trapUpgrade2Button = NodePath("Trap2Button")
+_trapUpgrade3Button = NodePath("Trap3Button")
+_reRollbutton = NodePath("ReRollButton")
+_back2Button = NodePath("BackButton2")
+_upgradeButton = NodePath("../MainTierButtons/UpgradeButton")
+_weaponIndexButton1 = NodePath("../WeaponIndexButtons/WeaponIndexButton1")
+_weaponIndexButton2 = NodePath("../WeaponIndexButtons/WeaponIndexButton2")
+_weapon1Label = NodePath("../UpgradeLabels/Weapon1Label")
+_weapon1Description = NodePath("Weapon1Button/Weapon1Description")
+_weapon2Label = NodePath("../UpgradeLabels/Weapon2Label")
+_weapon2Description = NodePath("Weapon2Button/Weapon2Description")
+_weapon3Label = NodePath("../UpgradeLabels/Weapon3Label")
+_weapon3Description = NodePath("Weapon3Button/Weapon3Description")
+_trap1Label = NodePath("../UpgradeLabels/Trap1Label")
+_trap1Description = NodePath("Trap1Button/Trap1Description")
+_trap2Label = NodePath("../UpgradeLabels/Trap2Label")
+_trap2Description = NodePath("Trap2Button/Trap2Description")
+_trap3Label = NodePath("../UpgradeLabels/Trap3Label")
+_trap3Description = NodePath("Trap3Button/Trap3Description")
+_guiAnim = NodePath("../GUIAnim")
+_myGUI = NodePath("..")
+_gameStats = NodePath("../GameStats")
+
+[node name="Weapon1Button" type="TextureButton" parent="UpgradeTierButtons"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 55.0
+offset_right = 212.0
+offset_bottom = 151.0
+focus_neighbor_left = NodePath("../ReRollButton")
+focus_neighbor_top = NodePath("../Trap1Button")
+focus_neighbor_right = NodePath("../Weapon2Button")
+focus_neighbor_bottom = NodePath("../Trap1Button")
+texture_normal = ExtResource("27_ejy88")
+texture_disabled = ExtResource("28_yypcp")
+texture_focused = ExtResource("29_u7cey")
+
+[node name="Weapon1Description" type="RichTextLabel" parent="UpgradeTierButtons/Weapon1Button"]
+layout_mode = 0
+offset_left = 289.0
+offset_top = 32.0
+offset_right = 353.0
+offset_bottom = 99.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+
+[node name="Weapon2Button" type="TextureButton" parent="UpgradeTierButtons"]
+layout_mode = 0
+offset_left = 189.0
+offset_top = 55.0
+offset_right = 301.0
+offset_bottom = 151.0
+focus_neighbor_left = NodePath("../Weapon1Button")
+focus_neighbor_top = NodePath("../Trap2Button")
+focus_neighbor_right = NodePath("../Weapon3Button")
+focus_neighbor_bottom = NodePath("../Trap2Button")
+texture_normal = ExtResource("27_ejy88")
+texture_disabled = ExtResource("28_yypcp")
+texture_focused = ExtResource("29_u7cey")
+
+[node name="Weapon2Description" type="RichTextLabel" parent="UpgradeTierButtons/Weapon2Button"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 32.0
+offset_right = 277.0
+offset_bottom = 111.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+
+[node name="Weapon3Button" type="TextureButton" parent="UpgradeTierButtons"]
+layout_mode = 0
+offset_left = 278.0
+offset_top = 55.0
+offset_right = 390.0
+offset_bottom = 151.0
+focus_neighbor_left = NodePath("../Weapon2Button")
+focus_neighbor_top = NodePath("../Trap3Button")
+focus_neighbor_right = NodePath("../ReRollButton")
+focus_neighbor_bottom = NodePath("../Trap3Button")
+texture_normal = ExtResource("27_ejy88")
+texture_disabled = ExtResource("28_yypcp")
+texture_focused = ExtResource("29_u7cey")
+
+[node name="Weapon3Description" type="RichTextLabel" parent="UpgradeTierButtons/Weapon3Button"]
+layout_mode = 0
+offset_left = 111.0
+offset_top = 32.0
+offset_right = 180.0
+offset_bottom = 105.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+
+[node name="Trap1Button" type="TextureButton" parent="UpgradeTierButtons"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 96.0
+offset_right = 212.0
+offset_bottom = 192.0
+focus_neighbor_left = NodePath("../BackButton2")
+focus_neighbor_top = NodePath("../Weapon1Button")
+focus_neighbor_right = NodePath("../Trap2Button")
+focus_neighbor_bottom = NodePath("../Weapon1Button")
+texture_normal = ExtResource("27_ejy88")
+texture_disabled = ExtResource("28_yypcp")
+texture_focused = ExtResource("29_u7cey")
+
+[node name="Trap1Description" type="RichTextLabel" parent="UpgradeTierButtons/Trap1Button"]
+layout_mode = 0
+offset_left = 268.0
+offset_top = 2.0
+offset_right = 334.0
+offset_bottom = 64.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+
+[node name="Trap2Button" type="TextureButton" parent="UpgradeTierButtons"]
+layout_mode = 0
+offset_left = 189.0
+offset_top = 96.0
+offset_right = 301.0
+offset_bottom = 192.0
+focus_neighbor_left = NodePath("../Trap1Button")
+focus_neighbor_top = NodePath("../Weapon2Button")
+focus_neighbor_right = NodePath("../Trap3Button")
+focus_neighbor_bottom = NodePath("../Weapon2Button")
+texture_normal = ExtResource("27_ejy88")
+texture_disabled = ExtResource("28_yypcp")
+texture_focused = ExtResource("29_u7cey")
+
+[node name="Trap2Description" type="RichTextLabel" parent="UpgradeTierButtons/Trap2Button"]
+layout_mode = 0
+offset_left = 207.0
+offset_top = 2.0
+offset_right = 264.0
+offset_bottom = 56.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+
+[node name="Trap3Button" type="TextureButton" parent="UpgradeTierButtons"]
+layout_mode = 0
+offset_left = 278.0
+offset_top = 96.0
+offset_right = 390.0
+offset_bottom = 192.0
+focus_neighbor_left = NodePath("../Trap2Button")
+focus_neighbor_top = NodePath("../Weapon3Button")
+focus_neighbor_right = NodePath("../BackButton2")
+focus_neighbor_bottom = NodePath("../Weapon3Button")
+texture_normal = ExtResource("27_ejy88")
+texture_disabled = ExtResource("28_yypcp")
+texture_focused = ExtResource("29_u7cey")
+
+[node name="Trap3Description" type="RichTextLabel" parent="UpgradeTierButtons/Trap3Button"]
+layout_mode = 0
+offset_left = 148.0
+offset_top = 2.0
+offset_right = 210.0
+offset_bottom = 63.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+
+[node name="ReRollButton" type="TextureButton" parent="UpgradeTierButtons"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 55.0
+offset_right = 82.0
+offset_bottom = 135.0
+focus_neighbor_left = NodePath("../Weapon3Button")
+focus_neighbor_top = NodePath("../BackButton2")
+focus_neighbor_right = NodePath("../Weapon1Button")
+focus_neighbor_bottom = NodePath("../BackButton2")
+texture_normal = ExtResource("2_jlva8")
+texture_focused = ExtResource("5_1whbn")
+
+[node name="ReRollLabel" type="RichTextLabel" parent="UpgradeTierButtons/ReRollButton"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 32.0
+offset_right = 64.0
+offset_bottom = 48.0
+
+[node name="BackButton2" type="TextureButton" parent="UpgradeTierButtons"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 104.0
+offset_right = 84.0
+offset_bottom = 184.0
+focus_neighbor_left = NodePath("../Trap3Button")
+focus_neighbor_top = NodePath("../ReRollButton")
+focus_neighbor_right = NodePath("../Trap1Button")
+focus_neighbor_bottom = NodePath("../ReRollButton")
+texture_normal = ExtResource("24_b6lld")
+texture_focused = ExtResource("25_utrgo")
+
+[node name="BackButton2Text" type="RichTextLabel" parent="UpgradeTierButtons/BackButton2"]
+layout_mode = 0
+offset_left = 390.0
+offset_top = -63.0
+offset_right = 449.0
+offset_bottom = -23.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+text = "BACK"
+
+[node name="UpgradeLabels" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Weapon1Label" type="RichTextLabel" parent="UpgradeLabels"]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 94.0
+offset_right = 195.0
+offset_bottom = 117.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+bbcode_enabled = true
+
+[node name="Weapon2Label" type="RichTextLabel" parent="UpgradeLabels"]
+layout_mode = 0
+offset_left = 206.0
+offset_top = 94.0
+offset_right = 284.0
+offset_bottom = 117.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+bbcode_enabled = true
+
+[node name="Weapon3Label" type="RichTextLabel" parent="UpgradeLabels"]
+layout_mode = 0
+offset_left = 295.0
+offset_top = 94.0
+offset_right = 372.0
+offset_bottom = 117.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+bbcode_enabled = true
+
+[node name="Trap1Label" type="RichTextLabel" parent="UpgradeLabels"]
+layout_mode = 0
+offset_left = 121.0
+offset_top = 136.0
+offset_right = 199.0
+offset_bottom = 158.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+bbcode_enabled = true
+
+[node name="Trap2Label" type="RichTextLabel" parent="UpgradeLabels"]
+layout_mode = 0
+offset_left = 211.0
+offset_top = 137.0
+offset_right = 287.0
+offset_bottom = 157.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+bbcode_enabled = true
+
+[node name="Trap3Label" type="RichTextLabel" parent="UpgradeLabels"]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 135.0
+offset_right = 377.0
+offset_bottom = 158.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+bbcode_enabled = true
+
+[node name="WeaponIndexButtons" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="WeaponIndexButton1" type="TextureButton" parent="WeaponIndexButtons"]
+z_index = 1
+layout_mode = 0
+offset_left = 53.0
+offset_top = 205.0
+offset_right = 165.0
+offset_bottom = 301.0
+focus_neighbor_left = NodePath("../WeaponIndexButton2")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../WeaponIndexButton2")
+focus_neighbor_bottom = NodePath(".")
+texture_focused = ExtResource("32_0qwln")
+
+[node name="WeaponIndexButton2" type="TextureButton" parent="WeaponIndexButtons"]
+z_index = 1
+layout_mode = 0
+offset_left = 155.0
+offset_top = 205.0
+offset_right = 267.0
+offset_bottom = 301.0
+focus_neighbor_left = NodePath("../WeaponIndexButton1")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../WeaponIndexButton1")
+focus_neighbor_bottom = NodePath(".")
+texture_focused = ExtResource("33_n2abf")
+
+[node name="WeaponShopTierButtons" type="Control" parent="." node_paths=PackedStringArray("_buildButton", "_weaponSelect1", "_weaponSelect2", "_weaponSelect3", "_backButton3", "_guiAnim", "myGUI")]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8_a1xd8")
+_buildButton = NodePath("../MainTierButtons/BuildButton")
+_weaponSelect1 = NodePath("WeaponSelection1")
+_weaponSelect2 = NodePath("WeaponSelection2")
+_weaponSelect3 = NodePath("WeaponSelection3")
+_backButton3 = NodePath("BackButton3")
+_guiAnim = NodePath("../GUIAnim")
+myGUI = NodePath("..")
+
+[node name="WeaponSelection1" type="TextureButton" parent="WeaponShopTierButtons"]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 21.0
+offset_right = 201.0
+offset_bottom = 101.0
+focus_neighbor_left = NodePath("../BackButton3")
+focus_neighbor_right = NodePath("../WeaponSelection2")
+texture_normal = ExtResource("2_jlva8")
+texture_focused = ExtResource("5_1whbn")
+
+[node name="WeaponSelection2" type="TextureButton" parent="WeaponShopTierButtons"]
+layout_mode = 0
+offset_left = 183.0
+offset_top = 21.0
+offset_right = 256.0
+offset_bottom = 101.0
+focus_neighbor_left = NodePath("../WeaponSelection1")
+focus_neighbor_right = NodePath("../WeaponSelection3")
+texture_normal = ExtResource("2_jlva8")
+texture_focused = ExtResource("5_1whbn")
+
+[node name="WeaponSelection3" type="TextureButton" parent="WeaponShopTierButtons"]
+layout_mode = 0
+offset_left = 238.0
+offset_top = 21.0
+offset_right = 311.0
+offset_bottom = 101.0
+focus_neighbor_left = NodePath("../WeaponSelection2")
+focus_neighbor_right = NodePath("../BackButton3")
+texture_normal = ExtResource("2_jlva8")
+texture_focused = ExtResource("5_1whbn")
+
+[node name="BackButton3" type="TextureButton" parent="WeaponShopTierButtons"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 82.0
+offset_right = 84.0
+offset_bottom = 162.0
+texture_normal = ExtResource("24_b6lld")
+texture_focused = ExtResource("25_utrgo")
+
+[node name="BackButton3Text" type="RichTextLabel" parent="WeaponShopTierButtons/BackButton3"]
+layout_mode = 0
+offset_left = 390.0
+offset_top = -16.0
+offset_right = 430.0
+offset_bottom = 24.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+text = "Back"
+
+[node name="GameStats" type="Control" parent="." node_paths=PackedStringArray("_goldCount", "_weapon1CooldownBar", "_weapon2CooldownBar", "_weapon1IconSprite", "_weapon2IconSprite", "_weapon1CooldownTimer", "_weapon2CooldownTimer")]
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 207.0
+offset_right = 882.0
+offset_bottom = 363.0
+script = ExtResource("44_27n05")
+_goldCount = NodePath("PlayerGoldCount")
+_weapon1CooldownBar = NodePath("Weapon1/WeaponMeter1")
+_weapon2CooldownBar = NodePath("Weapon2/WeaponMeter2")
+_weapon1IconSprite = NodePath("Weapon1/Weapon1Sprite")
+_weapon2IconSprite = NodePath("Weapon2/Weapon2Sprite")
+_weaponIcons = Array[Texture2D]([ExtResource("45_kxvrg"), ExtResource("46_0jsn1"), ExtResource("47_3qjjr"), ExtResource("48_xakqx"), ExtResource("49_osd1s"), ExtResource("50_iavrg"), ExtResource("51_n0of7"), ExtResource("52_jy8cm"), ExtResource("53_bwrkf"), ExtResource("54_0ika3"), ExtResource("55_racll"), ExtResource("56_05ptx")])
+_weapon1CooldownTimer = NodePath("Weapon1/WeaponCooldownTimer1")
+_weapon2CooldownTimer = NodePath("Weapon2/WeaponCooldownTimer2")
+
+[node name="Background" type="Sprite2D" parent="GameStats"]
+position = Vector2(200, -65)
+texture = ExtResource("57_2em54")
+
+[node name="Weapon1" type="Control" parent="GameStats"]
+anchors_preset = 0
+offset_left = -8.0
+offset_right = 32.0
+offset_bottom = 40.0
+
+[node name="WeaponMeter1" type="TextureProgressBar" parent="GameStats/Weapon1"]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 27.0
+offset_right = 118.0
+offset_bottom = 67.0
+texture_under = ExtResource("45_pi4nu")
+texture_progress = ExtResource("46_xdeey")
+
+[node name="Weapon1Sprite" type="Sprite2D" parent="GameStats/Weapon1"]
+position = Vector2(77, 38)
+
+[node name="Weapon1Anim" type="AnimationPlayer" parent="GameStats/Weapon1"]
+
+[node name="WeaponCooldownTimer1" type="Timer" parent="GameStats/Weapon1"]
+wait_time = 3.0
+one_shot = true
+
+[node name="Weapon2" type="Control" parent="GameStats"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="WeaponMeter2" type="TextureProgressBar" parent="GameStats/Weapon2"]
+layout_mode = 0
+offset_left = 131.0
+offset_top = 27.0
+offset_right = 212.0
+offset_bottom = 67.0
+fill_mode = 1
+texture_under = ExtResource("46_e23ds")
+texture_progress = ExtResource("48_xn4jr")
+
+[node name="Weapon2Sprite" type="Sprite2D" parent="GameStats/Weapon2"]
+position = Vector2(171, 38)
+
+[node name="Weapon2Anim" type="AnimationPlayer" parent="GameStats/Weapon2"]
+
+[node name="WeaponCooldownTimer2" type="Timer" parent="GameStats/Weapon2"]
+wait_time = 3.0
+one_shot = true
+
+[node name="HealthSymbol" type="Sprite2D" parent="GameStats"]
+position = Vector2(253, 39)
+texture = ExtResource("45_rndyb")
+
+[node name="GoldSymbol" type="Sprite2D" parent="GameStats"]
+position = Vector2(321, 36)
+texture = ExtResource("45_fp4u4")
+
+[node name="PlayerGoldCount" type="RichTextLabel" parent="GameStats"]
+layout_mode = 0
+offset_left = 323.0
+offset_top = 35.0
+offset_right = 460.0
+offset_bottom = 113.0
+theme_override_fonts/normal_font = ExtResource("2_k2v2w")
+
+[connection signal="pressed" from="MainTierButtons/BuildButton" to="." method="OnBuildButtonPressed"]
+[connection signal="pressed" from="MainTierButtons/UpgradeButton" to="." method="OnUpgradeButtonPressed"]
+[connection signal="pressed" from="MainTierButtons/DemolishButton" to="." method="OnDemolishButtonPressed"]
+[connection signal="pressed" from="MainTierButtons/WeaponShopButton" to="." method="OnWeaponShopButtonPressed"]
+[connection signal="pressed" from="MainTierButtons/ExitBuildModeButton" to="." method="OnExitBuildModeButtonPressed"]
+[connection signal="pressed" from="BuildTierButtons/BuildFloorButton" to="BuildTierButtons" method="OnBuildFloorButtonPressed"]
+[connection signal="pressed" from="BuildTierButtons/BuildWallButton" to="BuildTierButtons" method="OnBuildWallButtonPressed"]
+[connection signal="pressed" from="BuildTierButtons/BuildLadderButton" to="BuildTierButtons" method="OnBuildLadderButtonPressed"]
+[connection signal="pressed" from="BuildTierButtons/BuildTrapButton" to="BuildTierButtons" method="OnBuildTrapButtonPressed"]
+[connection signal="pressed" from="BuildTierButtons/BackButton" to="BuildTierButtons" method="OnBackButtonPressed"]
+[connection signal="pressed" from="UpgradeTierButtons/Weapon1Button" to="UpgradeTierButtons" method="OnWeapon1ButtonPressed"]
+[connection signal="pressed" from="UpgradeTierButtons/Weapon2Button" to="UpgradeTierButtons" method="OnWeapon2ButtonPressed"]
+[connection signal="pressed" from="UpgradeTierButtons/Weapon3Button" to="UpgradeTierButtons" method="OnWeapon3ButtonPressed"]
+[connection signal="pressed" from="UpgradeTierButtons/Trap1Button" to="UpgradeTierButtons" method="OnTrap1ButtonPressed"]
+[connection signal="pressed" from="UpgradeTierButtons/Trap2Button" to="UpgradeTierButtons" method="OnTrap2ButtonPressed"]
+[connection signal="pressed" from="UpgradeTierButtons/Trap3Button" to="UpgradeTierButtons" method="OnTrap3ButtonPressed"]
+[connection signal="pressed" from="UpgradeTierButtons/ReRollButton" to="UpgradeTierButtons" method="OnReRollButtonPressed"]
+[connection signal="pressed" from="UpgradeTierButtons/BackButton2" to="UpgradeTierButtons" method="OnBackButton2Pressed"]
+[connection signal="pressed" from="WeaponIndexButtons/WeaponIndexButton1" to="UpgradeTierButtons" method="OnWeaponIndexButton1Pressed"]
+[connection signal="pressed" from="WeaponIndexButtons/WeaponIndexButton2" to="UpgradeTierButtons" method="OnWeaponIndexButton2Pressed"]
+[connection signal="pressed" from="WeaponShopTierButtons/WeaponSelection1" to="WeaponShopTierButtons" method="OnWeaponSelect1Pressed"]
+[connection signal="pressed" from="WeaponShopTierButtons/WeaponSelection2" to="WeaponShopTierButtons" method="OnWeaponSelect2Pressed"]
+[connection signal="pressed" from="WeaponShopTierButtons/WeaponSelection3" to="WeaponShopTierButtons" method="OnWeaponSelect3Pressed"]
+[connection signal="pressed" from="WeaponShopTierButtons/BackButton3" to="WeaponShopTierButtons" method="OnBackButton3Pressed"]

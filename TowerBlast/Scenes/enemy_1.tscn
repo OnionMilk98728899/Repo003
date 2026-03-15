@@ -1,0 +1,644 @@
+[gd_scene load_steps=47 format=3 uid="uid://dke52r5qk4ojn"]
+
+[ext_resource type="Script" path="res://Scripts/Components/BasicEnemyMovement.cs" id="1_n4k0k"]
+[ext_resource type="Script" path="res://Scripts/Objects/Enemy1.cs" id="1_olltt"]
+[ext_resource type="Texture2D" uid="uid://cf28cevtlves8" path="res://Sprites/Enemies/Goblin/GoblinSpriteSheet3.png" id="3_0bctv"]
+[ext_resource type="FontFile" uid="uid://da4mhxundwaxu" path="res://Fonts/BitCrusher8.ttf" id="4_btksh"]
+[ext_resource type="PackedScene" uid="uid://k74pc5nai6l5" path="res://Scenes/hurtbox.tscn" id="5_d55ww"]
+[ext_resource type="Script" path="res://Scripts/Components/AttackBox.cs" id="5_h715x"]
+[ext_resource type="Texture2D" uid="uid://eq7mcipit538" path="res://Sprites/Enemies/FX/AttackSwingSpritesheet2.png" id="6_5yhx8"]
+[ext_resource type="Script" path="res://Scripts/Components/HealthMeter.cs" id="6_bx23j"]
+[ext_resource type="Texture2D" uid="uid://cu4krwpaocjs8" path="res://Sprites/Enemies/HealthBar/HealthBarBorder.png" id="7_3c3uu"]
+[ext_resource type="Texture2D" uid="uid://bfpi0tbnblbse" path="res://Sprites/Enemies/HealthBar/HealthBarOver.png" id="8_ehgiv"]
+[ext_resource type="Texture2D" uid="uid://dkofx4bdsb0wn" path="res://Sprites/Enemies/HealthBar/HealthBarRedLineFat.png" id="9_texnx"]
+[ext_resource type="Texture2D" uid="uid://opbegplilaud" path="res://Sprites/Enemies/HealthBar/HealthBarBlueLine.png" id="10_na1vd"]
+[ext_resource type="Script" path="res://Scripts/Managers/GoldEmitter.cs" id="10_oe0jl"]
+[ext_resource type="PackedScene" uid="uid://d34vsf0argg4" path="res://Scenes/gold.tscn" id="11_r0s05"]
+[ext_resource type="Script" path="res://Scripts/Components/MinionDetector.cs" id="12_pnrdo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lh11e"]
+size = Vector2(15, 15)
+
+[sub_resource type="Animation" id="Animation_4spm1"]
+resource_name = "AttackIdle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 34, 35, 36, 37, 38, 39]
+}
+
+[sub_resource type="Animation" id="Animation_drnip"]
+resource_name = "AttackWalk"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [24, 25, 26, 27, 28, 29, 30, 31]
+}
+
+[sub_resource type="Animation" id="Animation_tpqj8"]
+resource_name = "Climb"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19, 20, 21, 22, 23]
+}
+
+[sub_resource type="Animation" id="Animation_ms16u"]
+resource_name = "ElecClimb"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [152, 153, 154, 155, 156, 157, 158, 159]
+}
+
+[sub_resource type="Animation" id="Animation_nvb6a"]
+resource_name = "ElecIdle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [144, 145, 146, 147, 148, 149, 150, 151]
+}
+
+[sub_resource type="Animation" id="Animation_brrv6"]
+resource_name = "ElecWalk"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [136, 137, 138, 139, 140, 141, 142, 143]
+}
+
+[sub_resource type="Animation" id="Animation_y4slp"]
+resource_name = "FireClimb"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [104, 105, 106, 107, 108, 109, 110, 111]
+}
+
+[sub_resource type="Animation" id="Animation_usan2"]
+resource_name = "FireIdle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [96, 97, 98, 99, 100, 101, 102, 103]
+}
+
+[sub_resource type="Animation" id="Animation_vc5qp"]
+resource_name = "FireWalk"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [88, 89, 90, 91, 92, 93, 94, 95]
+}
+
+[sub_resource type="Animation" id="Animation_ik1v8"]
+resource_name = "HurtClimb"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [56, 57, 58, 59, 60, 61, 62, 63]
+}
+
+[sub_resource type="Animation" id="Animation_7ffbh"]
+resource_name = "HurtIdle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [48, 49, 50, 51, 52, 53, 54, 55]
+}
+
+[sub_resource type="Animation" id="Animation_ma6es"]
+resource_name = "HurtWalk"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [40, 41, 42, 43, 44, 45, 46, 47]
+}
+
+[sub_resource type="Animation" id="Animation_c8h7g"]
+resource_name = "IceClimb"
+length = 0.8
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_1r534"]
+resource_name = "IceIdle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [72, 73, 74, 75, 76, 77, 78, 79]
+}
+
+[sub_resource type="Animation" id="Animation_u1npg"]
+resource_name = "IceWalk"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [64, 65, 66, 67, 68, 69, 70, 71]
+}
+
+[sub_resource type="Animation" id="Animation_4k5v7"]
+resource_name = "Idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 12, 13, 14, 15]
+}
+
+[sub_resource type="Animation" id="Animation_tlumj"]
+resource_name = "PoisonClimb"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [128, 129, 130, 131, 132, 133, 134, 135]
+}
+
+[sub_resource type="Animation" id="Animation_68gix"]
+resource_name = "PoisonIdle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [120, 121, 122, 123, 124, 125, 126, 127]
+}
+
+[sub_resource type="Animation" id="Animation_1lauu"]
+resource_name = "PoisonWalk"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [112, 113, 114, 115, 116, 117, 118, 119]
+}
+
+[sub_resource type="Animation" id="Animation_vlkar"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_swbc0"]
+resource_name = "Walk"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vsyn7"]
+_data = {
+"AttackIdle": SubResource("Animation_4spm1"),
+"AttackWalk": SubResource("Animation_drnip"),
+"Climb": SubResource("Animation_tpqj8"),
+"ElecClimb": SubResource("Animation_ms16u"),
+"ElecIdle": SubResource("Animation_nvb6a"),
+"ElecWalk": SubResource("Animation_brrv6"),
+"FireClimb": SubResource("Animation_y4slp"),
+"FireIdle": SubResource("Animation_usan2"),
+"FireWalk": SubResource("Animation_vc5qp"),
+"HurtClimb": SubResource("Animation_ik1v8"),
+"HurtIdle": SubResource("Animation_7ffbh"),
+"HurtWalk": SubResource("Animation_ma6es"),
+"IceClimb": SubResource("Animation_c8h7g"),
+"IceIdle": SubResource("Animation_1r534"),
+"IceWalk": SubResource("Animation_u1npg"),
+"Idle": SubResource("Animation_4k5v7"),
+"PoisonClimb": SubResource("Animation_tlumj"),
+"PoisonIdle": SubResource("Animation_68gix"),
+"PoisonWalk": SubResource("Animation_1lauu"),
+"RESET": SubResource("Animation_vlkar"),
+"Walk": SubResource("Animation_swbc0")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kts8x"]
+size = Vector2(15, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pgoii"]
+size = Vector2(12, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvha1"]
+size = Vector2(8.5, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tgt1x"]
+size = Vector2(18, 11)
+
+[sub_resource type="Animation" id="Animation_v0kk0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwingSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackBody/AttackShape:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_0xom3"]
+resource_name = "Swing"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwingSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackBody/AttackShape:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xdi6n"]
+_data = {
+"RESET": SubResource("Animation_v0kk0"),
+"Swing": SubResource("Animation_0xom3")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_er62h"]
+radius = 17.0
+
+[node name="Enemy1" type="Node2D"]
+z_index = 10
+script = ExtResource("1_olltt")
+
+[node name="BasicEnemyMovement" type="Node2D" parent="." node_paths=PackedStringArray("_attackBox", "_enemyBody", "_enemySprite", "_enemyAnim", "debugLabel", "_hurtTimer", "_attackTimer", "_minionDetector")]
+script = ExtResource("1_n4k0k")
+_walkSpeed = 35
+_climbSpeed = 35
+_maxWalkSpeed = 60
+_maxClimbSpeed = 40
+_gravity = 25
+_attackBox = NodePath("EnemyBody/AttackBox")
+_enemyBody = NodePath("EnemyBody")
+_enemySprite = NodePath("EnemyBody/EnemySprite")
+_enemyAnim = NodePath("EnemyBody/EnemyAnim")
+debugLabel = NodePath("EnemyBody/Label")
+_hurtTimer = NodePath("EnemyBody/HurtTimer")
+_attackTimer = NodePath("EnemyBody/AttackTimer")
+_minionDetector = NodePath("EnemyBody/MinionDetector")
+_damageOutput = 10
+
+[node name="EnemyBody" type="CharacterBody2D" parent="BasicEnemyMovement" groups=["Enemy"]]
+position = Vector2(0, 8)
+collision_layer = 32
+collision_mask = 73
+
+[node name="EnemyCollider" type="CollisionShape2D" parent="BasicEnemyMovement/EnemyBody"]
+position = Vector2(-0.5, -7.5)
+shape = SubResource("RectangleShape2D_lh11e")
+
+[node name="EnemySprite" type="Sprite2D" parent="BasicEnemyMovement/EnemyBody"]
+position = Vector2(0, -8)
+texture = ExtResource("3_0bctv")
+hframes = 160
+
+[node name="EnemyAnim" type="AnimationPlayer" parent="BasicEnemyMovement/EnemyBody"]
+libraries = {
+"": SubResource("AnimationLibrary_vsyn7")
+}
+
+[node name="Label" type="Label" parent="BasicEnemyMovement/EnemyBody"]
+offset_left = -21.0
+offset_top = -42.0
+offset_right = 19.0
+offset_bottom = -19.0
+theme_override_fonts/font = ExtResource("4_btksh")
+
+[node name="AttackTimer" type="Timer" parent="BasicEnemyMovement/EnemyBody"]
+wait_time = 0.8
+one_shot = true
+
+[node name="HurtTimer" type="Timer" parent="BasicEnemyMovement/EnemyBody"]
+wait_time = 0.8
+one_shot = true
+
+[node name="LadderDetector" type="Area2D" parent="BasicEnemyMovement/EnemyBody"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="LadderCollider" type="CollisionShape2D" parent="BasicEnemyMovement/EnemyBody/LadderDetector"]
+position = Vector2(-0.5, -7.5)
+shape = SubResource("RectangleShape2D_kts8x")
+
+[node name="AttackBox" type="Node2D" parent="BasicEnemyMovement/EnemyBody" node_paths=PackedStringArray("_attackAnim")]
+position = Vector2(-1, 0)
+script = ExtResource("5_h715x")
+_attackAnim = NodePath("AttackAnim")
+_attackPropensity = 75
+
+[node name="AttackBody" type="CharacterBody2D" parent="BasicEnemyMovement/EnemyBody/AttackBox" groups=["EnemyAttack"]]
+collision_layer = 2048
+collision_mask = 0
+
+[node name="AttackShape" type="CollisionShape2D" parent="BasicEnemyMovement/EnemyBody/AttackBox/AttackBody"]
+position = Vector2(13, -9)
+shape = SubResource("RectangleShape2D_pgoii")
+disabled = true
+
+[node name="PlayerDetector" type="Area2D" parent="BasicEnemyMovement/EnemyBody/AttackBox"]
+collision_layer = 0
+collision_mask = 272
+
+[node name="MovingDetectionShape" type="CollisionShape2D" parent="BasicEnemyMovement/EnemyBody/AttackBox/PlayerDetector"]
+position = Vector2(14.75, -8.5)
+shape = SubResource("RectangleShape2D_hvha1")
+
+[node name="ClimbingDetectionShape" type="CollisionShape2D" parent="BasicEnemyMovement/EnemyBody/AttackBox/PlayerDetector"]
+position = Vector2(1, -23.5)
+shape = SubResource("RectangleShape2D_tgt1x")
+
+[node name="AttackAnim" type="AnimationPlayer" parent="BasicEnemyMovement/EnemyBody/AttackBox"]
+libraries = {
+"": SubResource("AnimationLibrary_xdi6n")
+}
+
+[node name="SwingSprite" type="Sprite2D" parent="BasicEnemyMovement/EnemyBody/AttackBox"]
+position = Vector2(2, -9)
+texture = ExtResource("6_5yhx8")
+hframes = 3
+frame = 2
+
+[node name="Hurtbox" parent="BasicEnemyMovement/EnemyBody" node_paths=PackedStringArray("_debugLabel") instance=ExtResource("5_d55ww")]
+position = Vector2(-1, 0)
+_currentHealth = 100
+_maxHealth = 100
+_currentArmor = 100
+_maxArmor = 100
+_debugLabel = NodePath("../Label")
+
+[node name="HurtboxArea" parent="BasicEnemyMovement/EnemyBody/Hurtbox" index="0"]
+collision_mask = 896
+
+[node name="HurtboxCollider" parent="BasicEnemyMovement/EnemyBody/Hurtbox/HurtboxArea" index="0"]
+position = Vector2(0.5, -7.5)
+
+[node name="HealthMeter" type="Node2D" parent="BasicEnemyMovement/EnemyBody" node_paths=PackedStringArray("_healthBar", "_armorBar")]
+script = ExtResource("6_bx23j")
+_healthBar = NodePath("HealthBar")
+_armorBar = NodePath("ArmorBar")
+
+[node name="HealthBar" type="TextureProgressBar" parent="BasicEnemyMovement/EnemyBody/HealthMeter"]
+offset_left = -25.0
+offset_top = -33.0
+offset_right = 23.0
+offset_bottom = 15.0
+value = 100.0
+texture_under = ExtResource("7_3c3uu")
+texture_over = ExtResource("8_ehgiv")
+texture_progress = ExtResource("9_texnx")
+
+[node name="ArmorBar" type="TextureProgressBar" parent="BasicEnemyMovement/EnemyBody/HealthMeter"]
+offset_left = -25.0
+offset_top = -36.0
+offset_right = 23.0
+offset_bottom = 12.0
+value = 100.0
+texture_under = ExtResource("7_3c3uu")
+texture_over = ExtResource("8_ehgiv")
+texture_progress = ExtResource("10_na1vd")
+
+[node name="GoldEmitter" type="Node2D" parent="BasicEnemyMovement/EnemyBody" node_paths=PackedStringArray("_myHurtbox")]
+script = ExtResource("10_oe0jl")
+_myHurtbox = NodePath("../Hurtbox")
+_goldScene = ExtResource("11_r0s05")
+
+[node name="MinionDetector" type="Node2D" parent="BasicEnemyMovement/EnemyBody" node_paths=PackedStringArray("_attackTimer", "_myEnemyMovement")]
+position = Vector2(0, -8)
+script = ExtResource("12_pnrdo")
+_attackTimer = NodePath("AttackTimer")
+_myEnemyMovement = NodePath("../..")
+
+[node name="MinionDetectionArea" type="Area2D" parent="BasicEnemyMovement/EnemyBody/MinionDetector"]
+collision_layer = 0
+collision_mask = 1024
+
+[node name="MinionDetectionCollider" type="CollisionShape2D" parent="BasicEnemyMovement/EnemyBody/MinionDetector/MinionDetectionArea"]
+shape = SubResource("CircleShape2D_er62h")
+
+[node name="AttackTimer" type="Timer" parent="BasicEnemyMovement/EnemyBody/MinionDetector"]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="BasicEnemyMovement/EnemyBody/AttackTimer" to="BasicEnemyMovement" method="OnAttackTimerTimeout"]
+[connection signal="timeout" from="BasicEnemyMovement/EnemyBody/HurtTimer" to="BasicEnemyMovement" method="OnHurtTimerTimeout"]
+[connection signal="body_entered" from="BasicEnemyMovement/EnemyBody/LadderDetector" to="BasicEnemyMovement" method="OnLadderDetectorBodyEntered"]
+[connection signal="body_exited" from="BasicEnemyMovement/EnemyBody/LadderDetector" to="BasicEnemyMovement" method="OnLadderDetectorBodyExited"]
+[connection signal="StopToAttack" from="BasicEnemyMovement/EnemyBody/AttackBox" to="BasicEnemyMovement" method="OnAttackBoxStopToAttack"]
+[connection signal="body_entered" from="BasicEnemyMovement/EnemyBody/AttackBox/PlayerDetector" to="BasicEnemyMovement/EnemyBody/AttackBox" method="OnPlayerDetectorBodyEntered"]
+[connection signal="AugmentMovement" from="BasicEnemyMovement/EnemyBody/Hurtbox" to="BasicEnemyMovement" method="OnHurtBoxAugmentMovement"]
+[connection signal="CrushingHitSpeedPenalty" from="BasicEnemyMovement/EnemyBody/Hurtbox" to="BasicEnemyMovement" method="OnCrushingHit"]
+[connection signal="DestroyUnit" from="BasicEnemyMovement/EnemyBody/Hurtbox" to="." method="OnUnitDestroyed"]
+[connection signal="FrozenSpeedPenalty" from="BasicEnemyMovement/EnemyBody/Hurtbox" to="BasicEnemyMovement" method="OnFrozen"]
+[connection signal="SetHealthAndArmor" from="BasicEnemyMovement/EnemyBody/Hurtbox" to="BasicEnemyMovement/EnemyBody/HealthMeter" method="OnSetHealthAndArmor"]
+[connection signal="StickShurikenToBody" from="BasicEnemyMovement/EnemyBody/Hurtbox" to="BasicEnemyMovement" method="OnStickShurikenToBody"]
+[connection signal="TakeDamage" from="BasicEnemyMovement/EnemyBody/Hurtbox" to="BasicEnemyMovement/EnemyBody/HealthMeter" method="OnDamageTaken"]
+[connection signal="EngageAttack" from="BasicEnemyMovement/EnemyBody/MinionDetector" to="BasicEnemyMovement" method="OnTriggerAttackMode"]
+[connection signal="body_entered" from="BasicEnemyMovement/EnemyBody/MinionDetector/MinionDetectionArea" to="BasicEnemyMovement/EnemyBody/MinionDetector" method="OnMinionDetectorEntered"]
+[connection signal="body_exited" from="BasicEnemyMovement/EnemyBody/MinionDetector/MinionDetectionArea" to="BasicEnemyMovement/EnemyBody/MinionDetector" method="OnMinionDetectorExited"]
+[connection signal="timeout" from="BasicEnemyMovement/EnemyBody/MinionDetector/AttackTimer" to="BasicEnemyMovement/EnemyBody/MinionDetector" method="OnAttackTimerTimeout"]
+
+[editable path="BasicEnemyMovement/EnemyBody/Hurtbox"]

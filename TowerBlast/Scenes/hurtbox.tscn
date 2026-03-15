@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://k74pc5nai6l5"]
+
+[ext_resource type="Script" path="res://Scripts/Components/Hurtbox.cs" id="1_4du18"]
+[ext_resource type="PackedScene" uid="uid://1y3n4ttq3kwg" path="res://Scenes/pop_up.tscn" id="2_r1svk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5pj81"]
+size = Vector2(18.5, 19)
+
+[node name="Hurtbox" type="Node2D" node_paths=PackedStringArray("_hurtBoxArea")]
+script = ExtResource("1_4du18")
+_hurtBoxArea = NodePath("HurtboxArea")
+_popUpLabelScene = ExtResource("2_r1svk")
+_damageLabelSpeed = 40
+_specialLabelSpeed = 80
+
+[node name="HurtboxArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="HurtboxCollider" type="CollisionShape2D" parent="HurtboxArea"]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_5pj81")
+
+[connection signal="body_entered" from="HurtboxArea" to="." method="OnHurtboxEntered"]

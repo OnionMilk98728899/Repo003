@@ -1,0 +1,304 @@
+[gd_scene load_steps=21 format=3 uid="uid://brfbjigosytqc"]
+
+[ext_resource type="Script" path="res://Scripts/collectible_item.cs" id="1_k4f5q"]
+[ext_resource type="Texture2D" uid="uid://bsr5wwfyc8yxh" path="res://Sprites/Coin/CoinSpriteSheet2.png" id="2_bcmue"]
+[ext_resource type="Texture2D" uid="uid://cs3bup61xy8sd" path="res://Sprites/Granny/Headgear/HardHat_Item_Spritesheet.png" id="3_bmafj"]
+[ext_resource type="Texture2D" uid="uid://c0tnexotgsdg2" path="res://Sprites/Coin/Coinbag_Spritesheet.png" id="3_mapds"]
+[ext_resource type="Texture2D" uid="uid://sapgqbn08b0a" path="res://Sprites/Granny/Headgear/VikingHelm_Item_Spritesheet.png" id="4_d1snw"]
+[ext_resource type="Texture2D" uid="uid://b4qmbiagd3t7g" path="res://Sprites/Coin/Soda_Spritesheet.png" id="4_rnxk7"]
+[ext_resource type="Texture2D" uid="uid://dvwfr0o4cdwo5" path="res://Sprites/Coin/Key_Spritesheet.png" id="5_iywdl"]
+[ext_resource type="Texture2D" uid="uid://bt2bf48rn8die" path="res://Sprites/Granny/Headgear/BikeHelm_Item_Spritesheet.png" id="5_mxfbx"]
+[ext_resource type="Texture2D" uid="uid://cwots3drwr85r" path="res://Sprites/Granny/Headgear/Sunhat_Item_Spritesheet.png" id="6_ojkga"]
+[ext_resource type="Texture2D" uid="uid://okn3e6y5sux7" path="res://Sprites/Granny/Headgear/Snorkel_Item_Spritesheet.png" id="7_cek83"]
+[ext_resource type="Texture2D" uid="uid://0kppr3gpfneq" path="res://Sprites/Granny/Headgear/WinterHat_Item_Spritesheet.png" id="8_6gulh"]
+[ext_resource type="Texture2D" uid="uid://b1sfdkvmfw1ge" path="res://Sprites/Granny/Headgear/FireHelm_Item_Spritesheet.png" id="9_l4sob"]
+[ext_resource type="Texture2D" uid="uid://b7fidcqrndedy" path="res://Sprites/Granny/Headgear/Visor_Item_Spritesheet.png" id="10_d42u5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f63ce"]
+size = Vector2(12, 13)
+
+[sub_resource type="Animation" id="Animation_5so25"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemSprite:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [16]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ItemSprite:vframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ItemSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ItemSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -12)]
+}
+
+[sub_resource type="Animation" id="Animation_be5bv"]
+resource_name = "coinCollect"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemSprite:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [16]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ItemSprite:vframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ItemSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ItemSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pw4f7"]
+resource_name = "coinSpin"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemSprite:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [16]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ItemSprite:vframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ItemSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ItemSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bwywr"]
+resource_name = "hatCollect"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemSprite:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [20]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ItemSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [14, 15, 16, 17, 18, 19]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ItemSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -12)]
+}
+
+[sub_resource type="Animation" id="Animation_2x8j4"]
+resource_name = "hatSpin"
+length = 1.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemSprite:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [20]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ItemSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ItemSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -12)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bdpa7"]
+_data = {
+"RESET": SubResource("Animation_5so25"),
+"coinCollect": SubResource("Animation_be5bv"),
+"coinSpin": SubResource("Animation_pw4f7"),
+"hatCollect": SubResource("Animation_bwywr"),
+"hatSpin": SubResource("Animation_2x8j4")
+}
+
+[node name="CollectibleItem" type="CharacterBody2D" groups=["Collectable"]]
+collision_layer = 8
+script = ExtResource("1_k4f5q")
+gravity = 300
+coinText = ExtResource("2_bcmue")
+coinBagText = ExtResource("3_mapds")
+sodaText = ExtResource("4_rnxk7")
+keyText = ExtResource("5_iywdl")
+hardHatText = ExtResource("3_bmafj")
+vikingText = ExtResource("4_d1snw")
+bikeHelmText = ExtResource("5_mxfbx")
+sunhatText = ExtResource("6_ojkga")
+snorkelText = ExtResource("7_cek83")
+winterhatText = ExtResource("8_6gulh")
+firehatText = ExtResource("9_l4sob")
+visorText = ExtResource("10_d42u5")
+
+[node name="ItemSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -12)
+texture = ExtResource("4_d1snw")
+hframes = 16
+
+[node name="ItemCollider" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0.5)
+shape = SubResource("RectangleShape2D_f63ce")
+
+[node name="ItemAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bdpa7")
+}
+
+[node name="CollectTimer" type="Timer" parent="."]
+
+[node name="CollisionDelayTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[connection signal="timeout" from="CollectTimer" to="." method="OnCollectTimerTimeout"]
+[connection signal="timeout" from="CollisionDelayTimer" to="." method="OnCollisionDelayTimerTimeout"]

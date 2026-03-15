@@ -1,0 +1,178 @@
+[gd_scene load_steps=15 format=3 uid="uid://drkrvri3njita"]
+
+[ext_resource type="TileSet" uid="uid://0hi8i580bwn2" path="res://2D_Tiles/Tile_Sheet_5.tres" id="1_2156y"]
+[ext_resource type="TileSet" uid="uid://cppk8v3qybq7k" path="res://2D_Tiles/TileSheets/TileSheet1.tres" id="1_x1sw6"]
+[ext_resource type="Script" path="res://Scripts/Cameras/PlayerCamera.cs" id="2_347on"]
+[ext_resource type="PackedScene" uid="uid://d2nfkquls1x7a" path="res://Scenes/2D_Char_001.tscn" id="2_v3t0h"]
+[ext_resource type="Script" path="res://Scripts/Managers/MapGenerator2.cs" id="4_sls72"]
+[ext_resource type="PackedScene" uid="uid://bfh87xml1jvoj" path="res://Scenes/2D_Door.tscn" id="6_lrlob"]
+[ext_resource type="Script" path="res://Scripts/Managers/DoorManager.cs" id="7_r4oeq"]
+[ext_resource type="PackedScene" uid="uid://5n3jukjdger7" path="res://Scenes/EnemyManager.tscn" id="8_0k8e2"]
+[ext_resource type="PackedScene" uid="uid://cu7c0iv6wcfjf" path="res://Scenes/EnemySpawner.tscn" id="9_0x1mh"]
+[ext_resource type="PackedScene" uid="uid://dcacjt6hsprdr" path="res://Scenes/basic_2D_enemy_001.tscn" id="10_jd7a4"]
+[ext_resource type="Texture2D" uid="uid://cui4mv3gc2tje" path="res://2DRoughAssets/Enemy Sprite Sheets/Spawn_Column_Spritesheet.png" id="11_qxmc3"]
+
+[sub_resource type="Animation" id="Animation_qhvvw"]
+resource_name = "Light_Column"
+length = 1.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpawnAnim/SpawnSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("11_qxmc3")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpawnAnim/SpawnSprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [18]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpawnAnim/SpawnSprite:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -142)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpawnAnim/SpawnSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+}
+
+[sub_resource type="Animation" id="Animation_jhbv3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpawnAnim/SpawnSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpawnAnim/SpawnSprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [18]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpawnAnim/SpawnSprite:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpawnAnim/SpawnSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rcawd"]
+_data = {
+"Light_Column": SubResource("Animation_qhvvw"),
+"RESET": SubResource("Animation_jhbv3")
+}
+
+[node name="Scene" type="Node2D"]
+position = Vector2(-1, 0)
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_2156y")
+format = 2
+layer_0/name = "Layer0"
+layer_1/name = "Layer1"
+layer_1/tile_data = PackedInt32Array()
+
+[node name="2DCam" type="Camera2D" parent="." node_paths=PackedStringArray("myPlayer")]
+script = ExtResource("2_347on")
+myPlayer = NodePath("../2DTestChar")
+
+[node name="2DTestChar" parent="." instance=ExtResource("2_v3t0h")]
+
+[node name="MapGenerator" type="Node2D" parent="." node_paths=PackedStringArray("tileMap", "doorMan", "floorResetTimer")]
+script = ExtResource("4_sls72")
+tileMap = NodePath("../TileMap")
+tileSet = ExtResource("1_x1sw6")
+gridSize = 25
+doorScene = ExtResource("6_lrlob")
+doorMan = NodePath("../DoorManager")
+floorResetTimer = NodePath("FloorResetTimer")
+
+[node name="FloorResetTimer" type="Timer" parent="MapGenerator"]
+wait_time = 0.2
+one_shot = true
+
+[node name="DoorManager" type="Node2D" parent="."]
+script = ExtResource("7_r4oeq")
+
+[node name="EnemyManager" parent="." instance=ExtResource("8_0k8e2")]
+
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("initiateDelayTimer", "enemyMan", "spawnAnimator", "spawnSprite") instance=ExtResource("9_0x1mh")]
+enemyScene = ExtResource("10_jd7a4")
+initiateDelayTimer = NodePath("InitiateDelay")
+enemyMan = NodePath("../EnemyManager")
+spawnAnimator = NodePath("SpawnAnim")
+spawnSprite = NodePath("SpawnAnim/SpawnSprite")
+
+[node name="InitiateDelay" type="Timer" parent="EnemySpawner"]
+wait_time = 0.5
+one_shot = true
+
+[node name="SpawnAnim" type="AnimationPlayer" parent="EnemySpawner"]
+libraries = {
+"": SubResource("AnimationLibrary_rcawd")
+}
+
+[node name="SpawnSprite" type="Sprite2D" parent="EnemySpawner/SpawnAnim"]
+hframes = 18
+
+[connection signal="timeout" from="MapGenerator/FloorResetTimer" to="MapGenerator" method="OnFloorResetTimerTimeout"]
+[connection signal="timeout" from="EnemySpawner/InitiateDelay" to="EnemySpawner" method="OnInitiatieDelayTimerTimeout"]

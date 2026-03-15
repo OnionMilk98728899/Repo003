@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bson7p4let468"]
+
+[ext_resource type="Script" path="res://Scripts/Components/BasicControllerComponent.cs" id="1_hlj43"]
+
+[node name="BasicControllerComponent" type="Node2D" node_paths=PackedStringArray("characterBodyComponent")]
+script = ExtResource("1_hlj43")
+characterBodyComponent = NodePath("")
+speed = 100.0
+acceleration = 100.0
+deceleration = 50.0

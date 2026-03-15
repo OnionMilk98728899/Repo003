@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://cj072jj23ouce"]
+
+[ext_resource type="PackedScene" uid="uid://srcewe1c585i" path="res://Models/ZombieHead_Enemy/ZombieHead.gltf" id="1_o4jr7"]
+[ext_resource type="Script" path="res://Scripts/BasicEnemyScripts/FindPlayerAI.cs" id="1_pgt5e"]
+[ext_resource type="Animation" uid="uid://ddtdm5u4kojiy" path="res://Models/ZombieHead_Enemy/Animations/Move.res" id="2_0dhcw"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3tlmx"]
+_data = {
+"Move": ExtResource("2_0dhcw")
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_u0h8d"]
+radius = 0.496936
+
+[node name="Enemy1" type="CharacterBody3D"]
+script = ExtResource("1_pgt5e")
+
+[node name="ZombieHead" parent="." instance=ExtResource("1_o4jr7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.160781, 0, 0.347987)
+
+[node name="ZombieAnim" type="AnimationPlayer" parent="ZombieHead"]
+libraries = {
+"BlockBenchAnimations": SubResource("AnimationLibrary_3tlmx")
+}
+autoplay = "BlockBenchAnimations/Move"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.142899, 0.839228, 0.401685)
+shape = SubResource("SphereShape3D_u0h8d")

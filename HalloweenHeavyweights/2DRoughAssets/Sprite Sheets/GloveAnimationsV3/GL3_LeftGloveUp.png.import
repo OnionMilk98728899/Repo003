@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://4bmbjix8mn6k"
+path="res://.godot/imported/GL3_LeftGloveUp.png-98b09b73915fc0026c5f18c2f5dc6a51.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://2DRoughAssets/Sprite Sheets/GloveAnimationsV3/GL3_LeftGloveUp.png"
+dest_files=["res://.godot/imported/GL3_LeftGloveUp.png-98b09b73915fc0026c5f18c2f5dc6a51.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1

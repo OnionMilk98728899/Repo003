@@ -1,0 +1,138 @@
+{
+    "upgrades": [
+        {
+            "id": "buy sword",
+            "description": "Adds sword to weapon slot",
+            "category": "weapon",
+            "statTypes": ["buyWeapon", "baseDamage"],
+            "weaponTypes": ["sword"],
+            "trapTypes": ["none"],
+            "op": "buy",
+            "value": 15,
+            "cost": 10
+        },
+        {
+            "id": "buy hammer",
+            "description": "Adds hammer to weapon slot",
+            "category": "weapon",
+            "statTypes": ["buyWeapon", "baseDamage"],
+            "weaponTypes": ["hammer"],
+            "trapTypes": ["none"],
+            "op": "buy",
+            "value": 15,
+            "cost": 10
+        },
+        {
+            "id": "buy axe",
+            "description": "Adds axe to weapon slot",
+            "category": "weapon",
+            "statTypes": ["buyWeapon", "baseDamage"],
+            "weaponTypes": ["axe"],
+            "trapTypes": ["none"],
+            "op": "buy",
+            "value": 15,
+            "cost": 10
+        }, 
+        {
+            "id": "buy dagger",
+            "description": "Adds dagger to weapon slot",
+            "category": "weapon",
+            "statTypes": ["buyWeapon", "baseDamage"],
+            "weaponTypes": ["dagger"],
+            "trapTypes": ["none"],
+            "op": "buy",
+            "value": 15,
+            "cost": 10
+        },
+        {
+            "id": "buy spear",
+            "description": "Adds spear to weapon slot",
+            "category": "weapon",
+            "statTypes": ["buyWeapon", "baseDamage"],
+            "weaponTypes": ["spear"],
+            "trapTypes": ["none"],
+            "op": "buy",
+            "value": 15,
+            "cost": 10
+        },
+        {
+            "id": "buy club",
+            "description": "Adds club to weapon slot",
+            "category": "weapon",
+            "statTypes": ["buyWeapon", "baseDamage"],
+            "weaponTypes": ["club"],
+            "trapTypes": ["none"],
+            "op": "buy",
+            "value": 15,
+            "cost": 10
+        },
+                {
+            "id": "buy bomb",
+            "description": "Adds bomb to weapon slot",
+            "category": "weapon",
+            "statTypes": ["buyWeapon", "baseDamage"],
+            "weaponTypes": ["bomb"],
+            "trapTypes": ["none"],
+            "op": "buy",
+            "value": 15,
+            "cost": 10
+        },
+        {
+            "id": "buy scepter",
+            "description": "Adds scepter to weapon slot",
+            "category": "weapon",
+            "statTypes": ["buyWeapon", "baseDamage"],
+            "weaponTypes": ["scepter"],
+            "trapTypes": ["none"],
+            "op": "buy",
+            "value": 15,
+            "cost": 10
+        },
+        {
+            "id": "buy bow",
+            "description": "Adds bow to weapon slot",
+            "category": "weapon",
+            "statTypes": ["buyWeapon", "baseDamage"],
+            "weaponTypes": ["bow"],
+            "trapTypes": ["none"],
+            "op": "buy",
+            "value": 15,
+            "cost": 10
+        },
+        {
+            "id": "buy shield",
+            "description": "Adds shield to weapon slot",
+            "category": "weapon",
+            "statTypes": ["buyWeapon", "baseDamage"],
+            "weaponTypes": ["shield"],
+            "trapTypes": ["none"],
+            "op": "buy",
+            "value": 15,
+            "cost": 10
+        },
+        {
+            "id": "buy potion",
+            "description": "Adds potion to weapon slot",
+            "category": "weapon",
+            "statTypes": ["buyWeapon", "baseDamage"],
+            "weaponTypes": ["potion"],
+            "trapTypes": ["none"],
+            "op": "buy",
+            "value": 15,
+            "cost": 10
+        },
+        {
+            "id": "buy shuriken",
+            "description": "Adds shuriken to weapon slot",
+            "category": "weapon",
+            "statTypes": ["buyWeapon", "baseDamage"],
+            "weaponTypes": ["shuriken"],
+            "trapTypes": ["none"],
+            "op": "buy",
+            "value": 15,
+            "cost": 10
+        }
+
+        
+    ]
+}

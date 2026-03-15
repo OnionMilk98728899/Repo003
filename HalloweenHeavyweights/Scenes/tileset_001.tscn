@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://6asd70jcvm7a"]
+
+[ext_resource type="ArrayMesh" uid="uid://bl43vbtopgky4" path="res://Tiles/Brick_Wall_Tile_1.obj" id="1_idsou"]
+[ext_resource type="ArrayMesh" uid="uid://do8rp8318csv2" path="res://Tiles/Dungeon_Tile_1.obj" id="2_32r1a"]
+[ext_resource type="ArrayMesh" uid="uid://dq1vmx8ieuyp8" path="res://Tiles/Dungeon_Tile_2.obj" id="3_vx40p"]
+[ext_resource type="ArrayMesh" uid="uid://cdffn4qnya7t7" path="res://Tiles/Dungeon_Tile_3.obj" id="4_g4nhp"]
+
+[node name="Tileset_001" type="Node3D"]
+
+[node name="BrickWallTile1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0203254, 0, 0.0595275)
+mesh = ExtResource("1_idsou")
+
+[node name="DungeonTile1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0203254, 0, 0.0595275)
+mesh = ExtResource("2_32r1a")
+
+[node name="DungeonTile2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0203254, 0, 0.0595275)
+mesh = ExtResource("3_vx40p")
+
+[node name="DungeonTile3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0203254, 0, 0.0595275)
+mesh = ExtResource("4_g4nhp")

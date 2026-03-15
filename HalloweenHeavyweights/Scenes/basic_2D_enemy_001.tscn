@@ -1,0 +1,959 @@
+[gd_scene load_steps=47 format=3 uid="uid://dcacjt6hsprdr"]
+
+[ext_resource type="Texture2D" uid="uid://dhiqsynryxby5" path="res://2DRoughAssets/Enemy Sprite Sheets/Mummy/MummyHead_SpriteSheet_2.png" id="1_feyl1"]
+[ext_resource type="FontFile" uid="uid://hhu6sy4yy5ff" path="res://Fonts/MicroBitFont.ttf" id="2_eggmq"]
+[ext_resource type="PackedScene" uid="uid://b3pl2yb4y4yhn" path="res://Scenes/Components/hurtbox_component.tscn" id="3_v0a15"]
+[ext_resource type="Script" path="res://Scripts/Components/BasicCombatComponent.cs" id="4_cudex"]
+[ext_resource type="PackedScene" uid="uid://dw55bhhwldqtw" path="res://Scenes/Components/health_component.tscn" id="4_d4i7o"]
+[ext_resource type="PackedScene" uid="uid://j26xjwuwxyod" path="res://Scenes/HitEffect.tscn" id="4_n4kor"]
+[ext_resource type="Texture2D" uid="uid://chw2up1gstb4g" path="res://2DRoughAssets/Enemy Sprite Sheets/4_Directional_Blood_SpriteSheet.png" id="5_31kdw"]
+[ext_resource type="Script" path="res://Scripts/Components/PathfindComponent.cs" id="5_mmjc1"]
+[ext_resource type="Texture2D" uid="uid://bs6sdw37wuet0" path="res://2DRoughAssets/GUI/EnemyHealthBox001.png" id="6_8jkat"]
+[ext_resource type="Texture2D" uid="uid://qectrh43ofvr" path="res://2DRoughAssets/GUI/EnemyHealthBar001.png" id="7_4hf00"]
+[ext_resource type="Script" path="res://Scripts/Components/StateMachineComponent.cs" id="8_4gvqa"]
+[ext_resource type="Texture2D" uid="uid://dysh7yf1x6a02" path="res://2DRoughAssets/Enemy Sprite Sheets/Mummy/MummyHand_SpriteSheet_2.png" id="9_oyvq0"]
+[ext_resource type="Script" path="res://Scripts/Components/SpawnComponent.cs" id="12_0vkqr"]
+[ext_resource type="Texture2D" uid="uid://dkxbjvud31t4u" path="res://2DRoughAssets/Enemy Sprite Sheets/Spawn_Column_Spritesheet_2.png" id="13_43x7o"]
+[ext_resource type="Texture2D" uid="uid://cfwq2gx2erw5c" path="res://2DRoughAssets/Enemy Sprite Sheets/Spawn_PurpleSmoke_Spritesheet_2.png" id="14_q6b4e"]
+[ext_resource type="Texture2D" uid="uid://lsonqwic4fyt" path="res://2DRoughAssets/Enemy Sprite Sheets/Spawn_GreenSmoke_Spritesheet_2.png" id="15_52pdy"]
+[ext_resource type="Texture2D" uid="uid://bn351em5bsr0h" path="res://2DRoughAssets/Enemy Sprite Sheets/Spawn_Electric_Animation_2.png" id="16_ooum2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3b8yp"]
+radius = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7d7dq"]
+radius = 11.0
+
+[sub_resource type="Animation" id="Animation_usjkq"]
+resource_name = "BloodSplat_Down"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BloodSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16]
+}
+
+[sub_resource type="Animation" id="Animation_dgvh7"]
+resource_name = "BloodSplat_Left"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BloodSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_ct33g"]
+resource_name = "BloodSplat_Right"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BloodSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10]
+}
+
+[sub_resource type="Animation" id="Animation_o0y8k"]
+resource_name = "BloodSplat_Up"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BloodSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [17, 18, 19, 20, 21]
+}
+
+[sub_resource type="Animation" id="Animation_0u8qn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BloodSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ybhts"]
+_data = {
+"BloodSplat_Down": SubResource("Animation_usjkq"),
+"BloodSplat_Left": SubResource("Animation_dgvh7"),
+"BloodSplat_Right": SubResource("Animation_ct33g"),
+"BloodSplat_Up": SubResource("Animation_o0y8k"),
+"RESET": SubResource("Animation_0u8qn")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_72bai"]
+size = Vector2(50, 25.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ah4gv"]
+size = Vector2(25.5, 38.75)
+
+[sub_resource type="Animation" id="Animation_w4qow"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/HandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/LeftRightCollider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hand/LeftRightCollider:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-13, -13)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hand/HandSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Hand/UpDownCollider:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(16, 16)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Hand/UpDownCollider:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ira63"]
+resource_name = "Swipe_Down"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/HandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/HandSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hand/UpDownCollider:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(14, 12)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hand/UpDownCollider:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_kji6e"]
+resource_name = "Swipe_Left"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/HandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16, 17]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/LeftRightCollider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hand/LeftRightCollider:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-16, -19)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hand/HandSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_ndl5e"]
+resource_name = "Swipe_Right"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/HandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [18, 19, 20, 21, 22, 23]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/LeftRightCollider:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(45, -19)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hand/LeftRightCollider:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hand/HandSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_7j851"]
+resource_name = "Swipe_Up"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/HandSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/HandSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hand/UpDownCollider:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(14, -50)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hand/UpDownCollider:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1xex2"]
+_data = {
+"RESET": SubResource("Animation_w4qow"),
+"Swipe_Down": SubResource("Animation_ira63"),
+"Swipe_Left": SubResource("Animation_kji6e"),
+"Swipe_Right": SubResource("Animation_ndl5e"),
+"Swipe_Up": SubResource("Animation_7j851")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ahoki"]
+radius = 43.0465
+
+[sub_resource type="Animation" id="Animation_b6040"]
+resource_name = "Mummy_Hurt_Down"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16]
+}
+
+[sub_resource type="Animation" id="Animation_8a608"]
+resource_name = "Mummy_Hurt_Up"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [17, 18, 19, 20, 21]
+}
+
+[sub_resource type="Animation" id="Animation_1vc7h"]
+resource_name = "Mummy_Move_Down"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_c8v1r"]
+resource_name = "Mummy_Move_Up"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_b67ca"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k06bl"]
+_data = {
+"Mummy_Hurt_Down": SubResource("Animation_b6040"),
+"Mummy_Hurt_Up": SubResource("Animation_8a608"),
+"Mummy_Move_Down": SubResource("Animation_1vc7h"),
+"Mummy_Move_Up": SubResource("Animation_c8v1r"),
+"RESET": SubResource("Animation_b67ca")
+}
+
+[sub_resource type="Animation" id="Animation_arq5g"]
+resource_name = "Electric_Smoke_Spawn"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpawnAnimator/SpawnSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("16_ooum2")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpawnAnimator/SpawnSprite:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpawnAnimator/SpawnSprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [11]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpawnAnimator/SpawnSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+
+[sub_resource type="Animation" id="Animation_6wwf8"]
+resource_name = "Green_Smoke_Spawn"
+length = 1.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpawnAnimator/SpawnSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("15_52pdy")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpawnAnimator/SpawnSprite:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpawnAnimator/SpawnSprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [14]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpawnAnimator/SpawnSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+}
+
+[sub_resource type="Animation" id="Animation_vvq67"]
+resource_name = "Light_Column_Spawn"
+length = 1.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpawnAnimator/SpawnSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_43x7o")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpawnAnimator/SpawnSprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [19]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpawnAnimator/SpawnSprite:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -145)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpawnAnimator/SpawnSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+}
+
+[sub_resource type="Animation" id="Animation_i6plg"]
+resource_name = "Purple_Smoke_Spawn"
+length = 1.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpawnAnimator/SpawnSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_q6b4e")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpawnAnimator/SpawnSprite:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpawnAnimator/SpawnSprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [14]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpawnAnimator/SpawnSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+}
+
+[sub_resource type="Animation" id="Animation_i1doi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpawnAnimator/SpawnSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_43x7o")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpawnAnimator/SpawnSprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [19]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpawnAnimator/SpawnSprite:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -145)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpawnAnimator/SpawnSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gr3q2"]
+_data = {
+"Electric_Smoke_Spawn": SubResource("Animation_arq5g"),
+"Green_Smoke_Spawn": SubResource("Animation_6wwf8"),
+"Light_Column_Spawn": SubResource("Animation_vvq67"),
+"Purple_Smoke_Spawn": SubResource("Animation_i6plg"),
+"RESET": SubResource("Animation_i1doi")
+}
+
+[node name="Mummy" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 2
+collision_mask = 3
+
+[node name="BodySprite" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("1_feyl1")
+hframes = 48
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3b8yp")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -41.0
+offset_right = 26.0
+offset_bottom = -18.0
+theme_override_fonts/font = ExtResource("2_eggmq")
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("healthComponent", "isPunchedTimer") instance=ExtResource("3_v0a15")]
+position = Vector2(2, 0)
+collision_layer = 2
+collision_mask = 26
+healthComponent = NodePath("../HealthComponent")
+currentUnitType = 1
+isPunchedTimer = NodePath("IsPunchedTimer")
+hitFXScene = ExtResource("4_n4kor")
+
+[node name="HurtboxCollider" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CircleShape2D_7d7dq")
+
+[node name="IsPunchedTimer" type="Timer" parent="HurtboxComponent"]
+wait_time = 0.2
+one_shot = true
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("bloodAnim", "healthBox", "healthBar", "hurtTimer", "enemyBodySprite", "bloodSprite") instance=ExtResource("4_d4i7o")]
+bloodAnim = NodePath("BloodAnim")
+healthBox = NodePath("HealthBox")
+healthBar = NodePath("HealthBox/HealthBar")
+bloodAnimLeft = "BloodSplat_Left"
+bloodAnimRight = "BloodSplat_Right"
+bloodAnimUp = "BloodSplat_Up"
+bloodAnimDown = "BloodSplat_Down"
+hurtTimer = NodePath("HurtTimer")
+enemyBodySprite = NodePath("../BodySprite")
+bloodSprite = NodePath("BloodSprite")
+maximumHealth = 100
+hasKnockback = true
+knockbackCoefficient = 5
+myUnitType = 1
+
+[node name="HurtTimer" type="Timer" parent="HealthComponent"]
+wait_time = 0.5
+one_shot = true
+
+[node name="BloodSprite" type="Sprite2D" parent="HealthComponent"]
+position = Vector2(2, 4)
+texture = ExtResource("5_31kdw")
+hframes = 22
+frame = 5
+
+[node name="BloodAnim" type="AnimationPlayer" parent="HealthComponent"]
+libraries = {
+"": SubResource("AnimationLibrary_ybhts")
+}
+
+[node name="HealthBox" type="Sprite2D" parent="HealthComponent"]
+position = Vector2(1, -23)
+texture = ExtResource("6_8jkat")
+
+[node name="HealthBar" type="Sprite2D" parent="HealthComponent/HealthBox"]
+texture = ExtResource("7_4hf00")
+
+[node name="BasicCombatComponent" type="Node2D" parent="." node_paths=PackedStringArray("attackAnim", "attackTimer", "handSprite", "leftRightPunchBox", "upDownPunchBox")]
+script = ExtResource("4_cudex")
+attackAnim = NodePath("CombatAnimator")
+attackTimer = NodePath("AttackTimer")
+handSprite = NodePath("Hand/HandSprite")
+leftRightPunchBox = NodePath("Hand/LeftRightCollider")
+upDownPunchBox = NodePath("Hand/UpDownCollider")
+
+[node name="Hand" type="CharacterBody2D" parent="BasicCombatComponent" groups=["EnemyHand"]]
+position = Vector2(-12, 20)
+collision_layer = 2
+collision_mask = 0
+
+[node name="HandSprite" type="Sprite2D" parent="BasicCombatComponent/Hand"]
+visible = false
+position = Vector2(11, -10)
+texture = ExtResource("9_oyvq0")
+hframes = 24
+
+[node name="UpDownCollider" type="CollisionShape2D" parent="BasicCombatComponent/Hand"]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_72bai")
+
+[node name="LeftRightCollider" type="CollisionShape2D" parent="BasicCombatComponent/Hand"]
+position = Vector2(-13, -13)
+shape = SubResource("RectangleShape2D_ah4gv")
+disabled = true
+debug_color = Color(0.57511, 0.0961674, 0.0468709, 0.42)
+
+[node name="CombatAnimator" type="AnimationPlayer" parent="BasicCombatComponent"]
+libraries = {
+"": SubResource("AnimationLibrary_1xex2")
+}
+
+[node name="AttackTimer" type="Timer" parent="BasicCombatComponent"]
+wait_time = 0.6
+one_shot = true
+
+[node name="PathfindComponent" type="Node2D" parent="." node_paths=PackedStringArray("unitBody", "knockbackTimer", "stunTimer", "movementChangeTimer", "myHurtbox")]
+script = ExtResource("5_mmjc1")
+unitBody = NodePath("..")
+knockbackTimer = NodePath("KnockbackTimer")
+stunTimer = NodePath("StunTimer")
+movementChangeTimer = NodePath("MovementChangeTimer")
+myHurtbox = NodePath("../HurtboxComponent")
+stopRadius = 50.0
+followSpeed = 70.0
+
+[node name="KnockbackTimer" type="Timer" parent="PathfindComponent"]
+wait_time = 0.2
+one_shot = true
+
+[node name="StunTimer" type="Timer" parent="PathfindComponent"]
+one_shot = true
+
+[node name="OtherEnemyDetector" type="Area2D" parent="PathfindComponent"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="DetectRadius" type="CollisionShape2D" parent="PathfindComponent/OtherEnemyDetector"]
+shape = SubResource("CircleShape2D_ahoki")
+
+[node name="MovementChangeTimer" type="Timer" parent="PathfindComponent"]
+one_shot = true
+
+[node name="StateMachineComponent" type="Node2D" parent="." node_paths=PackedStringArray("bodyAnim")]
+script = ExtResource("8_4gvqa")
+bodyAnim = NodePath("StateAnimator")
+movingUpAnim = "Mummy_Move_Up"
+movingDownAnim = "Mummy_Move_Down"
+hurtDownAnim = "Mummy_Hurt_Down"
+hurtUpAnim = "Mummy_Hurt_Up"
+attackDownAnim = "Mummy_Move_Down"
+attackUpAnim = "Mummy_Move_Up"
+
+[node name="StateAnimator" type="AnimationPlayer" parent="StateMachineComponent"]
+libraries = {
+"": SubResource("AnimationLibrary_k06bl")
+}
+
+[node name="SpawnComponent" type="Node2D" parent="." node_paths=PackedStringArray("spawnAnim", "mySpawnSprite", "myPathfinder")]
+script = ExtResource("12_0vkqr")
+spawnFreezeTime = 1.2
+spawnAnim = NodePath("SpawnAnimator")
+mySpawnSprite = NodePath("SpawnAnimator/SpawnSprite")
+myPathfinder = NodePath("../PathfindComponent")
+
+[node name="SpawnAnimator" type="AnimationPlayer" parent="SpawnComponent"]
+libraries = {
+"": SubResource("AnimationLibrary_gr3q2")
+}
+
+[node name="SpawnSprite" type="Sprite2D" parent="SpawnComponent/SpawnAnimator"]
+z_index = 2
+texture = ExtResource("13_43x7o")
+offset = Vector2(0, -145)
+hframes = 19
+
+[connection signal="body_exited" from="HurtboxComponent" to="HurtboxComponent" method="OnBodyExited"]
+[connection signal="enemyCollide" from="HurtboxComponent" to="PathfindComponent" method="OnEnemyCollide"]
+[connection signal="timeout" from="HurtboxComponent/IsPunchedTimer" to="HurtboxComponent" method="OnIsPunchedTimerTimeout"]
+[connection signal="hurtEnemyUnit" from="HealthComponent" to="StateMachineComponent" method="OnHurtEnemyUnit"]
+[connection signal="knockUnitBack" from="HealthComponent" to="PathfindComponent" method="OnUnitKnockback"]
+[connection signal="timeout" from="HealthComponent/HurtTimer" to="HealthComponent" method="OnHurtTimerTimeout"]
+[connection signal="initiateMeleeAttack" from="BasicCombatComponent" to="StateMachineComponent" method="OnInitiateMeleeAttack"]
+[connection signal="timeout" from="BasicCombatComponent/AttackTimer" to="BasicCombatComponent" method="OnAttackTimerTimeout"]
+[connection signal="insideMeleeRange" from="PathfindComponent" to="BasicCombatComponent" method="OnMeleeRangeEntered"]
+[connection signal="movementDirectionChanged" from="PathfindComponent" to="StateMachineComponent" method="OnMovementDirectionChanged"]
+[connection signal="timeout" from="PathfindComponent/KnockbackTimer" to="PathfindComponent" method="OnKnockbackTimerTimeout"]
+[connection signal="timeout" from="PathfindComponent/StunTimer" to="PathfindComponent" method="OnStunTimerTimeout"]
+[connection signal="body_entered" from="PathfindComponent/OtherEnemyDetector" to="PathfindComponent" method="OnOtherEnemyDetectorEntered"]
+[connection signal="timeout" from="PathfindComponent/MovementChangeTimer" to="PathfindComponent" method="OnMovementChangeTimerTimeout"]
+[connection signal="SpawningSickness" from="SpawnComponent" to="PathfindComponent" method="OnSpawningSicknessInitiated"]

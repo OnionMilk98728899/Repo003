@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b64rmrj36pjfk"]
+
+[ext_resource type="Script" path="res://Scripts/Cameras/MainCamera.cs" id="1_0fc3n"]
+
+[node name="MainCamera" type="Camera2D"]
+position = Vector2(384, 109)
+script = ExtResource("1_0fc3n")
+followSpeed = 25.0
+verticalTransitionSpeed = 5.0
