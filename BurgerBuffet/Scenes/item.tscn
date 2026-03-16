@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://ymmbu6wr71y3"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Item.cs" id="1_f8kvm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvycb"]
+
+[node name="Item" type="Node2D"]
+script = ExtResource("1_f8kvm")
+
+[node name="ItemBody" type="CharacterBody2D" parent="."]
+
+[node name="ItemCollider" type="CollisionShape2D" parent="ItemBody"]
+position = Vector2(10, 10)
+shape = SubResource("RectangleShape2D_wvycb")
+
+[node name="ItemSprite" type="Sprite2D" parent="ItemBody"]

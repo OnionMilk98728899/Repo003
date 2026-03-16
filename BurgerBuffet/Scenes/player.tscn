@@ -1,11 +1,208 @@
-[gd_scene load_steps=3 format=3 uid="uid://cmamjgls1ukba"]
+[gd_scene load_steps=16 format=3 uid="uid://cmamjgls1ukba"]
 
 [ext_resource type="Script" path="res://Scripts/player.cs" id="1_austw"]
-[ext_resource type="Texture2D" uid="uid://gorid518d1qp" path="res://icon.svg" id="1_whg47"]
+[ext_resource type="Script" path="res://Scripts/Components/PlayerMovement.cs" id="2_ebcah"]
+[ext_resource type="Texture2D" uid="uid://bt0sbwh175f08" path="res://Artwork/Player/PlayerAnimations.png" id="2_qy4qg"]
+[ext_resource type="FontFile" uid="uid://c5niibnyv6wl5" path="res://Fonts/BitCrusher8.ttf" id="4_3j2fc"]
+
+[sub_resource type="Animation" id="Animation_dmg3p"]
+resource_name = "Move_Left"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2au3f"]
+resource_name = "Move_Right"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(4, 0), Vector2i(5, 0), Vector2i(6, 0), Vector2i(7, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rbh37"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7ynus"]
+resource_name = "Move_Up"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(12, 0), Vector2i(13, 0), Vector2i(14, 0), Vector2i(15, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gt8qn"]
+resource_name = "Move_Down"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(8, 0), Vector2i(9, 0), Vector2i(10, 0), Vector2i(11, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_r47ip"]
+resource_name = "Special_Left"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(16, 0), Vector2i(17, 0), Vector2i(18, 0), Vector2i(19, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vkgln"]
+resource_name = "Special_Right"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(20, 0), Vector2i(21, 0), Vector2i(22, 0), Vector2i(23, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7appv"]
+resource_name = "Special_Down"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(24, 0), Vector2i(25, 0), Vector2i(26, 0), Vector2i(27, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_m7n1o"]
+resource_name = "Special_Up"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(28, 0), Vector2i(29, 0), Vector2i(30, 0), Vector2i(31, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3ck6e"]
+_data = {
+"Move_Down": SubResource("Animation_gt8qn"),
+"Move_Left": SubResource("Animation_dmg3p"),
+"Move_Right": SubResource("Animation_2au3f"),
+"Move_Up": SubResource("Animation_7ynus"),
+"RESET": SubResource("Animation_rbh37"),
+"Special_Down": SubResource("Animation_7appv"),
+"Special_Left": SubResource("Animation_r47ip"),
+"Special_Right": SubResource("Animation_vkgln"),
+"Special_Up": SubResource("Animation_m7n1o")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qh7ix"]
+size = Vector2(14, 13)
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_austw")
 
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(212, 69)
-texture = ExtResource("1_whg47")
+[node name="PlayerMovement" type="Node2D" parent="." node_paths=PackedStringArray("_playerBody", "_playerSprite", "_playerAnim", "_debugLabel")]
+position = Vector2(7, 5)
+script = ExtResource("2_ebcah")
+_playerBody = NodePath("PlayerBody")
+_playerSprite = NodePath("PlayerBody/PlayerSprite")
+_playerAnim = NodePath("PlayerBody/PlayerAnim")
+_playerSpeed = 52
+_debugLabel = NodePath("PlayerBody/DebugLabel")
+
+[node name="PlayerBody" type="CharacterBody2D" parent="PlayerMovement"]
+position = Vector2(-14, -13)
+
+[node name="PlayerSprite" type="Sprite2D" parent="PlayerMovement/PlayerBody"]
+texture_filter = 1
+texture = ExtResource("2_qy4qg")
+hframes = 32
+
+[node name="PlayerAnim" type="AnimationPlayer" parent="PlayerMovement/PlayerBody"]
+libraries = {
+"": SubResource("AnimationLibrary_3ck6e")
+}
+
+[node name="PlayerCollider" type="CollisionShape2D" parent="PlayerMovement/PlayerBody"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_qh7ix")
+
+[node name="DebugLabel" type="Label" parent="PlayerMovement/PlayerBody"]
+offset_left = -27.0
+offset_top = -38.0
+offset_right = 39.0
+offset_bottom = -9.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_3j2fc")
