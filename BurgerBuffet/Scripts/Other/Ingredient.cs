@@ -1,12 +1,13 @@
 namespace Game.Ingredients
 {
-    public struct Ingredients
+
+    public struct Burger
     {
-        public ItemType itemType;
+        public IngredientType[] ingredients;
     }
 
-    public enum ItemType
+    public enum IngredientType
     {
-        bottomBun, lettuce, patty, tomato, onion, pickles, cheese, sauce, topBun
+        bottomBun, lettuce, patty, cheese, onion, tomato, pickles, sauce, topBun
     }
 }

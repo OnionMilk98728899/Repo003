@@ -1,16 +1,225 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdqfl0yxxi0wd"]
+[gd_scene load_steps=25 format=3 uid="uid://bdqfl0yxxi0wd"]
 
 [ext_resource type="Texture2D" uid="uid://t4vppyxpg57u" path="res://Artwork/Tiles/GUIBackground.png" id="1_2hgqs"]
+[ext_resource type="Script" path="res://Scripts/GUI/Gui.cs" id="1_xcyso"]
+[ext_resource type="Texture2D" uid="uid://dxgb6yjyb8ml4" path="res://Artwork/GUI/BurgerIcons/BottomBun.png" id="2_1ef75"]
+[ext_resource type="Texture2D" uid="uid://2ta0l67te508" path="res://Artwork/GUI/BigBurgerIcons/BurgerBottom.png" id="3_iikfb"]
+[ext_resource type="FontFile" uid="uid://c5niibnyv6wl5" path="res://Fonts/BitCrusher8.ttf" id="3_ng8f0"]
+[ext_resource type="Texture2D" uid="uid://cxga2sg0lut28" path="res://Artwork/GUI/BurgerIcons/Lettuce.png" id="4_qiifv"]
+[ext_resource type="Texture2D" uid="uid://dnjgxqm1xa8q7" path="res://Artwork/GUI/BigBurgerIcons/Lettuce.png" id="5_t80wh"]
+[ext_resource type="Texture2D" uid="uid://c0n55nrh1fh2m" path="res://Artwork/GUI/BurgerIcons/Patty.png" id="6_6a2dp"]
+[ext_resource type="Texture2D" uid="uid://bwlo7sw85r25q" path="res://Artwork/GUI/BigBurgerIcons/Patty.png" id="7_g3jpf"]
+[ext_resource type="Texture2D" uid="uid://ckb77l7c0o85x" path="res://Artwork/GUI/BurgerIcons/Cheese.png" id="8_1brkv"]
+[ext_resource type="Texture2D" uid="uid://dqy8lckbnj7o" path="res://Artwork/GUI/BigBurgerIcons/Cheese.png" id="9_nyixc"]
+[ext_resource type="Texture2D" uid="uid://dmatqu87pmpmt" path="res://Artwork/GUI/BurgerIcons/Onion.png" id="10_431cy"]
+[ext_resource type="Texture2D" uid="uid://biq0qi6mwjruk" path="res://Artwork/GUI/BigBurgerIcons/Onion.png" id="11_e2gff"]
+[ext_resource type="Texture2D" uid="uid://cci2h53r8qiq6" path="res://Artwork/GUI/BurgerIcons/Tomato.png" id="12_nwglt"]
+[ext_resource type="Texture2D" uid="uid://dfjfdo2pd4yap" path="res://Artwork/GUI/BigBurgerIcons/Tomato.png" id="13_yvhcg"]
+[ext_resource type="Texture2D" uid="uid://ddlk43fjxajup" path="res://Artwork/GUI/BurgerIcons/Pickles.png" id="14_kxjdb"]
+[ext_resource type="Texture2D" uid="uid://bqvl8f6npptho" path="res://Artwork/GUI/BigBurgerIcons/Pickles.png" id="15_cav6o"]
+[ext_resource type="Texture2D" uid="uid://cnf2hw6j1wywf" path="res://Artwork/GUI/BurgerIcons/Sauce.png" id="16_7bsbh"]
+[ext_resource type="Texture2D" uid="uid://b4ei5xjc4hhy0" path="res://Artwork/GUI/BigBurgerIcons/Sauce.png" id="17_pvkos"]
+[ext_resource type="Texture2D" uid="uid://dmlhdjb0e658o" path="res://Artwork/GUI/BurgerIcons/BurgerTop.png" id="18_u81yr"]
+[ext_resource type="Texture2D" uid="uid://domdrpfxqniau" path="res://Artwork/GUI/BigBurgerIcons/TopBun.png" id="19_t2cmp"]
 
-[node name="GUI" type="Control"]
+[sub_resource type="Animation" id="Animation_f7he0"]
+resource_name = "Drop"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgerImage/BurgImgSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BurgerImage/BurgImgSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.3001, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(131, 116), Vector2(131, 176), Vector2(131, 173), Vector2(131, 173), Vector2(131, 173)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"ReplaceIngredientWithNewSprite"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_xihvg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgerImage/BurgImgSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BurgerImage/BurgImgSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(131, 116)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_71utv"]
+_data = {
+"Drop": SubResource("Animation_f7he0"),
+"RESET": SubResource("Animation_xihvg")
+}
+
+[node name="GUI" type="Control" node_paths=PackedStringArray("_burgerImageMenu", "_burgerIngredientSprite", "_burgerAnim", "_wipeDelayTimer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_xcyso")
+_bottomBunTexture = ExtResource("2_1ef75")
+_bottomBunImage = ExtResource("3_iikfb")
+_lettuceTexture = ExtResource("4_qiifv")
+_lettuceImage = ExtResource("5_t80wh")
+_pattyTexture = ExtResource("6_6a2dp")
+_pattyImage = ExtResource("7_g3jpf")
+_cheeseTexture = ExtResource("8_1brkv")
+_cheeseImage = ExtResource("9_nyixc")
+_onionTexture = ExtResource("10_431cy")
+_onionImage = ExtResource("11_e2gff")
+_tomatoTexture = ExtResource("12_nwglt")
+_tomatoImage = ExtResource("13_yvhcg")
+_picklesTexture = ExtResource("14_kxjdb")
+_picklesImage = ExtResource("15_cav6o")
+_sauceTexture = ExtResource("16_7bsbh")
+_sauceImage = ExtResource("17_pvkos")
+_topBunTexture = ExtResource("18_u81yr")
+_topBunImage = ExtResource("19_t2cmp")
+_burgerImageMenu = NodePath("BurgerImage")
+_burgerIngredientSprite = NodePath("BurgerImage/BurgImgSprite")
+_burgerAnim = NodePath("BurgerImage/BurgImgAnim")
+_wipeDelayTimer = NodePath("WipeDelayTimer")
 
-[node name="GuiBackground" type="Sprite2D" parent="."]
+[node name="Background" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GuiBackground" type="Sprite2D" parent="Background"]
 texture_filter = 1
 position = Vector2(339, 160)
 texture = ExtResource("1_2hgqs")
+
+[node name="BurgersLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 42.0
+offset_right = 168.0
+offset_bottom = 66.0
+theme_override_fonts/normal_font = ExtResource("3_ng8f0")
+
+[node name="BurgersInteger" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 63.0
+offset_right = 152.0
+offset_bottom = 103.0
+theme_override_fonts/normal_font = ExtResource("3_ng8f0")
+theme_override_font_sizes/normal_font_size = 32
+
+[node name="TimeLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 515.0
+offset_top = 32.0
+offset_right = 587.0
+offset_bottom = 72.0
+theme_override_fonts/normal_font = ExtResource("3_ng8f0")
+
+[node name="TimeInteger" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 530.0
+offset_top = 49.0
+offset_right = 570.0
+offset_bottom = 89.0
+theme_override_fonts/normal_font = ExtResource("3_ng8f0")
+theme_override_font_sizes/normal_font_size = 32
+
+[node name="ScoreLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 237.0
+offset_right = 161.0
+offset_bottom = 257.0
+theme_override_fonts/normal_font = ExtResource("3_ng8f0")
+
+[node name="ScoreInteger" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 254.0
+offset_right = 167.0
+offset_bottom = 287.0
+theme_override_fonts/normal_font = ExtResource("3_ng8f0")
+theme_override_font_sizes/normal_font_size = 32
+
+[node name="OrderWindow" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="OrderLabel" type="RichTextLabel" parent="OrderWindow"]
+layout_mode = 0
+offset_left = 517.0
+offset_top = 251.0
+offset_right = 589.0
+offset_bottom = 291.0
+theme_override_fonts/normal_font = ExtResource("3_ng8f0")
+
+[node name="BurgerImage" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BurgImgSprite" type="Sprite2D" parent="BurgerImage" groups=["DoNotDispose"]]
+visible = false
+texture_filter = 1
+position = Vector2(131, 116)
+texture = ExtResource("3_iikfb")
+
+[node name="BurgImgAnim" type="AnimationPlayer" parent="BurgerImage"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_71utv")
+}
+
+[node name="WipeDelayTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="WipeDelayTimer" to="." method="OnWipeDelayTimerTimeout"]

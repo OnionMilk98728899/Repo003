@@ -15,6 +15,12 @@ run/main_scene="res://Scenes/main_scene.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GlobalSignals="*res://Scripts/Other/GlobalSignals.cs"
+IngredientInventory="*res://Scripts/Other/IngredientInventory.cs"
+OrderManager="*res://Scripts/Managers/OrderManager.cs"
+
 [display]
 
 window/size/viewport_width=1024
@@ -29,6 +35,8 @@ project/assembly_name="Burger Buffet"
 [layer_names]
 
 2d_physics/layer_1="Player"
+2d_physics/layer_2="Items"
+2d_physics/layer_3="Enemies"
 
 [rendering]
 

@@ -5,7 +5,8 @@ public partial class GameBoard : Node2D
 {
 	private void OnBoardBoundaryEntered(Node2D body)
 	{
-        GD.Print("Game Reset!");
+		GlobalSignals.Instance.EmitSignal(GlobalSignals.SignalName.GameOver);
+		//GD.Print("Restart!");
 	}
 }
 

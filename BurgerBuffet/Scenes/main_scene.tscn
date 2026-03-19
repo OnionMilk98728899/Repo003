@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dysiya1qjd2qn"]
+[gd_scene load_steps=11 format=3 uid="uid://dysiya1qjd2qn"]
 
 [ext_resource type="Texture2D" uid="uid://bgi4o05cbm7b5" path="res://Artwork/Tiles/Board.png" id="1_bm3qa"]
 [ext_resource type="TileSet" uid="uid://sblqfavgsg3j" path="res://Artwork/Tiles/black_tile.tres" id="1_exv2s"]
 [ext_resource type="PackedScene" uid="uid://cmamjgls1ukba" path="res://Scenes/player.tscn" id="2_1vvpb"]
 [ext_resource type="Script" path="res://Scripts/Objects/GameBoard.cs" id="2_6v8hx"]
 [ext_resource type="PackedScene" uid="uid://bdqfl0yxxi0wd" path="res://Scenes/gui.tscn" id="4_hqyec"]
+[ext_resource type="PackedScene" uid="uid://b5ygwyd4bg0lp" path="res://Scenes/item_manager.tscn" id="7_bb2wu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3jvsv"]
 size = Vector2(2.11901, 46.0036)
@@ -81,5 +82,7 @@ position = Vector2(167, 149)
 [node name="GUI" parent="." instance=ExtResource("4_hqyec")]
 offset_left = -67.0
 offset_right = -67.0
+
+[node name="ItemManager" parent="." instance=ExtResource("7_bb2wu")]
 
 [connection signal="body_entered" from="GameBoard/BoardBounds" to="GameBoard" method="OnBoardBoundaryEntered"]
