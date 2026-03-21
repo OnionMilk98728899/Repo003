@@ -6,7 +6,6 @@ using System.Runtime.CompilerServices;
 
 public partial class MapGenerator2 : Node2D
 {
-
 	[Export] private TileMap tileMap;
 	[Export] private TileSet tileSet;
 	[Export] private int gridSize;
