@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5ygwyd4bg0lp"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/ItemManager.cs" id="1_u5mn3"]
+[ext_resource type="PackedScene" uid="uid://ymmbu6wr71y3" path="res://Scenes/item.tscn" id="2_hc2u2"]
+
+[node name="ItemManager" type="Node2D" node_paths=PackedStringArray("_delayTimer")]
+script = ExtResource("1_u5mn3")
+_delayTimer = NodePath("DelayTimer")
+_itemScene = ExtResource("2_hc2u2")
+
+[node name="DelayTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="DelayTimer" to="." method="OnDelayTimerTimeout"]

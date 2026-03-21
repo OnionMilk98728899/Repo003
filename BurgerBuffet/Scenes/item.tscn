@@ -1,0 +1,165 @@
+[gd_scene load_steps=16 format=3 uid="uid://ymmbu6wr71y3"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Item.cs" id="1_f8kvm"]
+[ext_resource type="Texture2D" uid="uid://ddwcxahudrhq7" path="res://Artwork/Items/BunBottom.png" id="2_e83pk"]
+[ext_resource type="Texture2D" uid="uid://dvprx11ou4sqy" path="res://Artwork/Items/Lettuce.png" id="3_yglno"]
+[ext_resource type="Texture2D" uid="uid://coy8kelcd27c2" path="res://Artwork/Items/Patty.png" id="4_frvtn"]
+[ext_resource type="Texture2D" uid="uid://bfvaobnincv7e" path="res://Artwork/Items/Tomato.png" id="5_on4jo"]
+[ext_resource type="Texture2D" uid="uid://bn3ncsqautv1o" path="res://Artwork/Items/Onion.png" id="6_dyec1"]
+[ext_resource type="Texture2D" uid="uid://db6tcvssprb05" path="res://Artwork/Items/Pickles.png" id="7_f2ocj"]
+[ext_resource type="Texture2D" uid="uid://6qwg5io8a6h5" path="res://Artwork/Items/Cheese.png" id="8_lq5hu"]
+[ext_resource type="Texture2D" uid="uid://c8k8oa0wbjh0g" path="res://Artwork/Items/Sauce.png" id="9_euutr"]
+[ext_resource type="Texture2D" uid="uid://ct6lk2cxnkp4c" path="res://Artwork/Items/BunTop.png" id="10_e1a3a"]
+[ext_resource type="Texture2D" uid="uid://d2ucxj8d0qqpx" path="res://Artwork/Items/ShadowSheet003.png" id="11_x0xrq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvycb"]
+size = Vector2(14, 15)
+
+[sub_resource type="Animation" id="Animation_bjx6n"]
+resource_name = "Drop"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemBody/ItemSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ItemBody/ItemSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -40), Vector2(0, 2), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ItemBody/ShadowSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 6]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ItemBody/ItemCollider:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_5qbwh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemBody/ItemSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ItemBody/ItemSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ItemBody/ShadowSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ItemBody/ItemCollider:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kw6xb"]
+_data = {
+"Drop": SubResource("Animation_bjx6n"),
+"RESET": SubResource("Animation_5qbwh")
+}
+
+[node name="Item" type="Node2D" node_paths=PackedStringArray("_itemBody", "_itemAnim", "_itemSprite") groups=["Items"]]
+script = ExtResource("1_f8kvm")
+_bottomBunImage = ExtResource("2_e83pk")
+_lettuceImage = ExtResource("3_yglno")
+_pattyImage = ExtResource("4_frvtn")
+_tomatoImage = ExtResource("5_on4jo")
+_onionImage = ExtResource("6_dyec1")
+_picklesImage = ExtResource("7_f2ocj")
+_cheeseImage = ExtResource("8_lq5hu")
+_sauceImage = ExtResource("9_euutr")
+_topBunImage = ExtResource("10_e1a3a")
+_itemBody = NodePath("ItemBody")
+_itemAnim = NodePath("ItemAnim")
+_itemSprite = NodePath("ItemBody/ItemSprite")
+
+[node name="ItemBody" type="CharacterBody2D" parent="." groups=["Items"]]
+collision_layer = 2
+collision_mask = 0
+
+[node name="ItemCollider" type="CollisionShape2D" parent="ItemBody"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_wvycb")
+disabled = true
+
+[node name="ShadowSprite" type="Sprite2D" parent="ItemBody"]
+texture_filter = 1
+position = Vector2(0, 1)
+texture = ExtResource("11_x0xrq")
+hframes = 7
+frame = 6
+
+[node name="ItemSprite" type="Sprite2D" parent="ItemBody"]
+texture_filter = 1
+texture = ExtResource("4_frvtn")
+
+[node name="ItemAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kw6xb")
+}
