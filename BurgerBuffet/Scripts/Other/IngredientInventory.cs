@@ -9,16 +9,16 @@ public partial class IngredientInventory : Node
     private int _currentIngredientIndex;
     private Gui _myGui;
     public override void _EnterTree()
-	{
-		if (Instance == null)
-		{
-			Instance = this;
-		}
-		else
-		{
-			QueueFree();
-		}
-	}
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            QueueFree();
+        }
+    }
 
     public override void _Ready()
     {
@@ -26,33 +26,41 @@ public partial class IngredientInventory : Node
         GlobalSignals.Instance.GameOver += ResetInventory;
     }
 
-    private void ResetInventory(){
+    private void ResetInventory()
+    {
         _currentIngredientIndex = 0;
+    }
+
+    public int GetCurrentIngredientIndex()
+    {
+        return _currentIngredientIndex;
+    }
+
+    public void SetCurrentIngredientIndex(int index)
+    {
+        _currentIngredientIndex = index;
     }
 
     public void AddCollectedItemToInventory(IngredientType ingredient)
     {
-        if(OrderManager.Instance.GetCurrentOrder().ingredients[_currentIngredientIndex] == ingredient)
+        if (_currentIngredientIndex <= OrderManager.Instance.GetCurrentOrder().ingredients.Length -1)
         {
-            //GD.Print($"GREAT! you collected an {OrderManager.Instance.GetCurrentOrder().ingredients[_currentIngredientIndex]}");
-            _myIngredients.Add(ingredient);
-            _currentIngredientIndex ++;
-            _myGui.AddIngredientToBurgerImage(ingredient);
-
-            if(_currentIngredientIndex == OrderManager.Instance.GetCurrentOrder().ingredients.Length)
+            if (OrderManager.Instance.GetCurrentOrder().ingredients[_currentIngredientIndex] == ingredient)
             {
-                //GD.Print("\n\nORDER CLEARED!!!!!!\n\n");
-                _currentIngredientIndex = 0;
-                _myGui.StartBurgerImageWipe();
+                _myIngredients.Add(ingredient);
+                _currentIngredientIndex++;
+                _myGui.AddIngredientToBurgerImage(ingredient);
+
+                if (_currentIngredientIndex == OrderManager.Instance.GetCurrentOrder().ingredients.Length)
+                {
+                    _myGui.StartBurgerImageWipe();
+                    _myGui.IncreaseBurgerCount();
+                }
+            }
+            else
+            {
+                
             }
         }
-        else
-        {
-            // GD.PrintErr($"Wrong Ingredient! You collected a {ingredient},\nbut we needed a "
-            // +$"{OrderManager.Instance.GetCurrentOrder().ingredients[_currentIngredientIndex]}, ({_currentIngredientIndex})");
-        }
-
-       
-        
     }
 }

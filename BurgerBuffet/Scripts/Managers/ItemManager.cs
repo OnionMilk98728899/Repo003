@@ -13,16 +13,19 @@ public partial class ItemManager : Node2D
 	private Burger _myBurger;
 	private int FLOORSIZE_X = 16, FLOORSIZE_Y = 14;
 	private int _burgerSizeLimit;
-	private bool _hasPatty;
+	private bool _hasPatty, _validSquare;
 	private Vector2 _boardOriginPosition = new Vector2(152, 54), _spawnPosition;
+	private (int, int) _boardSquare;
 
 	public override void _Ready()
 	{
 		GlobalSignals.Instance.GameOver += StartRound;
 		GlobalSignals.Instance.GenerateNewOrder += GenerateRandomOrder;
 	}
+
 	private void StartRound()
 	{
+		WipeAllBoardItems();
 		_delayTimer.Start();
 		_burgerSizeLimit = 5;
 		GenerateRandomOrder();
@@ -34,35 +37,79 @@ public partial class ItemManager : Node2D
 		_delayTimer.Start();
 	}
 
-	private void GenerateRandomBoardItem()
+	public void WipeAllBoardItems()
+	{
+		if (GetChildren() != null)
+		{
+			foreach (Node child in GetChildren())
+			{
+				if (child is Item)
+				{
+					child.QueueFree();
+				}
+			}
+		}
+
+	}
+
+	private void FindRandomAvailableBoardSquare()
 	{
 		int randX = GD.RandRange(0, FLOORSIZE_X - 1);
 		int randY = GD.RandRange(0, FLOORSIZE_Y - 1);
 
-		float bias = 0.85f; // 70% chance to pick from ingredients
-
-		int randItem;
-		float biasCheck =GD.Randf();
-
-		if (biasCheck < bias && _myBurger.ingredients != null)
+		_validSquare = true;
+		for (int i = 0; i < ItemInventory.Instance._occupiedSquares.Count; i++)
 		{
-			int index = GD.RandRange(0, _myBurger.ingredients.Length - 1);
-			randItem = (int)_myBurger.ingredients[index];
-			//GD.Print($"Picked {_myBurger.ingredients[index]} from the Burger order");
+			if (ItemInventory.Instance._occupiedSquares[i].Item1 == randX && ItemInventory.Instance._occupiedSquares[i].Item2 == randY)
+			{
+				_validSquare = false;
+			}
+
+		}
+
+		if (!_validSquare)
+		{
+			FindRandomAvailableBoardSquare();
 		}
 		else
 		{
-			randItem = GD.RandRange(0, 8);
-			//GD.Print("Made a purely random ingredient because Burger is null");
+			_boardSquare = (randX, randY);
+			ItemInventory.Instance._occupiedSquares.Add(_boardSquare);
 		}
+	}
 
-		_spawnPosition.X = _boardOriginPosition.X + (randX * 16);
-		_spawnPosition.Y = _boardOriginPosition.Y + (randY * 16);
+	private void GenerateRandomBoardItem()
+	{
+		if (ItemInventory.Instance._occupiedSquares.Count < 40)
+		{
+			FindRandomAvailableBoardSquare();
 
-		_myItem = _itemScene.Instantiate<Item>();
-		AddChild(_myItem);
-		_myItem.SetItemType((IngredientType)randItem);
-		_myItem.SpawnItem(_spawnPosition);
+			float bias = 0.85f; // 70% chance to pick from ingredients
+
+			int randItem;
+			float biasCheck = GD.Randf();
+
+			if (biasCheck < bias && _myBurger.ingredients != null)
+			{
+				int index = GD.RandRange(0, _myBurger.ingredients.Length - 1);
+				randItem = (int)_myBurger.ingredients[index];
+				//GD.Print($"Picked {_myBurger.ingredients[index]} from the Burger order");
+			}
+			else
+			{
+				randItem = GD.RandRange(0, 8);
+				//GD.Print("Made a purely random ingredient because Burger is null");
+			}
+
+			_spawnPosition.X = _boardOriginPosition.X + (_boardSquare.Item1 * 16);
+			_spawnPosition.Y = _boardOriginPosition.Y + (_boardSquare.Item2 * 16);
+
+			_myItem = _itemScene.Instantiate<Item>();
+			AddChild(_myItem);
+			_myItem.SetItemType((IngredientType)randItem);
+			_myItem.SetItemCoords(_boardSquare);
+			_myItem.SpawnItem(_spawnPosition);
+		}
 	}
 
 	private void GenerateRandomOrder()

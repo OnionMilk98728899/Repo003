@@ -9,6 +9,7 @@ public partial class PlayerMovement : Node2D
 	[Export] private int _playerSpeed;
 	[Export] private Label _debugLabel;
 	private Vector2 _inputDirection, _playerVelocity, _startPosition, _playerPosition;
+	private bool slowed, stopped;
 	private enum direction
 	{
 		left, right, up, down
@@ -33,10 +34,41 @@ public partial class PlayerMovement : Node2D
 	public override void _PhysicsProcess(double delta)
 	{
 		_playerPosition = _playerBody.GlobalPosition;
-		MovePlayer(delta);
+		
 		AnimatePlayer();
+		ManualSlowdown(delta);
+		if (!stopped)
+		{
+			MovePlayer(delta);
+		}
 		//_debugLabel.Text = MathF.Round(_playerPosition.X) + ", " + MathF.Round(_playerPosition.Y);
 		
+	}
+
+	private void ManualSlowdown(double delta)
+	{
+		if (Input.IsActionJustPressed("ui_accept"))
+		{
+			if (!slowed)
+			{
+				Engine.TimeScale = .4; slowed = true;
+			}
+			else
+			{
+				Engine.TimeScale = 1; slowed = false;
+			}
+		}
+		if (Input.IsActionJustPressed("ui_focus_next"))
+		{
+			if (!stopped)
+			{
+				stopped = true;
+			}
+			else
+			{
+				stopped = false;
+			}
+		}
 	}
 
 	private void MovePlayer(double delta)

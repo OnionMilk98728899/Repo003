@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 GlobalSignals="*res://Scripts/Other/GlobalSignals.cs"
 IngredientInventory="*res://Scripts/Other/IngredientInventory.cs"
 OrderManager="*res://Scripts/Managers/OrderManager.cs"
+ItemInventory="*res://Scripts/Other/ItemInventory.cs"
 
 [display]
 

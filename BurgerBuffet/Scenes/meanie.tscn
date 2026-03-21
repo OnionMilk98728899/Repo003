@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3554ud2dv6aw"]
+
+[ext_resource type="Script" path="res://Scripts/Components/EnemyMovement.cs" id="1_i5e3a"]
+[ext_resource type="Texture2D" uid="uid://bpwu6oviseacy" path="res://Artwork/Meanies/MeanieSpriteSheet.png" id="2_moti5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_suyve"]
+size = Vector2(14, 15)
+
+[node name="Meanie" type="Node2D"]
+
+[node name="EnemyMovement" type="Node2D" parent="."]
+script = ExtResource("1_i5e3a")
+
+[node name="EnemyBody" type="CharacterBody2D" parent="EnemyMovement"]
+
+[node name="EnemyBodyCollider" type="CollisionShape2D" parent="EnemyMovement/EnemyBody"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_suyve")
+
+[node name="EnemySprite" type="Sprite2D" parent="EnemyMovement/EnemyBody"]
+texture_filter = 1
+texture = ExtResource("2_moti5")
+hframes = 12
