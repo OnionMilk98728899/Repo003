@@ -67,8 +67,8 @@ public partial class Item : Node2D
 		{
 			GD.PrintErr($"Your ingredient, {_myIngredient}, is out of range");
 		}
+		BoardManager.Instance._occupiedSquares.Remove(_itemCoords);
 		IngredientInventory.Instance.AddCollectedItemToInventory(_myIngredient);
-		ItemInventory.Instance._occupiedSquares.Remove(_itemCoords);
 		QueueFree();
 	}
 

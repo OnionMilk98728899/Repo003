@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://djwe8rlddi4rg"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/AudioManager.cs" id="1_d55vd"]
+[ext_resource type="Resource" uid="uid://b66cttqyuwedy" path="res://Resources/SoundBank.tres" id="2_k5183"]
+
+[node name="AudioManager" type="Node2D" node_paths=PackedStringArray("_musicPlayer", "_sfxPlayer")]
+script = ExtResource("1_d55vd")
+_musicPlayer = NodePath("Music")
+_sfxPlayer = NodePath("SFX")
+_audioLibrary = ExtResource("2_k5183")
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]

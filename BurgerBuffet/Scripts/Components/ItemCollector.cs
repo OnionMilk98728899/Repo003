@@ -11,6 +11,11 @@ public partial class ItemCollector : Node2D
 			_myItem = body.GetNode<Item>("..");
 			_myItem.ItemCollected();
 		}
+
+		if (body.IsInGroup("Meanies"))
+		{
+			GD.Print("Found a meanie!");
+		}
 	}
 }
 

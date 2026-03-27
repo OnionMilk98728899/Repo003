@@ -5,7 +5,7 @@ public partial class OrderManager : Node
 {
     public static OrderManager Instance {get; private set;}
     private Burger _currentOrder;
-    private Gui _myGui;
+    private GraphicInterface _myGui;
     public override void _EnterTree()
 	{
 		if (Instance == null)
@@ -20,7 +20,7 @@ public partial class OrderManager : Node
 
     public override void _Ready()
     {
-        _myGui = GetTree().CurrentScene.GetNode<Gui>("GUI");
+        _myGui = GetTree().CurrentScene.GetNode<GraphicInterface>("GUI");
     }
 
     public void SetCurrentOrder(Burger burger)

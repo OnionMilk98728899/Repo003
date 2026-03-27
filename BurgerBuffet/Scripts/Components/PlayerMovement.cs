@@ -26,7 +26,7 @@ public partial class PlayerMovement : Node2D
 		_inputDirection.X = 1;
 		_inputDirection.Y = 0;
 		_currentDirection = direction.right;
-		_startPosition = new Vector2(248 , 150);
+		_startPosition = new Vector2(248, 150);
 		_playerBody.GlobalPosition = _startPosition;
 	}
 
@@ -34,7 +34,7 @@ public partial class PlayerMovement : Node2D
 	public override void _PhysicsProcess(double delta)
 	{
 		_playerPosition = _playerBody.GlobalPosition;
-		
+
 		AnimatePlayer();
 		ManualSlowdown(delta);
 		if (!stopped)
@@ -42,7 +42,7 @@ public partial class PlayerMovement : Node2D
 			MovePlayer(delta);
 		}
 		//_debugLabel.Text = MathF.Round(_playerPosition.X) + ", " + MathF.Round(_playerPosition.Y);
-		
+
 	}
 
 	private void ManualSlowdown(double delta)
@@ -94,10 +94,22 @@ public partial class PlayerMovement : Node2D
 
 	private void AnimatePlayer()
 	{
-		if (_inputDirection.X == -1 && _inputDirection.Y == 0) { _playerAnim.Play("Move_Left"); }
-		if (_inputDirection.X == 1 && _inputDirection.Y == 0) { _playerAnim.Play("Move_Right"); }
-		if (_inputDirection.Y == -1 && _inputDirection.X == 0) { _playerAnim.Play("Move_Up"); }
-		if (_inputDirection.Y == 1  &&_inputDirection.X == 0) { _playerAnim.Play("Move_Down"); }
+		if (GlobalResources.Instance._currentGameState == GlobalResources.gameState.normal)
+		{
+			if (_inputDirection.X == -1 && _inputDirection.Y == 0) { _playerAnim.Play("Move_Left"); }
+			if (_inputDirection.X == 1 && _inputDirection.Y == 0) { _playerAnim.Play("Move_Right"); }
+			if (_inputDirection.Y == -1 && _inputDirection.X == 0) { _playerAnim.Play("Move_Up"); }
+			if (_inputDirection.Y == 1 && _inputDirection.X == 0) { _playerAnim.Play("Move_Down"); }
+
+		}
+		else if (GlobalResources.Instance._currentGameState == GlobalResources.gameState.special)
+		{
+			if (_inputDirection.X == -1 && _inputDirection.Y == 0) { _playerAnim.Play("Special_Left"); }
+			if (_inputDirection.X == 1 && _inputDirection.Y == 0) { _playerAnim.Play("Special_Right"); }
+			if (_inputDirection.Y == -1 && _inputDirection.X == 0) { _playerAnim.Play("Special_Up"); }
+			if (_inputDirection.Y == 1 && _inputDirection.X == 0) { _playerAnim.Play("Special_Down"); }
+		}
+
 	}
 
 }

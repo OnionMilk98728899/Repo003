@@ -1,11 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://dysiya1qjd2qn"]
+[gd_scene load_steps=14 format=3 uid="uid://dysiya1qjd2qn"]
 
 [ext_resource type="Texture2D" uid="uid://bgi4o05cbm7b5" path="res://Artwork/Tiles/Board.png" id="1_bm3qa"]
 [ext_resource type="TileSet" uid="uid://sblqfavgsg3j" path="res://Artwork/Tiles/black_tile.tres" id="1_exv2s"]
 [ext_resource type="PackedScene" uid="uid://cmamjgls1ukba" path="res://Scenes/player.tscn" id="2_1vvpb"]
 [ext_resource type="Script" path="res://Scripts/Objects/GameBoard.cs" id="2_6v8hx"]
 [ext_resource type="PackedScene" uid="uid://bdqfl0yxxi0wd" path="res://Scenes/gui.tscn" id="4_hqyec"]
+[ext_resource type="PackedScene" uid="uid://its2vicb2s25" path="res://Scenes/enemy_manager.tscn" id="7_5kue0"]
 [ext_resource type="PackedScene" uid="uid://b5ygwyd4bg0lp" path="res://Scenes/item_manager.tscn" id="7_bb2wu"]
+[ext_resource type="PackedScene" uid="uid://d3554ud2dv6aw" path="res://Scenes/meanie.tscn" id="8_k3iac"]
+[ext_resource type="PackedScene" uid="uid://bgyvbu45ngldd" path="res://Scenes/global_resources.tscn" id="9_ot11y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3jvsv"]
 size = Vector2(2.11901, 46.0036)
@@ -79,10 +82,16 @@ position = Vector2(272, 160)
 [node name="Player" parent="." instance=ExtResource("2_1vvpb")]
 position = Vector2(167, 149)
 
-[node name="GUI" parent="." instance=ExtResource("4_hqyec")]
+[node name="GUI" parent="." node_paths=PackedStringArray("_burgerIngredientSprites") instance=ExtResource("4_hqyec")]
 offset_left = -67.0
 offset_right = -67.0
+_burgerIngredientSprites = []
 
 [node name="ItemManager" parent="." instance=ExtResource("7_bb2wu")]
+
+[node name="EnemyManager" parent="." instance=ExtResource("7_5kue0")]
+_meanieScene = ExtResource("8_k3iac")
+
+[node name="GlobalResources" parent="." instance=ExtResource("9_ot11y")]
 
 [connection signal="body_entered" from="GameBoard/BoardBounds" to="GameBoard" method="OnBoardBoundaryEntered"]
