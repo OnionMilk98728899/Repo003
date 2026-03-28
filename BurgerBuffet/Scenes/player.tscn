@@ -217,7 +217,7 @@ script = ExtResource("5_fmts2")
 
 [node name="ItemCollectorArea" type="Area2D" parent="PlayerMovement/PlayerBody/ItemCollector"]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 6
 
 [node name="ItemCollectorCollider" type="CollisionShape2D" parent="PlayerMovement/PlayerBody/ItemCollector/ItemCollectorArea"]
 position = Vector2(0, 1.5)

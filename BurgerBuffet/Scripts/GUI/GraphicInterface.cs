@@ -1,34 +1,45 @@
 using Game.Ingredients;
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-public partial class Gui : Control
+public partial class GraphicInterface : Control
 {
 	[Export] private RichTextLabel _burgersLabel, _burgersInteger, _timeLabel, _timeInteger, _scoreLabel, _scoreInteger, _ordersUpLabel;
 	[Export]
-	private Texture2D _bottomBunTexture, _bottomBunImage, _lettuceTexture, _lettuceImage, _pattyTexture, _pattyImage, _cheeseTexture, _cheeseImage,
-	_onionTexture, _onionImage, _tomatoTexture, _tomatoImage, _picklesTexture, _picklesImage, _sauceTexture, _sauceImage, _topBunTexture, _topBunImage;
+	private Texture2D _bottomBunTexture, _bottomBunSheet, _lettuceTexture, _lettuceSheet, _pattyTexture, _pattySheet, _cheeseTexture, _cheeseSheet,
+	_onionTexture, _onionSheet, _tomatoTexture, _tomatoSheet, _picklesTexture, _picklesSheet, _sauceTexture, _sauceSheet, _topBunTexture, _topBunSheet;
 	[Export] private Control _burgerImageMenu;
-	[Export] private Sprite2D _burgerIngredientSprite, _burgerIngredientSprite2;
-	[Export] private AnimationPlayer _burgerAnim;
-	[Export] private Timer _wipeDelayTimer, _secondDelayTimer, _thirdDelayTimer, _burgerCountTimer, _ordersUpTimer, _scoreTimer, _specialTimeDisplayTimer;
-	//private Sprite2D _thisSprite; 
+	[Export] private Sprite2D[] _burgerIngredientSprites;
+	[Export] private AnimationPlayer _imageAnim, _burgerAnim1, _burgerAnim2, _burgerAnim3, _burgerAnim4;
+	[Export] private Timer _wipeDelayTimer, _burgerCountTimer, _ordersUpTimer, _scoreTimer, _specialTimeDisplayTimer;
+	[Export] private Label debugLabel;
+	private Sprite2D _currentIngredientSprite;
+	//public List<IngredientType> _queuedIngredients = new List<IngredientType>();
 	private Vector2 _spritePosition, _orderWindowOriginPosition, _burgerImageOriginPosition, _imagePosition;
 	private IngredientType _currentType, _nextType, _nextNextType;
-	private int _burgerCount, _score, _specialTime;
+	private int _burgerCount, _score, _specialTime, _currentIngredientIndex;
+	private bool _isDumpingBurger;
 
 	public override void _Ready()
 	{
+		_burgerIngredientSprites = _burgerImageMenu.GetChildren().OfType<Sprite2D>().ToArray();
 		_orderWindowOriginPosition = new Vector2(480, 246);
 		_burgerImageOriginPosition = new Vector2(64, 178);
-		GlobalSignals.Instance.GameOver += WipeBurgerImage;
+		GlobalSignals.Instance.GameOver += OnGameOver;
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		SetLabels();
-	}
 
+		debugLabel.Text = "";
+		// for (int i = 0; i < _queuedIngredients.Count; i++)
+		// {
+		// 	debugLabel.Text += _queuedIngredients[i].ToString();
+		// }
+	}
 	private void SetLabels()
 	{
 		if (_burgerCountTimer.IsStopped())
@@ -126,7 +137,7 @@ public partial class Gui : Control
 	{
 		foreach (Node child in GetChildren())
 		{
-			if (child is Sprite2D)
+			if (child is Sprite2D && !child.IsInGroup("DoNotDispose"))
 			{
 				child.QueueFree();
 			}
@@ -135,47 +146,62 @@ public partial class Gui : Control
 
 	public void AddIngredientToBurgerImage(IngredientType ingredient)
 	{
-		SetSpriteTextureToIngredient(ingredient, _burgerIngredientSprite);
-
-		_burgerIngredientSprite.ZIndex = 1;
-		_imagePosition = _burgerImageOriginPosition;
-		_imagePosition.Y -= 2 * (int)ingredient;
-		_burgerIngredientSprite.GlobalPosition = _imagePosition;
-
-		if (!_burgerAnim.IsPlaying())
+		if (_isDumpingBurger)
 		{
-			if (!_secondDelayTimer.IsStopped())
-			{
-				_thirdDelayTimer.Start();
-				_nextNextType = ingredient;
-			}
-			else
-			{
-				_currentType = ingredient;
-				_burgerAnim.Play("Drop");
-				GD.Print("Dropping " + ingredient);
-			}
+			return;
+		}
+		_currentIngredientIndex++;
+		GD.Print($"Sprite is {_burgerIngredientSprites[_currentIngredientIndex - 1].Name}");
+		SetSpriteTextureToIngredient(ingredient, _burgerIngredientSprites[_currentIngredientIndex - 1]);
 
+		switch (_currentIngredientIndex)
+		{
+			case 1:
+			_burgerAnim1.Play($"Drop{_currentIngredientIndex}");
+			break;
+			case 2:
+			_burgerAnim2.Play($"Drop{_currentIngredientIndex}");
+			break;
+			case 3:
+			_burgerAnim3.Play($"Drop{_currentIngredientIndex}");
+			break;
+			case 4:
+			_burgerAnim4.Play($"Drop{_currentIngredientIndex}");
+			break;
+			case 5:
+			_burgerAnim1.Play($"Drop{_currentIngredientIndex}");
+			break;
+			case 6:
+			_burgerAnim2.Play($"Drop{_currentIngredientIndex}");
+			break;
+			case 7:
+			_burgerAnim3.Play($"Drop{_currentIngredientIndex}");
+			break;
+			case 8:
+			_burgerAnim4.Play($"Drop{_currentIngredientIndex}");
+			break;
+		}
+
+		if(ingredient == OrderManager.Instance.GetCurrentOrder().ingredients[_currentIngredientIndex - 1])
+		{
+			GD.Print("CORRECT INGREDIENT!");
+			AudioManager.Instance.PlaySFX(AudioManager.Instance._audioLibrary.collect);
+
+			if(_currentIngredientIndex == OrderManager.Instance.GetCurrentOrder().ingredients.Length)
+			{
+				GD.Print("BURGER COMPLETE!");
+				_imageAnim.Play("Clear");
+				_currentIngredientIndex = 0;
+				_isDumpingBurger = true;
+				AudioManager.Instance.PlaySFX(AudioManager.Instance._audioLibrary.collect2);
+			}
 		}
 		else
 		{
-			_secondDelayTimer.Start();
-			_nextType = ingredient;
-			GD.Print("Queueing to drop " + _nextType);
+			_imageAnim.Play("Cancel");
+			_currentIngredientIndex = 0;
+			_isDumpingBurger = true;
 		}
-	}
-
-	public void ReplaceIngredientWithNewSprite()
-	{
-		Sprite2D newImage = new Sprite2D();
-		_burgerImageMenu.AddChild(newImage);
-		GD.Print("replacing Sprite with a " + _currentType);
-
-		SetSpriteTextureToIngredient(_currentType, newImage);
-
-		_imagePosition = _burgerImageOriginPosition;
-		_imagePosition.Y = _burgerImageOriginPosition.Y - 3 * IngredientInventory.Instance.GetCurrentIngredientIndex();
-		newImage.GlobalPosition = _imagePosition;
 	}
 
 	private void SetSpriteTextureToIngredient(IngredientType ingredient, Sprite2D sprite)
@@ -183,38 +209,38 @@ public partial class Gui : Control
 		switch (ingredient)
 		{
 			case IngredientType.bottomBun:
-				sprite.Texture = _bottomBunImage;
+				sprite.Texture = _bottomBunSheet;
 				break;
 			case IngredientType.lettuce:
-				sprite.Texture = _lettuceImage;
+				sprite.Texture = _lettuceSheet;
 				break;
 			case IngredientType.patty:
-				sprite.Texture = _pattyImage;
+				sprite.Texture = _pattySheet;
 				break;
 			case IngredientType.cheese:
-				sprite.Texture = _cheeseImage;
+				sprite.Texture = _cheeseSheet;
 				break;
 			case IngredientType.onion:
-				sprite.Texture = _onionImage;
+				sprite.Texture = _onionSheet;
 				break;
 			case IngredientType.tomato:
-				sprite.Texture = _tomatoImage;
+				sprite.Texture = _tomatoSheet;
 				break;
 			case IngredientType.pickles:
-				sprite.Texture = _picklesImage;
+				sprite.Texture = _picklesSheet;
 				break;
 			case IngredientType.sauce:
-				sprite.Texture = _sauceImage;
+				sprite.Texture = _sauceSheet;
 				break;
 			case IngredientType.topBun:
-				sprite.Texture = _topBunImage;
+				sprite.Texture = _topBunSheet;
 				break;
 		}
 	}
 
-	public void IncreaseBurgerCount()
+	public void SetBurgerCount(int count)
 	{
-		_burgerCount++;
+		_burgerCount = count;
 		_burgerCountTimer.Start();
 	}
 
@@ -223,32 +249,28 @@ public partial class Gui : Control
 		_wipeDelayTimer.Start();
 	}
 
+	private void OnGameOver()
+	{
+		WipeBurgerImage();
+		_currentIngredientIndex = 0;
+	}
+
 	public void WipeBurgerImage()
 	{
 		foreach (Node child in _burgerImageMenu.GetChildren())
 		{
-			if (child is Sprite2D && !child.IsInGroup("DoNotDispose"))
+			if (child is Sprite2D sprite)
 			{
-				child.QueueFree();
+				sprite.Frame = 0;
 			}
 		}
+
 	}
 	private void OnWipeDelayTimerTimeout()
 	{
 		WipeBurgerImage();
+		_isDumpingBurger = false;
 		GlobalSignals.Instance.EmitSignal(GlobalSignals.SignalName.GenerateNewOrder);
 		IngredientInventory.Instance.SetCurrentIngredientIndex(0);
-	}
-	private void OnSecondDelayTimerTimeout()
-	{
-		GD.Print("(2) Dropping" + _nextType);
-		SetSpriteTextureToIngredient(_nextType, _burgerIngredientSprite2);
-		_currentType = _nextType;
-		_burgerAnim.Play("Drop2");
-	}
-
-	private void OnThirdDelayTimerTimeout()
-	{
-		AddIngredientToBurgerImage(_nextNextType);
 	}
 }

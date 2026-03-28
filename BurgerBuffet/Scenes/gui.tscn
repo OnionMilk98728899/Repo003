@@ -1,123 +1,32 @@
-[gd_scene load_steps=26 format=3 uid="uid://bdqfl0yxxi0wd"]
+[gd_scene load_steps=44 format=3 uid="uid://bdqfl0yxxi0wd"]
 
 [ext_resource type="Texture2D" uid="uid://t4vppyxpg57u" path="res://Artwork/Tiles/GUIBackground.png" id="1_2hgqs"]
-[ext_resource type="Script" path="res://Scripts/GUI/Gui.cs" id="1_xcyso"]
-[ext_resource type="Texture2D" uid="uid://dxgb6yjyb8ml4" path="res://Artwork/GUI/BurgerIcons/BottomBun.png" id="2_1ef75"]
-[ext_resource type="Texture2D" uid="uid://2ta0l67te508" path="res://Artwork/GUI/BigBurgerIcons/BurgerBottom.png" id="3_iikfb"]
+[ext_resource type="Script" path="res://Scripts/GUI/GraphicInterface.cs" id="1_4g7tx"]
+[ext_resource type="Texture2D" uid="uid://dxgb6yjyb8ml4" path="res://Artwork/GUI/BurgerIcons/BottomBun.png" id="2_t4au5"]
 [ext_resource type="FontFile" uid="uid://c5niibnyv6wl5" path="res://Fonts/BitCrusher8.ttf" id="3_ng8f0"]
-[ext_resource type="Texture2D" uid="uid://cxga2sg0lut28" path="res://Artwork/GUI/BurgerIcons/Lettuce.png" id="4_qiifv"]
-[ext_resource type="Texture2D" uid="uid://dnjgxqm1xa8q7" path="res://Artwork/GUI/BigBurgerIcons/Lettuce.png" id="5_t80wh"]
-[ext_resource type="Texture2D" uid="uid://c0n55nrh1fh2m" path="res://Artwork/GUI/BurgerIcons/Patty.png" id="6_6a2dp"]
-[ext_resource type="Texture2D" uid="uid://bwlo7sw85r25q" path="res://Artwork/GUI/BigBurgerIcons/Patty.png" id="7_g3jpf"]
-[ext_resource type="Texture2D" uid="uid://ckb77l7c0o85x" path="res://Artwork/GUI/BurgerIcons/Cheese.png" id="8_1brkv"]
-[ext_resource type="Texture2D" uid="uid://dqy8lckbnj7o" path="res://Artwork/GUI/BigBurgerIcons/Cheese.png" id="9_nyixc"]
-[ext_resource type="Texture2D" uid="uid://dmatqu87pmpmt" path="res://Artwork/GUI/BurgerIcons/Onion.png" id="10_431cy"]
-[ext_resource type="Texture2D" uid="uid://biq0qi6mwjruk" path="res://Artwork/GUI/BigBurgerIcons/Onion.png" id="11_e2gff"]
-[ext_resource type="Texture2D" uid="uid://cci2h53r8qiq6" path="res://Artwork/GUI/BurgerIcons/Tomato.png" id="12_nwglt"]
-[ext_resource type="Texture2D" uid="uid://dfjfdo2pd4yap" path="res://Artwork/GUI/BigBurgerIcons/Tomato.png" id="13_yvhcg"]
-[ext_resource type="Texture2D" uid="uid://ddlk43fjxajup" path="res://Artwork/GUI/BurgerIcons/Pickles.png" id="14_kxjdb"]
-[ext_resource type="Texture2D" uid="uid://bqvl8f6npptho" path="res://Artwork/GUI/BigBurgerIcons/Pickles.png" id="15_cav6o"]
-[ext_resource type="Texture2D" uid="uid://cnf2hw6j1wywf" path="res://Artwork/GUI/BurgerIcons/Sauce.png" id="16_7bsbh"]
-[ext_resource type="Texture2D" uid="uid://b4ei5xjc4hhy0" path="res://Artwork/GUI/BigBurgerIcons/Sauce.png" id="17_pvkos"]
-[ext_resource type="Texture2D" uid="uid://dmlhdjb0e658o" path="res://Artwork/GUI/BurgerIcons/BurgerTop.png" id="18_u81yr"]
-[ext_resource type="Texture2D" uid="uid://domdrpfxqniau" path="res://Artwork/GUI/BigBurgerIcons/TopBun.png" id="19_t2cmp"]
+[ext_resource type="Texture2D" uid="uid://cxga2sg0lut28" path="res://Artwork/GUI/BurgerIcons/Lettuce.png" id="3_s7t4t"]
+[ext_resource type="Texture2D" uid="uid://c0n55nrh1fh2m" path="res://Artwork/GUI/BurgerIcons/Patty.png" id="4_vedps"]
+[ext_resource type="Texture2D" uid="uid://ckb77l7c0o85x" path="res://Artwork/GUI/BurgerIcons/Cheese.png" id="5_rfcad"]
+[ext_resource type="Texture2D" uid="uid://dmatqu87pmpmt" path="res://Artwork/GUI/BurgerIcons/Onion.png" id="6_1cpp6"]
+[ext_resource type="Texture2D" uid="uid://cci2h53r8qiq6" path="res://Artwork/GUI/BurgerIcons/Tomato.png" id="7_7x2h5"]
+[ext_resource type="Texture2D" uid="uid://ddlk43fjxajup" path="res://Artwork/GUI/BurgerIcons/Pickles.png" id="8_ajra8"]
+[ext_resource type="Texture2D" uid="uid://cnf2hw6j1wywf" path="res://Artwork/GUI/BurgerIcons/Sauce.png" id="9_jehts"]
+[ext_resource type="Texture2D" uid="uid://dmlhdjb0e658o" path="res://Artwork/GUI/BurgerIcons/BurgerTop.png" id="10_m08gh"]
+[ext_resource type="Texture2D" uid="uid://bbdsrneia2mr1" path="res://Artwork/GUI/BigBurgerIcons/LettuceAnimationSheet.png" id="12_20hs5"]
+[ext_resource type="Texture2D" uid="uid://bmawy21ht38gc" path="res://Artwork/GUI/BigBurgerIcons/TomatoAnimationSheet.png" id="16_b5hw6"]
+[ext_resource type="Texture2D" uid="uid://ckcw213dkpckg" path="res://Artwork/GUI/BigBurgerIcons/SauceAnimationSheet.png" id="18_bwqb3"]
+[ext_resource type="Texture2D" uid="uid://bfqrp52gkaxts" path="res://Artwork/GUI/BigBurgerIcons/XSheet.png" id="22_8idst"]
+[ext_resource type="Texture2D" uid="uid://cm052dhy0t308" path="res://Artwork/GUI/BigBurgerIcons/BurgerBottomAnimationSheet.png" id="23_kix6f"]
+[ext_resource type="Texture2D" uid="uid://chslelxotrkpt" path="res://Artwork/GUI/BigBurgerIcons/CheckSheet.png" id="23_l0twr"]
+[ext_resource type="Texture2D" uid="uid://baidy1lrtphfa" path="res://Artwork/GUI/BigBurgerIcons/PattyAnimationSheet.png" id="24_3h80r"]
+[ext_resource type="Texture2D" uid="uid://c26x40sn501wt" path="res://Artwork/GUI/BigBurgerIcons/CheeseAnimationSheet.png" id="25_q1ry3"]
+[ext_resource type="Texture2D" uid="uid://b3v4nbx4vdkrp" path="res://Artwork/GUI/BigBurgerIcons/OnionAnimationSheet.png" id="26_3cgje"]
+[ext_resource type="Texture2D" uid="uid://be3ke3od2qotm" path="res://Artwork/GUI/BigBurgerIcons/PicklesAnimationSheet.png" id="27_4naci"]
+[ext_resource type="Texture2D" uid="uid://dtr2efggvk6pv" path="res://Artwork/GUI/BigBurgerIcons/TopBunAnimationSheet.png" id="28_ugky1"]
 
-[sub_resource type="Animation" id="Animation_f7he0"]
-resource_name = "Drop"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BurgerImage/BurgImgSprite:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BurgerImage/BurgImgSprite:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(131, 97), Vector2(131, 127), Vector2(131, 157)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"ReplaceIngredientWithNewSprite"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_xihvg"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BurgerImage/BurgImgSprite:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BurgerImage/BurgImgSprite:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(131, 116)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("BurgerImage/BurgImgSprite2:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("BurgerImage/BurgImgSprite2:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(131, 97)]
-}
-
-[sub_resource type="Animation" id="Animation_yigl4"]
-resource_name = "Drop2"
-length = 0.5
+[sub_resource type="Animation" id="Animation_2qj5n"]
+resource_name = "Cancel"
+length = 1.1
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -125,53 +34,386 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.3),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"ReplaceIngredientWithNewSprite"
+"method": &"StartBurgerImageWipe"
 }]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BurgerImage/BurgImgSprite2:visible")
+tracks/1/path = NodePath("CancelSprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [false, true, false]
+"values": [0, 1, 1, 1, 1, 1, 0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("BurgerImage/BurgImgSprite2:position")
+tracks/2/path = NodePath("CancelSprite:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(131, 97), Vector2(131, 127), Vector2(131, 157)]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("22_8idst")]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_71utv"]
+[sub_resource type="Animation" id="Animation_hdy0y"]
+resource_name = "Clear"
+length = 1.1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"StartBurgerImageWipe"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CancelSprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("23_l0twr")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CancelSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 1, 1, 1, 1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_uh7lu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CancelSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CancelSprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("22_8idst")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0mof1"]
 _data = {
-"Drop": SubResource("Animation_f7he0"),
-"Drop2": SubResource("Animation_yigl4"),
-"RESET": SubResource("Animation_xihvg")
+"Cancel": SubResource("Animation_2qj5n"),
+"Clear": SubResource("Animation_hdy0y"),
+"RESET": SubResource("Animation_uh7lu")
 }
 
-[node name="GUI" type="Control" node_paths=PackedStringArray("_burgersLabel", "_burgersInteger", "_timeLabel", "_timeInteger", "_scoreLabel", "_scoreInteger", "_ordersUpLabel", "_burgerImageMenu", "_burgerIngredientSprite", "_burgerIngredientSprite2", "_burgerAnim", "_wipeDelayTimer", "_secondDelayTimer", "_thirdDelayTimer", "_burgerCountTimer", "_ordersUpTimer", "_scoreTimer", "_specialTimeDisplayTimer")]
+[sub_resource type="Animation" id="Animation_nqx86"]
+resource_name = "Drop4"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite4:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_nk6fh"]
+resource_name = "Drop8"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite8:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_htem3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite4:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BurgImgSprite8:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7l1ii"]
+_data = {
+"Drop4": SubResource("Animation_nqx86"),
+"Drop8": SubResource("Animation_nk6fh"),
+"RESET": SubResource("Animation_htem3")
+}
+
+[sub_resource type="Animation" id="Animation_vx01v"]
+resource_name = "Drop3"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite3:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_nmeem"]
+resource_name = "Drop7"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite7:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_h8cj5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite3:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BurgImgSprite7:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l75wr"]
+_data = {
+"Drop3": SubResource("Animation_vx01v"),
+"Drop7": SubResource("Animation_nmeem"),
+"RESET": SubResource("Animation_h8cj5")
+}
+
+[sub_resource type="Animation" id="Animation_schwd"]
+resource_name = "Drop2"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_2nvc6"]
+resource_name = "Drop6"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite6:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_l4ocq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BurgImgSprite6:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3332o"]
+_data = {
+"Drop2": SubResource("Animation_schwd"),
+"Drop6": SubResource("Animation_2nvc6"),
+"RESET": SubResource("Animation_l4ocq")
+}
+
+[sub_resource type="Animation" id="Animation_ftvgk"]
+resource_name = "Drop1"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_tn8ti"]
+resource_name = "Drop5"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite5:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_d3ufs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BurgImgSprite5:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jj4ds"]
+_data = {
+"Drop1": SubResource("Animation_ftvgk"),
+"Drop5": SubResource("Animation_tn8ti"),
+"RESET": SubResource("Animation_d3ufs")
+}
+
+[node name="GUI" type="Control" node_paths=PackedStringArray("_burgersLabel", "_burgersInteger", "_timeLabel", "_timeInteger", "_scoreLabel", "_scoreInteger", "_ordersUpLabel", "_burgerImageMenu", "_burgerIngredientSprites", "_imageAnim", "_burgerAnim1", "_burgerAnim2", "_burgerAnim3", "_burgerAnim4", "_wipeDelayTimer", "_burgerCountTimer", "_ordersUpTimer", "_scoreTimer", "_specialTimeDisplayTimer", "debugLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_xcyso")
+script = ExtResource("1_4g7tx")
 _burgersLabel = NodePath("BurgersLabel")
 _burgersInteger = NodePath("BurgersInteger")
 _timeLabel = NodePath("TimeLabel")
@@ -179,35 +421,37 @@ _timeInteger = NodePath("TimeInteger")
 _scoreLabel = NodePath("ScoreLabel")
 _scoreInteger = NodePath("ScoreInteger")
 _ordersUpLabel = NodePath("OrderWindow/OrderLabel")
-_bottomBunTexture = ExtResource("2_1ef75")
-_bottomBunImage = ExtResource("3_iikfb")
-_lettuceTexture = ExtResource("4_qiifv")
-_lettuceImage = ExtResource("5_t80wh")
-_pattyTexture = ExtResource("6_6a2dp")
-_pattyImage = ExtResource("7_g3jpf")
-_cheeseTexture = ExtResource("8_1brkv")
-_cheeseImage = ExtResource("9_nyixc")
-_onionTexture = ExtResource("10_431cy")
-_onionImage = ExtResource("11_e2gff")
-_tomatoTexture = ExtResource("12_nwglt")
-_tomatoImage = ExtResource("13_yvhcg")
-_picklesTexture = ExtResource("14_kxjdb")
-_picklesImage = ExtResource("15_cav6o")
-_sauceTexture = ExtResource("16_7bsbh")
-_sauceImage = ExtResource("17_pvkos")
-_topBunTexture = ExtResource("18_u81yr")
-_topBunImage = ExtResource("19_t2cmp")
+_bottomBunTexture = ExtResource("2_t4au5")
+_bottomBunSheet = ExtResource("23_kix6f")
+_lettuceTexture = ExtResource("3_s7t4t")
+_lettuceSheet = ExtResource("12_20hs5")
+_pattyTexture = ExtResource("4_vedps")
+_pattySheet = ExtResource("24_3h80r")
+_cheeseTexture = ExtResource("5_rfcad")
+_cheeseSheet = ExtResource("25_q1ry3")
+_onionTexture = ExtResource("6_1cpp6")
+_onionSheet = ExtResource("26_3cgje")
+_tomatoTexture = ExtResource("7_7x2h5")
+_tomatoSheet = ExtResource("16_b5hw6")
+_picklesTexture = ExtResource("8_ajra8")
+_picklesSheet = ExtResource("27_4naci")
+_sauceTexture = ExtResource("9_jehts")
+_sauceSheet = ExtResource("18_bwqb3")
+_topBunTexture = ExtResource("10_m08gh")
+_topBunSheet = ExtResource("28_ugky1")
 _burgerImageMenu = NodePath("BurgerImage")
-_burgerIngredientSprite = NodePath("BurgerImage/BurgImgSprite")
-_burgerIngredientSprite2 = NodePath("BurgerImage/BurgImgSprite2")
-_burgerAnim = NodePath("BurgerImage/BurgImgAnim")
+_burgerIngredientSprites = [NodePath("BurgerImage/BurgImgSprite"), NodePath("BurgerImage/BurgImgSprite2"), NodePath("BurgerImage/BurgImgSprite3"), NodePath("BurgerImage/BurgImgSprite4"), NodePath("BurgerImage/BurgImgSprite5"), NodePath("BurgerImage/BurgImgSprite6"), NodePath("BurgerImage/BurgImgSprite7"), NodePath("BurgerImage/BurgImgSprite8")]
+_imageAnim = NodePath("ImgMenuAnim")
+_burgerAnim1 = NodePath("BurgerImage/BurgerAnim1")
+_burgerAnim2 = NodePath("BurgerImage/BurgerAnim2")
+_burgerAnim3 = NodePath("BurgerImage/BurgerAnim3")
+_burgerAnim4 = NodePath("BurgerImage/BurgerAnim4")
 _wipeDelayTimer = NodePath("WipeDelayTimer")
-_secondDelayTimer = NodePath("SecondDelayTimer")
-_thirdDelayTimer = NodePath("ThirdDelayTimer")
 _burgerCountTimer = NodePath("BurgerCountTimer")
 _ordersUpTimer = NodePath("OrderWindow/OrdersUpTimer")
 _scoreTimer = NodePath("ScoreTimer")
 _specialTimeDisplayTimer = NodePath("SpecialTimeTimer")
+debugLabel = NodePath("DebugLabel")
 
 [node name="Background" type="Control" parent="."]
 anchors_preset = 0
@@ -302,40 +546,109 @@ bbcode_enabled = true
 
 [node name="OrdersUpTimer" type="Timer" parent="OrderWindow"]
 
+[node name="ImgMenuAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0mof1")
+}
+
+[node name="CancelSprite" type="Sprite2D" parent="." groups=["DoNotDispose"]]
+z_index = 2
+texture_filter = 1
+position = Vector2(132, 176)
+texture = ExtResource("22_8idst")
+hframes = 2
+
 [node name="BurgerImage" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="BurgImgSprite" type="Sprite2D" parent="BurgerImage" groups=["DoNotDispose"]]
-visible = false
+[node name="BurgImgSprite" type="Sprite2D" parent="BurgerImage" groups=["BurgerImages"]]
 texture_filter = 1
-position = Vector2(131, 116)
-texture = ExtResource("3_iikfb")
+position = Vector2(131, 176)
+texture = ExtResource("23_kix6f")
+hframes = 5
+frame = 4
 
-[node name="BurgImgSprite2" type="Sprite2D" parent="BurgerImage" groups=["DoNotDispose"]]
-visible = false
+[node name="BurgImgSprite2" type="Sprite2D" parent="BurgerImage" groups=["BurgerImages"]]
 texture_filter = 1
-position = Vector2(131, 97)
-texture = ExtResource("3_iikfb")
+position = Vector2(130, 169)
+texture = ExtResource("24_3h80r")
+hframes = 5
+frame = 1
 
-[node name="BurgImgAnim" type="AnimationPlayer" parent="BurgerImage"]
-root_node = NodePath("../..")
+[node name="BurgImgSprite3" type="Sprite2D" parent="BurgerImage" groups=["BurgerImages"]]
+texture_filter = 1
+position = Vector2(131, 164)
+texture = ExtResource("25_q1ry3")
+hframes = 5
+frame = 1
+
+[node name="BurgImgSprite4" type="Sprite2D" parent="BurgerImage" groups=["BurgerImages"]]
+texture_filter = 1
+position = Vector2(130, 162)
+texture = ExtResource("18_bwqb3")
+hframes = 5
+frame = 1
+
+[node name="BurgImgSprite5" type="Sprite2D" parent="BurgerImage" groups=["BurgerImages"]]
+texture_filter = 1
+position = Vector2(131, 157)
+texture = ExtResource("25_q1ry3")
+hframes = 5
+frame = 4
+
+[node name="BurgImgSprite6" type="Sprite2D" parent="BurgerImage" groups=["BurgerImages"]]
+texture_filter = 1
+position = Vector2(131, 153)
+texture = ExtResource("27_4naci")
+hframes = 5
+frame = 1
+
+[node name="BurgImgSprite7" type="Sprite2D" parent="BurgerImage" groups=["BurgerImages"]]
+texture_filter = 1
+position = Vector2(131, 149)
+texture = ExtResource("27_4naci")
+hframes = 5
+frame = 1
+
+[node name="BurgImgSprite8" type="Sprite2D" parent="BurgerImage" groups=["BurgerImages"]]
+texture_filter = 1
+position = Vector2(131, 143)
+texture = ExtResource("28_ugky1")
+hframes = 5
+frame = 1
+
+[node name="BurgerAnim4" type="AnimationPlayer" parent="BurgerImage"]
 libraries = {
-"": SubResource("AnimationLibrary_71utv")
+"": SubResource("AnimationLibrary_7l1ii")
+}
+
+[node name="BurgerAnim3" type="AnimationPlayer" parent="BurgerImage"]
+libraries = {
+"": SubResource("AnimationLibrary_l75wr")
+}
+
+[node name="BurgerAnim2" type="AnimationPlayer" parent="BurgerImage"]
+libraries = {
+"": SubResource("AnimationLibrary_3332o")
+}
+
+[node name="BurgerAnim1" type="AnimationPlayer" parent="BurgerImage"]
+libraries = {
+"": SubResource("AnimationLibrary_jj4ds")
 }
 
 [node name="WipeDelayTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="SecondDelayTimer" type="Timer" parent="."]
-wait_time = 0.4
-one_shot = true
-
-[node name="ThirdDelayTimer" type="Timer" parent="."]
-wait_time = 0.3
-one_shot = true
+[node name="DebugLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 194.0
+offset_top = 22.0
+offset_right = 576.0
+offset_bottom = 215.0
+theme_override_fonts/font = ExtResource("3_ng8f0")
+theme_override_font_sizes/font_size = 32
 
 [connection signal="timeout" from="WipeDelayTimer" to="." method="OnWipeDelayTimerTimeout"]
-[connection signal="timeout" from="SecondDelayTimer" to="." method="OnSecondDelayTimerTimeout"]
-[connection signal="timeout" from="ThirdDelayTimer" to="." method="OnThirdDelayTimerTimeout"]

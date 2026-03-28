@@ -5,9 +5,9 @@ using Godot;
 public partial class IngredientInventory : Node
 {
     public static IngredientInventory Instance { get; private set; }
-    public List<IngredientType> _myIngredients = new List<IngredientType>();
-    private int _currentIngredientIndex;
-    private Gui _myGui;
+    //public List<IngredientType> _myIngredients = new List<IngredientType>();
+    private int _currentIngredientIndex, _burgerCount;
+    private GraphicInterface _myGui;
     public override void _EnterTree()
     {
         if (Instance == null)
@@ -22,7 +22,7 @@ public partial class IngredientInventory : Node
 
     public override void _Ready()
     {
-        _myGui = GetTree().CurrentScene.GetNode<Gui>("GUI");
+        _myGui = GetTree().CurrentScene.GetNode<GraphicInterface>("GUI");
         GlobalSignals.Instance.GameOver += ResetInventory;
     }
 
@@ -38,29 +38,19 @@ public partial class IngredientInventory : Node
 
     public void SetCurrentIngredientIndex(int index)
     {
-        _currentIngredientIndex = index;
+        if (index == 0)
+        {
+            _currentIngredientIndex = index;
+        }
+        else
+        {
+            _currentIngredientIndex += index;
+        }
+        
     }
 
     public void AddCollectedItemToInventory(IngredientType ingredient)
     {
-        if (_currentIngredientIndex <= OrderManager.Instance.GetCurrentOrder().ingredients.Length -1)
-        {
-            if (OrderManager.Instance.GetCurrentOrder().ingredients[_currentIngredientIndex] == ingredient)
-            {
-                _myIngredients.Add(ingredient);
-                _currentIngredientIndex++;
-                _myGui.AddIngredientToBurgerImage(ingredient);
-
-                if (_currentIngredientIndex == OrderManager.Instance.GetCurrentOrder().ingredients.Length)
-                {
-                    _myGui.StartBurgerImageWipe();
-                    _myGui.IncreaseBurgerCount();
-                }
-            }
-            else
-            {
-                
-            }
-        }
+        _myGui.AddIngredientToBurgerImage(ingredient);
     }
 }

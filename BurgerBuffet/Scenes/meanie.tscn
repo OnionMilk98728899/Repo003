@@ -1,23 +1,236 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3554ud2dv6aw"]
+[gd_scene load_steps=18 format=3 uid="uid://d3554ud2dv6aw"]
 
 [ext_resource type="Script" path="res://Scripts/Components/EnemyMovement.cs" id="1_i5e3a"]
+[ext_resource type="Script" path="res://Scripts/Objects/Meanie.cs" id="1_q2e2w"]
 [ext_resource type="Texture2D" uid="uid://bpwu6oviseacy" path="res://Artwork/Meanies/MeanieSpriteSheet.png" id="2_moti5"]
+[ext_resource type="Texture2D" uid="uid://bqua1ou07rw4c" path="res://Artwork/Meanies/ArrowAnimationsSheet.png" id="3_g106l"]
+[ext_resource type="FontFile" uid="uid://c5niibnyv6wl5" path="res://Fonts/BitCrusher8.ttf" id="5_1kejb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_suyve"]
 size = Vector2(14, 15)
 
-[node name="Meanie" type="Node2D"]
+[sub_resource type="Animation" id="Animation_5bm0x"]
+resource_name = "Arrow_Down"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ArrowSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 8, 9, 10, 11, 8, 9, 10, 11]
+}
 
-[node name="EnemyMovement" type="Node2D" parent="."]
+[sub_resource type="Animation" id="Animation_u4aia"]
+resource_name = "Arrow_Left"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ArrowSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [44, 45, 46, 47, 44, 45, 46, 47, 44, 45, 46, 47]
+}
+
+[sub_resource type="Animation" id="Animation_5raml"]
+resource_name = "Arrow_Right"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ArrowSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 34, 35, 32, 33, 34, 35, 32, 33, 34, 35]
+}
+
+[sub_resource type="Animation" id="Animation_0n1oq"]
+resource_name = "Arrow_Up"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ArrowSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [20, 21, 22, 23, 20, 21, 22, 23, 20, 21, 22, 23]
+}
+
+[sub_resource type="Animation" id="Animation_n3gkf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ArrowSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [48]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gocxq"]
+_data = {
+"Arrow_Down": SubResource("Animation_5bm0x"),
+"Arrow_Left": SubResource("Animation_u4aia"),
+"Arrow_Right": SubResource("Animation_5raml"),
+"Arrow_Up": SubResource("Animation_0n1oq"),
+"RESET": SubResource("Animation_n3gkf")
+}
+
+[sub_resource type="Animation" id="Animation_8eeag"]
+resource_name = "Destroy"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_6iqpd"]
+resource_name = "Mean"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_ps6bw"]
+resource_name = "Nice"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_apqe5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_070y8"]
+_data = {
+"Destroy": SubResource("Animation_8eeag"),
+"Mean": SubResource("Animation_6iqpd"),
+"Nice": SubResource("Animation_ps6bw"),
+"RESET": SubResource("Animation_apqe5")
+}
+
+[node name="Meanie" type="Node2D" node_paths=PackedStringArray("_enemyMovement")]
+script = ExtResource("1_q2e2w")
+_enemyMovement = NodePath("EnemyMovement")
+
+[node name="EnemyMovement" type="Node2D" parent="." node_paths=PackedStringArray("_enemyBody", "_moveDecisionTimer", "_moveCountDownTimer", "_enemyAnim", "_arrowAnim", "_arrowSprite", "debugLabel")]
 script = ExtResource("1_i5e3a")
+_enemyBody = NodePath("EnemyBody")
+_moveDecisionTimer = NodePath("EnemyBody/MoveDecisionTimer")
+_moveCountDownTimer = NodePath("EnemyBody/MoveCountdownTimer")
+_enemyAnim = NodePath("EnemyBody/EnemyAnim")
+_arrowAnim = NodePath("EnemyBody/ArrowAnim")
+_arrowSprite = NodePath("EnemyBody/ArrowSprite")
+SPEED = 20
+debugLabel = NodePath("EnemyBody/DebugLabel")
 
-[node name="EnemyBody" type="CharacterBody2D" parent="EnemyMovement"]
+[node name="EnemyBody" type="CharacterBody2D" parent="EnemyMovement" groups=["Meanies"]]
+collision_layer = 4
+collision_mask = 0
 
 [node name="EnemyBodyCollider" type="CollisionShape2D" parent="EnemyMovement/EnemyBody"]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_suyve")
 
+[node name="ArrowSprite" type="Sprite2D" parent="EnemyMovement/EnemyBody"]
+texture_filter = 1
+texture = ExtResource("3_g106l")
+hframes = 49
+frame = 48
+
+[node name="ArrowAnim" type="AnimationPlayer" parent="EnemyMovement/EnemyBody"]
+libraries = {
+"": SubResource("AnimationLibrary_gocxq")
+}
+
 [node name="EnemySprite" type="Sprite2D" parent="EnemyMovement/EnemyBody"]
 texture_filter = 1
 texture = ExtResource("2_moti5")
 hframes = 12
+
+[node name="EnemyAnim" type="AnimationPlayer" parent="EnemyMovement/EnemyBody"]
+libraries = {
+"": SubResource("AnimationLibrary_070y8")
+}
+
+[node name="MoveCountdownTimer" type="Timer" parent="EnemyMovement/EnemyBody"]
+wait_time = 1.2
+one_shot = true
+
+[node name="MoveDecisionTimer" type="Timer" parent="EnemyMovement/EnemyBody"]
+wait_time = 2.0
+one_shot = true
+
+[node name="DebugLabel" type="Label" parent="EnemyMovement/EnemyBody"]
+offset_left = -54.0
+offset_top = -33.0
+offset_right = 60.0
+offset_bottom = 17.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_1kejb")
+theme_override_font_sizes/font_size = 32
+
+[connection signal="timeout" from="EnemyMovement/EnemyBody/MoveCountdownTimer" to="EnemyMovement" method="OnMoveCountdownTimerTimeout"]
+[connection signal="timeout" from="EnemyMovement/EnemyBody/MoveDecisionTimer" to="EnemyMovement" method="OnMoveDecisionTimerTimeout"]

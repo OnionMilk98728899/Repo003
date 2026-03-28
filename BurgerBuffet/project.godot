@@ -20,7 +20,9 @@ config/icon="res://icon.svg"
 GlobalSignals="*res://Scripts/Other/GlobalSignals.cs"
 IngredientInventory="*res://Scripts/Other/IngredientInventory.cs"
 OrderManager="*res://Scripts/Managers/OrderManager.cs"
-ItemInventory="*res://Scripts/Other/ItemInventory.cs"
+GlobalResources="*res://Scenes/global_resources.tscn"
+BoardManager="*res://Scripts/Managers/BoardManager.cs"
+AudioManager="*res://Scenes/audio_manager.tscn"
 
 [display]
 
