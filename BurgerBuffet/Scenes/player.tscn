@@ -1,10 +1,27 @@
-[gd_scene load_steps=18 format=3 uid="uid://cmamjgls1ukba"]
+[gd_scene load_steps=30 format=3 uid="uid://cmamjgls1ukba"]
 
 [ext_resource type="Script" path="res://Scripts/player.cs" id="1_austw"]
 [ext_resource type="Script" path="res://Scripts/Components/PlayerMovement.cs" id="2_ebcah"]
-[ext_resource type="Texture2D" uid="uid://bt0sbwh175f08" path="res://Artwork/Player/PlayerAnimations.png" id="2_qy4qg"]
+[ext_resource type="Texture2D" uid="uid://daxq6m2r3hmjv" path="res://Artwork/Player/PlayerAnimations003.png" id="3_ol5a2"]
 [ext_resource type="FontFile" uid="uid://c5niibnyv6wl5" path="res://Fonts/BitCrusher8.ttf" id="4_3j2fc"]
-[ext_resource type="Script" path="res://Scripts/Components/ItemCollector.cs" id="5_fmts2"]
+[ext_resource type="PackedScene" uid="uid://bgg0tf8mm7v27" path="res://Scenes/item_collector.tscn" id="5_2m1ov"]
+
+[sub_resource type="Animation" id="Animation_v0034"]
+resource_name = "GameOver"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 34, 35, 36, 37, 38, 39]
+}
 
 [sub_resource type="Animation" id="Animation_gt8qn"]
 resource_name = "Move_Down"
@@ -88,6 +105,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2i(0, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [32]
+}
 
 [sub_resource type="Animation" id="Animation_7appv"]
 resource_name = "Special_Down"
@@ -155,14 +184,219 @@ tracks/0/keys = {
 "values": [Vector2i(28, 0), Vector2i(29, 0), Vector2i(30, 0), Vector2i(31, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_kcd7s"]
+resource_name = "Jump_Left"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [40, 41, 41, 41, 42, 43]
+}
+
+[sub_resource type="Animation" id="Animation_226wp"]
+resource_name = "Jump_Right"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [44, 45, 45, 45, 46, 47]
+}
+
+[sub_resource type="Animation" id="Animation_f6oxx"]
+resource_name = "Jump_Down"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [48, 49, 49, 49, 50, 51]
+}
+
+[sub_resource type="Animation" id="Animation_0m2hw"]
+resource_name = "Jump_Up"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.1001, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [52, 53, 53, 53, 53, 54, 55]
+}
+
+[sub_resource type="Animation" id="Animation_s0uho"]
+resource_name = "Special_Jump_Left"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [56, 57, 58, 59]
+}
+
+[sub_resource type="Animation" id="Animation_331gs"]
+resource_name = "Special_Jump_Right"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [60, 61, 62, 63]
+}
+
+[sub_resource type="Animation" id="Animation_3i4xi"]
+resource_name = "Special_Jump_Down"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [64, 65, 66, 67]
+}
+
+[sub_resource type="Animation" id="Animation_x7vua"]
+resource_name = "Special_Jump_Up"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [68, 69, 70, 71]
+}
+
+[sub_resource type="Animation" id="Animation_gt4oo"]
+resource_name = "KO_Left"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [72, 73, 74, 75]
+}
+
+[sub_resource type="Animation" id="Animation_wlc6k"]
+resource_name = "KO_Right"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [76, 77, 78, 79]
+}
+
+[sub_resource type="Animation" id="Animation_8lyti"]
+resource_name = "KO_Down"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [80, 81, 82, 83]
+}
+
+[sub_resource type="Animation" id="Animation_mtjf6"]
+resource_name = "KO_Up"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [84, 85, 86, 87]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ck6e"]
 _data = {
+"GameOver": SubResource("Animation_v0034"),
+"Jump_Down": SubResource("Animation_f6oxx"),
+"Jump_Left": SubResource("Animation_kcd7s"),
+"Jump_Right": SubResource("Animation_226wp"),
+"Jump_Up": SubResource("Animation_0m2hw"),
+"KO_Down": SubResource("Animation_8lyti"),
+"KO_Left": SubResource("Animation_gt4oo"),
+"KO_Right": SubResource("Animation_wlc6k"),
+"KO_Up": SubResource("Animation_mtjf6"),
 "Move_Down": SubResource("Animation_gt8qn"),
 "Move_Left": SubResource("Animation_dmg3p"),
 "Move_Right": SubResource("Animation_2au3f"),
 "Move_Up": SubResource("Animation_7ynus"),
 "RESET": SubResource("Animation_rbh37"),
 "Special_Down": SubResource("Animation_7appv"),
+"Special_Jump_Down": SubResource("Animation_3i4xi"),
+"Special_Jump_Left": SubResource("Animation_s0uho"),
+"Special_Jump_Right": SubResource("Animation_331gs"),
+"Special_Jump_Up": SubResource("Animation_x7vua"),
 "Special_Left": SubResource("Animation_r47ip"),
 "Special_Right": SubResource("Animation_vkgln"),
 "Special_Up": SubResource("Animation_m7n1o")
@@ -171,29 +405,30 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qh7ix"]
 size = Vector2(14, 13)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5hw4q"]
-size = Vector2(14, 13)
-
 [node name="Player" type="Node2D"]
 z_index = 2
 script = ExtResource("1_austw")
 
-[node name="PlayerMovement" type="Node2D" parent="." node_paths=PackedStringArray("_playerBody", "_playerSprite", "_playerAnim", "_debugLabel")]
+[node name="PlayerMovement" type="Node2D" parent="." node_paths=PackedStringArray("_playerBody", "_playerSprite", "_playerAnim", "_itemCollector", "_debugLabel", "_jumpTimer", "_knockoutTimer")]
 position = Vector2(7, 5)
 script = ExtResource("2_ebcah")
 _playerBody = NodePath("PlayerBody")
 _playerSprite = NodePath("PlayerBody/PlayerSprite")
 _playerAnim = NodePath("PlayerBody/PlayerAnim")
+_itemCollector = NodePath("PlayerBody/ItemCollector")
 _playerSpeed = 52
 _debugLabel = NodePath("PlayerBody/DebugLabel")
+_jumpTimer = NodePath("PlayerBody/JumpTimer")
+_knockoutTimer = NodePath("PlayerBody/KOTimer")
 
-[node name="PlayerBody" type="CharacterBody2D" parent="PlayerMovement"]
+[node name="PlayerBody" type="CharacterBody2D" parent="PlayerMovement" groups=["Player"]]
 position = Vector2(-14, -13)
 
 [node name="PlayerSprite" type="Sprite2D" parent="PlayerMovement/PlayerBody"]
 texture_filter = 1
-texture = ExtResource("2_qy4qg")
-hframes = 32
+texture = ExtResource("3_ol5a2")
+hframes = 88
+frame = 32
 
 [node name="PlayerAnim" type="AnimationPlayer" parent="PlayerMovement/PlayerBody"]
 libraries = {
@@ -212,15 +447,16 @@ offset_bottom = -1.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_3j2fc")
 
-[node name="ItemCollector" type="Node2D" parent="PlayerMovement/PlayerBody"]
-script = ExtResource("5_fmts2")
+[node name="ItemCollector" parent="PlayerMovement/PlayerBody" instance=ExtResource("5_2m1ov")]
+_myUnitType = 1
 
-[node name="ItemCollectorArea" type="Area2D" parent="PlayerMovement/PlayerBody/ItemCollector"]
-collision_layer = 0
-collision_mask = 6
+[node name="JumpTimer" type="Timer" parent="PlayerMovement/PlayerBody"]
+wait_time = 0.6
+one_shot = true
 
-[node name="ItemCollectorCollider" type="CollisionShape2D" parent="PlayerMovement/PlayerBody/ItemCollector/ItemCollectorArea"]
-position = Vector2(0, 1.5)
-shape = SubResource("RectangleShape2D_5hw4q")
+[node name="KOTimer" type="Timer" parent="PlayerMovement/PlayerBody"]
+wait_time = 0.4
+one_shot = true
 
-[connection signal="body_entered" from="PlayerMovement/PlayerBody/ItemCollector/ItemCollectorArea" to="PlayerMovement/PlayerBody/ItemCollector" method="OnItemCollectorBodyEntered"]
+[connection signal="timeout" from="PlayerMovement/PlayerBody/JumpTimer" to="PlayerMovement" method="OnJumpTimerTimeout"]
+[connection signal="timeout" from="PlayerMovement/PlayerBody/KOTimer" to="PlayerMovement" method="OnKOTimerTimeout"]

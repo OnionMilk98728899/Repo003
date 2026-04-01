@@ -24,12 +24,13 @@ public partial class BoardManager : Node2D
 
     public override void _Ready()
     {
-        GlobalSignals.Instance.GameOver += ResetOccupiedSquares;
+        GlobalSignals.Instance.RestartGame += ResetOccupiedSquares;
     }
 
     private void ResetOccupiedSquares()
     {
         _occupiedSquares.Clear();
+        _occupiedMeanieSquares.Clear();
     }
 
 
@@ -45,7 +46,6 @@ public partial class BoardManager : Node2D
             {
                 _validSquare = false;
             }
-
         }
 
         if (!_validSquare)
@@ -55,7 +55,7 @@ public partial class BoardManager : Node2D
         else
         {
             _boardSquare = (randX, randY);
-            if (isMeanie) { _occupiedMeanieSquares.Add(_boardSquare); }
+            if (isMeanie) { _occupiedMeanieSquares.Add(_boardSquare);}
             _occupiedSquares.Add(_boardSquare);
             return _boardSquare;
         }

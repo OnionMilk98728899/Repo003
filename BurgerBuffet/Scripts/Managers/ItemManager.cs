@@ -18,10 +18,16 @@ public partial class ItemManager : Node2D
 
 	public override void _Ready()
 	{
-		GlobalSignals.Instance.GameOver += StartRound;
+		GlobalSignals.Instance.GameOver += OnGameOver;
+		GlobalSignals.Instance.RestartGame += StartRound;
 		GlobalSignals.Instance.GenerateNewOrder += GenerateRandomOrder;
+		StartRound();
 	}
 
+	private void OnGameOver()
+	{
+		_delayTimer.Stop();
+	}
 	private void StartRound()
 	{
 		WipeAllBoardItems();
@@ -50,32 +56,6 @@ public partial class ItemManager : Node2D
 		}
 
 	}
-
-	// private void FindRandomAvailableBoardSquare()
-	// {
-	// 	int randX = GD.RandRange(0, FLOORSIZE_X - 1);
-	// 	int randY = GD.RandRange(0, FLOORSIZE_Y - 1);
-
-	// 	_validSquare = true;
-	// 	for (int i = 0; i < BoardManager.Instance._occupiedSquares.Count; i++)
-	// 	{
-	// 		if (BoardManager.Instance._occupiedSquares[i].Item1 == randX && BoardManager.Instance._occupiedSquares[i].Item2 == randY)
-	// 		{
-	// 			_validSquare = false;
-	// 		}
-
-	// 	}
-
-	// 	if (!_validSquare)
-	// 	{
-	// 		FindRandomAvailableBoardSquare();
-	// 	}
-	// 	else
-	// 	{
-	// 		_boardSquare = (randX, randY);
-	// 		BoardManager.Instance._occupiedSquares.Add(_boardSquare);
-	// 	}
-	// }
 
 	private void GenerateRandomBoardItem()
 	{
@@ -151,17 +131,11 @@ public partial class ItemManager : Node2D
 					}
 					while (newBurger[i] == ingredient);
 
-					//GD.Print($"Detected a {compList[ingredient]}X of {ingredient} and replaced it with {newBurger[i]}");   
 				}
 			}
 			Array.Sort(newBurger);
 
 		}
-
-		// for (int i = 0; i < burgerSize; i++)
-		// {
-		// 	GD.Print(newBurger[i]);
-		// }
 
 		_myBurger.ingredients = newBurger;
 		OrderManager.Instance.SetCurrentOrder(_myBurger);

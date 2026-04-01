@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="AudioLibrary" load_steps=6 format=3 uid="uid://b66cttqyuwedy"]
+[gd_resource type="Resource" script_class="AudioLibrary" load_steps=7 format=3 uid="uid://b66cttqyuwedy"]
 
+[ext_resource type="AudioStream" uid="uid://y6befstk3lru" path="res://Sounds/SFX/BadCollect2.wav" id="1_7v3x7"]
 [ext_resource type="AudioStream" uid="uid://s41gqad4e0cf" path="res://Sounds/SFX/Squeee.wav" id="1_aaolg"]
 [ext_resource type="Script" path="res://Scripts/Resources/AudioLibrary.cs" id="1_irhlr"]
 [ext_resource type="AudioStream" uid="uid://dfw8u3ly26c62" path="res://Sounds/SFX/FullCollect.wav" id="2_pnb4l"]
@@ -12,3 +13,4 @@ turn = ExtResource("5_fqwna")
 collect = ExtResource("1_aaolg")
 collect2 = ExtResource("2_pnb4l")
 death = ExtResource("3_hj40a")
+badCollect = ExtResource("1_7v3x7")

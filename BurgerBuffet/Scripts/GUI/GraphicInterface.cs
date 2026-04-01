@@ -6,11 +6,12 @@ using System.Linq;
 
 public partial class GraphicInterface : Control
 {
-	[Export] private RichTextLabel _burgersLabel, _burgersInteger, _timeLabel, _timeInteger, _scoreLabel, _scoreInteger, _ordersUpLabel;
+	[Export] private RichTextLabel _burgersLabel, _burgersInteger, _timeLabel, _timeInteger, _scoreLabel, _scoreInteger, _ordersUpLabel, _gameoverLabel, _gameOverLabelBack;
 	[Export]
 	private Texture2D _bottomBunTexture, _bottomBunSheet, _lettuceTexture, _lettuceSheet, _pattyTexture, _pattySheet, _cheeseTexture, _cheeseSheet,
 	_onionTexture, _onionSheet, _tomatoTexture, _tomatoSheet, _picklesTexture, _picklesSheet, _sauceTexture, _sauceSheet, _topBunTexture, _topBunSheet;
-	[Export] private Control _burgerImageMenu;
+	[Export] private TextureButton _quitButton, _retryButton;
+	[Export] private Control _burgerImageMenu, _gameOverMenu;
 	[Export] private Sprite2D[] _burgerIngredientSprites;
 	[Export] private AnimationPlayer _imageAnim, _burgerAnim1, _burgerAnim2, _burgerAnim3, _burgerAnim4;
 	[Export] private Timer _wipeDelayTimer, _burgerCountTimer, _ordersUpTimer, _scoreTimer, _specialTimeDisplayTimer;
@@ -19,8 +20,8 @@ public partial class GraphicInterface : Control
 	//public List<IngredientType> _queuedIngredients = new List<IngredientType>();
 	private Vector2 _spritePosition, _orderWindowOriginPosition, _burgerImageOriginPosition, _imagePosition;
 	private IngredientType _currentType, _nextType, _nextNextType;
-	private int _burgerCount, _score, _specialTime, _currentIngredientIndex;
-	private bool _isDumpingBurger;
+	private int  _currentIngredientIndex;
+	private bool _isDumpingBurger, _isFocusGrabbed;
 
 	public override void _Ready()
 	{
@@ -28,50 +29,63 @@ public partial class GraphicInterface : Control
 		_orderWindowOriginPosition = new Vector2(480, 246);
 		_burgerImageOriginPosition = new Vector2(64, 178);
 		GlobalSignals.Instance.GameOver += OnGameOver;
+		GlobalSignals.Instance.RestartGame += OnRestartGame;
+		WipeBurgerImage();
+		HideRevealButtons(false);
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		SetLabels();
-
-		debugLabel.Text = "";
-		// for (int i = 0; i < _queuedIngredients.Count; i++)
-		// {
-		// 	debugLabel.Text += _queuedIngredients[i].ToString();
-		// }
+		if(GlobalResources.Instance._currentGameState == GlobalResources.gameState.gameOver)
+		{
+			HandleButtonInput();
+			if (!_retryButton.Visible && !_quitButton.Visible)
+			{
+				HideRevealButtons(true);
+			}
+		}
+		else
+		{
+			SetLabels();
+			if (_retryButton.Visible && _quitButton.Visible)
+			{
+				HideRevealButtons(false);
+			}
+		}
+		
 	}
 	private void SetLabels()
 	{
 		if (_burgerCountTimer.IsStopped())
 		{
 			_burgersLabel.Text = "burgers";
-			_burgersInteger.Text = _burgerCount.ToString();
+			_burgersInteger.Text = GlobalResources.Instance.GetBurgerCount().ToString();
 		}
 		else
 		{
 			_burgersLabel.Text = $"[shake rate=20.0 level=5 connected=1][rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]{"burgers"}[/rainbow][/shake]";
-			_burgersInteger.Text = $"[shake rate=20.0 level=5 connected=1][rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]{_burgerCount}[/rainbow][/shake]";
+			_burgersInteger.Text = $"[shake rate=20.0 level=5 connected=1][rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]{GlobalResources.Instance.GetBurgerCount()}[/rainbow][/shake]";
 		}
 
 		if (_scoreTimer.IsStopped())
 		{
 			_scoreLabel.Text = "score";
-			_scoreInteger.Text = _score.ToString();
+			_scoreInteger.Text = GlobalResources.Instance.GetScore().ToString();
 		}
 		else
 		{
 			_scoreLabel.Text = $"[shake rate=20.0 level=5 connected=1][rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]{"score"}[/rainbow][/shake]";
-			_scoreInteger.Text = $"[shake rate=20.0 level=5 connected=1][rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]{_score}[/rainbow][/shake]";
+			_scoreInteger.Text = $"[shake rate=20.0 level=5 connected=1][rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]{GlobalResources.Instance.GetScore()}[/rainbow][/shake]";
 		}
 		if (_specialTimeDisplayTimer.IsStopped())
 		{
 			_timeLabel.Text = "time";
-			_timeInteger.Text = _specialTime.ToString();
+			_timeInteger.Text = GlobalResources.Instance.GetSpecialTime().ToString();
 		}
 		else
 		{
 			_timeLabel.Text = $"[shake rate=20.0 level=5 connected=1][rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]{"time"}[/rainbow][/shake]";
-			_timeInteger.Text = $"[shake rate=20.0 level=5 connected=1][rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]{_specialTime}[/rainbow][/shake]";
+			_timeInteger.Text = $"[shake rate=20.0 level=5 connected=1][rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]{GlobalResources.Instance.GetSpecialTime()}[/rainbow][/shake]";
 		}
 
 		if (_ordersUpTimer.IsStopped())
@@ -82,6 +96,21 @@ public partial class GraphicInterface : Control
 		{
 			_ordersUpLabel.Text = $"[shake rate=20.0 level=5 connected=1][rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]{"order's up!"}[/rainbow][/shake]";
 		}
+	}
+
+	private void HandleButtonInput()
+	{
+		if (!_isFocusGrabbed)
+		{
+			_retryButton.GrabFocus();
+			_isFocusGrabbed = true;
+		}
+	}
+
+	private void HideRevealButtons(bool hidden)
+	{
+		_retryButton.Visible = hidden;
+		_quitButton.Visible = hidden;
 	}
 	public void SetUpOrderWindow(Burger order)
 	{
@@ -157,43 +186,46 @@ public partial class GraphicInterface : Control
 		switch (_currentIngredientIndex)
 		{
 			case 1:
-			_burgerAnim1.Play($"Drop{_currentIngredientIndex}");
-			break;
+				_burgerAnim1.Play($"Drop{_currentIngredientIndex}");
+				break;
 			case 2:
-			_burgerAnim2.Play($"Drop{_currentIngredientIndex}");
-			break;
+				_burgerAnim2.Play($"Drop{_currentIngredientIndex}");
+				break;
 			case 3:
-			_burgerAnim3.Play($"Drop{_currentIngredientIndex}");
-			break;
+				_burgerAnim3.Play($"Drop{_currentIngredientIndex}");
+				break;
 			case 4:
-			_burgerAnim4.Play($"Drop{_currentIngredientIndex}");
-			break;
+				_burgerAnim4.Play($"Drop{_currentIngredientIndex}");
+				break;
 			case 5:
-			_burgerAnim1.Play($"Drop{_currentIngredientIndex}");
-			break;
+				_burgerAnim1.Play($"Drop{_currentIngredientIndex}");
+				break;
 			case 6:
-			_burgerAnim2.Play($"Drop{_currentIngredientIndex}");
-			break;
+				_burgerAnim2.Play($"Drop{_currentIngredientIndex}");
+				break;
 			case 7:
-			_burgerAnim3.Play($"Drop{_currentIngredientIndex}");
-			break;
+				_burgerAnim3.Play($"Drop{_currentIngredientIndex}");
+				break;
 			case 8:
-			_burgerAnim4.Play($"Drop{_currentIngredientIndex}");
-			break;
+				_burgerAnim4.Play($"Drop{_currentIngredientIndex}");
+				break;
 		}
 
-		if(ingredient == OrderManager.Instance.GetCurrentOrder().ingredients[_currentIngredientIndex - 1])
+		if (ingredient == OrderManager.Instance.GetCurrentOrder().ingredients[_currentIngredientIndex - 1])
 		{
 			GD.Print("CORRECT INGREDIENT!");
 			AudioManager.Instance.PlaySFX(AudioManager.Instance._audioLibrary.collect);
+			GlobalResources.Instance.SetScore(10);
 
-			if(_currentIngredientIndex == OrderManager.Instance.GetCurrentOrder().ingredients.Length)
+			if (_currentIngredientIndex == OrderManager.Instance.GetCurrentOrder().ingredients.Length)
 			{
 				GD.Print("BURGER COMPLETE!");
 				_imageAnim.Play("Clear");
 				_currentIngredientIndex = 0;
 				_isDumpingBurger = true;
 				AudioManager.Instance.PlaySFX(AudioManager.Instance._audioLibrary.collect2);
+				GlobalResources.Instance.SetScore(50);
+				SetBurgerCount(1);
 			}
 		}
 		else
@@ -201,6 +233,8 @@ public partial class GraphicInterface : Control
 			_imageAnim.Play("Cancel");
 			_currentIngredientIndex = 0;
 			_isDumpingBurger = true;
+			AudioManager.Instance.PlaySFX(AudioManager.Instance._audioLibrary.badCollect);
+			GlobalResources.Instance.SetScore(-10);
 		}
 	}
 
@@ -240,7 +274,7 @@ public partial class GraphicInterface : Control
 
 	public void SetBurgerCount(int count)
 	{
-		_burgerCount = count;
+		GlobalResources.Instance.SetBurgerCount(count);
 		_burgerCountTimer.Start();
 	}
 
@@ -248,11 +282,19 @@ public partial class GraphicInterface : Control
 	{
 		_wipeDelayTimer.Start();
 	}
-
 	private void OnGameOver()
+	{
+
+		_gameoverLabel.Text = "game over";
+		_gameOverLabelBack.Text = "game over";
+	}
+
+	private void OnRestartGame()
 	{
 		WipeBurgerImage();
 		_currentIngredientIndex = 0;
+		_gameoverLabel.Text = "";
+		_gameOverLabelBack.Text = "";
 	}
 
 	public void WipeBurgerImage()
@@ -272,5 +314,17 @@ public partial class GraphicInterface : Control
 		_isDumpingBurger = false;
 		GlobalSignals.Instance.EmitSignal(GlobalSignals.SignalName.GenerateNewOrder);
 		IngredientInventory.Instance.SetCurrentIngredientIndex(0);
+	}
+
+	private void OnQuitButtonPressed()
+	{
+		GetTree().Quit();
+	}
+
+	private void OnRetryButtonPressed()
+	{
+		GlobalSignals.Instance.EmitSignal(GlobalSignals.SignalName.RestartGame);
+		_isFocusGrabbed = false;
+		
 	}
 }

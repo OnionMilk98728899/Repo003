@@ -23,7 +23,7 @@ public partial class IngredientInventory : Node
     public override void _Ready()
     {
         _myGui = GetTree().CurrentScene.GetNode<GraphicInterface>("GUI");
-        GlobalSignals.Instance.GameOver += ResetInventory;
+        GlobalSignals.Instance.RestartGame += ResetInventory;
     }
 
     private void ResetInventory()

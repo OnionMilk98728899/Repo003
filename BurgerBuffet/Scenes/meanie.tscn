@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://d3554ud2dv6aw"]
+[gd_scene load_steps=20 format=3 uid="uid://d3554ud2dv6aw"]
 
 [ext_resource type="Script" path="res://Scripts/Components/EnemyMovement.cs" id="1_i5e3a"]
 [ext_resource type="Script" path="res://Scripts/Objects/Meanie.cs" id="1_q2e2w"]
-[ext_resource type="Texture2D" uid="uid://bpwu6oviseacy" path="res://Artwork/Meanies/MeanieSpriteSheet.png" id="2_moti5"]
 [ext_resource type="Texture2D" uid="uid://bqua1ou07rw4c" path="res://Artwork/Meanies/ArrowAnimationsSheet.png" id="3_g106l"]
+[ext_resource type="Texture2D" uid="uid://cj3m30wmnfo3s" path="res://Artwork/Meanies/MeanieSpriteSheetWithEat.png" id="4_qx56f"]
 [ext_resource type="FontFile" uid="uid://c5niibnyv6wl5" path="res://Fonts/BitCrusher8.ttf" id="5_1kejb"]
+[ext_resource type="PackedScene" uid="uid://bgg0tf8mm7v27" path="res://Scenes/item_collector.tscn" id="6_3c7cn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_suyve"]
 size = Vector2(14, 15)
@@ -113,6 +114,22 @@ tracks/0/keys = {
 "values": [8, 9, 10, 11]
 }
 
+[sub_resource type="Animation" id="Animation_dytfg"]
+resource_name = "Eat"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [13, 14, 15, 16, 17]
+}
+
 [sub_resource type="Animation" id="Animation_6iqpd"]
 resource_name = "Mean"
 length = 0.4
@@ -164,6 +181,7 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_070y8"]
 _data = {
 "Destroy": SubResource("Animation_8eeag"),
+"Eat": SubResource("Animation_dytfg"),
 "Mean": SubResource("Animation_6iqpd"),
 "Nice": SubResource("Animation_ps6bw"),
 "RESET": SubResource("Animation_apqe5")
@@ -173,11 +191,12 @@ _data = {
 script = ExtResource("1_q2e2w")
 _enemyMovement = NodePath("EnemyMovement")
 
-[node name="EnemyMovement" type="Node2D" parent="." node_paths=PackedStringArray("_enemyBody", "_moveDecisionTimer", "_moveCountDownTimer", "_enemyAnim", "_arrowAnim", "_arrowSprite", "debugLabel")]
+[node name="EnemyMovement" type="Node2D" parent="." node_paths=PackedStringArray("_enemyBody", "_moveDecisionTimer", "_moveCountDownTimer", "_eatTimer", "_enemyAnim", "_arrowAnim", "_arrowSprite", "debugLabel")]
 script = ExtResource("1_i5e3a")
 _enemyBody = NodePath("EnemyBody")
 _moveDecisionTimer = NodePath("EnemyBody/MoveDecisionTimer")
 _moveCountDownTimer = NodePath("EnemyBody/MoveCountdownTimer")
+_eatTimer = NodePath("EnemyBody/EatTimer")
 _enemyAnim = NodePath("EnemyBody/EnemyAnim")
 _arrowAnim = NodePath("EnemyBody/ArrowAnim")
 _arrowSprite = NodePath("EnemyBody/ArrowSprite")
@@ -205,8 +224,8 @@ libraries = {
 
 [node name="EnemySprite" type="Sprite2D" parent="EnemyMovement/EnemyBody"]
 texture_filter = 1
-texture = ExtResource("2_moti5")
-hframes = 12
+texture = ExtResource("4_qx56f")
+hframes = 18
 
 [node name="EnemyAnim" type="AnimationPlayer" parent="EnemyMovement/EnemyBody"]
 libraries = {
@@ -221,6 +240,8 @@ one_shot = true
 wait_time = 2.0
 one_shot = true
 
+[node name="EatTimer" type="Timer" parent="EnemyMovement/EnemyBody"]
+
 [node name="DebugLabel" type="Label" parent="EnemyMovement/EnemyBody"]
 offset_left = -54.0
 offset_top = -33.0
@@ -232,5 +253,9 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_1kejb")
 theme_override_font_sizes/font_size = 32
 
+[node name="ItemCollector" parent="EnemyMovement/EnemyBody" instance=ExtResource("6_3c7cn")]
+
 [connection signal="timeout" from="EnemyMovement/EnemyBody/MoveCountdownTimer" to="EnemyMovement" method="OnMoveCountdownTimerTimeout"]
 [connection signal="timeout" from="EnemyMovement/EnemyBody/MoveDecisionTimer" to="EnemyMovement" method="OnMoveDecisionTimerTimeout"]
+[connection signal="timeout" from="EnemyMovement/EnemyBody/EatTimer" to="EnemyMovement" method="OnEatTimerTimeout"]
+[connection signal="ItemEaten" from="EnemyMovement/EnemyBody/ItemCollector" to="EnemyMovement" method="OnItemCollectorItemEaten"]

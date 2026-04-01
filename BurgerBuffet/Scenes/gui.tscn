@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://bdqfl0yxxi0wd"]
+[gd_scene load_steps=47 format=3 uid="uid://bdqfl0yxxi0wd"]
 
 [ext_resource type="Texture2D" uid="uid://t4vppyxpg57u" path="res://Artwork/Tiles/GUIBackground.png" id="1_2hgqs"]
 [ext_resource type="Script" path="res://Scripts/GUI/GraphicInterface.cs" id="1_4g7tx"]
@@ -15,10 +15,13 @@
 [ext_resource type="Texture2D" uid="uid://bbdsrneia2mr1" path="res://Artwork/GUI/BigBurgerIcons/LettuceAnimationSheet.png" id="12_20hs5"]
 [ext_resource type="Texture2D" uid="uid://bmawy21ht38gc" path="res://Artwork/GUI/BigBurgerIcons/TomatoAnimationSheet.png" id="16_b5hw6"]
 [ext_resource type="Texture2D" uid="uid://ckcw213dkpckg" path="res://Artwork/GUI/BigBurgerIcons/SauceAnimationSheet.png" id="18_bwqb3"]
+[ext_resource type="Texture2D" uid="uid://cb2s47ng5xpa3" path="res://Artwork/GUI/Buttons/RedButtonNormal.png" id="22_6kn4h"]
 [ext_resource type="Texture2D" uid="uid://bfqrp52gkaxts" path="res://Artwork/GUI/BigBurgerIcons/XSheet.png" id="22_8idst"]
 [ext_resource type="Texture2D" uid="uid://cm052dhy0t308" path="res://Artwork/GUI/BigBurgerIcons/BurgerBottomAnimationSheet.png" id="23_kix6f"]
 [ext_resource type="Texture2D" uid="uid://chslelxotrkpt" path="res://Artwork/GUI/BigBurgerIcons/CheckSheet.png" id="23_l0twr"]
+[ext_resource type="Texture2D" uid="uid://dxjeieviq8xtf" path="res://Artwork/GUI/Buttons/RedButtonPressed.png" id="23_m2tu3"]
 [ext_resource type="Texture2D" uid="uid://baidy1lrtphfa" path="res://Artwork/GUI/BigBurgerIcons/PattyAnimationSheet.png" id="24_3h80r"]
+[ext_resource type="Texture2D" uid="uid://drnffw7esi7d4" path="res://Artwork/GUI/Buttons/RedButtonFocused.png" id="24_o0tv2"]
 [ext_resource type="Texture2D" uid="uid://c26x40sn501wt" path="res://Artwork/GUI/BigBurgerIcons/CheeseAnimationSheet.png" id="25_q1ry3"]
 [ext_resource type="Texture2D" uid="uid://b3v4nbx4vdkrp" path="res://Artwork/GUI/BigBurgerIcons/OnionAnimationSheet.png" id="26_3cgje"]
 [ext_resource type="Texture2D" uid="uid://be3ke3od2qotm" path="res://Artwork/GUI/BigBurgerIcons/PicklesAnimationSheet.png" id="27_4naci"]
@@ -406,7 +409,7 @@ _data = {
 "RESET": SubResource("Animation_d3ufs")
 }
 
-[node name="GUI" type="Control" node_paths=PackedStringArray("_burgersLabel", "_burgersInteger", "_timeLabel", "_timeInteger", "_scoreLabel", "_scoreInteger", "_ordersUpLabel", "_burgerImageMenu", "_burgerIngredientSprites", "_imageAnim", "_burgerAnim1", "_burgerAnim2", "_burgerAnim3", "_burgerAnim4", "_wipeDelayTimer", "_burgerCountTimer", "_ordersUpTimer", "_scoreTimer", "_specialTimeDisplayTimer", "debugLabel")]
+[node name="GUI" type="Control" node_paths=PackedStringArray("_burgersLabel", "_burgersInteger", "_timeLabel", "_timeInteger", "_scoreLabel", "_scoreInteger", "_ordersUpLabel", "_gameoverLabel", "_gameOverLabelBack", "_quitButton", "_retryButton", "_burgerImageMenu", "_gameOverMenu", "_burgerIngredientSprites", "_imageAnim", "_burgerAnim1", "_burgerAnim2", "_burgerAnim3", "_burgerAnim4", "_wipeDelayTimer", "_burgerCountTimer", "_ordersUpTimer", "_scoreTimer", "_specialTimeDisplayTimer", "debugLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -421,6 +424,8 @@ _timeInteger = NodePath("TimeInteger")
 _scoreLabel = NodePath("ScoreLabel")
 _scoreInteger = NodePath("ScoreInteger")
 _ordersUpLabel = NodePath("OrderWindow/OrderLabel")
+_gameoverLabel = NodePath("GameOverMenu/GameOverLabel")
+_gameOverLabelBack = NodePath("GameOverMenu/GameOverLabel2")
 _bottomBunTexture = ExtResource("2_t4au5")
 _bottomBunSheet = ExtResource("23_kix6f")
 _lettuceTexture = ExtResource("3_s7t4t")
@@ -439,7 +444,10 @@ _sauceTexture = ExtResource("9_jehts")
 _sauceSheet = ExtResource("18_bwqb3")
 _topBunTexture = ExtResource("10_m08gh")
 _topBunSheet = ExtResource("28_ugky1")
+_quitButton = NodePath("GameOverMenu/QuitButton")
+_retryButton = NodePath("GameOverMenu/RetryButton")
 _burgerImageMenu = NodePath("BurgerImage")
+_gameOverMenu = NodePath("GameOverMenu")
 _burgerIngredientSprites = [NodePath("BurgerImage/BurgImgSprite"), NodePath("BurgerImage/BurgImgSprite2"), NodePath("BurgerImage/BurgImgSprite3"), NodePath("BurgerImage/BurgImgSprite4"), NodePath("BurgerImage/BurgImgSprite5"), NodePath("BurgerImage/BurgImgSprite6"), NodePath("BurgerImage/BurgImgSprite7"), NodePath("BurgerImage/BurgImgSprite8")]
 _imageAnim = NodePath("ImgMenuAnim")
 _burgerAnim1 = NodePath("BurgerImage/BurgerAnim1")
@@ -527,6 +535,96 @@ offset_bottom = 280.0
 theme_override_fonts/normal_font = ExtResource("3_ng8f0")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
+
+[node name="GameOverMenu" type="Control" parent="."]
+z_index = 2
+anchors_preset = 0
+offset_left = 247.0
+offset_top = 90.0
+offset_right = 433.0
+offset_bottom = 156.0
+
+[node name="GameOverLabel2" type="RichTextLabel" parent="GameOverMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -2.0
+offset_top = 2.0
+offset_right = 404.0
+offset_bottom = 198.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_ng8f0")
+theme_override_font_sizes/normal_font_size = 64
+
+[node name="GameOverLabel" type="RichTextLabel" parent="GameOverMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 406.0
+offset_bottom = 196.0
+theme_override_colors/default_color = Color(1, 0.92549, 0.152941, 1)
+theme_override_fonts/normal_font = ExtResource("3_ng8f0")
+theme_override_font_sizes/normal_font_size = 64
+
+[node name="Retry" type="TextureButton" parent="GameOverMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 46.0
+offset_top = 59.0
+offset_right = 86.0
+offset_bottom = 99.0
+
+[node name="Quit" type="TextureButton" parent="GameOverMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 50.0
+offset_top = 88.0
+offset_right = 90.0
+offset_bottom = 128.0
+
+[node name="QuitButton" type="TextureButton" parent="GameOverMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 35.0
+offset_top = 45.0
+offset_right = 83.0
+offset_bottom = 93.0
+focus_neighbor_left = NodePath("../RetryButton")
+focus_neighbor_right = NodePath("../RetryButton")
+texture_normal = ExtResource("22_6kn4h")
+texture_pressed = ExtResource("23_m2tu3")
+texture_focused = ExtResource("24_o0tv2")
+
+[node name="QuitButtonText" type="RichTextLabel" parent="GameOverMenu/QuitButton"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 55.0
+offset_bottom = 55.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_ng8f0")
+text = "QUIT"
+
+[node name="RetryButton" type="TextureButton" parent="GameOverMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 83.0
+offset_top = 45.0
+offset_right = 131.0
+offset_bottom = 93.0
+focus_neighbor_left = NodePath("../QuitButton")
+focus_neighbor_right = NodePath("../QuitButton")
+texture_normal = ExtResource("22_6kn4h")
+texture_pressed = ExtResource("23_m2tu3")
+texture_focused = ExtResource("24_o0tv2")
+
+[node name="RetryButtonText" type="RichTextLabel" parent="GameOverMenu/RetryButton"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 15.0
+offset_right = 52.0
+offset_bottom = 55.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_ng8f0")
+text = "RETRY"
 
 [node name="ScoreTimer" type="Timer" parent="."]
 
@@ -644,11 +742,13 @@ one_shot = true
 
 [node name="DebugLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 194.0
-offset_top = 22.0
-offset_right = 576.0
-offset_bottom = 215.0
+offset_left = 215.0
+offset_top = 100.0
+offset_right = 542.0
+offset_bottom = 254.0
 theme_override_fonts/font = ExtResource("3_ng8f0")
 theme_override_font_sizes/font_size = 32
 
+[connection signal="pressed" from="GameOverMenu/QuitButton" to="." method="OnQuitButtonPressed"]
+[connection signal="pressed" from="GameOverMenu/RetryButton" to="." method="OnRetryButtonPressed"]
 [connection signal="timeout" from="WipeDelayTimer" to="." method="OnWipeDelayTimerTimeout"]

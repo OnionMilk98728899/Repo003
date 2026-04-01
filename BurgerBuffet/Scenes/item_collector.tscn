@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgg0tf8mm7v27"]
+
+[ext_resource type="Script" path="res://Scripts/Components/ItemCollector.cs" id="1_i3hig"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5hw4q"]
+size = Vector2(14, 13)
+
+[node name="ItemCollector" type="Node2D" node_paths=PackedStringArray("_collectorCollider")]
+script = ExtResource("1_i3hig")
+_collectorCollider = NodePath("ItemCollectorArea/ItemCollectorCollider")
+
+[node name="ItemCollectorArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 6
+
+[node name="ItemCollectorCollider" type="CollisionShape2D" parent="ItemCollectorArea"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_5hw4q")
+
+[connection signal="body_entered" from="ItemCollectorArea" to="." method="OnItemCollectorBodyEntered"]

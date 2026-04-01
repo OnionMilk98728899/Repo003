@@ -72,4 +72,10 @@ public partial class Item : Node2D
 		QueueFree();
 	}
 
+	public void ItemEaten()
+	{
+		BoardManager.Instance._occupiedSquares.Remove(_itemCoords);
+		QueueFree();
+	}
+
 }

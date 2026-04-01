@@ -4,13 +4,13 @@ using System;
 public partial class EnemyMovement : Node2D
 {
 	[Export] private CharacterBody2D _enemyBody;
-	[Export] private Timer _moveDecisionTimer, _moveCountDownTimer;
+	[Export] private Timer _moveDecisionTimer, _moveCountDownTimer, _eatTimer;
 	[Export] private AnimationPlayer _enemyAnim, _arrowAnim;
 	[Export]private Sprite2D _arrowSprite;
 	[Export] private int SPEED;
 	[Export]private Label debugLabel;
 
-	private Vector2 _currentPosition, _targetPosition, _enemyVelocity, _enemyPosition, _BOARD_ORIGIN_POSITION = new Vector2(152, 54);
+	private Vector2 _currentPosition, _targetPosition = Vector2.Zero, _enemyVelocity, _enemyPosition, _BOARD_ORIGIN_POSITION = new Vector2(152, 54);
 	private (int,int) _currentSquare, _targetSquare;
 	private string _arrowAnimPath;
 	public enum state
@@ -19,7 +19,7 @@ public partial class EnemyMovement : Node2D
 	}
 	public enum moveState
 	{
-		preparing, moving, idle
+		preparing, moving, idle, eating
 	}
 	public state _currentState;
 	public moveState _currentMoveState;
@@ -42,11 +42,19 @@ public partial class EnemyMovement : Node2D
 	{
 		AnimateEnemy();
 		MoveEnemy(delta);
-		//debugLabel.Text =  " " + _currentSquare ;
-		// if(_currentMoveState == moveState.preparing || _currentMoveState == moveState.moving){
 			
-		// 	debugLabel.Text =  " "+ _currentSquare + "\t" + _targetSquare;
-		// }
+		if(_currentMoveState == moveState.preparing || _currentMoveState == moveState.moving)
+		{
+			// if((_targetPosition.X - _BOARD_ORIGIN_POSITION.X) % 16 != 0 ||(_targetPosition.Y -_BOARD_ORIGIN_POSITION.Y)% 16 != 0)
+			// {
+			// 	debugLabel.Text = _targetPosition.X + " " + _targetPosition.Y;
+			// }
+			// if((_enemyBody.GlobalPosition.X - _BOARD_ORIGIN_POSITION.X) % 16 != 0 ||(_enemyBody.GlobalPosition.Y -_BOARD_ORIGIN_POSITION.Y)% 16 != 0)
+			// {
+			// 		debugLabel.Text = _targetPosition.X + ":::" + _targetPosition.Y;
+			// }
+
+		}
 	}
 
 	private void DetermineMoveDecision()
@@ -62,6 +70,10 @@ public partial class EnemyMovement : Node2D
 			_moveDecisionTimer.Stop();
 			_currentMoveState = moveState.preparing;
 		}
+		else
+		{
+			_moveDecisionTimer.Start();
+		}
 	}
 
 	private void DetermineArrowDirection()
@@ -70,26 +82,20 @@ public partial class EnemyMovement : Node2D
 
 		if(difference.Item1 < 0)
 		{
-			GD.Print("Arrow Left");
 			_arrowAnimPath = "Arrow_Left";
 		}
 		if(difference.Item1 > 0)
 		{
-			GD.Print("Arrow Right");
 			_arrowAnimPath = "Arrow_Right";
 		}
 		if(difference.Item2 < 0)
 		{
-			GD.Print("Arrow Up");
 			_arrowAnimPath = "Arrow_Up";
 		}
 		if(difference.Item2 > 0)
 		{
-			GD.Print("Arrow Down");
 			_arrowAnimPath = "Arrow_Down";
 		}
-
-	
 	}
 
 	private void MoveEnemy(double delta)
@@ -97,26 +103,40 @@ public partial class EnemyMovement : Node2D
 		if(_currentMoveState == moveState.idle)
 		{
 			_enemyVelocity = Vector2.Zero;
+			//SnapEnemyToGrid(_targetPosition);
 		}
 		if(_currentMoveState == moveState.preparing)
 		{
 			_enemyVelocity = Vector2.Zero;
 		}
-		if (_currentMoveState == moveState.moving)
+		if (_currentMoveState == moveState.moving|| _currentMoveState == moveState.eating )
 		{
 			Vector2 direction = _targetPosition - _enemyBody.GlobalPosition;
-			_enemyBody.GlobalPosition += direction * SPEED/100;
+			_enemyVelocity += direction * SPEED/100;
 
 			if(Mathf.Abs(_enemyBody.GlobalPosition.X  - _targetPosition.X) <= 1 && Mathf.Abs(_enemyBody.GlobalPosition.Y - _targetPosition.Y) <= 1)
 			{
-				GD.Print("Resetting position and updating");
-				_enemyBody.GlobalPosition = _targetPosition;
+				//SnapEnemyToGrid(_targetPosition);
 				_currentMoveState = moveState.idle;
 				_moveDecisionTimer.Start();
+				BoardManager.Instance._occupiedMeanieSquares.Remove(_currentSquare);
 				_currentSquare = _targetSquare;
+				BoardManager.Instance._occupiedMeanieSquares.Add(_targetSquare);
+				
 			}
 		}
+
+		_enemyBody.Velocity = _enemyVelocity;
+		_enemyBody.MoveAndSlide();
 	}
+
+	// private void SnapEnemyToGrid(Vector2 target)
+	// {
+	// 	if(target != _enemyBody.GlobalPosition && target != Vector2.Zero)
+	// 	{
+	// 		_enemyBody.GlobalPosition = target;
+	// 	}
+	// }
 
 	private void AnimateEnemy()
 	{
@@ -141,6 +161,11 @@ public partial class EnemyMovement : Node2D
 		{
 			_arrowSprite.Frame = 48;
 		}
+		if(_currentMoveState == moveState.eating)
+		{
+			_enemyAnim.Play("Eat");
+
+		}
 	}
 
 	public void SetCurrentBoardSquare((int,int) square)
@@ -154,8 +179,7 @@ public partial class EnemyMovement : Node2D
 		{
 			DetermineMoveDecision();
 		}
-		_moveDecisionTimer.Start();
-
+		
 	}
 
 	private void OnMoveCountdownTimerTimeout()
@@ -164,6 +188,19 @@ public partial class EnemyMovement : Node2D
 		
 	}
 
+	private void OnItemCollectorItemEaten()
+	{
+		if (_eatTimer.IsStopped())
+		{
+			_currentMoveState = moveState.eating;
+			_eatTimer.Start();
+		}
+	}
+
+	private void OnEatTimerTimeout()
+	{
+		_currentMoveState = moveState.idle;
+	}
 
 
 }

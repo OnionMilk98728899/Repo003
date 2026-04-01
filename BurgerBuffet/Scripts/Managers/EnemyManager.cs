@@ -12,12 +12,14 @@ public partial class EnemyManager : Node2D
 
 	public override void _Ready()
 	{
+		GlobalSignals.Instance.GameOver += OnGameOver;
+		GlobalSignals.Instance.RestartGame += OnRestartGame;
 		_spawnTimer.Start();
 	}
 
 	private void SpawnMeanie()
 	{
-		if (BoardManager.Instance._occupiedSquares.Count < 45)
+		if (BoardManager.Instance._occupiedMeanieSquares.Count < 3)
 		{
 			_boardSquare = BoardManager.Instance.OccupyRandomAvailableBoardSquare(true);
 
@@ -28,7 +30,6 @@ public partial class EnemyManager : Node2D
 			_myMeanie.SetBoardSquare(_boardSquare);
 			_myMeanie.GlobalPosition = _spawnPosition;
 			AddChild(_myMeanie);
-
 		}
 
 	}
@@ -36,6 +37,29 @@ public partial class EnemyManager : Node2D
 	{
 		SpawnMeanie();
 		_spawnTimer.Start();
+	}
+
+	private void WipeMeanies()
+	{
+		foreach(Node child in GetChildren())
+		{
+			if(child is Meanie)
+			{
+				child.QueueFree();
+			}
+		}
+	}
+
+	private void OnGameOver()
+	{
+		_spawnTimer.Stop();
+		
+	}
+
+	private void OnRestartGame()
+	{
+		_spawnTimer.Start();
+		WipeMeanies();
 	}
 
 

@@ -14,7 +14,7 @@
 size = Vector2(2.11901, 46.0036)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mwv02"]
-size = Vector2(19, 289)
+size = Vector2(19, 241)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_56d7s"]
 size = Vector2(17, 280.5)
@@ -41,7 +41,7 @@ scale = Vector2(176.497, 0.414598)
 shape = SubResource("RectangleShape2D_3jvsv")
 
 [node name="LeftBoundary" type="CollisionShape2D" parent="GameBoard/BoardBounds"]
-position = Vector2(118, 138)
+position = Vector2(118, 151.5)
 shape = SubResource("RectangleShape2D_mwv02")
 
 [node name="RightBoundary" type="CollisionShape2D" parent="GameBoard/BoardBounds"]
