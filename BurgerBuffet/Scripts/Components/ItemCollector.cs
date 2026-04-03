@@ -6,6 +6,7 @@ public partial class ItemCollector : Node2D
 	[Signal] public delegate void ItemEatenEventHandler();
 	[Export] private CollisionShape2D _collectorCollider;
 	private Item _myItem;
+	private bool _isJumping;
 	private enum unitType
 	{
 		meanie, player
@@ -15,7 +16,7 @@ public partial class ItemCollector : Node2D
 	{
 		if (_myUnitType == unitType.player)
 		{
-			if (body.IsInGroup("Items"))
+			if (body.IsInGroup("Items") && !_isJumping)
 			{
 				_myItem = body.GetNode<Item>("..");
 				_myItem.ItemCollected();
@@ -23,7 +24,24 @@ public partial class ItemCollector : Node2D
 
 			if (body.IsInGroup("Meanies"))
 			{
-				GlobalSignals.Instance.EmitSignal(GlobalSignals.SignalName.GameOver);
+				if(body.GetNode<EnemyMovement>("..")._currentState == EnemyMovement.state.mean)
+				{
+					if (_isJumping)
+					{
+						body.GetNode<EnemyMovement>("..").TurnNice(0);
+						AudioManager.Instance.PlaySFX(AudioManager.Instance._audioLibrary.enemyConverted);
+					}
+					else
+					{
+						GlobalSignals.Instance.EmitSignal(GlobalSignals.SignalName.GameOver);
+					}
+					
+				}
+				else
+				{
+					body.GetNode<EnemyMovement>("..").KillMeanie();
+				}
+				
 			}
 		}
 		if (_myUnitType == unitType.meanie)
@@ -41,7 +59,7 @@ public partial class ItemCollector : Node2D
 
 	public void DisableEnableCollider(bool isActive)
 	{
-		_collectorCollider.Disabled = !isActive;
+		_isJumping = !isActive;
 	}
 }
 

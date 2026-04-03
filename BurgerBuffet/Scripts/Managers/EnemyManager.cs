@@ -19,7 +19,7 @@ public partial class EnemyManager : Node2D
 
 	private void SpawnMeanie()
 	{
-		if (BoardManager.Instance._occupiedMeanieSquares.Count < 3)
+		if (BoardManager.Instance._occupiedMeanieSquares.Count < 6)
 		{
 			_boardSquare = BoardManager.Instance.OccupyRandomAvailableBoardSquare(true);
 

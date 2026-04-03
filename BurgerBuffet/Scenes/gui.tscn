@@ -409,7 +409,7 @@ _data = {
 "RESET": SubResource("Animation_d3ufs")
 }
 
-[node name="GUI" type="Control" node_paths=PackedStringArray("_burgersLabel", "_burgersInteger", "_timeLabel", "_timeInteger", "_scoreLabel", "_scoreInteger", "_ordersUpLabel", "_gameoverLabel", "_gameOverLabelBack", "_quitButton", "_retryButton", "_burgerImageMenu", "_gameOverMenu", "_burgerIngredientSprites", "_imageAnim", "_burgerAnim1", "_burgerAnim2", "_burgerAnim3", "_burgerAnim4", "_wipeDelayTimer", "_burgerCountTimer", "_ordersUpTimer", "_scoreTimer", "_specialTimeDisplayTimer", "debugLabel")]
+[node name="GUI" type="Control" node_paths=PackedStringArray("_burgersLabel", "_burgersInteger", "_timeLabel", "_timeInteger", "_scoreLabel", "_scoreInteger", "_ordersUpLabel", "_gameoverLabel", "_gameOverLabelBack", "_quitButton", "_retryButton", "_burgerImageMenu", "_gameOverMenu", "_burgerIngredientSprites", "_imageAnim", "_burgerAnim1", "_burgerAnim2", "_burgerAnim3", "_burgerAnim4", "_wipeDelayTimer", "_burgerCountTimer", "_ordersUpTimer", "_scoreTimer", "_specialTimeDisplayTimer", "_pressDelayTimer", "debugLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -446,6 +446,9 @@ _topBunTexture = ExtResource("10_m08gh")
 _topBunSheet = ExtResource("28_ugky1")
 _quitButton = NodePath("GameOverMenu/QuitButton")
 _retryButton = NodePath("GameOverMenu/RetryButton")
+_focusedButtonTexture = ExtResource("24_o0tv2")
+_pressedButtonTexture = ExtResource("23_m2tu3")
+_normalButtonTexture = ExtResource("22_6kn4h")
 _burgerImageMenu = NodePath("BurgerImage")
 _gameOverMenu = NodePath("GameOverMenu")
 _burgerIngredientSprites = [NodePath("BurgerImage/BurgImgSprite"), NodePath("BurgerImage/BurgImgSprite2"), NodePath("BurgerImage/BurgImgSprite3"), NodePath("BurgerImage/BurgImgSprite4"), NodePath("BurgerImage/BurgImgSprite5"), NodePath("BurgerImage/BurgImgSprite6"), NodePath("BurgerImage/BurgImgSprite7"), NodePath("BurgerImage/BurgImgSprite8")]
@@ -459,6 +462,7 @@ _burgerCountTimer = NodePath("BurgerCountTimer")
 _ordersUpTimer = NodePath("OrderWindow/OrdersUpTimer")
 _scoreTimer = NodePath("ScoreTimer")
 _specialTimeDisplayTimer = NodePath("SpecialTimeTimer")
+_pressDelayTimer = NodePath("GameOverMenu/ButtonDelayTimer")
 debugLabel = NodePath("DebugLabel")
 
 [node name="Background" type="Control" parent="."]
@@ -589,6 +593,8 @@ offset_right = 83.0
 offset_bottom = 93.0
 focus_neighbor_left = NodePath("../RetryButton")
 focus_neighbor_right = NodePath("../RetryButton")
+action_mode = 0
+button_mask = 0
 texture_normal = ExtResource("22_6kn4h")
 texture_pressed = ExtResource("23_m2tu3")
 texture_focused = ExtResource("24_o0tv2")
@@ -612,6 +618,8 @@ offset_right = 131.0
 offset_bottom = 93.0
 focus_neighbor_left = NodePath("../QuitButton")
 focus_neighbor_right = NodePath("../QuitButton")
+action_mode = 0
+button_mask = 0
 texture_normal = ExtResource("22_6kn4h")
 texture_pressed = ExtResource("23_m2tu3")
 texture_focused = ExtResource("24_o0tv2")
@@ -625,6 +633,10 @@ offset_bottom = 55.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("3_ng8f0")
 text = "RETRY"
+
+[node name="ButtonDelayTimer" type="Timer" parent="GameOverMenu"]
+wait_time = 0.05
+one_shot = true
 
 [node name="ScoreTimer" type="Timer" parent="."]
 
@@ -751,4 +763,5 @@ theme_override_font_sizes/font_size = 32
 
 [connection signal="pressed" from="GameOverMenu/QuitButton" to="." method="OnQuitButtonPressed"]
 [connection signal="pressed" from="GameOverMenu/RetryButton" to="." method="OnRetryButtonPressed"]
+[connection signal="timeout" from="GameOverMenu/ButtonDelayTimer" to="." method="OnPressDelayTimerTimeout"]
 [connection signal="timeout" from="WipeDelayTimer" to="." method="OnWipeDelayTimerTimeout"]

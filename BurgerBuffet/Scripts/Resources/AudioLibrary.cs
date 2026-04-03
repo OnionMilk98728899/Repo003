@@ -4,6 +4,6 @@ using System;
 [GlobalClass]
 public partial class AudioLibrary : Resource
 {
-    [Export] public AudioStream turn, collect, collect2, death, badCollect;
+    [Export] public AudioStream mainTheme, deathTheme, turn, jump, collect, collect2, death, badCollect, enemyConverted;
     
 }

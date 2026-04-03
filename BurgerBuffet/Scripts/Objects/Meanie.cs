@@ -8,4 +8,11 @@ public partial class Meanie : Node2D
 	{
 		_enemyMovement.SetCurrentBoardSquare(square);
 	}
+
+	private void OnEnemyDestroyed()
+	{
+		QueueFree();
+	}
 }
+
+

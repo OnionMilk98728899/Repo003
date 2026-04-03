@@ -4,6 +4,7 @@ using System;
 public partial class PlayerMovement : Node2D
 {
 	[Export] private CharacterBody2D _playerBody;
+	[Export] private Node2D _dustNode;
 	[Export] private Sprite2D _playerSprite;
 	[Export] private AnimationPlayer _playerAnim, _dustAnim;
 	[Export] private ItemCollector _itemCollector;
@@ -43,6 +44,7 @@ public partial class PlayerMovement : Node2D
 		if (!stopped)
 		{
 			MovePlayer(delta);
+			PlaySoundFX();
 		}
 
 		//_debugLabel.Text = MathF.Round(_playerPosition.X) + ", " + MathF.Round(_playerPosition.Y);
@@ -55,7 +57,7 @@ public partial class PlayerMovement : Node2D
 		{
 			if (!slowed)
 			{
-				Engine.TimeScale = .4; slowed = true;
+				Engine.TimeScale = 3; slowed = true;
 			}
 			else
 			{
@@ -106,6 +108,7 @@ public partial class PlayerMovement : Node2D
 				if (_currentDirection == direction.right) { _inputDirection.X = 1; _inputDirection.Y = 0; }
 				if (_currentDirection == direction.up) { _inputDirection.Y = -1; _inputDirection.X = 0; }
 				if (_currentDirection == direction.down) { _inputDirection.Y = 1; _inputDirection.X = 0; }
+				
 			}
 
 			if (Input.IsActionPressed("Z") && !_isJumping)
@@ -113,6 +116,7 @@ public partial class PlayerMovement : Node2D
 				_isJumping = true;
 				_jumpTimer.Start();
 				_itemCollector.DisableEnableCollider(false);
+				AudioManager.Instance.PlaySFX2(AudioManager.Instance._audioLibrary.jump);
 			}
 
 			if (!_isKnockedOut)
@@ -129,6 +133,14 @@ public partial class PlayerMovement : Node2D
 
 		}
 
+	}
+
+	private void PlaySoundFX()
+	{
+		if(Input.IsActionJustPressed("ui_right") ||Input.IsActionJustPressed("ui_left") || Input.IsActionJustPressed("ui_up") || Input.IsActionJustPressed("ui_down"))
+		{
+			AudioManager.Instance.PlaySFX2(AudioManager.Instance._audioLibrary.turn);
+		}
 	}
 
 	private void AnimatePlayer()
@@ -181,7 +193,7 @@ public partial class PlayerMovement : Node2D
 		_isJumping = false;
 		_itemCollector.DisableEnableCollider(true);
 		_dustAnim.Play("Dust");
-		
+		_dustNode.GlobalPosition = _playerBody.GlobalPosition;
 
 	}
 

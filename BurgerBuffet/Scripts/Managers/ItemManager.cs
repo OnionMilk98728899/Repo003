@@ -59,7 +59,7 @@ public partial class ItemManager : Node2D
 
 	private void GenerateRandomBoardItem()
 	{
-		if (BoardManager.Instance._occupiedSquares.Count < 130)
+		if (BoardManager.Instance._occupiedSquares.Count < 45)
 		{
 			_boardSquare = BoardManager.Instance.OccupyRandomAvailableBoardSquare(false);
 

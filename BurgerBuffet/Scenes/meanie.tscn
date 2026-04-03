@@ -1,11 +1,13 @@
-[gd_scene load_steps=20 format=3 uid="uid://d3554ud2dv6aw"]
+[gd_scene load_steps=23 format=3 uid="uid://d3554ud2dv6aw"]
 
 [ext_resource type="Script" path="res://Scripts/Components/EnemyMovement.cs" id="1_i5e3a"]
 [ext_resource type="Script" path="res://Scripts/Objects/Meanie.cs" id="1_q2e2w"]
 [ext_resource type="Texture2D" uid="uid://bqua1ou07rw4c" path="res://Artwork/Meanies/ArrowAnimationsSheet.png" id="3_g106l"]
+[ext_resource type="Texture2D" uid="uid://d2ucxj8d0qqpx" path="res://Artwork/Items/ShadowSheet003.png" id="4_nmsry"]
 [ext_resource type="Texture2D" uid="uid://cj3m30wmnfo3s" path="res://Artwork/Meanies/MeanieSpriteSheetWithEat.png" id="4_qx56f"]
 [ext_resource type="FontFile" uid="uid://c5niibnyv6wl5" path="res://Fonts/BitCrusher8.ttf" id="5_1kejb"]
 [ext_resource type="PackedScene" uid="uid://bgg0tf8mm7v27" path="res://Scenes/item_collector.tscn" id="6_3c7cn"]
+[ext_resource type="Texture2D" uid="uid://bg8kqpojoyrl7" path="res://Artwork/Meanies/MeanieDropSheet.png" id="6_y2ri0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_suyve"]
 size = Vector2(14, 15)
@@ -114,6 +116,84 @@ tracks/0/keys = {
 "values": [8, 9, 10, 11]
 }
 
+[sub_resource type="Animation" id="Animation_6wxs8"]
+resource_name = "Drop"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.8, 0.9, 1, 1.1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -50), Vector2(0, -25), Vector2(0, 2), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EnemySprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ShadowSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WarningSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [13, 14, 15, 16, 13, 13, 16]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("..")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"InitializeDecisionMaking"
+}]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("EnemyBodyCollider:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
 [sub_resource type="Animation" id="Animation_dytfg"]
 resource_name = "Eat"
 length = 0.5
@@ -177,10 +257,71 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EnemySprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EnemySprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ShadowSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("WarningSprite:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("EnemyBodyCollider:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_070y8"]
 _data = {
 "Destroy": SubResource("Animation_8eeag"),
+"Drop": SubResource("Animation_6wxs8"),
 "Eat": SubResource("Animation_dytfg"),
 "Mean": SubResource("Animation_6iqpd"),
 "Nice": SubResource("Animation_ps6bw"),
@@ -191,16 +332,17 @@ _data = {
 script = ExtResource("1_q2e2w")
 _enemyMovement = NodePath("EnemyMovement")
 
-[node name="EnemyMovement" type="Node2D" parent="." node_paths=PackedStringArray("_enemyBody", "_moveDecisionTimer", "_moveCountDownTimer", "_eatTimer", "_enemyAnim", "_arrowAnim", "_arrowSprite", "debugLabel")]
+[node name="EnemyMovement" type="Node2D" parent="." node_paths=PackedStringArray("_enemyBody", "_moveDecisionTimer", "_moveCountDownTimer", "_eatTimer", "_destroyTimer", "_enemyAnim", "_arrowAnim", "_arrowSprite", "debugLabel")]
 script = ExtResource("1_i5e3a")
 _enemyBody = NodePath("EnemyBody")
 _moveDecisionTimer = NodePath("EnemyBody/MoveDecisionTimer")
 _moveCountDownTimer = NodePath("EnemyBody/MoveCountdownTimer")
 _eatTimer = NodePath("EnemyBody/EatTimer")
+_destroyTimer = NodePath("EnemyBody/DestroyTimer")
 _enemyAnim = NodePath("EnemyBody/EnemyAnim")
 _arrowAnim = NodePath("EnemyBody/ArrowAnim")
 _arrowSprite = NodePath("EnemyBody/ArrowSprite")
-SPEED = 20
+SPEED = 50
 debugLabel = NodePath("EnemyBody/DebugLabel")
 
 [node name="EnemyBody" type="CharacterBody2D" parent="EnemyMovement" groups=["Meanies"]]
@@ -210,6 +352,7 @@ collision_mask = 0
 [node name="EnemyBodyCollider" type="CollisionShape2D" parent="EnemyMovement/EnemyBody"]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_suyve")
+disabled = true
 
 [node name="ArrowSprite" type="Sprite2D" parent="EnemyMovement/EnemyBody"]
 texture_filter = 1
@@ -222,15 +365,32 @@ libraries = {
 "": SubResource("AnimationLibrary_gocxq")
 }
 
+[node name="ShadowSprite" type="Sprite2D" parent="EnemyMovement/EnemyBody"]
+texture_filter = 1
+texture = ExtResource("4_nmsry")
+hframes = 7
+frame = 6
+
 [node name="EnemySprite" type="Sprite2D" parent="EnemyMovement/EnemyBody"]
 texture_filter = 1
 texture = ExtResource("4_qx56f")
 hframes = 18
 
+[node name="WarningSprite" type="Sprite2D" parent="EnemyMovement/EnemyBody"]
+texture_filter = 1
+position = Vector2(8, -6)
+texture = ExtResource("6_y2ri0")
+hframes = 18
+frame = 5
+
 [node name="EnemyAnim" type="AnimationPlayer" parent="EnemyMovement/EnemyBody"]
 libraries = {
 "": SubResource("AnimationLibrary_070y8")
 }
+
+[node name="DestroyTimer" type="Timer" parent="EnemyMovement/EnemyBody"]
+wait_time = 0.4
+one_shot = true
 
 [node name="MoveCountdownTimer" type="Timer" parent="EnemyMovement/EnemyBody"]
 wait_time = 1.2
@@ -243,18 +403,20 @@ one_shot = true
 [node name="EatTimer" type="Timer" parent="EnemyMovement/EnemyBody"]
 
 [node name="DebugLabel" type="Label" parent="EnemyMovement/EnemyBody"]
-offset_left = -54.0
-offset_top = -33.0
-offset_right = 60.0
-offset_bottom = 17.0
+offset_left = -21.0
+offset_top = -29.0
+offset_right = 25.0
+offset_bottom = -3.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_1kejb")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 16
 
 [node name="ItemCollector" parent="EnemyMovement/EnemyBody" instance=ExtResource("6_3c7cn")]
 
+[connection signal="DestroyMeanie" from="EnemyMovement" to="." method="OnEnemyDestroyed"]
+[connection signal="timeout" from="EnemyMovement/EnemyBody/DestroyTimer" to="EnemyMovement" method="OnDestroyTimerTimeout"]
 [connection signal="timeout" from="EnemyMovement/EnemyBody/MoveCountdownTimer" to="EnemyMovement" method="OnMoveCountdownTimerTimeout"]
 [connection signal="timeout" from="EnemyMovement/EnemyBody/MoveDecisionTimer" to="EnemyMovement" method="OnMoveDecisionTimerTimeout"]
 [connection signal="timeout" from="EnemyMovement/EnemyBody/EatTimer" to="EnemyMovement" method="OnEatTimerTimeout"]

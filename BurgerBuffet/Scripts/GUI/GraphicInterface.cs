@@ -11,17 +11,19 @@ public partial class GraphicInterface : Control
 	private Texture2D _bottomBunTexture, _bottomBunSheet, _lettuceTexture, _lettuceSheet, _pattyTexture, _pattySheet, _cheeseTexture, _cheeseSheet,
 	_onionTexture, _onionSheet, _tomatoTexture, _tomatoSheet, _picklesTexture, _picklesSheet, _sauceTexture, _sauceSheet, _topBunTexture, _topBunSheet;
 	[Export] private TextureButton _quitButton, _retryButton;
+	[Export] private Texture2D _focusedButtonTexture, _pressedButtonTexture, _normalButtonTexture;
 	[Export] private Control _burgerImageMenu, _gameOverMenu;
 	[Export] private Sprite2D[] _burgerIngredientSprites;
 	[Export] private AnimationPlayer _imageAnim, _burgerAnim1, _burgerAnim2, _burgerAnim3, _burgerAnim4;
-	[Export] private Timer _wipeDelayTimer, _burgerCountTimer, _ordersUpTimer, _scoreTimer, _specialTimeDisplayTimer;
+	[Export] private Timer _wipeDelayTimer, _burgerCountTimer, _ordersUpTimer, _scoreTimer, _specialTimeDisplayTimer, _pressDelayTimer;
 	[Export] private Label debugLabel;
+	private TextureButton _selectedButton, _pressedButton;
 	private Sprite2D _currentIngredientSprite;
 	//public List<IngredientType> _queuedIngredients = new List<IngredientType>();
 	private Vector2 _spritePosition, _orderWindowOriginPosition, _burgerImageOriginPosition, _imagePosition;
 	private IngredientType _currentType, _nextType, _nextNextType;
-	private int  _currentIngredientIndex;
-	private bool _isDumpingBurger, _isFocusGrabbed;
+	private int _currentIngredientIndex;
+	private bool _isDumpingBurger, _isFocusGrabbed, _isPressed;
 
 	public override void _Ready()
 	{
@@ -32,13 +34,16 @@ public partial class GraphicInterface : Control
 		GlobalSignals.Instance.RestartGame += OnRestartGame;
 		WipeBurgerImage();
 		HideRevealButtons(false);
+		_selectedButton = _retryButton;
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if(GlobalResources.Instance._currentGameState == GlobalResources.gameState.gameOver)
+
+		if (GlobalResources.Instance._currentGameState == GlobalResources.gameState.gameOver)
 		{
 			HandleButtonInput();
+			_selectedButton = GetViewport().GuiGetFocusOwner() as TextureButton;
 			if (!_retryButton.Visible && !_quitButton.Visible)
 			{
 				HideRevealButtons(true);
@@ -51,9 +56,13 @@ public partial class GraphicInterface : Control
 			{
 				HideRevealButtons(false);
 			}
+
 		}
-		
+
+		GD.Print($"{_selectedButton} is selected");
+
 	}
+
 	private void SetLabels()
 	{
 		if (_burgerCountTimer.IsStopped())
@@ -226,6 +235,7 @@ public partial class GraphicInterface : Control
 				AudioManager.Instance.PlaySFX(AudioManager.Instance._audioLibrary.collect2);
 				GlobalResources.Instance.SetScore(50);
 				SetBurgerCount(1);
+				GlobalSignals.Instance.EmitSignal(GlobalSignals.SignalName.InitiateSpecialTime, 5);
 			}
 		}
 		else
@@ -318,13 +328,35 @@ public partial class GraphicInterface : Control
 
 	private void OnQuitButtonPressed()
 	{
+		_pressedButton = _quitButton;
+		_pressedButton.TextureFocused = _pressedButtonTexture;
+		//_pressDelayTimer.Start();
+
 		GetTree().Quit();
+		
 	}
 
 	private void OnRetryButtonPressed()
 	{
-		GlobalSignals.Instance.EmitSignal(GlobalSignals.SignalName.RestartGame);
+
+		_pressedButton = _retryButton;
+		_pressedButton.TextureFocused = _pressedButtonTexture;
+
+		_pressDelayTimer.Start();
+
+	}
+
+	private void OnPressDelayTimerTimeout()
+	{
+		//_isPressed = false;
+
+		if (_pressedButton != null)
+		{
+			_pressedButton.TextureFocused = _focusedButtonTexture;
+			_pressedButton = null;
+		}
+
 		_isFocusGrabbed = false;
-		
+		GlobalSignals.Instance.EmitSignal(GlobalSignals.SignalName.RestartGame);
 	}
 }

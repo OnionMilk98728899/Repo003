@@ -1,16 +1,20 @@
-[gd_resource type="Resource" script_class="AudioLibrary" load_steps=7 format=3 uid="uid://b66cttqyuwedy"]
+[gd_resource type="Resource" script_class="AudioLibrary" load_steps=9 format=3 uid="uid://b66cttqyuwedy"]
 
 [ext_resource type="AudioStream" uid="uid://y6befstk3lru" path="res://Sounds/SFX/BadCollect2.wav" id="1_7v3x7"]
-[ext_resource type="AudioStream" uid="uid://s41gqad4e0cf" path="res://Sounds/SFX/Squeee.wav" id="1_aaolg"]
 [ext_resource type="Script" path="res://Scripts/Resources/AudioLibrary.cs" id="1_irhlr"]
+[ext_resource type="AudioStream" uid="uid://cbhpq70s2nh30" path="res://Sounds/SFX/ItemGrab.wav" id="2_j7hhk"]
 [ext_resource type="AudioStream" uid="uid://dfw8u3ly26c62" path="res://Sounds/SFX/FullCollect.wav" id="2_pnb4l"]
 [ext_resource type="AudioStream" uid="uid://bkhc6lir07wus" path="res://Sounds/SFX/Death.wav" id="3_hj40a"]
-[ext_resource type="AudioStream" uid="uid://7bo0sen6f6w2" path="res://Sounds/SFX/Turn.wav" id="5_fqwna"]
+[ext_resource type="AudioStream" uid="uid://bgk5qlf0q58lv" path="res://Sounds/Music/LeBistroFantastique002.wav" id="5_8o123"]
+[ext_resource type="AudioStream" uid="uid://cto26qabmgk6x" path="res://Sounds/SFX/Jump.wav" id="5_qsgnt"]
+[ext_resource type="AudioStream" uid="uid://c6syyce3tlty5" path="res://Sounds/SFX/DirectionTurn.wav" id="8_mnh4r"]
 
 [resource]
 script = ExtResource("1_irhlr")
-turn = ExtResource("5_fqwna")
-collect = ExtResource("1_aaolg")
+mainTheme = ExtResource("5_8o123")
+turn = ExtResource("8_mnh4r")
+jump = ExtResource("5_qsgnt")
+collect = ExtResource("2_j7hhk")
 collect2 = ExtResource("2_pnb4l")
 death = ExtResource("3_hj40a")
 badCollect = ExtResource("1_7v3x7")

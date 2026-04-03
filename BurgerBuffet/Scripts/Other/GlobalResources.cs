@@ -14,20 +14,15 @@ public partial class GlobalResources : Node
 
 	public override void _EnterTree()
 	{
-		if (Instance == null)
-		{
-			Instance = this;
-		}
-		else
-		{
-			QueueFree();
-		}
+		Instance = this;
 	}
 
 	public override void _Ready()
 	{
 		GlobalSignals.Instance.GameOver += TriggerGameOver;
 		GlobalSignals.Instance.RestartGame += TriggerRestart;
+		GlobalSignals.Instance.InitiateSpecialTime += AddTimeToSpecialTimeAndExecute;
+		//AudioManager.Instance.PlayMusic(AudioManager.Instance._audioLibrary.mainTheme);
 	}
 
 	public void TriggerGameOver()
@@ -38,6 +33,7 @@ public partial class GlobalResources : Node
 	public void TriggerRestart()
 	{
 		_currentGameState = gameState.normal;
+		
 	}
 	public void SetScore(int points)
 	{
@@ -61,10 +57,18 @@ public partial class GlobalResources : Node
 	{
 		return (int)_specialTimer.TimeLeft;
 	}
-	public void TriggerSpecialTime()
+	public void AddTimeToSpecialTimeAndExecute(double time)
 	{
-		_currentGameState = gameState.special;
-		_specialTimer.Start();
+		if (_specialTimer.IsStopped())
+		{
+			_currentGameState = gameState.special;
+			_specialTimer.Start();
+		}
+		else
+		{
+			double newTime = _specialTimer.TimeLeft + time;
+			_specialTimer.Start(newTime);
+		}
 	}
 
 	public void ResetGameValues()
@@ -76,5 +80,6 @@ public partial class GlobalResources : Node
 	private void OnSpecialTimerTimeout()
 	{
 		_currentGameState = gameState.normal;
+		GlobalSignals.Instance.EmitSignal(GlobalSignals.SignalName.ResumeNormalMode);
 	}
 }
