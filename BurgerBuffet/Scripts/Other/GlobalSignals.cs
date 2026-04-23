@@ -7,8 +7,10 @@ public partial class GlobalSignals : Node
 	[Signal] public delegate void RestartGameEventHandler();
 	[Signal] public delegate void GameOverEventHandler();
 	[Signal] public delegate void GenerateNewOrderEventHandler();
-	[Signal] public delegate void InitiateSpecialTimeEventHandler(double time);
+	[Signal] public delegate void InitiateSpecialTimeEventHandler();
 	[Signal] public delegate void ResumeNormalModeEventHandler();
+	[Signal] public delegate void AddTimeToSpecialTimeEventHandler(double time);
+	[Signal] public delegate void SceneReadyEventHandler(Node scene);
     public override void _EnterTree()
 	{
 		if (Instance == null)

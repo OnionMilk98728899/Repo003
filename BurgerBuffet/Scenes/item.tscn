@@ -1,16 +1,25 @@
-[gd_scene load_steps=16 format=3 uid="uid://ymmbu6wr71y3"]
+[gd_scene load_steps=28 format=3 uid="uid://ymmbu6wr71y3"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Item.cs" id="1_f8kvm"]
-[ext_resource type="Texture2D" uid="uid://ddwcxahudrhq7" path="res://Artwork/Items/BunBottom.png" id="2_e83pk"]
-[ext_resource type="Texture2D" uid="uid://dvprx11ou4sqy" path="res://Artwork/Items/Lettuce.png" id="3_yglno"]
-[ext_resource type="Texture2D" uid="uid://coy8kelcd27c2" path="res://Artwork/Items/Patty.png" id="4_frvtn"]
-[ext_resource type="Texture2D" uid="uid://bfvaobnincv7e" path="res://Artwork/Items/Tomato.png" id="5_on4jo"]
-[ext_resource type="Texture2D" uid="uid://bn3ncsqautv1o" path="res://Artwork/Items/Onion.png" id="6_dyec1"]
-[ext_resource type="Texture2D" uid="uid://db6tcvssprb05" path="res://Artwork/Items/Pickles.png" id="7_f2ocj"]
-[ext_resource type="Texture2D" uid="uid://6qwg5io8a6h5" path="res://Artwork/Items/Cheese.png" id="8_lq5hu"]
-[ext_resource type="Texture2D" uid="uid://c8k8oa0wbjh0g" path="res://Artwork/Items/Sauce.png" id="9_euutr"]
-[ext_resource type="Texture2D" uid="uid://ct6lk2cxnkp4c" path="res://Artwork/Items/BunTop.png" id="10_e1a3a"]
+[ext_resource type="Texture2D" uid="uid://vgg073kaw5at" path="res://Artwork/Items/ItemSheets2/BunBottom-sheet02.png" id="2_mc82n"]
+[ext_resource type="Texture2D" uid="uid://c8ulimjcydg53" path="res://Artwork/Items/ItemSheets2/Lettuce-sheet02.png" id="3_037b1"]
+[ext_resource type="Texture2D" uid="uid://dxy1r5v7jrf46" path="res://Artwork/Items/ItemSheets2/Patty-sheet02.png" id="4_0nuva"]
+[ext_resource type="Texture2D" uid="uid://bnj2vlib2gvsb" path="res://Artwork/Items/ItemSheets2/Tomato-sheet02.png" id="5_on4ns"]
+[ext_resource type="Texture2D" uid="uid://bwiccsi6mpofj" path="res://Artwork/Items/ItemSheets2/Onion-sheet02.png" id="6_abpqg"]
+[ext_resource type="Texture2D" uid="uid://bxvcqll8k6nea" path="res://Artwork/Items/ItemSheets2/Pickles-sheet02.png" id="7_1p37v"]
+[ext_resource type="Texture2D" uid="uid://cfp4tbr18vb0i" path="res://Artwork/Items/ItemSheets2/Cheese-sheet02.png" id="8_mb8wx"]
+[ext_resource type="Texture2D" uid="uid://dc0ganujsn3yx" path="res://Artwork/Items/ItemSheets2/Sauce-sheet02.png" id="9_ith7e"]
+[ext_resource type="Texture2D" uid="uid://s3tenv2ciw71" path="res://Artwork/Items/ItemSheets2/BunTop-sheet02.png" id="10_fv24d"]
+[ext_resource type="Texture2D" uid="uid://cah1xu2uw8hph" path="res://Artwork/Items/GoldenShine/BunBottomShinesheet.png" id="11_uci4v"]
 [ext_resource type="Texture2D" uid="uid://d2ucxj8d0qqpx" path="res://Artwork/Items/ShadowSheet003.png" id="11_x0xrq"]
+[ext_resource type="Texture2D" uid="uid://raoclb8i1rhe" path="res://Artwork/Items/GoldenShine/LettuceShinesheet.png" id="12_ixyqp"]
+[ext_resource type="Texture2D" uid="uid://chfnj6tggglhg" path="res://Artwork/Items/GoldenShine/PattyShinesheet.png" id="12_wmgfu"]
+[ext_resource type="Texture2D" uid="uid://bcswrr5ypcjiv" path="res://Artwork/Items/GoldenShine/TomatoShinesheet.png" id="14_s72sh"]
+[ext_resource type="Texture2D" uid="uid://bbeqdm1c50p3g" path="res://Artwork/Items/GoldenShine/OnionShinesheet.png" id="15_homnk"]
+[ext_resource type="Texture2D" uid="uid://bsxxr3nvqhb14" path="res://Artwork/Items/GoldenShine/PicklesShinesheet.png" id="16_3a7eh"]
+[ext_resource type="Texture2D" uid="uid://c61ssbroqnogf" path="res://Artwork/Items/GoldenShine/CheeseShinesheet.png" id="17_cjft2"]
+[ext_resource type="Texture2D" uid="uid://dvokcqss6b84h" path="res://Artwork/Items/GoldenShine/SauceShinesheet.png" id="18_3jv2c"]
+[ext_resource type="Texture2D" uid="uid://chjg8n4ysfx0v" path="res://Artwork/Items/GoldenShine/BunTopShinesheet.png" id="19_mb56c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wvycb"]
 size = Vector2(14, 15)
@@ -61,7 +70,7 @@ tracks/3/path = NodePath("ItemBody/ItemCollider:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.9),
+"times": PackedFloat32Array(0, 1.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -117,27 +126,116 @@ tracks/3/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ItemBody/ItemSprite:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ItemBody/ShineSprite:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_hl3l1"]
+resource_name = "Fade"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemBody/ItemSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 0, 1, 0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_48uld"]
+resource_name = "GoldenFade"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemBody/ItemSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 3, 2, 3, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_hcn73"]
+resource_name = "Shine"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemBody/ShineSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kw6xb"]
 _data = {
 "Drop": SubResource("Animation_bjx6n"),
-"RESET": SubResource("Animation_5qbwh")
+"Fade": SubResource("Animation_hl3l1"),
+"GoldenFade": SubResource("Animation_48uld"),
+"RESET": SubResource("Animation_5qbwh"),
+"Shine": SubResource("Animation_hcn73")
 }
 
-[node name="Item" type="Node2D" node_paths=PackedStringArray("_itemBody", "_itemAnim", "_itemSprite") groups=["Items"]]
+[node name="Item" type="Node2D" node_paths=PackedStringArray("_itemBody", "_itemAnim", "_lifeTimer", "_deathTimer", "_shineTimer", "_shineWaitTimer", "_itemSprite", "_shineSprite") groups=["Items"]]
 script = ExtResource("1_f8kvm")
-_bottomBunImage = ExtResource("2_e83pk")
-_lettuceImage = ExtResource("3_yglno")
-_pattyImage = ExtResource("4_frvtn")
-_tomatoImage = ExtResource("5_on4jo")
-_onionImage = ExtResource("6_dyec1")
-_picklesImage = ExtResource("7_f2ocj")
-_cheeseImage = ExtResource("8_lq5hu")
-_sauceImage = ExtResource("9_euutr")
-_topBunImage = ExtResource("10_e1a3a")
+_bottomBunImage = ExtResource("2_mc82n")
+_lettuceImage = ExtResource("3_037b1")
+_pattyImage = ExtResource("4_0nuva")
+_tomatoImage = ExtResource("5_on4ns")
+_onionImage = ExtResource("6_abpqg")
+_picklesImage = ExtResource("7_1p37v")
+_cheeseImage = ExtResource("8_mb8wx")
+_sauceImage = ExtResource("9_ith7e")
+_topBunImage = ExtResource("10_fv24d")
+_bottomBunShine = ExtResource("11_uci4v")
+_lettuceShine = ExtResource("12_ixyqp")
+_pattyShine = ExtResource("12_wmgfu")
+_tomatoShine = ExtResource("14_s72sh")
+_onionShine = ExtResource("15_homnk")
+_picklesShine = ExtResource("16_3a7eh")
+_cheeseShine = ExtResource("17_cjft2")
+_sauceShine = ExtResource("18_3jv2c")
+_topBunShine = ExtResource("19_mb56c")
 _itemBody = NodePath("ItemBody")
 _itemAnim = NodePath("ItemAnim")
+_lifeTimer = NodePath("ItemBody/LifeTimer")
+_deathTimer = NodePath("ItemBody/DeathTimer")
+_shineTimer = NodePath("ItemBody/ShineTimer")
+_shineWaitTimer = NodePath("ItemBody/ShineWaitTimer")
 _itemSprite = NodePath("ItemBody/ItemSprite")
+_shineSprite = NodePath("ItemBody/ShineSprite")
 
 [node name="ItemBody" type="CharacterBody2D" parent="." groups=["Items"]]
 collision_layer = 2
@@ -157,9 +255,34 @@ frame = 6
 
 [node name="ItemSprite" type="Sprite2D" parent="ItemBody"]
 texture_filter = 1
-texture = ExtResource("4_frvtn")
+texture = ExtResource("4_0nuva")
+hframes = 4
+
+[node name="ShineSprite" type="Sprite2D" parent="ItemBody"]
+texture_filter = 1
+texture = ExtResource("12_wmgfu")
+hframes = 4
+frame = 3
+
+[node name="LifeTimer" type="Timer" parent="ItemBody"]
+wait_time = 24.0
+autostart = true
+
+[node name="DeathTimer" type="Timer" parent="ItemBody"]
+wait_time = 2.0
+one_shot = true
+
+[node name="ShineTimer" type="Timer" parent="ItemBody"]
+
+[node name="ShineWaitTimer" type="Timer" parent="ItemBody"]
+wait_time = 2.0
+one_shot = true
 
 [node name="ItemAnim" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_kw6xb")
 }
+
+[connection signal="timeout" from="ItemBody/LifeTimer" to="." method="OnLifeTimerTimeout"]
+[connection signal="timeout" from="ItemBody/DeathTimer" to="." method="OnDeathTimerTimeout"]
+[connection signal="timeout" from="ItemBody/ShineWaitTimer" to="." method="OnShineWaitTimerTimeout"]

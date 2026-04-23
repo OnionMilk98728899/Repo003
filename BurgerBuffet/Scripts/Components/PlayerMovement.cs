@@ -5,36 +5,26 @@ public partial class PlayerMovement : Node2D
 {
 	[Export] private CharacterBody2D _playerBody;
 	[Export] private Node2D _dustNode;
-	[Export] private Sprite2D _playerSprite;
-	[Export] private AnimationPlayer _playerAnim, _dustAnim;
+	[Export] private Sprite2D _playerSprite, _shadowSprite, _dizzySprite;
+	[Export] private AnimationPlayer _playerAnim, _dustAnim, _dizzyAnim;
 	[Export] private ItemCollector _itemCollector;
 	[Export] private int _playerSpeed;
 	[Export] private Label _debugLabel;
-	[Export] private Timer _jumpTimer, _knockoutTimer;
+	[Export] private Timer _jumpTimer,_landTimer, _knockoutTimer, _jumpCooldownTimer, _moveCooldownTimer, _knockoutCooldownTimer, _dizzyCooldownTimer;
 	private Vector2 _inputDirection, _playerVelocity, _startPosition, _playerPosition;
-	private bool slowed, stopped, _isJumping, _isKnockedOut;
+	private bool slowed, stopped, _isJumping, _isKnockedOut, _isRecoveryFrame ;
 	private string _directionPath, _movementPath;
+	private int _dizzyCounter;
 	private enum direction
 	{
 		left, right, up, down
 	}
-	private direction _currentDirection;
+	private direction _currentDirection, _nextDirection;
 	public override void _Ready()
 	{
 		ResetPosition();
 		GlobalSignals.Instance.RestartGame += ResetPosition;
 	}
-
-	private void ResetPosition()
-	{
-		_inputDirection.X = 1;
-		_inputDirection.Y = 0;
-		_currentDirection = direction.right;
-		_startPosition = new Vector2(248, 150);
-		_playerBody.GlobalPosition = _startPosition;
-	}
-
-
 	public override void _PhysicsProcess(double delta)
 	{
 		_playerPosition = _playerBody.GlobalPosition;
@@ -46,9 +36,16 @@ public partial class PlayerMovement : Node2D
 			MovePlayer(delta);
 			PlaySoundFX();
 		}
+		//_debugLabel.Text = _currentDirection.ToString();
+	}
 
-		//_debugLabel.Text = MathF.Round(_playerPosition.X) + ", " + MathF.Round(_playerPosition.Y);
-
+	private void ResetPosition()
+	{
+		_inputDirection.X = 1;
+		_inputDirection.Y = 0;
+		_currentDirection = direction.right;
+		_startPosition = new Vector2(248, 150);
+		_playerBody.GlobalPosition = _startPosition;
 	}
 
 	private void ManualSlowdown(double delta)
@@ -57,7 +54,7 @@ public partial class PlayerMovement : Node2D
 		{
 			if (!slowed)
 			{
-				Engine.TimeScale = 3; slowed = true;
+				Engine.TimeScale = 4; slowed = true;
 			}
 			else
 			{
@@ -81,42 +78,76 @@ public partial class PlayerMovement : Node2D
 	{
 		if (GlobalResources.Instance._currentGameState != GlobalResources.gameState.gameOver)
 		{
-			if (Input.IsActionPressed("ui_left"))
+
+			if (_moveCooldownTimer.IsStopped() && !_isJumping && !_isRecoveryFrame && !_isKnockedOut && _knockoutCooldownTimer.IsStopped())
 			{
-				if (_currentDirection == direction.right) { _isKnockedOut = true; }
-				else{_currentDirection = direction.left;}		
-			}
-			if (Input.IsActionPressed("ui_right"))
-			{
-				if (_currentDirection == direction.left) { _isKnockedOut = true; }
-				else{_currentDirection = direction.right;}
-			}
-			if (Input.IsActionPressed("ui_up"))
-			{
-				if (_currentDirection == direction.down) { _isKnockedOut = true; }
-				else{_currentDirection = direction.up;}	
-			}
-			if (Input.IsActionPressed("ui_down"))
-			{
-				if (_currentDirection == direction.up) { _isKnockedOut = true; }
-				else{_currentDirection = direction.down;}	
+				if (Input.IsActionPressed("ui_left"))
+				{
+					if (_currentDirection == direction.right ) { 
+						_dizzyCounter +=1; 
+					}
+					_currentDirection = direction.left;
+					_moveCooldownTimer.Start();
+				}
+				else if (Input.IsActionPressed("ui_right"))
+				{
+					if (_currentDirection == direction.left ) { 
+						_dizzyCounter +=1; 
+						}
+					_currentDirection = direction.right; 
+					_moveCooldownTimer.Start();
+				}
+				else if (Input.IsActionPressed("ui_up"))
+				{
+					if (_currentDirection == direction.down ) {
+						 _dizzyCounter +=1; 
+						 }
+					_currentDirection = direction.up;
+					_moveCooldownTimer.Start();
+				}
+				else if (Input.IsActionPressed("ui_down"))
+				{
+					if (_currentDirection == direction.up ) {
+						 _dizzyCounter +=1; 
+						 }
+					_currentDirection = direction.down;
+					_moveCooldownTimer.Start();
+				}
 			}
 
-			if (Mathf.Round(_playerPosition.X - 8) % 16 == 0 && MathF.Round(_playerPosition.Y - 6) % 16 == 0)
+			if(_dizzyCounter == 1 && _dizzyCooldownTimer.IsStopped())
+			{
+				_dizzyCooldownTimer.Start();
+			}
+			if(_dizzyCounter == 2)
+			{
+				_dizzyAnim.Play("Dizzy");
+				
+			}
+			if(_dizzyCounter == 3)
+			{
+				_isKnockedOut = true;
+				_dizzyAnim.Play("KO");
+				
+			}
+
+			if (Mathf.Round(_playerPosition.X - 8) % 16 == 0 && MathF.Round(_playerPosition.Y - 6) % 16 == 0 || _isRecoveryFrame)
 			{
 				if (_currentDirection == direction.left) { _inputDirection.X = -1; _inputDirection.Y = 0; }
 				if (_currentDirection == direction.right) { _inputDirection.X = 1; _inputDirection.Y = 0; }
 				if (_currentDirection == direction.up) { _inputDirection.Y = -1; _inputDirection.X = 0; }
 				if (_currentDirection == direction.down) { _inputDirection.Y = 1; _inputDirection.X = 0; }
-				
+				if (_isRecoveryFrame) { _isRecoveryFrame = false; }
 			}
 
-			if (Input.IsActionPressed("Z") && !_isJumping)
+
+			if (Input.IsActionPressed("Z") && !_isJumping && _jumpCooldownTimer.IsStopped())
 			{
 				_isJumping = true;
 				_jumpTimer.Start();
+				_landTimer.Start();
 				_itemCollector.DisableEnableCollider(false);
-				AudioManager.Instance.PlaySFX2(AudioManager.Instance._audioLibrary.jump);
+				AudioManager.Instance.PlaySFX(AudioManager.Instance._sfx2Player,AudioManager.Instance._audioLibrary.jump);
 			}
 
 			if (!_isKnockedOut)
@@ -126,21 +157,30 @@ public partial class PlayerMovement : Node2D
 				_playerBody.Velocity = _playerVelocity;
 				_playerBody.MoveAndSlide();
 			}
-			if(_isKnockedOut && _knockoutTimer.IsStopped())
+			if (_isKnockedOut && _knockoutTimer.IsStopped())
 			{
+				_playerVelocity = Vector2.Zero;
 				_knockoutTimer.Start();
 			}
-
 		}
-
 	}
 
 	private void PlaySoundFX()
 	{
-		if(Input.IsActionJustPressed("ui_right") ||Input.IsActionJustPressed("ui_left") || Input.IsActionJustPressed("ui_up") || Input.IsActionJustPressed("ui_down"))
+		if (Input.IsActionJustPressed("ui_right") || Input.IsActionJustPressed("ui_left") || Input.IsActionJustPressed("ui_up") || Input.IsActionJustPressed("ui_down"))
 		{
-			AudioManager.Instance.PlaySFX2(AudioManager.Instance._audioLibrary.turn);
+			AudioManager.Instance.PlaySFX(AudioManager.Instance._sfx2Player, AudioManager.Instance._audioLibrary.turn);
 		}
+	}
+
+	public void PlayDizzySFX()
+	{
+		AudioManager.Instance.PlaySFX(AudioManager.Instance._playerDizzyFX, AudioManager.Instance._audioLibrary.dizzy);
+	}
+
+	public void PlayKnockoutSFX()
+	{
+		AudioManager.Instance.PlaySFX(AudioManager.Instance._playerDizzyFX, AudioManager.Instance._audioLibrary.knockout);
 	}
 
 	private void AnimatePlayer()
@@ -184,22 +224,50 @@ public partial class PlayerMovement : Node2D
 		else if (GlobalResources.Instance._currentGameState == GlobalResources.gameState.gameOver)
 		{
 			_playerAnim.Play("GameOver");
+			_shadowSprite.Frame = 6;
 		}
 
+	}
+
+	private void OnItemCollectorPlayerKnockout()
+	{
+		_isKnockedOut = true;
+		if (_currentDirection == direction.right) { _isKnockedOut = true; _currentDirection = direction.left; }
+		else if (_currentDirection == direction.left) { _isKnockedOut = true; _currentDirection = direction.right; }
+		else if (_currentDirection == direction.down) { _isKnockedOut = true; _currentDirection = direction.up; }
+		else if (_currentDirection == direction.up) { _isKnockedOut = true; _currentDirection = direction.down; }
 	}
 
 	private void OnJumpTimerTimeout()
 	{
 		_isJumping = false;
-		_itemCollector.DisableEnableCollider(true);
 		_dustAnim.Play("Dust");
 		_dustNode.GlobalPosition = _playerBody.GlobalPosition;
+		_jumpCooldownTimer.Start();
 
+	}
+	private void OnLandTimerTimeout()
+	{
+		_itemCollector.DisableEnableCollider(true);
 	}
 
 	private void OnKOTimerTimeout()
 	{
 		_isKnockedOut = false;
+		_isRecoveryFrame = true;
+		_knockoutCooldownTimer.Start();
+
+		_dizzyCounter = 0;
+		_dizzyAnim.Stop();
+		_dizzySprite.Frame = 15;
+
 	}
+	private void OnDizzyCooldownTimerTimeout()
+	{
+		_dizzyCounter = 0;
+		_dizzyAnim.Stop();
+		_dizzySprite.Frame = 15;
+	}
+
 
 }

@@ -7,6 +7,7 @@ public partial class BoardManager : Node2D
     public static BoardManager Instance { get; private set; }
     public List<(int, int)> _occupiedSquares = new List<(int, int)>();
     public List<(int, int)> _occupiedMeanieSquares = new List<(int, int)>();
+    public int _itemCount;
     private int FLOORSIZE_X = 16, FLOORSIZE_Y = 14;
     private (int, int) _boardSquare;
     private bool _validSquare;
@@ -25,12 +26,14 @@ public partial class BoardManager : Node2D
     public override void _Ready()
     {
         GlobalSignals.Instance.RestartGame += ResetOccupiedSquares;
+       
     }
 
     private void ResetOccupiedSquares()
     {
         _occupiedSquares.Clear();
         _occupiedMeanieSquares.Clear();
+        _itemCount = 0;
     }
 
 

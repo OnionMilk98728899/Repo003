@@ -3,11 +3,17 @@
 [ext_resource type="Script" path="res://Scripts/Managers/AudioManager.cs" id="1_d55vd"]
 [ext_resource type="Resource" uid="uid://b66cttqyuwedy" path="res://Resources/SoundBank.tres" id="2_k5183"]
 
-[node name="AudioManager" type="Node2D" node_paths=PackedStringArray("_musicPlayer", "_sfxPlayer", "_sfx2Player")]
+[node name="AudioManager" type="Node2D" node_paths=PackedStringArray("_musicPlayer", "_sfxPlayer", "_sfx2Player", "_burgerImagePlayer", "_meanieSFX", "_timerFX", "_scoreSFX", "_burgerFlamesFX", "_playerDizzyFX")]
 script = ExtResource("1_d55vd")
 _musicPlayer = NodePath("Music")
 _sfxPlayer = NodePath("SFX")
 _sfx2Player = NodePath("SFX2")
+_burgerImagePlayer = NodePath("BurgerImageSFX")
+_meanieSFX = NodePath("MeanieSFX")
+_timerFX = NodePath("SpecialTimerSFX")
+_scoreSFX = NodePath("ScoreSFX")
+_burgerFlamesFX = NodePath("BurgerFlamesSFX")
+_playerDizzyFX = NodePath("PlayerDizzyFX")
 _audioLibrary = ExtResource("2_k5183")
 
 [node name="SFX" type="AudioStreamPlayer2D" parent="."]
@@ -16,5 +22,18 @@ bus = &"SFX"
 [node name="SFX2" type="AudioStreamPlayer2D" parent="."]
 bus = &"SFX2"
 
+[node name="PlayerDizzyFX" type="AudioStreamPlayer2D" parent="."]
+
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 bus = &"Music"
+
+[node name="BurgerImageSFX" type="AudioStreamPlayer2D" parent="."]
+
+[node name="MeanieSFX" type="AudioStreamPlayer2D" parent="."]
+bus = &"MeanieSFX"
+
+[node name="SpecialTimerSFX" type="AudioStreamPlayer2D" parent="."]
+
+[node name="ScoreSFX" type="AudioStreamPlayer2D" parent="."]
+
+[node name="BurgerFlamesSFX" type="AudioStreamPlayer2D" parent="."]

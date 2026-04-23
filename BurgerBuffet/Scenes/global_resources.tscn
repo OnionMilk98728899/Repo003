@@ -1,13 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bgyvbu45ngldd"]
+[gd_scene load_steps=3 format=3 uid="uid://bgyvbu45ngldd"]
 
 [ext_resource type="Script" path="res://Scripts/Other/GlobalResources.cs" id="1_7g8gx"]
+[ext_resource type="PackedScene" uid="uid://dm8px4pmr0n2s" path="res://Scenes/popup.tscn" id="2_cnnm6"]
 
 [node name="GlobalResources" type="Node2D" node_paths=PackedStringArray("_specialTimer")]
 script = ExtResource("1_7g8gx")
 _specialTimer = NodePath("SpecialTimer")
+_popUpScene = ExtResource("2_cnnm6")
 
 [node name="SpecialTimer" type="Timer" parent="."]
-wait_time = 5.0
 one_shot = true
 
 [connection signal="timeout" from="SpecialTimer" to="." method="OnSpecialTimerTimeout"]

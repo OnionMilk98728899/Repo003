@@ -9,5 +9,6 @@ _delayTimer = NodePath("DelayTimer")
 _itemScene = ExtResource("2_hc2u2")
 
 [node name="DelayTimer" type="Timer" parent="."]
+wait_time = 0.8
 
 [connection signal="timeout" from="DelayTimer" to="." method="OnDelayTimerTimeout"]

@@ -7,7 +7,7 @@ public partial class EnemyManager : Node2D
 	[Export] private PackedScene _meanieScene;
 	private Vector2 _BOARD_ORIGIN_POSITION = new Vector2(152, 54), _spawnPosition;
 	private Meanie _myMeanie;
-	private int _phase;
+	private int _phase, _maxMeanies;
 	private (int, int) _boardSquare;
 
 	public override void _Ready()
@@ -19,7 +19,8 @@ public partial class EnemyManager : Node2D
 
 	private void SpawnMeanie()
 	{
-		if (BoardManager.Instance._occupiedMeanieSquares.Count < 6)
+		_maxMeanies = Mathf.Clamp(GlobalResources.Instance.GetGamePhase() * 5, 0, 99);
+		if (BoardManager.Instance._occupiedMeanieSquares.Count < _maxMeanies)
 		{
 			_boardSquare = BoardManager.Instance.OccupyRandomAvailableBoardSquare(true);
 

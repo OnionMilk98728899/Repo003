@@ -3,10 +3,12 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 public partial class GraphicInterface : Control
 {
-	[Export] private RichTextLabel _burgersLabel, _burgersInteger, _timeLabel, _timeInteger, _scoreLabel, _scoreInteger, _ordersUpLabel, _gameoverLabel, _gameOverLabelBack;
+	[Export] private RichTextLabel _burgersLabel, _burgersInteger, _timeLabel, _timeInteger, _scoreLabel, _scoreInteger, _ordersUpLabel, _gameoverLabel,
+	_multiplierLabel;
 	[Export]
 	private Texture2D _bottomBunTexture, _bottomBunSheet, _lettuceTexture, _lettuceSheet, _pattyTexture, _pattySheet, _cheeseTexture, _cheeseSheet,
 	_onionTexture, _onionSheet, _tomatoTexture, _tomatoSheet, _picklesTexture, _picklesSheet, _sauceTexture, _sauceSheet, _topBunTexture, _topBunSheet;
@@ -14,32 +16,38 @@ public partial class GraphicInterface : Control
 	[Export] private Texture2D _focusedButtonTexture, _pressedButtonTexture, _normalButtonTexture;
 	[Export] private Control _burgerImageMenu, _gameOverMenu;
 	[Export] private Sprite2D[] _burgerIngredientSprites;
-	[Export] private AnimationPlayer _imageAnim, _burgerAnim1, _burgerAnim2, _burgerAnim3, _burgerAnim4;
+	[Export] private Sprite2D _gameOverBackGround, _flamesSprite;
+	[Export] private AnimationPlayer _imageAnim, _burgerAnim1, _burgerAnim2, _burgerAnim3, _burgerAnim4, _multAnim, _flamesAnim, _chefAnim;
 	[Export] private Timer _wipeDelayTimer, _burgerCountTimer, _ordersUpTimer, _scoreTimer, _specialTimeDisplayTimer, _pressDelayTimer;
-	[Export] private Label debugLabel;
+	//[Export] private Label debugLabel;
+	
 	private TextureButton _selectedButton, _pressedButton;
 	private Sprite2D _currentIngredientSprite;
 	//public List<IngredientType> _queuedIngredients = new List<IngredientType>();
-	private Vector2 _spritePosition, _orderWindowOriginPosition, _burgerImageOriginPosition, _imagePosition;
+	private Vector2 _spritePosition, _orderWindowOriginPosition, _burgerImageOriginPosition, _imagePosition, _flamesOriginPosition, _flamesPosition;
 	private IngredientType _currentType, _nextType, _nextNextType;
+	private Dictionary<IngredientType, AudioStream> _ingredientSounds;
 	private int _currentIngredientIndex;
 	private bool _isDumpingBurger, _isFocusGrabbed, _isPressed;
 
 	public override void _Ready()
 	{
 		_burgerIngredientSprites = _burgerImageMenu.GetChildren().OfType<Sprite2D>().ToArray();
-		_orderWindowOriginPosition = new Vector2(480, 246);
+		_orderWindowOriginPosition = new Vector2(472, 226);
 		_burgerImageOriginPosition = new Vector2(64, 178);
 		GlobalSignals.Instance.GameOver += OnGameOver;
 		GlobalSignals.Instance.RestartGame += OnRestartGame;
+		GlobalSignals.Instance.AddTimeToSpecialTime += AddNewSpecialTime;
 		WipeBurgerImage();
 		HideRevealButtons(false);
+		InitializeBurgerSounds();
 		_selectedButton = _retryButton;
+		_flamesOriginPosition = _flamesSprite.Position;
+		
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-
 		if (GlobalResources.Instance._currentGameState == GlobalResources.gameState.gameOver)
 		{
 			HandleButtonInput();
@@ -56,24 +64,22 @@ public partial class GraphicInterface : Control
 			{
 				HideRevealButtons(false);
 			}
-
 		}
-
-		GD.Print($"{_selectedButton} is selected");
-
 	}
+
+
 
 	private void SetLabels()
 	{
 		if (_burgerCountTimer.IsStopped())
 		{
-			_burgersLabel.Text = "burgers";
-			_burgersInteger.Text = GlobalResources.Instance.GetBurgerCount().ToString();
+			_burgersLabel.Text = "burger";
+			_burgersInteger.Text = GlobalResources.Instance.GetBurgerScore().ToString();
 		}
 		else
 		{
-			_burgersLabel.Text = $"[shake rate=20.0 level=5 connected=1][rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]{"burgers"}[/rainbow][/shake]";
-			_burgersInteger.Text = $"[shake rate=20.0 level=5 connected=1][rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]{GlobalResources.Instance.GetBurgerCount()}[/rainbow][/shake]";
+			_burgersLabel.Text = $"[shake rate=20.0 level=5 connected=1][rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]{"burger"}[/rainbow][/shake]";
+			_burgersInteger.Text = $"[shake rate=20.0 level=5 connected=1][rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]{GlobalResources.Instance.GetBurgerScore()}[/rainbow][/shake]";
 		}
 
 		if (_scoreTimer.IsStopped())
@@ -99,12 +105,15 @@ public partial class GraphicInterface : Control
 
 		if (_ordersUpTimer.IsStopped())
 		{
-			_ordersUpLabel.Text = "order's up!";
+			_ordersUpLabel.Text = "Order's up!";
 		}
 		else
 		{
-			_ordersUpLabel.Text = $"[shake rate=20.0 level=5 connected=1][rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]{"order's up!"}[/rainbow][/shake]";
+			_ordersUpLabel.Text = $"[shake rate=20.0 level=5 connected=1][rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0]{"Order's up!"}[/rainbow][/shake]";
 		}
+
+		if(GlobalResources.Instance.GetMultiplier() > 1){_multiplierLabel.Text = $"x{GlobalResources.Instance.GetMultiplier()}";}
+		else{_multiplierLabel.Text = "";}
 	}
 
 	private void HandleButtonInput()
@@ -169,6 +178,8 @@ public partial class GraphicInterface : Control
 			_spritePosition.Y -= vertSpace;
 
 		}
+
+		_ordersUpTimer.Start();
 	}
 
 	private void WipeOrderImage()
@@ -182,70 +193,158 @@ public partial class GraphicInterface : Control
 		}
 	}
 
-	public void AddIngredientToBurgerImage(IngredientType ingredient)
+	public async Task AddIngredientToBurgerImage(IngredientType ingredient, bool golden)
 	{
+		
 		if (_isDumpingBurger)
 		{
 			return;
 		}
+		
 		_currentIngredientIndex++;
-		GD.Print($"Sprite is {_burgerIngredientSprites[_currentIngredientIndex - 1].Name}");
 		SetSpriteTextureToIngredient(ingredient, _burgerIngredientSprites[_currentIngredientIndex - 1]);
+		
+		string guild = "";
+		if(golden){guild = "Golden";}
 
 		switch (_currentIngredientIndex)
 		{
 			case 1:
-				_burgerAnim1.Play($"Drop{_currentIngredientIndex}");
+				_burgerAnim1.Play($"Drop{_currentIngredientIndex}{guild}");
 				break;
 			case 2:
-				_burgerAnim2.Play($"Drop{_currentIngredientIndex}");
+				_burgerAnim2.Play($"Drop{_currentIngredientIndex}{guild}");
 				break;
 			case 3:
-				_burgerAnim3.Play($"Drop{_currentIngredientIndex}");
+				_burgerAnim3.Play($"Drop{_currentIngredientIndex}{guild}");
 				break;
 			case 4:
-				_burgerAnim4.Play($"Drop{_currentIngredientIndex}");
+				_burgerAnim4.Play($"Drop{_currentIngredientIndex}{guild}");
 				break;
 			case 5:
-				_burgerAnim1.Play($"Drop{_currentIngredientIndex}");
+				_burgerAnim1.Play($"Drop{_currentIngredientIndex}{guild}");
 				break;
 			case 6:
-				_burgerAnim2.Play($"Drop{_currentIngredientIndex}");
+				_burgerAnim2.Play($"Drop{_currentIngredientIndex}{guild}");
 				break;
 			case 7:
-				_burgerAnim3.Play($"Drop{_currentIngredientIndex}");
+				_burgerAnim3.Play($"Drop{_currentIngredientIndex}{guild}");
 				break;
 			case 8:
-				_burgerAnim4.Play($"Drop{_currentIngredientIndex}");
+				_burgerAnim4.Play($"Drop{_currentIngredientIndex}{guild}");
 				break;
 		}
 
-		if (ingredient == OrderManager.Instance.GetCurrentOrder().ingredients[_currentIngredientIndex - 1])
-		{
-			GD.Print("CORRECT INGREDIENT!");
-			AudioManager.Instance.PlaySFX(AudioManager.Instance._audioLibrary.collect);
-			GlobalResources.Instance.SetScore(10);
 
-			if (_currentIngredientIndex == OrderManager.Instance.GetCurrentOrder().ingredients.Length)
+		if (ingredient == OrderManager.Instance.GetCurrentOrder().ingredients[_currentIngredientIndex - 1]) 
+		{
+			//////////  CORRECT INGREDIENT
+			AudioManager.Instance.PlaySFX(AudioManager.Instance._sfxPlayer, AudioManager.Instance._audioLibrary.collect);
+			
+			if (golden)
 			{
-				GD.Print("BURGER COMPLETE!");
+				GlobalResources.Instance.CountNewBurgerScore(25);
+				OrderManager.Instance.IncreaseGoldenCount(1);
+				if(GlobalResources.Instance._currentGameState == GlobalResources.gameState.special)
+				{
+					GlobalResources.Instance.IncreaseMultiplier(OrderManager.Instance.GetGoldenCount() * 1.5f);
+				}
+				else
+				{
+					GlobalResources.Instance.IncreaseMultiplier(OrderManager.Instance.GetGoldenCount());
+				}
+			}
+			else
+			{
+				SetBurgerCount(10);
+				if(GlobalResources.Instance._currentGameState == GlobalResources.gameState.special){GlobalResources.Instance.IncreaseMultiplier(.5f);}
+			}
+			AddBurgerFlamesIfBurgerIsHot(GlobalResources.Instance.GetBurgerScore(), GlobalResources.Instance.GetMultiplier());
+		
+			if (_currentIngredientIndex == OrderManager.Instance.GetCurrentOrder().ingredients.Length)   
+			{
+				//////////  COMPLETED BURGER
+				OrderManager.Instance.ResetGoldenCount();
 				_imageAnim.Play("Clear");
 				_currentIngredientIndex = 0;
 				_isDumpingBurger = true;
-				AudioManager.Instance.PlaySFX(AudioManager.Instance._audioLibrary.collect2);
-				GlobalResources.Instance.SetScore(50);
-				SetBurgerCount(1);
-				GlobalSignals.Instance.EmitSignal(GlobalSignals.SignalName.InitiateSpecialTime, 5);
+				AudioManager.Instance.PlaySFX(AudioManager.Instance._sfxPlayer, AudioManager.Instance._audioLibrary.collect2);
+				GlobalResources.Instance.CountSpecialTimeIncrease(5);
+				GlobalSignals.Instance.EmitSignal(GlobalSignals.SignalName.InitiateSpecialTime);
+				PlayChefsKissIfBurgerIsGreat(GlobalResources.Instance.GetBurgerScore(), GlobalResources.Instance.GetMultiplier());
+				CalculateBurgerScore();
+				
+				GlobalSignals.Instance.EmitSignal(GlobalSignals.SignalName.GenerateNewOrder);
+				
+
 			}
+
+			await PlayIngredientSoundFX(ingredient);
+		}
+		else            	
+		{
+			//////// WRONG INGREDIENT
+			if (_imageAnim.IsPlaying())
+			{
+				StartBurgerImageWipe();
+			}
+			else
+			{
+				_imageAnim.Play("Cancel");
+			}
+			
+			_currentIngredientIndex = 0;
+			_isDumpingBurger = true;
+			AudioManager.Instance.PlaySFX(AudioManager.Instance._sfxPlayer, AudioManager.Instance._audioLibrary.badCollect);
+			GlobalResources.Instance.ResetIndividualBurgerScore();
+			GlobalResources.Instance.AddBurgerStrike();
+			AddBurgerFlamesIfBurgerIsHot(0,0);
+			if(GlobalResources.Instance.GetBurgerStrikes() >= 3)
+			{
+				GlobalSignals.Instance.EmitSignal(GlobalSignals.SignalName.GenerateNewOrder);
+			}
+		}
+	}
+
+	private void PlayChefsKissIfBurgerIsGreat(int score, float mult)
+	{
+		if(score*mult >= 100)
+		{
+			_chefAnim.Play("ChefKiss");
+			AudioManager.Instance.PlaySFX(AudioManager.Instance._burgerFlamesFX, AudioManager.Instance._audioLibrary.chefKiss);
+		}
+	}
+
+	public void AddBurgerFlamesIfBurgerIsHot(int score, float mult)
+	{
+		GD.Print("Score is  " + score + "  and mult  = " + mult);
+		if(score*mult >= 50)
+		{
+			_flamesPosition = _flamesOriginPosition;
+			_flamesPosition.Y -= _currentIngredientIndex*4;
+			_flamesSprite.Position = _flamesPosition;
+			_flamesSprite.Visible = true;
+			_flamesAnim.Play("Flames");
+			AudioManager.Instance.PlaySFX(AudioManager.Instance._burgerFlamesFX, AudioManager.Instance._audioLibrary.burgerFlames);
+			
 		}
 		else
 		{
-			_imageAnim.Play("Cancel");
-			_currentIngredientIndex = 0;
-			_isDumpingBurger = true;
-			AudioManager.Instance.PlaySFX(AudioManager.Instance._audioLibrary.badCollect);
-			GlobalResources.Instance.SetScore(-10);
+			_flamesAnim.Stop();
+			_flamesSprite.Visible = false;
 		}
+	}
+
+	private void AddNewSpecialTime(double time)
+	{
+		GlobalResources.Instance.CountSpecialTimeIncrease(time);
+		_specialTimeDisplayTimer.Start();
+	}
+
+	private void CalculateBurgerScore()
+	{
+		GlobalResources.Instance.CountScoreIncrease();
+		_scoreTimer.Start();
 	}
 
 	private void SetSpriteTextureToIngredient(IngredientType ingredient, Sprite2D sprite)
@@ -282,9 +381,36 @@ public partial class GraphicInterface : Control
 		}
 	}
 
+	private void InitializeBurgerSounds()
+	{
+		_ingredientSounds = new Dictionary<IngredientType, AudioStream>()
+	{
+		{ IngredientType.bottomBun, AudioManager.Instance._audioLibrary.bottomBunDrop},
+		{ IngredientType.lettuce, AudioManager.Instance._audioLibrary.lettuceDrop },
+		{ IngredientType.patty, AudioManager.Instance._audioLibrary.pattyDrop },
+		{ IngredientType.cheese, AudioManager.Instance._audioLibrary.cheeseDrop},
+		{ IngredientType.tomato, AudioManager.Instance._audioLibrary.tomatoDrop },
+		{ IngredientType.onion, AudioManager.Instance._audioLibrary.onionDrop},
+		{ IngredientType.pickles, AudioManager.Instance._audioLibrary.picklesDrop},
+		{ IngredientType.sauce, AudioManager.Instance._audioLibrary.sauceDrop},
+		{ IngredientType.topBun, AudioManager.Instance._audioLibrary.topBunDrop}
+	};
+	}
+
+
+	public async Task PlayIngredientSoundFX(IngredientType ingredient)
+	{
+		await ToSignal(GetTree().CreateTimer(0.1f), SceneTreeTimer.SignalName.Timeout);
+
+		if (_ingredientSounds.TryGetValue(ingredient, out AudioStream sound))
+		{
+			AudioManager.Instance.PlaySFX(AudioManager.Instance._burgerImagePlayer, sound);
+		}
+	}
+
 	public void SetBurgerCount(int count)
 	{
-		GlobalResources.Instance.SetBurgerCount(count);
+		GlobalResources.Instance.CountNewBurgerScore(count);
 		_burgerCountTimer.Start();
 	}
 
@@ -295,8 +421,9 @@ public partial class GraphicInterface : Control
 	private void OnGameOver()
 	{
 
-		_gameoverLabel.Text = "game over";
-		_gameOverLabelBack.Text = "game over";
+		_gameoverLabel.Text = "Game Over";
+		_gameOverBackGround.Visible = true;
+		
 	}
 
 	private void OnRestartGame()
@@ -304,7 +431,7 @@ public partial class GraphicInterface : Control
 		WipeBurgerImage();
 		_currentIngredientIndex = 0;
 		_gameoverLabel.Text = "";
-		_gameOverLabelBack.Text = "";
+		_gameOverBackGround.Visible = false;
 	}
 
 	public void WipeBurgerImage()
@@ -317,12 +444,14 @@ public partial class GraphicInterface : Control
 			}
 		}
 
+		AddBurgerFlamesIfBurgerIsHot(0,0);
+
 	}
 	private void OnWipeDelayTimerTimeout()
 	{
 		WipeBurgerImage();
 		_isDumpingBurger = false;
-		GlobalSignals.Instance.EmitSignal(GlobalSignals.SignalName.GenerateNewOrder);
+		//GlobalSignals.Instance.EmitSignal(GlobalSignals.SignalName.GenerateNewOrder);
 		IngredientInventory.Instance.SetCurrentIngredientIndex(0);
 	}
 
@@ -333,7 +462,7 @@ public partial class GraphicInterface : Control
 		//_pressDelayTimer.Start();
 
 		GetTree().Quit();
-		
+
 	}
 
 	private void OnRetryButtonPressed()

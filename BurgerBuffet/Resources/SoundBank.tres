@@ -1,20 +1,63 @@
-[gd_resource type="Resource" script_class="AudioLibrary" load_steps=9 format=3 uid="uid://b66cttqyuwedy"]
+[gd_resource type="Resource" script_class="AudioLibrary" load_steps=29 format=3 uid="uid://b66cttqyuwedy"]
 
 [ext_resource type="AudioStream" uid="uid://y6befstk3lru" path="res://Sounds/SFX/BadCollect2.wav" id="1_7v3x7"]
 [ext_resource type="Script" path="res://Scripts/Resources/AudioLibrary.cs" id="1_irhlr"]
+[ext_resource type="AudioStream" uid="uid://bvwyp5yooywcd" path="res://Sounds/SFX/BunFlop.wav" id="2_0yg50"]
 [ext_resource type="AudioStream" uid="uid://cbhpq70s2nh30" path="res://Sounds/SFX/ItemGrab.wav" id="2_j7hhk"]
 [ext_resource type="AudioStream" uid="uid://dfw8u3ly26c62" path="res://Sounds/SFX/FullCollect.wav" id="2_pnb4l"]
 [ext_resource type="AudioStream" uid="uid://bkhc6lir07wus" path="res://Sounds/SFX/Death.wav" id="3_hj40a"]
-[ext_resource type="AudioStream" uid="uid://bgk5qlf0q58lv" path="res://Sounds/Music/LeBistroFantastique002.wav" id="5_8o123"]
+[ext_resource type="AudioStream" uid="uid://h76c31ugk50s" path="res://Sounds/SFX/4Flames.wav" id="3_m7smk"]
+[ext_resource type="AudioStream" uid="uid://cgdmhb0tn4ftj" path="res://Sounds/SFX/CheeseFlop.wav" id="3_un7jw"]
+[ext_resource type="AudioStream" uid="uid://cdj6s82i5ditw" path="res://Sounds/SFX/3CoinTick.wav" id="4_b10rk"]
+[ext_resource type="AudioStream" uid="uid://cdehcc05obutx" path="res://Sounds/SFX/DeathSong.wav" id="5_m3w7i"]
 [ext_resource type="AudioStream" uid="uid://cto26qabmgk6x" path="res://Sounds/SFX/Jump.wav" id="5_qsgnt"]
+[ext_resource type="AudioStream" uid="uid://c1ec6jo1cbvri" path="res://Sounds/SFX/4BigChef.wav" id="5_txl1r"]
+[ext_resource type="AudioStream" uid="uid://de0q2nqdxi80d" path="res://Sounds/SFX/StunMeanie.wav" id="6_cr4cl"]
+[ext_resource type="AudioStream" uid="uid://1u2e038d7kyo" path="res://Sounds/SFX/IngredLand.wav" id="7_8xifw"]
 [ext_resource type="AudioStream" uid="uid://c6syyce3tlty5" path="res://Sounds/SFX/DirectionTurn.wav" id="8_mnh4r"]
+[ext_resource type="AudioStream" uid="uid://c4rcfr6iog50n" path="res://Sounds/SFX/MeanieNoise.wav" id="10_htcst"]
+[ext_resource type="AudioStream" uid="uid://034p2ysw4bvs" path="res://Sounds/SFX/4Crash.wav" id="10_yagj3"]
+[ext_resource type="AudioStream" uid="uid://mlgd50vho8x1" path="res://Sounds/Music/MadeFreshDaily(expo).wav" id="11_e3i1s"]
+[ext_resource type="AudioStream" uid="uid://bbrn01jil85c4" path="res://Sounds/SFX/MeanieKill.wav" id="11_jkeej"]
+[ext_resource type="AudioStream" uid="uid://corii3658y5fj" path="res://Sounds/SFX/3EnemyDrop.wav" id="12_g8b6s"]
+[ext_resource type="AudioStream" uid="uid://2dbqmno4tpq4" path="res://Sounds/SFX/5Dizzy.wav" id="12_wnksf"]
+[ext_resource type="AudioStream" uid="uid://dj7hd4tk7c6el" path="res://Sounds/SFX/TomatoFlop.wav" id="13_my5fm"]
+[ext_resource type="AudioStream" uid="uid://c1mnts4rgmbhj" path="res://Sounds/SFX/PattyFlop.wav" id="14_n8v3f"]
+[ext_resource type="AudioStream" uid="uid://deo1ytunq5sxs" path="res://Sounds/SFX/SauceFlop.wav" id="16_e2ai3"]
+[ext_resource type="AudioStream" uid="uid://df3vlwg1gphsr" path="res://Sounds/SFX/4Knockout.wav" id="16_nhns0"]
+[ext_resource type="AudioStream" uid="uid://bh1tlhlotpplk" path="res://Sounds/Music/JuciestBurger(expo).wav" id="18_idt3s"]
+[ext_resource type="AudioStream" uid="uid://bk4tt8hv37taj" path="res://Sounds/SFX/4PicklesFlop.wav" id="22_hj5ey"]
+[ext_resource type="AudioStream" uid="uid://bkphqwuna0ujd" path="res://Sounds/SFX/4TimeTick.wav" id="25_fmouq"]
 
 [resource]
 script = ExtResource("1_irhlr")
-mainTheme = ExtResource("5_8o123")
+track1 = ExtResource("11_e3i1s")
+track2 = ExtResource("18_idt3s")
+deathTheme = ExtResource("5_m3w7i")
 turn = ExtResource("8_mnh4r")
 jump = ExtResource("5_qsgnt")
 collect = ExtResource("2_j7hhk")
 collect2 = ExtResource("2_pnb4l")
 death = ExtResource("3_hj40a")
 badCollect = ExtResource("1_7v3x7")
+enemyConverted = ExtResource("6_cr4cl")
+ingredLand = ExtResource("7_8xifw")
+meanieNoise = ExtResource("10_htcst")
+bottomBunDrop = ExtResource("2_0yg50")
+lettuceDrop = ExtResource("2_0yg50")
+pattyDrop = ExtResource("14_n8v3f")
+cheeseDrop = ExtResource("3_un7jw")
+tomatoDrop = ExtResource("13_my5fm")
+onionDrop = ExtResource("13_my5fm")
+picklesDrop = ExtResource("22_hj5ey")
+sauceDrop = ExtResource("16_e2ai3")
+topBunDrop = ExtResource("2_0yg50")
+meanieKill = ExtResource("11_jkeej")
+meanieDrop = ExtResource("12_g8b6s")
+timeTick = ExtResource("25_fmouq")
+coinTick = ExtResource("4_b10rk")
+chefKiss = ExtResource("5_txl1r")
+burgerFlames = ExtResource("3_m7smk")
+deathCrash = ExtResource("10_yagj3")
+knockout = ExtResource("16_nhns0")
+dizzy = ExtResource("12_wnksf")

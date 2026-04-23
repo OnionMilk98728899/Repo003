@@ -10,20 +10,23 @@ public partial class IngredientInventory : Node
     private GraphicInterface _myGui;
     public override void _EnterTree()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            QueueFree();
-        }
+        if (Instance == null) { Instance = this; }
+        else { QueueFree(); }
     }
 
     public override void _Ready()
     {
-        _myGui = GetTree().CurrentScene.GetNode<GraphicInterface>("GUI");
+        //_myGui = GetTree().CurrentScene.GetNode<GraphicInterface>("GUI");
         GlobalSignals.Instance.RestartGame += ResetInventory;
+        GlobalSignals.Instance.SceneReady += OnSceneReady;
+    }
+
+    private void OnSceneReady(Node scene)
+    {
+        if (scene.HasNode("GUI"))
+        {
+            _myGui = scene.GetNode<GraphicInterface>("GUI");
+        }
     }
 
     private void ResetInventory()
@@ -46,11 +49,11 @@ public partial class IngredientInventory : Node
         {
             _currentIngredientIndex += index;
         }
-        
+
     }
 
-    public void AddCollectedItemToInventory(IngredientType ingredient)
+    public void AddCollectedItemToInventory(IngredientType ingredient, bool golden)
     {
-        _myGui.AddIngredientToBurgerImage(ingredient);
+        _ = _myGui.AddIngredientToBurgerImage(ingredient, golden);
     }
 }

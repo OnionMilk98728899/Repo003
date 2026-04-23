@@ -21,9 +21,15 @@ public partial class ItemManager : Node2D
 		GlobalSignals.Instance.GameOver += OnGameOver;
 		GlobalSignals.Instance.RestartGame += StartRound;
 		GlobalSignals.Instance.GenerateNewOrder += GenerateRandomOrder;
-		StartRound();
+		GlobalSignals.Instance.SceneReady += OnSceneReady;
+		//StartRound();
 	}
 
+	
+	private void OnSceneReady(Node scene)
+	{
+		StartRound();
+	}
 	private void OnGameOver()
 	{
 		_delayTimer.Stop();
@@ -59,11 +65,11 @@ public partial class ItemManager : Node2D
 
 	private void GenerateRandomBoardItem()
 	{
-		if (BoardManager.Instance._occupiedSquares.Count < 45)
+		if (BoardManager.Instance._itemCount < 25)
 		{
 			_boardSquare = BoardManager.Instance.OccupyRandomAvailableBoardSquare(false);
 
-			float bias = 0.85f;
+			float bias = .95f;
 
 			int randItem;
 			float biasCheck = GD.Randf();
@@ -80,12 +86,26 @@ public partial class ItemManager : Node2D
 
 			_spawnPosition.X = _BOARD_ORIGIN_POSITION.X + (_boardSquare.Item1 * 16);
 			_spawnPosition.Y = _BOARD_ORIGIN_POSITION.Y + (_boardSquare.Item2 * 16);
+			BoardManager.Instance._itemCount++;
 
 			_myItem = _itemScene.Instantiate<Item>();
 			AddChild(_myItem);
+			CalculateGoldenChance(_myItem);
 			_myItem.SetItemType((IngredientType)randItem);
 			_myItem.SetItemCoords(_boardSquare);
 			_myItem.SpawnItem(_spawnPosition);
+			
+		}
+	}
+
+	private void CalculateGoldenChance(Item item)
+	{
+		float probability = 1- (.01f * GlobalResources.Instance.GetGamePhase());
+		float luck = GD.Randf();
+
+		if(luck > probability)
+		{
+			item.SetGolden(true);
 		}
 	}
 

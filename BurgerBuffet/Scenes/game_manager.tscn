@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8rq2suyc4qey"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/GameManager.cs" id="1_3dih2"]
+
+[node name="GameManager" type="Node2D"]
+script = ExtResource("1_3dih2")
+
+[node name="OnionScreenTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="GodotScreenTimer" type="Timer" parent="."]
+wait_time = 2.6
+one_shot = true

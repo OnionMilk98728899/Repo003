@@ -17,7 +17,7 @@ public partial class EnemyMovement : Node2D
 	private bool _isEating, _isDropping;
 	public enum state
 	{
-		mean, nice, destroying
+		mean, neutral, nice, destroying
 	}
 	public enum moveState
 	{
@@ -142,6 +142,12 @@ public partial class EnemyMovement : Node2D
 				_enemyAnim.Play("Nice");
 			}
 		}
+		else if (_currentState == state.neutral)
+		{
+			_arrowAnim.Stop();
+			_arrowSprite.Frame = 48;
+			_enemyAnim.Play("Neutral");
+		}
 		else if (_currentState == state.mean)
 		{
 			if (_isEating)
@@ -170,8 +176,11 @@ public partial class EnemyMovement : Node2D
 		{
 			_arrowSprite.Frame = 48;
 		}
+	}
 
-
+	public void PlayDropNoise()
+	{
+		AudioManager.Instance.PlaySFX(AudioManager.Instance._meanieSFX, AudioManager.Instance._audioLibrary.meanieDrop);
 	}
 
 	public void InitializeDecisionMaking()
@@ -185,16 +194,25 @@ public partial class EnemyMovement : Node2D
 		_currentSquare = square;
 	}
 
-	public void TurnNice(double time)
+	public void TurnNice()
 	{
 		if (IsInstanceValid(_moveDecisionTimer) && IsInstanceValid(_moveCountDownTimer))
 		{
-			//_currentMoveState = moveState.idle;
 			_currentState = state.nice;
 			_moveDecisionTimer.Stop();
 			_moveCountDownTimer.Stop();
 		}
+	}
 
+	public void TurnNeutral()
+	{
+		if (IsInstanceValid(_moveDecisionTimer) && IsInstanceValid(_moveCountDownTimer))
+		{
+			//_currentMoveState = moveState.idle;
+			_currentState = state.neutral;
+			_moveDecisionTimer.Stop();
+			_moveCountDownTimer.Stop();
+		}
 	}
 
 	private void TurnMean()
@@ -210,6 +228,8 @@ public partial class EnemyMovement : Node2D
 	public void KillMeanie()
 	{
 		_currentState = state.destroying;
+		_moveCountDownTimer.Stop();
+		_moveDecisionTimer.Stop();
 		_destroyTimer.Start();
 		BoardManager.Instance._occupiedMeanieSquares.Remove(_currentSquare);
 		//_moveDecisionTimer.Stop();

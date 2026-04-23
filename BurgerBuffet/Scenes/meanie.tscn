@@ -1,11 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://d3554ud2dv6aw"]
+[gd_scene load_steps=24 format=3 uid="uid://d3554ud2dv6aw"]
 
 [ext_resource type="Script" path="res://Scripts/Components/EnemyMovement.cs" id="1_i5e3a"]
 [ext_resource type="Script" path="res://Scripts/Objects/Meanie.cs" id="1_q2e2w"]
 [ext_resource type="Texture2D" uid="uid://bqua1ou07rw4c" path="res://Artwork/Meanies/ArrowAnimationsSheet.png" id="3_g106l"]
 [ext_resource type="Texture2D" uid="uid://d2ucxj8d0qqpx" path="res://Artwork/Items/ShadowSheet003.png" id="4_nmsry"]
-[ext_resource type="Texture2D" uid="uid://cj3m30wmnfo3s" path="res://Artwork/Meanies/MeanieSpriteSheetWithEat.png" id="4_qx56f"]
 [ext_resource type="FontFile" uid="uid://c5niibnyv6wl5" path="res://Fonts/BitCrusher8.ttf" id="5_1kejb"]
+[ext_resource type="Texture2D" uid="uid://b4oe307p0vvww" path="res://Artwork/Meanies/MeanieSpriteSheetWithEat002.png" id="5_7hllj"]
 [ext_resource type="PackedScene" uid="uid://bgg0tf8mm7v27" path="res://Scenes/item_collector.tscn" id="6_3c7cn"]
 [ext_resource type="Texture2D" uid="uid://bg8kqpojoyrl7" path="res://Artwork/Meanies/MeanieDropSheet.png" id="6_y2ri0"]
 
@@ -188,10 +188,24 @@ tracks/5/path = NodePath("EnemyBodyCollider:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.9),
+"times": PackedFloat32Array(0, 1.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("..")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.9),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PlayDropNoise"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_dytfg"]
@@ -225,6 +239,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_2bddi"]
+resource_name = "Neutral"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [18, 19, 20, 21]
 }
 
 [sub_resource type="Animation" id="Animation_ps6bw"]
@@ -324,6 +355,7 @@ _data = {
 "Drop": SubResource("Animation_6wxs8"),
 "Eat": SubResource("Animation_dytfg"),
 "Mean": SubResource("Animation_6iqpd"),
+"Neutral": SubResource("Animation_2bddi"),
 "Nice": SubResource("Animation_ps6bw"),
 "RESET": SubResource("Animation_apqe5")
 }
@@ -373,8 +405,8 @@ frame = 6
 
 [node name="EnemySprite" type="Sprite2D" parent="EnemyMovement/EnemyBody"]
 texture_filter = 1
-texture = ExtResource("4_qx56f")
-hframes = 18
+texture = ExtResource("5_7hllj")
+hframes = 22
 
 [node name="WarningSprite" type="Sprite2D" parent="EnemyMovement/EnemyBody"]
 texture_filter = 1

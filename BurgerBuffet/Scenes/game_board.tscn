@@ -1,0 +1,141 @@
+[gd_scene load_steps=11 format=3 uid="uid://cpykqf0jpu0af"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/GameBoard.cs" id="1_ndppa"]
+[ext_resource type="Texture2D" uid="uid://da302xmb510sx" path="res://Artwork/GUI/Background/BoardSheet.png" id="2_6socs"]
+
+[sub_resource type="Animation" id="Animation_3vtpd"]
+resource_name = "ToSpecial"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Board:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"RemainInSpecialMode"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_dia5u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Board:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_o2q1e"]
+resource_name = "ToNormal"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Board:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 2, 1, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6lc27"]
+_data = {
+"RESET": SubResource("Animation_dia5u"),
+"ToNormal": SubResource("Animation_o2q1e"),
+"ToSpecial": SubResource("Animation_3vtpd")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3jvsv"]
+size = Vector2(2.11901, 46.0036)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mwv02"]
+size = Vector2(19, 241)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_56d7s"]
+size = Vector2(17, 280.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u1qln"]
+size = Vector2(303, 30.5)
+
+[node name="GameBoard" type="Node2D" node_paths=PackedStringArray("_boardAnim", "_boardSprite")]
+position = Vector2(16, 17)
+script = ExtResource("1_ndppa")
+_boardAnim = NodePath("BoardAnim")
+_boardSprite = NodePath("Board")
+
+[node name="Board" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(256, 143)
+texture = ExtResource("2_6socs")
+hframes = 5
+
+[node name="BoardAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6lc27")
+}
+
+[node name="BoardBounds" type="Area2D" parent="."]
+
+[node name="UpperBoundary" type="CollisionShape2D" parent="BoardBounds"]
+position = Vector2(259, 21)
+scale = Vector2(176.497, 0.414598)
+shape = SubResource("RectangleShape2D_3jvsv")
+
+[node name="LeftBoundary" type="CollisionShape2D" parent="BoardBounds"]
+position = Vector2(118, 151.5)
+shape = SubResource("RectangleShape2D_mwv02")
+
+[node name="RightBoundary" type="CollisionShape2D" parent="BoardBounds"]
+position = Vector2(393, 143.75)
+shape = SubResource("RectangleShape2D_56d7s")
+
+[node name="LowerBoundary" type="CollisionShape2D" parent="BoardBounds"]
+position = Vector2(261, 271)
+shape = SubResource("RectangleShape2D_u1qln")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="UpperBoundary" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(259, 20.4635)
+scale = Vector2(176.497, 0.414598)
+shape = SubResource("RectangleShape2D_3jvsv")
+
+[node name="LeftBoundary" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(117.5, 138)
+shape = SubResource("RectangleShape2D_mwv02")
+
+[node name="RightBoundary" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(393.5, 143.75)
+shape = SubResource("RectangleShape2D_56d7s")
+
+[node name="LowerBoundary" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(261, 271.25)
+shape = SubResource("RectangleShape2D_u1qln")
+
+[connection signal="body_entered" from="BoardBounds" to="." method="OnBoardBoundaryEntered"]

@@ -1,31 +1,38 @@
-[gd_scene load_steps=47 format=3 uid="uid://bdqfl0yxxi0wd"]
+[gd_scene load_steps=68 format=3 uid="uid://bdqfl0yxxi0wd"]
 
-[ext_resource type="Texture2D" uid="uid://t4vppyxpg57u" path="res://Artwork/Tiles/GUIBackground.png" id="1_2hgqs"]
 [ext_resource type="Script" path="res://Scripts/GUI/GraphicInterface.cs" id="1_4g7tx"]
 [ext_resource type="Texture2D" uid="uid://dxgb6yjyb8ml4" path="res://Artwork/GUI/BurgerIcons/BottomBun.png" id="2_t4au5"]
-[ext_resource type="FontFile" uid="uid://c5niibnyv6wl5" path="res://Fonts/BitCrusher8.ttf" id="3_ng8f0"]
+[ext_resource type="Texture2D" uid="uid://k8ur0enef7t1" path="res://Artwork/GUI/BigBurgerIcons/BurgerBottomAnimationSheet002.png" id="3_oy8at"]
 [ext_resource type="Texture2D" uid="uid://cxga2sg0lut28" path="res://Artwork/GUI/BurgerIcons/Lettuce.png" id="3_s7t4t"]
 [ext_resource type="Texture2D" uid="uid://c0n55nrh1fh2m" path="res://Artwork/GUI/BurgerIcons/Patty.png" id="4_vedps"]
+[ext_resource type="Texture2D" uid="uid://c4ytu8g1g85k1" path="res://Artwork/GUI/BigBurgerIcons/LettuceAnimationSheet002.png" id="5_0d85s"]
 [ext_resource type="Texture2D" uid="uid://ckb77l7c0o85x" path="res://Artwork/GUI/BurgerIcons/Cheese.png" id="5_rfcad"]
 [ext_resource type="Texture2D" uid="uid://dmatqu87pmpmt" path="res://Artwork/GUI/BurgerIcons/Onion.png" id="6_1cpp6"]
+[ext_resource type="Texture2D" uid="uid://c7dcgp68irvd2" path="res://Artwork/GUI/BigBurgerIcons/PattyAnimationSheet002.png" id="7_2nab3"]
 [ext_resource type="Texture2D" uid="uid://cci2h53r8qiq6" path="res://Artwork/GUI/BurgerIcons/Tomato.png" id="7_7x2h5"]
 [ext_resource type="Texture2D" uid="uid://ddlk43fjxajup" path="res://Artwork/GUI/BurgerIcons/Pickles.png" id="8_ajra8"]
 [ext_resource type="Texture2D" uid="uid://cnf2hw6j1wywf" path="res://Artwork/GUI/BurgerIcons/Sauce.png" id="9_jehts"]
+[ext_resource type="Texture2D" uid="uid://b62v8q3mdcj38" path="res://Artwork/GUI/BigBurgerIcons/CheeseAnimationSheet002.png" id="9_pw6ku"]
 [ext_resource type="Texture2D" uid="uid://dmlhdjb0e658o" path="res://Artwork/GUI/BurgerIcons/BurgerTop.png" id="10_m08gh"]
-[ext_resource type="Texture2D" uid="uid://bbdsrneia2mr1" path="res://Artwork/GUI/BigBurgerIcons/LettuceAnimationSheet.png" id="12_20hs5"]
-[ext_resource type="Texture2D" uid="uid://bmawy21ht38gc" path="res://Artwork/GUI/BigBurgerIcons/TomatoAnimationSheet.png" id="16_b5hw6"]
-[ext_resource type="Texture2D" uid="uid://ckcw213dkpckg" path="res://Artwork/GUI/BigBurgerIcons/SauceAnimationSheet.png" id="18_bwqb3"]
-[ext_resource type="Texture2D" uid="uid://cb2s47ng5xpa3" path="res://Artwork/GUI/Buttons/RedButtonNormal.png" id="22_6kn4h"]
+[ext_resource type="Texture2D" uid="uid://cp8wopyi311a5" path="res://Artwork/GUI/BigBurgerIcons/OnionAnimationSheet002.png" id="11_ih7jp"]
+[ext_resource type="Texture2D" uid="uid://bu74mcwp6g7c6" path="res://Artwork/GUI/BigBurgerIcons/TomatoAnimationSheet002.png" id="13_ancom"]
+[ext_resource type="Texture2D" uid="uid://ddl8dvmmvmrmt" path="res://Artwork/GUI/BigBurgerIcons/PicklesAnimationSheet002.png" id="15_7bbgh"]
+[ext_resource type="Texture2D" uid="uid://c5401j7ysra74" path="res://Artwork/GUI/BigBurgerIcons/SauceAnimationSheet002.png" id="17_2kxlr"]
+[ext_resource type="Texture2D" uid="uid://ddlty4dajxjb5" path="res://Artwork/GUI/BigBurgerIcons/TopBunAnimationSheet002.png" id="19_ifhfn"]
+[ext_resource type="Texture2D" uid="uid://drcwsoqj136yx" path="res://Artwork/GUI/Background/SimpleButtonFocused.png" id="20_42f04"]
+[ext_resource type="Texture2D" uid="uid://b6refadqoryrj" path="res://Artwork/GUI/Background/SimpleButtonPressed.png" id="21_p6110"]
 [ext_resource type="Texture2D" uid="uid://bfqrp52gkaxts" path="res://Artwork/GUI/BigBurgerIcons/XSheet.png" id="22_8idst"]
-[ext_resource type="Texture2D" uid="uid://cm052dhy0t308" path="res://Artwork/GUI/BigBurgerIcons/BurgerBottomAnimationSheet.png" id="23_kix6f"]
+[ext_resource type="Texture2D" uid="uid://ixh7drjuin2m" path="res://Artwork/GUI/Background/SimpleButtonNormal.png" id="22_xx3sp"]
+[ext_resource type="Texture2D" uid="uid://nviyg7bnmhj7" path="res://Artwork/GUI/Background/BackGround.png" id="23_bt6d2"]
 [ext_resource type="Texture2D" uid="uid://chslelxotrkpt" path="res://Artwork/GUI/BigBurgerIcons/CheckSheet.png" id="23_l0twr"]
-[ext_resource type="Texture2D" uid="uid://dxjeieviq8xtf" path="res://Artwork/GUI/Buttons/RedButtonPressed.png" id="23_m2tu3"]
-[ext_resource type="Texture2D" uid="uid://baidy1lrtphfa" path="res://Artwork/GUI/BigBurgerIcons/PattyAnimationSheet.png" id="24_3h80r"]
-[ext_resource type="Texture2D" uid="uid://drnffw7esi7d4" path="res://Artwork/GUI/Buttons/RedButtonFocused.png" id="24_o0tv2"]
-[ext_resource type="Texture2D" uid="uid://c26x40sn501wt" path="res://Artwork/GUI/BigBurgerIcons/CheeseAnimationSheet.png" id="25_q1ry3"]
-[ext_resource type="Texture2D" uid="uid://b3v4nbx4vdkrp" path="res://Artwork/GUI/BigBurgerIcons/OnionAnimationSheet.png" id="26_3cgje"]
-[ext_resource type="Texture2D" uid="uid://be3ke3od2qotm" path="res://Artwork/GUI/BigBurgerIcons/PicklesAnimationSheet.png" id="27_4naci"]
-[ext_resource type="Texture2D" uid="uid://dtr2efggvk6pv" path="res://Artwork/GUI/BigBurgerIcons/TopBunAnimationSheet.png" id="28_ugky1"]
+[ext_resource type="Texture2D" uid="uid://dosbbmoea0h7u" path="res://Artwork/GUI/Background/OrangeSplat.png" id="24_isv8v"]
+[ext_resource type="FontFile" uid="uid://c85m582p0lf7j" path="res://Fonts/bitmaster (1).ttf" id="25_2pe6e"]
+[ext_resource type="Texture2D" uid="uid://dfdghsr6e0njv" path="res://Artwork/GUI/Background/PinkSplat.png" id="26_d3s7a"]
+[ext_resource type="Texture2D" uid="uid://j40rvorrvrev" path="res://Artwork/GUI/Background/CheckersSheet.png" id="27_hc36u"]
+[ext_resource type="Texture2D" uid="uid://gsdypf7fx1xi" path="res://Artwork/GUI/Background/RedSplat.png" id="28_b23bm"]
+[ext_resource type="Texture2D" uid="uid://clc7vdtmh48oj" path="res://Artwork/GUI/Background/GameoverBackground.png" id="28_uhiir"]
+[ext_resource type="Texture2D" uid="uid://bp64tgml41rpb" path="res://Artwork/GUI/BigBurgerIcons/BurgerFlamesSheet.png" id="32_oeie8"]
+[ext_resource type="Texture2D" uid="uid://dpc6t3uluha3s" path="res://Artwork/GUI/BigChefAnimationSheet.png" id="33_uevgb"]
 
 [sub_resource type="Animation" id="Animation_2qj5n"]
 resource_name = "Cancel"
@@ -145,6 +152,93 @@ _data = {
 "RESET": SubResource("Animation_uh7lu")
 }
 
+[sub_resource type="Animation" id="Animation_vok5a"]
+resource_name = "Flames"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlamesSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_p5vg2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlamesSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BigChefSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rl8pg"]
+_data = {
+"Flames": SubResource("Animation_vok5a"),
+"RESET": SubResource("Animation_p5vg2")
+}
+
+[sub_resource type="Animation" id="Animation_wefjw"]
+resource_name = "ChefKiss"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BigChefSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+}
+
+[sub_resource type="Animation" id="Animation_5mes0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BigChefSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7n3mj"]
+_data = {
+"ChefKiss": SubResource("Animation_wefjw"),
+"RESET": SubResource("Animation_5mes0")
+}
+
 [sub_resource type="Animation" id="Animation_nqx86"]
 resource_name = "Drop4"
 length = 0.4
@@ -159,6 +253,50 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [1, 2, 3, 4]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PlayIngredientSoundFX"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_onhu0"]
+resource_name = "Drop4Golden"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite4:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PlayIngredientSoundFX"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_nk6fh"]
@@ -175,6 +313,50 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [1, 2, 3, 4]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PlayIngredientSoundFX"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_bprvn"]
+resource_name = "Drop8Golden"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite8:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PlayIngredientSoundFX"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_htem3"]
@@ -207,7 +389,9 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7l1ii"]
 _data = {
 "Drop4": SubResource("Animation_nqx86"),
+"Drop4Golden": SubResource("Animation_onhu0"),
 "Drop8": SubResource("Animation_nk6fh"),
+"Drop8Golden": SubResource("Animation_bprvn"),
 "RESET": SubResource("Animation_htem3")
 }
 
@@ -226,6 +410,50 @@ tracks/0/keys = {
 "update": 1,
 "values": [1, 2, 3, 4]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PlayIngredientSoundFX"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_t6tr8"]
+resource_name = "Drop3Golden"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite3:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PlayIngredientSoundFX"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_nmeem"]
 resource_name = "Drop7"
@@ -241,6 +469,50 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [1, 2, 3, 4]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PlayIngredientSoundFX"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_0uvex"]
+resource_name = "Drop7Golden"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite7:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PlayIngredientSoundFX"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_h8cj5"]
@@ -273,7 +545,9 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l75wr"]
 _data = {
 "Drop3": SubResource("Animation_vx01v"),
+"Drop3Golden": SubResource("Animation_t6tr8"),
 "Drop7": SubResource("Animation_nmeem"),
+"Drop7Golden": SubResource("Animation_0uvex"),
 "RESET": SubResource("Animation_h8cj5")
 }
 
@@ -292,6 +566,50 @@ tracks/0/keys = {
 "update": 1,
 "values": [1, 2, 3, 4]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PlayIngredientSoundFX"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_7rgjq"]
+resource_name = "Drop2Golden"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PlayIngredientSoundFX"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_2nvc6"]
 resource_name = "Drop6"
@@ -307,6 +625,50 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [1, 2, 3, 4]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PlayIngredientSoundFX"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_hgvfj"]
+resource_name = "Drop6Golden"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite6:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PlayIngredientSoundFX"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_l4ocq"]
@@ -339,7 +701,9 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3332o"]
 _data = {
 "Drop2": SubResource("Animation_schwd"),
+"Drop2Golden": SubResource("Animation_7rgjq"),
 "Drop6": SubResource("Animation_2nvc6"),
+"Drop6Golden": SubResource("Animation_hgvfj"),
 "RESET": SubResource("Animation_l4ocq")
 }
 
@@ -358,6 +722,50 @@ tracks/0/keys = {
 "update": 1,
 "values": [1, 2, 3, 4]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PlayIngredientSoundFX"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_pmedt"]
+resource_name = "Drop1Golden"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PlayIngredientSoundFX"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_tn8ti"]
 resource_name = "Drop5"
@@ -373,6 +781,50 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [1, 2, 3, 4]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PlayIngredientSoundFX"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_kecsh"]
+resource_name = "Drop5Golden"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurgImgSprite5:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PlayIngredientSoundFX"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_d3ufs"]
@@ -405,11 +857,13 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jj4ds"]
 _data = {
 "Drop1": SubResource("Animation_ftvgk"),
+"Drop1Golden": SubResource("Animation_pmedt"),
 "Drop5": SubResource("Animation_tn8ti"),
+"Drop5Golden": SubResource("Animation_kecsh"),
 "RESET": SubResource("Animation_d3ufs")
 }
 
-[node name="GUI" type="Control" node_paths=PackedStringArray("_burgersLabel", "_burgersInteger", "_timeLabel", "_timeInteger", "_scoreLabel", "_scoreInteger", "_ordersUpLabel", "_gameoverLabel", "_gameOverLabelBack", "_quitButton", "_retryButton", "_burgerImageMenu", "_gameOverMenu", "_burgerIngredientSprites", "_imageAnim", "_burgerAnim1", "_burgerAnim2", "_burgerAnim3", "_burgerAnim4", "_wipeDelayTimer", "_burgerCountTimer", "_ordersUpTimer", "_scoreTimer", "_specialTimeDisplayTimer", "_pressDelayTimer", "debugLabel")]
+[node name="GUI" type="Control" node_paths=PackedStringArray("_burgersLabel", "_burgersInteger", "_timeLabel", "_timeInteger", "_scoreLabel", "_scoreInteger", "_ordersUpLabel", "_gameoverLabel", "_multiplierLabel", "_quitButton", "_retryButton", "_burgerImageMenu", "_gameOverMenu", "_burgerIngredientSprites", "_gameOverBackGround", "_flamesSprite", "_imageAnim", "_burgerAnim1", "_burgerAnim2", "_burgerAnim3", "_burgerAnim4", "_multAnim", "_flamesAnim", "_chefAnim", "_wipeDelayTimer", "_burgerCountTimer", "_ordersUpTimer", "_scoreTimer", "_specialTimeDisplayTimer", "_pressDelayTimer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -425,45 +879,49 @@ _scoreLabel = NodePath("ScoreLabel")
 _scoreInteger = NodePath("ScoreInteger")
 _ordersUpLabel = NodePath("OrderWindow/OrderLabel")
 _gameoverLabel = NodePath("GameOverMenu/GameOverLabel")
-_gameOverLabelBack = NodePath("GameOverMenu/GameOverLabel2")
+_multiplierLabel = NodePath("BurgerImageBackground/Multiplier")
 _bottomBunTexture = ExtResource("2_t4au5")
-_bottomBunSheet = ExtResource("23_kix6f")
+_bottomBunSheet = ExtResource("3_oy8at")
 _lettuceTexture = ExtResource("3_s7t4t")
-_lettuceSheet = ExtResource("12_20hs5")
+_lettuceSheet = ExtResource("5_0d85s")
 _pattyTexture = ExtResource("4_vedps")
-_pattySheet = ExtResource("24_3h80r")
+_pattySheet = ExtResource("7_2nab3")
 _cheeseTexture = ExtResource("5_rfcad")
-_cheeseSheet = ExtResource("25_q1ry3")
+_cheeseSheet = ExtResource("9_pw6ku")
 _onionTexture = ExtResource("6_1cpp6")
-_onionSheet = ExtResource("26_3cgje")
+_onionSheet = ExtResource("11_ih7jp")
 _tomatoTexture = ExtResource("7_7x2h5")
-_tomatoSheet = ExtResource("16_b5hw6")
+_tomatoSheet = ExtResource("13_ancom")
 _picklesTexture = ExtResource("8_ajra8")
-_picklesSheet = ExtResource("27_4naci")
+_picklesSheet = ExtResource("15_7bbgh")
 _sauceTexture = ExtResource("9_jehts")
-_sauceSheet = ExtResource("18_bwqb3")
+_sauceSheet = ExtResource("17_2kxlr")
 _topBunTexture = ExtResource("10_m08gh")
-_topBunSheet = ExtResource("28_ugky1")
+_topBunSheet = ExtResource("19_ifhfn")
 _quitButton = NodePath("GameOverMenu/QuitButton")
 _retryButton = NodePath("GameOverMenu/RetryButton")
-_focusedButtonTexture = ExtResource("24_o0tv2")
-_pressedButtonTexture = ExtResource("23_m2tu3")
-_normalButtonTexture = ExtResource("22_6kn4h")
+_focusedButtonTexture = ExtResource("20_42f04")
+_pressedButtonTexture = ExtResource("21_p6110")
+_normalButtonTexture = ExtResource("22_xx3sp")
 _burgerImageMenu = NodePath("BurgerImage")
 _gameOverMenu = NodePath("GameOverMenu")
 _burgerIngredientSprites = [NodePath("BurgerImage/BurgImgSprite"), NodePath("BurgerImage/BurgImgSprite2"), NodePath("BurgerImage/BurgImgSprite3"), NodePath("BurgerImage/BurgImgSprite4"), NodePath("BurgerImage/BurgImgSprite5"), NodePath("BurgerImage/BurgImgSprite6"), NodePath("BurgerImage/BurgImgSprite7"), NodePath("BurgerImage/BurgImgSprite8")]
+_gameOverBackGround = NodePath("GameOverMenu/GameOverBackground")
+_flamesSprite = NodePath("BurgerImageBackground/FlamesSprite")
 _imageAnim = NodePath("ImgMenuAnim")
 _burgerAnim1 = NodePath("BurgerImage/BurgerAnim1")
 _burgerAnim2 = NodePath("BurgerImage/BurgerAnim2")
 _burgerAnim3 = NodePath("BurgerImage/BurgerAnim3")
 _burgerAnim4 = NodePath("BurgerImage/BurgerAnim4")
+_multAnim = NodePath("BurgerImageBackground/MultAnim")
+_flamesAnim = NodePath("BurgerImageBackground/FlamesAnim")
+_chefAnim = NodePath("BurgerImageBackground/ChefAnim")
 _wipeDelayTimer = NodePath("WipeDelayTimer")
 _burgerCountTimer = NodePath("BurgerCountTimer")
 _ordersUpTimer = NodePath("OrderWindow/OrdersUpTimer")
 _scoreTimer = NodePath("ScoreTimer")
 _specialTimeDisplayTimer = NodePath("SpecialTimeTimer")
 _pressDelayTimer = NodePath("GameOverMenu/ButtonDelayTimer")
-debugLabel = NodePath("DebugLabel")
 
 [node name="Background" type="Control" parent="."]
 anchors_preset = 0
@@ -473,71 +931,93 @@ offset_bottom = 40.0
 [node name="GuiBackground" type="Sprite2D" parent="Background"]
 texture_filter = 1
 position = Vector2(339, 160)
-texture = ExtResource("1_2hgqs")
+texture = ExtResource("23_bt6d2")
+
+[node name="BurgersSplat" type="Sprite2D" parent="." groups=["DoNotDispose"]]
+texture_filter = 1
+position = Vector2(139, 60)
+texture = ExtResource("24_isv8v")
 
 [node name="BurgersLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 114.0
-offset_top = 50.0
+offset_left = 111.0
+offset_top = 53.0
 offset_right = 186.0
-offset_bottom = 74.0
-theme_override_fonts/normal_font = ExtResource("3_ng8f0")
+offset_bottom = 98.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("25_2pe6e")
 bbcode_enabled = true
 
 [node name="BurgersInteger" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 127.0
-offset_top = 63.0
-offset_right = 167.0
-offset_bottom = 103.0
-theme_override_fonts/normal_font = ExtResource("3_ng8f0")
-theme_override_font_sizes/normal_font_size = 32
+offset_left = 130.0
+offset_top = 72.0
+offset_right = 235.0
+offset_bottom = 112.0
+theme_override_colors/default_color = Color(1, 0.945098, 0.909804, 1)
+theme_override_fonts/normal_font = ExtResource("25_2pe6e")
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 
 [node name="BurgerCountTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
 
+[node name="TimeSplat" type="Sprite2D" parent="." groups=["DoNotDispose"]]
+texture_filter = 1
+position = Vector2(539, 54)
+texture = ExtResource("26_d3s7a")
+
 [node name="TimeLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 538.0
-offset_top = 34.0
-offset_right = 610.0
-offset_bottom = 74.0
-theme_override_fonts/normal_font = ExtResource("3_ng8f0")
+offset_left = 528.0
+offset_top = 46.0
+offset_right = 622.0
+offset_bottom = 86.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("25_2pe6e")
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 
 [node name="TimeInteger" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 544.0
-offset_top = 47.0
-offset_right = 584.0
-offset_bottom = 87.0
-theme_override_fonts/normal_font = ExtResource("3_ng8f0")
-theme_override_font_sizes/normal_font_size = 32
+offset_left = 536.0
+offset_top = 64.0
+offset_right = 605.0
+offset_bottom = 104.0
+theme_override_colors/default_color = Color(1, 0.945098, 0.909804, 1)
+theme_override_fonts/normal_font = ExtResource("25_2pe6e")
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
 bbcode_enabled = true
 
 [node name="SpecialTimeTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ScoreSplat" type="Sprite2D" parent="." groups=["DoNotDispose"]]
+texture_filter = 1
+position = Vector2(140, 251)
+texture = ExtResource("28_b23bm")
 
 [node name="ScoreLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 106.0
-offset_top = 231.0
-offset_right = 193.0
-offset_bottom = 266.0
+offset_left = 111.0
+offset_top = 244.0
+offset_right = 248.0
+offset_bottom = 308.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("3_ng8f0")
-theme_override_font_sizes/normal_font_size = 32
+theme_override_fonts/normal_font = ExtResource("25_2pe6e")
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 
 [node name="ScoreInteger" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 122.0
-offset_top = 247.0
-offset_right = 195.0
-offset_bottom = 280.0
-theme_override_fonts/normal_font = ExtResource("3_ng8f0")
-theme_override_font_sizes/normal_font_size = 32
+offset_left = 129.0
+offset_top = 261.0
+offset_right = 217.0
+offset_bottom = 302.0
+theme_override_fonts/normal_font = ExtResource("25_2pe6e")
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 
 [node name="GameOverMenu" type="Control" parent="."]
@@ -548,97 +1028,83 @@ offset_top = 90.0
 offset_right = 433.0
 offset_bottom = 156.0
 
-[node name="GameOverLabel2" type="RichTextLabel" parent="GameOverMenu"]
+[node name="GameOverBackground" type="Sprite2D" parent="GameOverMenu"]
+visible = false
 texture_filter = 1
-layout_mode = 0
-offset_left = -2.0
-offset_top = 2.0
-offset_right = 404.0
-offset_bottom = 198.0
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("3_ng8f0")
-theme_override_font_sizes/normal_font_size = 64
+position = Vector2(92, 70)
+texture = ExtResource("28_uhiir")
 
 [node name="GameOverLabel" type="RichTextLabel" parent="GameOverMenu"]
 texture_filter = 1
 layout_mode = 0
-offset_right = 406.0
-offset_bottom = 196.0
-theme_override_colors/default_color = Color(1, 0.92549, 0.152941, 1)
-theme_override_fonts/normal_font = ExtResource("3_ng8f0")
-theme_override_font_sizes/normal_font_size = 64
-
-[node name="Retry" type="TextureButton" parent="GameOverMenu"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 46.0
-offset_top = 59.0
-offset_right = 86.0
-offset_bottom = 99.0
-
-[node name="Quit" type="TextureButton" parent="GameOverMenu"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 50.0
-offset_top = 88.0
-offset_right = 90.0
-offset_bottom = 128.0
+offset_left = 17.0
+offset_top = 26.0
+offset_right = 423.0
+offset_bottom = 222.0
+theme_override_colors/default_color = Color(1, 0, 0.301961, 1)
+theme_override_fonts/normal_font = ExtResource("25_2pe6e")
+theme_override_font_sizes/normal_font_size = 32
 
 [node name="QuitButton" type="TextureButton" parent="GameOverMenu"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 35.0
-offset_top = 45.0
-offset_right = 83.0
-offset_bottom = 93.0
+offset_left = -6.0
+offset_top = 38.0
+offset_right = 90.0
+offset_bottom = 134.0
 focus_neighbor_left = NodePath("../RetryButton")
 focus_neighbor_right = NodePath("../RetryButton")
+mouse_filter = 2
 action_mode = 0
 button_mask = 0
-texture_normal = ExtResource("22_6kn4h")
-texture_pressed = ExtResource("23_m2tu3")
-texture_focused = ExtResource("24_o0tv2")
+texture_normal = ExtResource("22_xx3sp")
+texture_pressed = ExtResource("21_p6110")
+texture_focused = ExtResource("20_42f04")
 
 [node name="QuitButtonText" type="RichTextLabel" parent="GameOverMenu/QuitButton"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 15.0
-offset_right = 55.0
-offset_bottom = 55.0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("3_ng8f0")
-text = "QUIT"
+offset_left = 35.0
+offset_top = 41.0
+offset_right = 75.0
+offset_bottom = 81.0
+theme_override_colors/default_color = Color(1, 0, 0.301961, 1)
+theme_override_fonts/normal_font = ExtResource("25_2pe6e")
+text = "Quit
+"
 
 [node name="RetryButton" type="TextureButton" parent="GameOverMenu"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 83.0
-offset_top = 45.0
-offset_right = 131.0
-offset_bottom = 93.0
+offset_left = 91.0
+offset_top = 38.0
+offset_right = 187.0
+offset_bottom = 134.0
 focus_neighbor_left = NodePath("../QuitButton")
 focus_neighbor_right = NodePath("../QuitButton")
+mouse_filter = 2
 action_mode = 0
 button_mask = 0
-texture_normal = ExtResource("22_6kn4h")
-texture_pressed = ExtResource("23_m2tu3")
-texture_focused = ExtResource("24_o0tv2")
+texture_normal = ExtResource("22_xx3sp")
+texture_pressed = ExtResource("21_p6110")
+texture_focused = ExtResource("20_42f04")
 
 [node name="RetryButtonText" type="RichTextLabel" parent="GameOverMenu/RetryButton"]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 15.0
-offset_right = 52.0
-offset_bottom = 55.0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("3_ng8f0")
-text = "RETRY"
+offset_left = 28.0
+offset_top = 40.0
+offset_right = 93.0
+offset_bottom = 80.0
+theme_override_colors/default_color = Color(1, 0.466667, 0.658824, 1)
+theme_override_fonts/normal_font = ExtResource("25_2pe6e")
+text = "Retry"
 
 [node name="ButtonDelayTimer" type="Timer" parent="GameOverMenu"]
 wait_time = 0.05
 one_shot = true
 
 [node name="ScoreTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
 
 [node name="OrderWindow" type="Control" parent="."]
 anchors_preset = 0
@@ -647,14 +1113,16 @@ offset_bottom = 40.0
 
 [node name="OrderLabel" type="RichTextLabel" parent="OrderWindow"]
 layout_mode = 0
-offset_left = 517.0
+offset_left = 497.0
 offset_top = 251.0
-offset_right = 589.0
+offset_right = 593.0
 offset_bottom = 291.0
-theme_override_fonts/normal_font = ExtResource("3_ng8f0")
+theme_override_colors/default_color = Color(1, 0.945098, 0.909804, 1)
+theme_override_fonts/normal_font = ExtResource("25_2pe6e")
 bbcode_enabled = true
 
 [node name="OrdersUpTimer" type="Timer" parent="OrderWindow"]
+one_shot = true
 
 [node name="ImgMenuAnim" type="AnimationPlayer" parent="."]
 libraries = {
@@ -668,65 +1136,119 @@ position = Vector2(132, 176)
 texture = ExtResource("22_8idst")
 hframes = 2
 
-[node name="BurgerImage" type="Control" parent="."]
+[node name="BurgerImageBackground" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="CheckersAnim" type="AnimationPlayer" parent="BurgerImageBackground"]
+
+[node name="FlamesAnim" type="AnimationPlayer" parent="BurgerImageBackground"]
+libraries = {
+"": SubResource("AnimationLibrary_rl8pg")
+}
+
+[node name="ChefAnim" type="AnimationPlayer" parent="BurgerImageBackground"]
+libraries = {
+"": SubResource("AnimationLibrary_7n3mj")
+}
+
+[node name="MultAnim" type="AnimationPlayer" parent="BurgerImageBackground"]
+root_node = NodePath("../Multiplier")
+
+[node name="Checkers" type="Sprite2D" parent="BurgerImageBackground"]
+texture_filter = 1
+position = Vector2(139, 177)
+texture = ExtResource("27_hc36u")
+hframes = 6
+
+[node name="FlamesSprite" type="Sprite2D" parent="BurgerImageBackground"]
+texture_filter = 1
+position = Vector2(140, 162)
+texture = ExtResource("32_oeie8")
+hframes = 8
+
+[node name="BigChefSprite" type="Sprite2D" parent="BurgerImageBackground"]
+texture_filter = 1
+position = Vector2(494, 248)
+texture = ExtResource("33_uevgb")
+flip_h = true
+hframes = 15
+
+[node name="CheckersTimer" type="Timer" parent="BurgerImageBackground"]
+
+[node name="Multiplier" type="RichTextLabel" parent="BurgerImageBackground"]
+layout_mode = 0
+offset_left = 118.0
+offset_top = 122.0
+offset_right = 234.0
+offset_bottom = 173.0
+theme_override_colors/default_color = Color(1, 0.945098, 0.909804, 1)
+theme_override_colors/font_outline_color = Color(1, 0, 0.301961, 1)
+theme_override_fonts/normal_font = ExtResource("25_2pe6e")
+theme_override_font_sizes/normal_font_size = 16
+
+[node name="BurgerImage" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 7.0
+offset_top = -20.0
+offset_right = 47.0
+offset_bottom = 20.0
+
 [node name="BurgImgSprite" type="Sprite2D" parent="BurgerImage" groups=["BurgerImages"]]
 texture_filter = 1
-position = Vector2(131, 176)
-texture = ExtResource("23_kix6f")
-hframes = 5
+position = Vector2(133, 174)
+texture = ExtResource("3_oy8at")
+hframes = 10
 frame = 4
 
 [node name="BurgImgSprite2" type="Sprite2D" parent="BurgerImage" groups=["BurgerImages"]]
 texture_filter = 1
-position = Vector2(130, 169)
-texture = ExtResource("24_3h80r")
-hframes = 5
+position = Vector2(133, 168)
+texture = ExtResource("3_oy8at")
+hframes = 10
 frame = 1
 
 [node name="BurgImgSprite3" type="Sprite2D" parent="BurgerImage" groups=["BurgerImages"]]
 texture_filter = 1
-position = Vector2(131, 164)
-texture = ExtResource("25_q1ry3")
-hframes = 5
+position = Vector2(133, 162)
+texture = ExtResource("3_oy8at")
+hframes = 10
 frame = 1
 
 [node name="BurgImgSprite4" type="Sprite2D" parent="BurgerImage" groups=["BurgerImages"]]
 texture_filter = 1
-position = Vector2(130, 162)
-texture = ExtResource("18_bwqb3")
-hframes = 5
+position = Vector2(133, 156)
+texture = ExtResource("3_oy8at")
+hframes = 10
 frame = 1
 
 [node name="BurgImgSprite5" type="Sprite2D" parent="BurgerImage" groups=["BurgerImages"]]
 texture_filter = 1
-position = Vector2(131, 157)
-texture = ExtResource("25_q1ry3")
-hframes = 5
+position = Vector2(133, 150)
+texture = ExtResource("3_oy8at")
+hframes = 10
 frame = 4
 
 [node name="BurgImgSprite6" type="Sprite2D" parent="BurgerImage" groups=["BurgerImages"]]
 texture_filter = 1
-position = Vector2(131, 153)
-texture = ExtResource("27_4naci")
-hframes = 5
+position = Vector2(133, 144)
+texture = ExtResource("3_oy8at")
+hframes = 10
 frame = 1
 
 [node name="BurgImgSprite7" type="Sprite2D" parent="BurgerImage" groups=["BurgerImages"]]
 texture_filter = 1
-position = Vector2(131, 149)
-texture = ExtResource("27_4naci")
-hframes = 5
+position = Vector2(133, 138)
+texture = ExtResource("3_oy8at")
+hframes = 10
 frame = 1
 
 [node name="BurgImgSprite8" type="Sprite2D" parent="BurgerImage" groups=["BurgerImages"]]
 texture_filter = 1
-position = Vector2(131, 143)
-texture = ExtResource("28_ugky1")
-hframes = 5
+position = Vector2(133, 131)
+texture = ExtResource("3_oy8at")
+hframes = 10
 frame = 1
 
 [node name="BurgerAnim4" type="AnimationPlayer" parent="BurgerImage"]
@@ -754,12 +1276,13 @@ one_shot = true
 
 [node name="DebugLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 215.0
-offset_top = 100.0
-offset_right = 542.0
-offset_bottom = 254.0
-theme_override_fonts/font = ExtResource("3_ng8f0")
-theme_override_font_sizes/font_size = 32
+offset_left = 189.0
+offset_top = 86.0
+offset_right = 516.0
+offset_bottom = 240.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("25_2pe6e")
+theme_override_font_sizes/font_size = 16
 
 [connection signal="pressed" from="GameOverMenu/QuitButton" to="." method="OnQuitButtonPressed"]
 [connection signal="pressed" from="GameOverMenu/RetryButton" to="." method="OnRetryButtonPressed"]
