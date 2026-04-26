@@ -31,14 +31,16 @@ public partial class GlobalResources : Node
 
 	public override void _Ready()
 	{
-		//_specialTimer = GetNode<Timer>("SpecialTimer");
-		ProtectChildren();
 		GlobalSignals.Instance.GameOver += TriggerGameOver;
 		GlobalSignals.Instance.RestartGame += TriggerRestart;
 		GlobalSignals.Instance.InitiateSpecialTime += ActivateSpecialTime;
+		GlobalSignals.Instance.OnMainSceneStarted += OnMainSceneStarted;
+	}
+
+	public void OnMainSceneStarted()
+	{
 		AudioManager.Instance.PlayRandomMusicTrack();
 		_multiplier = 1;
-
 	}
 	public override void _PhysicsProcess(double delta)
 	{
@@ -68,14 +70,6 @@ public partial class GlobalResources : Node
 		{
 			AudioManager.Instance.PlaySFX(AudioManager.Instance._timerFX, AudioManager.Instance._audioLibrary.timeTick);
 		}
-	}
-
-	public void ProtectChildren()
-	{
-		if (Instance != this)
-			return;
-
-		//_specialTimer = GetNode<Timer>("SpecialTimer");
 	}
 
 	public void TriggerGameOver()

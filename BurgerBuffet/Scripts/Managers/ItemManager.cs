@@ -111,7 +111,7 @@ public partial class ItemManager : Node2D
 
 	private void GenerateRandomOrder()
 	{
-		int burgerSize = GD.RandRange(3, _burgerSizeLimit);
+		int burgerSize = GD.RandRange(3, Mathf.Clamp(_burgerSizeLimit + GlobalResources.Instance.GetGamePhase(), 5, 8));
 
 		IngredientType[] newBurger = new IngredientType[burgerSize];
 

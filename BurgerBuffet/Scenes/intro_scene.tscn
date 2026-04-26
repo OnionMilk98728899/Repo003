@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://csobuidullsvp"]
+
+[ext_resource type="Script" path="res://Scripts/IntroScenes/IntroScene.cs" id="1_a3luw"]
+[ext_resource type="Texture2D" uid="uid://bnqncjp1v56pi" path="res://Artwork/Screens/TitleScreenSheet.png" id="2_ciu7t"]
+
+[sub_resource type="Animation" id="Animation_qvqmv"]
+resource_name = "IntroScreen"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("IntroScreenSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_6slq0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("IntroScreenSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e53rn"]
+_data = {
+"IntroScreen": SubResource("Animation_qvqmv"),
+"RESET": SubResource("Animation_6slq0")
+}
+
+[node name="IntroScene" type="Node2D" node_paths=PackedStringArray("_introAnim")]
+script = ExtResource("1_a3luw")
+_introAnim = NodePath("IntroScreenAnim")
+
+[node name="IntroScreenAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_e53rn")
+}
+
+[node name="IntroScreenSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(256, 144)
+texture = ExtResource("2_ciu7t")
+hframes = 12

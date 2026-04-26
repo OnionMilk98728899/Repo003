@@ -7,6 +7,7 @@ public partial class EnemyManager : Node2D
 	[Export] private PackedScene _meanieScene;
 	private Vector2 _BOARD_ORIGIN_POSITION = new Vector2(152, 54), _spawnPosition;
 	private Meanie _myMeanie;
+	private float _BASE_SPAWN_INTERVAL = 6, _spawnInterval;
 	private int _phase, _maxMeanies;
 	private (int, int) _boardSquare;
 
@@ -37,14 +38,28 @@ public partial class EnemyManager : Node2D
 	private void OnSpawnTimerTimeout()
 	{
 		SpawnMeanie();
-		_spawnTimer.Start();
+		_spawnTimer.Start(CalculateEnemySpawnInterval());
+	}
+
+	private float CalculateEnemySpawnInterval()
+	{
+		if (GlobalResources.Instance._currentGameState == GlobalResources.gameState.normal)
+		{
+			_spawnInterval = _BASE_SPAWN_INTERVAL - GlobalResources.Instance.GetGamePhase() / 2;
+			if (_spawnInterval < 2.5) { _spawnInterval = 2.5f; }
+			return _spawnInterval;
+		}
+		else
+		{
+			return _BASE_SPAWN_INTERVAL;
+		}
 	}
 
 	private void WipeMeanies()
 	{
-		foreach(Node child in GetChildren())
+		foreach (Node child in GetChildren())
 		{
-			if(child is Meanie)
+			if (child is Meanie)
 			{
 				child.QueueFree();
 			}
@@ -54,7 +69,7 @@ public partial class EnemyManager : Node2D
 	private void OnGameOver()
 	{
 		_spawnTimer.Stop();
-		
+
 	}
 
 	private void OnRestartGame()

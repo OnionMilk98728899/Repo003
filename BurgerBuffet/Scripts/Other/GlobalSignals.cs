@@ -11,6 +11,7 @@ public partial class GlobalSignals : Node
 	[Signal] public delegate void ResumeNormalModeEventHandler();
 	[Signal] public delegate void AddTimeToSpecialTimeEventHandler(double time);
 	[Signal] public delegate void SceneReadyEventHandler(Node scene);
+	[Signal] public delegate void OnMainSceneStartedEventHandler();
     public override void _EnterTree()
 	{
 		if (Instance == null)

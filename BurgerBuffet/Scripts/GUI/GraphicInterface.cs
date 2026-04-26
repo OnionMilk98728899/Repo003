@@ -308,7 +308,7 @@ public partial class GraphicInterface : Control
 
 	private void PlayChefsKissIfBurgerIsGreat(int score, float mult)
 	{
-		if(score*mult >= 100)
+		if(score*mult >= 300)
 		{
 			_chefAnim.Play("ChefKiss");
 			AudioManager.Instance.PlaySFX(AudioManager.Instance._burgerFlamesFX, AudioManager.Instance._audioLibrary.chefKiss);
@@ -318,7 +318,7 @@ public partial class GraphicInterface : Control
 	public void AddBurgerFlamesIfBurgerIsHot(int score, float mult)
 	{
 		GD.Print("Score is  " + score + "  and mult  = " + mult);
-		if(score*mult >= 50)
+		if(score*mult >= 150)
 		{
 			_flamesPosition = _flamesOriginPosition;
 			_flamesPosition.Y -= _currentIngredientIndex*4;

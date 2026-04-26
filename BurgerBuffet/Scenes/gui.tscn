@@ -1169,6 +1169,7 @@ texture = ExtResource("32_oeie8")
 hframes = 8
 
 [node name="BigChefSprite" type="Sprite2D" parent="BurgerImageBackground"]
+z_index = 5
 texture_filter = 1
 position = Vector2(494, 248)
 texture = ExtResource("33_uevgb")

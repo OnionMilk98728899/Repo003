@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AudioLibrary" load_steps=29 format=3 uid="uid://b66cttqyuwedy"]
+[gd_resource type="Resource" script_class="AudioLibrary" load_steps=32 format=3 uid="uid://b66cttqyuwedy"]
 
 [ext_resource type="AudioStream" uid="uid://y6befstk3lru" path="res://Sounds/SFX/BadCollect2.wav" id="1_7v3x7"]
 [ext_resource type="Script" path="res://Scripts/Resources/AudioLibrary.cs" id="1_irhlr"]
@@ -22,17 +22,23 @@
 [ext_resource type="AudioStream" uid="uid://corii3658y5fj" path="res://Sounds/SFX/3EnemyDrop.wav" id="12_g8b6s"]
 [ext_resource type="AudioStream" uid="uid://2dbqmno4tpq4" path="res://Sounds/SFX/5Dizzy.wav" id="12_wnksf"]
 [ext_resource type="AudioStream" uid="uid://dj7hd4tk7c6el" path="res://Sounds/SFX/TomatoFlop.wav" id="13_my5fm"]
+[ext_resource type="AudioStream" uid="uid://ui3il0povk26" path="res://Sounds/Music/GodotScreen2.wav" id="14_2lgqm"]
 [ext_resource type="AudioStream" uid="uid://c1mnts4rgmbhj" path="res://Sounds/SFX/PattyFlop.wav" id="14_n8v3f"]
+[ext_resource type="AudioStream" uid="uid://bheu0jr8eomw1" path="res://Sounds/Music/LobbyMusic(2ndupgrade).wav" id="16_20ehq"]
 [ext_resource type="AudioStream" uid="uid://deo1ytunq5sxs" path="res://Sounds/SFX/SauceFlop.wav" id="16_e2ai3"]
 [ext_resource type="AudioStream" uid="uid://df3vlwg1gphsr" path="res://Sounds/SFX/4Knockout.wav" id="16_nhns0"]
 [ext_resource type="AudioStream" uid="uid://bh1tlhlotpplk" path="res://Sounds/Music/JuciestBurger(expo).wav" id="18_idt3s"]
 [ext_resource type="AudioStream" uid="uid://bk4tt8hv37taj" path="res://Sounds/SFX/4PicklesFlop.wav" id="22_hj5ey"]
+[ext_resource type="AudioStream" uid="uid://bw0ds800ncuk8" path="res://Sounds/Music/OnionMilkScreen2.wav" id="23_4opa7"]
 [ext_resource type="AudioStream" uid="uid://bkphqwuna0ujd" path="res://Sounds/SFX/4TimeTick.wav" id="25_fmouq"]
 
 [resource]
 script = ExtResource("1_irhlr")
 track1 = ExtResource("11_e3i1s")
 track2 = ExtResource("18_idt3s")
+introTrack = ExtResource("16_20ehq")
+onionScreen = ExtResource("23_4opa7")
+godotScreen = ExtResource("14_2lgqm")
 deathTheme = ExtResource("5_m3w7i")
 turn = ExtResource("8_mnh4r")
 jump = ExtResource("5_qsgnt")
