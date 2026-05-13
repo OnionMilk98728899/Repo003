@@ -174,7 +174,7 @@ public partial class GraphicInterface : Control
 			_currentType = order.ingredients[i];
 			thisSprite.ZIndex = 1;
 			thisSprite.GlobalPosition = _spritePosition;
-			float vertSpace = 100 / order.ingredients.Length;
+			float vertSpace = 132 / order.ingredients.Length;
 			_spritePosition.Y -= vertSpace;
 
 		}
@@ -243,7 +243,7 @@ public partial class GraphicInterface : Control
 			
 			if (golden)
 			{
-				GlobalResources.Instance.CountNewBurgerScore(25);
+				SetBurgerCount(25);
 				OrderManager.Instance.IncreaseGoldenCount(1);
 				if(GlobalResources.Instance._currentGameState == GlobalResources.gameState.special)
 				{
@@ -459,7 +459,6 @@ public partial class GraphicInterface : Control
 	{
 		_pressedButton = _quitButton;
 		_pressedButton.TextureFocused = _pressedButtonTexture;
-		//_pressDelayTimer.Start();
 
 		GetTree().Quit();
 

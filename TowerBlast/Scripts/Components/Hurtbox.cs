@@ -268,7 +268,7 @@ public partial class Hurtbox : Node2D
 				_damagingWeapon = WeaponType.none;
 				_damagingTrap = body.GetNode<TrapProjectile>("..").GetProjectileType();
 				_damages = body.GetNode<TrapProjectile>("..").GetDamage();
-				AudioManager.Instance.PlaySFX(AudioManager.Instance._audioLibrary.Hit);
+				//AudioManager.Instance.PlaySFX(AudioManager.Instance._audioLibrary.Hit);
 
 			}
 			if (body.IsInGroup("Explosion"))
@@ -298,7 +298,7 @@ public partial class Hurtbox : Node2D
 				if (body.GetNode<PlayerProjectile>("..").GetWeaponType() != WeaponType.shield)
 				{
 					_damages = body.GetNode<PlayerProjectile>("..").GetDamage();
-					AudioManager.Instance.PlaySFX(AudioManager.Instance._audioLibrary.Hit);
+					//AudioManager.Instance.PlaySFX(AudioManager.Instance._audioLibrary.Hit);
 				}
 
 			}

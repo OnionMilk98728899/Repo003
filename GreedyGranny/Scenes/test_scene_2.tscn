@@ -120,7 +120,7 @@ format = 2
 layer_0/tile_data = PackedInt32Array(1114163, 0, 0, 1114162, 0, 0, 1114161, 0, 0, 1114160, 0, 0, 1114159, 0, 0, 1114158, 0, 0, 1114157, 0, 0, 1114156, 0, 0, 1114155, 0, 0, 1114154, 0, 0, 1114153, 0, 0, 1114152, 0, 0, 1114151, 0, 0, 1114150, 0, 0)
 
 [node name="Granny" parent="." instance=ExtResource("2_r5xpb")]
-position = Vector2(802, 146)
+position = Vector2(-49, 106)
 
 [node name="PlayerCam" parent="." instance=ExtResource("5_q8gir")]
 offset = Vector2(0, 0)
@@ -152,7 +152,7 @@ itemManNodePath = ".."
 [node name="CollectibleItem5" parent="." instance=ExtResource("7_vaf2u")]
 position = Vector2(206, 132)
 thisType = 4
-hatType = 8
+hatType = 4
 
 [node name="SlotMachine" parent="." instance=ExtResource("16_53a6b")]
 z_index = 4

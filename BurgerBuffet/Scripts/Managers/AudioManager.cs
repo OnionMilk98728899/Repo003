@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class AudioManager : Node2D
 {
@@ -16,7 +17,7 @@ public partial class AudioManager : Node2D
 
 	public override void _Ready()
 	{
-		
+		_musicPlayer.Finished += OnMMusicPlayerFinished;
 	}
 
 	public void PlaySFX(AudioStreamPlayer2D player, AudioStream audio)
@@ -44,8 +45,23 @@ public partial class AudioManager : Node2D
 		{
 			player.Stream = _audioLibrary.track2;
 		}
+	
 		player.Play();
 	}
 
+	private void OnMMusicPlayerFinished()
+	{
+		if(GlobalResources.Instance._currentGameState != GlobalResources.gameState.gameOver)
+		{
+			PlayRandomMusicTrack();
+		}
+		
+	}
+
+
+	////////////////////////////////TEST LOGIC
+
+	
 
 }
+

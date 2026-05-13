@@ -41,7 +41,7 @@ public partial class RangedTrap : Node2D
 	{
 		if (_enemyList.Count > 0)
 		{
-			DetermineTarget();
+			DetermineTarget2();
 			FireProjectile();
 		}
 
@@ -213,8 +213,6 @@ public partial class RangedTrap : Node2D
 						_targetVelocity = _furthestEnemy.GetEnemyVelocity();
 						_targetEnemyPosition.Y -= 8; /// Offsets target from floor position
 
-						// _targetList = Mathf.Round(_targetEnemy.X) + ", " +
-						//  Mathf.Round(_targetEnemy.Y);
 					}
 
 					_highestEnemies.Clear();
@@ -227,6 +225,81 @@ public partial class RangedTrap : Node2D
 			}
 		}
 	}
+
+
+/// ////////////////////////////////////////////////////// TEST CODE ///////////////////////////////////////////////////////////////////////////////////////
+
+private const float EPSILON = 0.1f;
+private const float TARGET_Y_OFFSET = 8f;
+
+	private void DetermineTarget2()
+	{
+		 // 1. Safely remove invalid enemies in one pass
+    _enemyList.RemoveAll(e => e == null || !GodotObject.IsInstanceValid(e));
+    if (_enemyList.Count == 0) return;
+
+    switch (_myAttackMode)
+    {
+        case _attackMode.hitFirst:
+            BasicEnemyMovement bestTarget = null;
+            float bestY = float.MaxValue;
+            float bestProgressScore = float.MinValue;
+
+            foreach (var enemy in _enemyList)
+            {
+                var body = enemy.GetNode<CharacterBody2D>("EnemyBody");
+                if (!GodotObject.IsInstanceValid(body)) continue;
+
+                Vector2 pos = body.GlobalPosition;
+
+                // Primary: Highest up (smallest Y in Godot)
+                if (pos.Y < bestY - EPSILON)
+                {
+                    bestY = pos.Y;
+                    bestTarget = enemy;
+                    bestProgressScore = CalculatePathProgressScore(pos);
+                }
+                // Tie-breaker: Furthest along path (replace with actual progress metric)
+                else if (Mathf.Abs(pos.Y - bestY) <= EPSILON)
+                {
+                    float currentScore = CalculatePathProgressScore(pos);
+                    if (currentScore > bestProgressScore)
+                    {
+                        bestProgressScore = currentScore;
+                        bestTarget = enemy;
+                    }
+                }
+            }
+
+            if (GodotObject.IsInstanceValid(bestTarget))
+            {
+                _targetEnemy = bestTarget;
+                var body = bestTarget.GetNode<CharacterBody2D>("EnemyBody");
+                _targetEnemyPosition = body.GlobalPosition + new Vector2(0, -TARGET_Y_OFFSET);
+                _targetVelocity = bestTarget.GetEnemyVelocity();
+            }
+            break;
+
+        case _attackMode.hitStrongest:
+            // Implement later
+            break;
+        case _attackMode.hitRandom:
+            // Implement later
+            break;
+    }
+}
+
+// Placeholder: Replace with actual path progress logic
+private float CalculatePathProgressScore(Vector2 position)
+{
+    // Example: Distance to base (lower = closer to base, so invert)
+    // return -position.DistanceTo(BasePosition);
+    return -position.Y; // Fallback to Y-only for now
+	}
+
+	
+	/// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 	private void AimInTargetDirection()
 	{
@@ -310,13 +383,13 @@ public partial class RangedTrap : Node2D
 				_ = FireBurstAsync(3, 300);
 			}
 
-			if(_myTrapType == TrapType.ballista || _myTrapType == TrapType.spear)
+			if (_myTrapType == TrapType.ballista || _myTrapType == TrapType.spear)
 			{
-				if(_aimDirection != null)
+				if (_aimDirection != null)
 				{
 					_trapAnim.Play(_shootAnim + _aimDirection);
 				}
-				
+
 			}
 			else
 			{
