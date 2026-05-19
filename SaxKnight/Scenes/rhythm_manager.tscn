@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbjuowrd4x3cw"]
+
+[ext_resource type="Script" path="res://Scripts/RhythmManager.cs" id="1_voyaf"]
+
+[node name="RhythmManager" type="Node2D"]
+script = ExtResource("1_voyaf")
