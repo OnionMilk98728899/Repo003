@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bl6ifxdjstyi8"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/AudioManager.cs" id="1_mqxee"]
+[ext_resource type="Resource" uid="uid://njplxpw750b4" path="res://Resources/audio_library.tres" id="2_ys5rr"]
+
+[node name="AudioManager" type="Node2D" node_paths=PackedStringArray("beatPlayer")]
+script = ExtResource("1_mqxee")
+beatPlayer = NodePath("BeatPlayer")
+audioLibrary = ExtResource("2_ys5rr")
+
+[node name="BeatPlayer" type="AudioStreamPlayer2D" parent="."]
+
+[connection signal="finished" from="BeatPlayer" to="." method="OnBeatPlayerFinished"]

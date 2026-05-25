@@ -11,13 +11,40 @@ config_version=5
 [application]
 
 config/name="SaxKnight"
-run/main_scene="res://Scenes/player.tscn"
+run/main_scene="res://Scenes/test_scene.tscn"
 config/features=PackedStringArray("4.2", "C#", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+RhythmManager="*res://Scenes/rhythm_manager.tscn"
+AudioManager="*res://Scenes/audio_manager.tscn"
+GraphicInterface="*res://Scenes/graphic_interface.tscn"
+GameManager="*res://Scenes/game_manager.tscn"
+
+[display]
+
+window/size/viewport_width=1024
+window/size/viewport_height=576
+window/stretch/mode="viewport"
+window/stretch/scale=2.0
 
 [dotnet]
 
 project/assembly_name="SaxKnight"
+
+[input]
+
+action_X={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":88,"key_label":0,"unicode":120,"echo":false,"script":null)
+]
+}
+
+[layer_names]
+
+2d_physics/layer_1="Floor"
+2d_physics/layer_2="Spikes"
 
 [rendering]
 

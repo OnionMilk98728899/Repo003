@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://dk3f5n7kof35g"]
+
+[ext_resource type="Script" path="res://Scripts/GUI/GraphicInterface.cs" id="1_kvfvt"]
+[ext_resource type="Texture2D" uid="uid://dciwkpudt77of" path="res://Artwork/GUI/BeatRingAnimationSheet.png" id="2_0j1fm"]
+
+[node name="GraphicInterface" type="CanvasLayer" node_paths=PackedStringArray("beatRingSprite")]
+layer = 2
+script = ExtResource("1_kvfvt")
+beatRingSprite = NodePath("Control/BeatMachine/BeatMachineSprite")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1138.0
+offset_bottom = 642.0
+
+[node name="BeatMachine" type="Control" parent="Control"]
+anchors_preset = 0
+offset_left = 37.0
+offset_top = 122.0
+offset_right = 569.0
+offset_bottom = 344.0
+
+[node name="BeatMachineSprite" type="Sprite2D" parent="Control/BeatMachine"]
+texture_filter = 1
+position = Vector2(213, 116)
+texture = ExtResource("2_0j1fm")
+hframes = 2
+frame = 1
+
+[node name="BeatMachineAnim" type="AnimationPlayer" parent="Control/BeatMachine"]
