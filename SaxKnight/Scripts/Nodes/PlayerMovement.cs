@@ -1,53 +1,61 @@
 using Godot;
 using System;
+using System.Data;
 
 public partial class PlayerMovement : Node2D
 {
-    [Export] private Sprite2D playerSprite;
-    [Export] private AnimationPlayer playerAnim;
-    [Export] private CharacterBody2D playerBody;
-    [Export] private Timer landTimer, jumpTimer;
+	[Export] private Sprite2D playerSprite;
+	[Export] private AnimationPlayer playerAnim;
+	[Export] private CharacterBody2D playerBody;
+	[Export] private CollisionShape2D playerShape, dodgeShape;
+	[Export] private Timer landTimer, jumpTimer, dodgeTimer;
 
-    [Export] private float moveSpeed, maxMoveSpeed, climbSpeed, maxClimbSpeed, jumpPower, gravity;
-    private Vector2 playerVelocity, inputDirection;
-    private bool isTouchingLadder, isInClimbMode, isJumping, isGravityReset;
-    
+	[Export] private float moveSpeed, maxMoveSpeed, climbSpeed, maxClimbSpeed, jumpPower, gravity;
+	private Vector2 playerVelocity, inputDirection;
+	private bool isTouchingLadder, isClimbingUp, isClimbingDown, isJumping, isGravityReset, isDodging;
 
-    public enum moveState
-    {
-        Idle, Walk, Jump, Fall, Land, Jam, Blow, Climb, Climbidle
-    }
 
-    public moveState currentState;
-
-    public override void _Ready()
-    {
-        GameManager.playerBody = playerBody;
-    }
-
-    public override void _PhysicsProcess(double delta)
-    {
-        HandleDirectionalInput(delta);
-        HandleJumpInput();
-        HandleClimbModeInput(delta);
-        playerBody.Velocity = playerVelocity;
-        AnimatePlayer();
-        playerBody.MoveAndSlide();
-    }
-
-    private void HandleDirectionalInput(double delta)
+	public enum moveState
 	{
-		if (Input.IsActionPressed("ui_left")) inputDirection.X -= 1;
-		if (Input.IsActionPressed("ui_right")) inputDirection.X += 1;
-		if (Input.IsActionPressed("ui_up")) inputDirection.Y -= 1;
-		if (Input.IsActionPressed("ui_down")) inputDirection.Y += 1;
-		if (Input.IsActionJustReleased("ui_left") || Input.IsActionJustReleased("ui_right")) inputDirection.X = 0;
-		if (Input.IsActionJustReleased("ui_up") || Input.IsActionJustReleased("ui_down")) inputDirection.Y = 0;
+		Idle, Walk, Jump, Fall, Land, Jam, Power1, Climb, ClimbIdle, Hurt, Dying, Dead, Dodge, Roll
+	}
+
+	public moveState currentState;
+
+	public override void _Ready()
+	{
+		GameManager.playerBody = playerBody;
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		if (currentState != moveState.Dying && currentState != moveState.Dead)
+		{
+			HandleDirectionalInput(delta);
+			HandleJumpDodgeInput();
+			HandleClimbModeInput(delta);
+		}
+		else
+		{
+			CalculateDeathMovement();
+		}
+
+		playerBody.Velocity = playerVelocity;
+		AnimatePlayer();
+		playerBody.MoveAndSlide();
+	}
+
+	private void HandleDirectionalInput(double delta)
+	{
+		if (Input.IsActionPressed("ui_left")) inputDirection.X = -1;
+		if (Input.IsActionPressed("ui_right")) inputDirection.X = 1;
+		//if (Input.IsActionPressed("ui_up")) inputDirection.Y -= 1;
+		//if (Input.IsActionPressed("ui_down")) inputDirection.Y += 1;
 
 		if (inputDirection.X != 0)
 		{
-			playerVelocity.X += inputDirection.X * (float)delta * moveSpeed;
-			playerVelocity.X = Mathf.Clamp(playerVelocity.X, - maxMoveSpeed, maxMoveSpeed);
+			playerVelocity.X += inputDirection.X * moveSpeed;
+			playerVelocity.X = Mathf.Clamp(playerVelocity.X, -maxMoveSpeed, maxMoveSpeed);
 			if (inputDirection.X > 0)
 			{
 				playerSprite.FlipH = false;
@@ -62,9 +70,9 @@ public partial class PlayerMovement : Node2D
 			playerVelocity.X = 0;
 		}
 
-		if (inputDirection.Y != 0 & isTouchingLadder)
+		if (!playerBody.IsOnFloor() && isTouchingLadder && Input.IsActionPressed("ui_up"))
 		{
-			isInClimbMode = true;
+			isClimbingUp = true;
 		}
 
 		if (playerBody.IsOnFloor() && landTimer.IsStopped())
@@ -77,50 +85,82 @@ public partial class PlayerMovement : Node2D
 			}
 			else
 			{
-				//_currentAnim = "Run";
-				currentState = moveState.Walk;
+				if (!isDodging)
+				{
+					currentState = moveState.Walk;
+				}
+
 			}
 
 		}
 
 	}
 
-    private void HandleClimbModeInput(double delta)
+	private void HandleInstrumentInput()
 	{
-		if (isInClimbMode)
+		if (Input.IsActionJustPressed("red"))
 		{
-			if (inputDirection.X != 0)
-			{
-				playerVelocity.X += inputDirection.X * (float)delta * climbSpeed;
-				playerVelocity.X = Mathf.Clamp(playerVelocity.X, -maxClimbSpeed, maxClimbSpeed);
-				currentState = moveState.Climb;
-
-			}
-			if (inputDirection.Y != 0)
-			{
-				playerVelocity.Y += inputDirection.Y * (float)delta * climbSpeed;
-				playerVelocity.Y = Mathf.Clamp(playerVelocity.Y, -maxClimbSpeed, maxClimbSpeed);
-				//_currentAnim = "Climb";
-				currentState = moveState.Climb;
-			}
-			if (inputDirection.X == 0 && !isJumping)
-			{
-				playerVelocity.X = 0;
-
-			}
-			if (inputDirection.Y == 0 && !isJumping)
-			{
-				playerVelocity.Y = 0;
-			}
-
-			if (inputDirection.X == 0 && inputDirection.Y == 0)
-			{
-				//_currentAnim = "Climb_Idle";
-				currentState = moveState.Climbidle;
-				//GD.Print("Climb_Idle");
-			}
 
 		}
+		else if (Input.IsActionJustPressed("orange"))
+		{
+
+		}
+		else if (Input.IsActionJustPressed("green"))
+		{
+
+		}
+		else if (Input.IsActionJustPressed("blue"))
+		{
+
+		}
+		else if (Input.IsActionJustPressed("purple"))
+		{
+
+		}
+	}
+
+	private void FireProjectile()
+	{
+
+	}
+
+	private void HandleClimbModeInput(double delta)
+	{
+		// if (isInClimbMode)
+		// {
+		// 	if (inputDirection.X != 0)
+		// 	{
+		// 		playerVelocity.X += inputDirection.X * (float)delta * climbSpeed;
+		// 		playerVelocity.X = Mathf.Clamp(playerVelocity.X, -maxClimbSpeed, maxClimbSpeed);
+		// 		currentState = moveState.Climb;
+
+		// 	}
+		// 	if (inputDirection.Y != 0)
+		// 	{
+		// 		playerVelocity.Y += inputDirection.Y * (float)delta * climbSpeed;
+		// 		playerVelocity.Y = Mathf.Clamp(playerVelocity.Y, -maxClimbSpeed, maxClimbSpeed);
+		// 		//_currentAnim = "Climb";
+		// 		currentState = moveState.Climb;
+		// 	}
+		// 	if (inputDirection.X == 0 && !isJumping)
+		// 	{
+		// 		playerVelocity.X = 0;
+
+		// 	}
+		// 	if (inputDirection.Y == 0 && !isJumping)
+		// 	{
+		// 		playerVelocity.Y = 0;
+		// 	}
+
+		// 	if (inputDirection.X == 0 && inputDirection.Y == 0)
+		// 	{
+		// 		//_currentAnim = "Climb_Idle";
+		// 		currentState = moveState.Climbidle;
+		// 		//GD.Print("Climb_Idle");
+		// 	}
+
+		// }
 		// if (inputDirection.Y > 0)
 		// {
 		// 	_lowerLadderColl.Disabled = false;
@@ -131,21 +171,41 @@ public partial class PlayerMovement : Node2D
 		// }
 
 	}
-	private void HandleJumpInput()
+	private void HandleJumpDodgeInput()
 	{
-		if (Input.IsActionPressed("action_X") && jumpTimer.IsStopped())
+		if (jumpTimer.IsStopped())
 		{
-			if (playerBody.IsOnFloor() || isInClimbMode)
+			if (Input.IsActionPressed("ui_up"))
 			{
-				playerVelocity.Y -= jumpPower;
-				isJumping = true;
-				jumpTimer.Start();
-				isInClimbMode = false;
+				if (playerBody.IsOnFloor() || isClimbingUp || isClimbingDown && !isDodging)
+				{
 
+					if (RhythmManager.Instance.CheckInputForRhythm())
+					{
+						playerVelocity.Y -= jumpPower;
+						isJumping = true;
+						jumpTimer.Start();
+						//isInClimbMode = false;
+					}
+
+
+				}
+			}
+			if (Input.IsActionPressed("ui_down") && !isDodging)
+			{
+				if (playerBody.IsOnFloor() && !isDodging)
+				{
+					if (RhythmManager.Instance.CheckInputForRhythm())
+					{
+						currentState = moveState.Dodge;
+						isDodging = true;
+						dodgeTimer.Start();
+					}
+				}
 			}
 
 		}
-		if (!playerBody.IsOnFloor() && !isInClimbMode)
+		if (!playerBody.IsOnFloor())
 		{
 			playerVelocity.Y += gravity;
 			isGravityReset = false;
@@ -174,9 +234,44 @@ public partial class PlayerMovement : Node2D
 		}
 	}
 
-    private void AnimatePlayer()
-    {
-        playerAnim.Play(currentState.ToString());
-    }
+	public void EnableDodgeCollision()
+	{
+		dodgeShape.Disabled = false;
+		playerShape.Disabled = true;
+	}
+	public void DisableDodgeCollision()
+	{
+		dodgeShape.Disabled = true;
+		playerShape.Disabled = false;
+		if (playerBody.IsOnCeiling())
+		{
+			
+		}
+	}
+
+	private void CalculateDeathMovement()
+	{
+		playerVelocity = Vector2.Zero;
+	}
+
+	private void AnimatePlayer()
+	{
+		playerAnim.Play(currentState.ToString());
+	}
+
+	private void OnSpikesDetectorBodyEntered(Node2D body)
+	{
+		currentState = moveState.Dying;
+	}
+
+	public void OnDyingAnimFinished()
+	{
+		currentState = moveState.Dead;
+	}
+
+	private void OnDodgeTimerTimeout()
+	{
+		isDodging = false;
+	}
 
 }

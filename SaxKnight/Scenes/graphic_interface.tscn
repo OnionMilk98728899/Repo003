@@ -1,7 +1,113 @@
-[gd_scene load_steps=3 format=3 uid="uid://dk3f5n7kof35g"]
+[gd_scene load_steps=11 format=3 uid="uid://dk3f5n7kof35g"]
 
 [ext_resource type="Script" path="res://Scripts/GUI/GraphicInterface.cs" id="1_kvfvt"]
 [ext_resource type="Texture2D" uid="uid://dciwkpudt77of" path="res://Artwork/GUI/BeatRingAnimationSheet.png" id="2_0j1fm"]
+[ext_resource type="Texture2D" uid="uid://cwfqiwwnr1bgl" path="res://Artwork/GUI/ButtonsSheet.png" id="3_uaky7"]
+
+[sub_resource type="Animation" id="Animation_xft8f"]
+resource_name = "A_Button"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [5, 0, 5]
+}
+
+[sub_resource type="Animation" id="Animation_kifyk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ivxt8"]
+resource_name = "Up_Button"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [5, 1, 5]
+}
+
+[sub_resource type="Animation" id="Animation_etxh6"]
+resource_name = "Down_Button"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [5, 2, 5]
+}
+
+[sub_resource type="Animation" id="Animation_nol62"]
+resource_name = "Left_Button"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [5, 3, 5]
+}
+
+[sub_resource type="Animation" id="Animation_fioxu"]
+resource_name = "Right_Button"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [5, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_17pju"]
+_data = {
+"A_Button": SubResource("Animation_xft8f"),
+"Down_Button": SubResource("Animation_etxh6"),
+"Left_Button": SubResource("Animation_nol62"),
+"RESET": SubResource("Animation_kifyk"),
+"Right_Button": SubResource("Animation_fioxu"),
+"Up_Button": SubResource("Animation_ivxt8")
+}
 
 [node name="GraphicInterface" type="CanvasLayer" node_paths=PackedStringArray("beatRingSprite")]
 layer = 2
@@ -11,8 +117,9 @@ beatRingSprite = NodePath("Control/BeatMachine/BeatMachineSprite")
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
+offset_top = 16.0
 offset_right = 1138.0
-offset_bottom = 642.0
+offset_bottom = 658.0
 
 [node name="BeatMachine" type="Control" parent="Control"]
 anchors_preset = 0
@@ -29,3 +136,15 @@ hframes = 2
 frame = 1
 
 [node name="BeatMachineAnim" type="AnimationPlayer" parent="Control/BeatMachine"]
+
+[node name="ButtonHitAnim" type="AnimationPlayer" parent="Control/BeatMachine"]
+root_node = NodePath("../ButtonHitSprite")
+libraries = {
+"": SubResource("AnimationLibrary_17pju")
+}
+
+[node name="ButtonHitSprite" type="Sprite2D" parent="Control/BeatMachine"]
+texture_filter = 1
+position = Vector2(213, 116)
+texture = ExtResource("3_uaky7")
+hframes = 6

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 public partial class AudioManager : Node2D
 {
 	public static AudioManager Instance {get; private set;}
-	[Export] public AudioStreamPlayer2D beatPlayer;
+	[Export] public AudioStreamPlayer2D beatPlayer, rhythmPlayer;
 	[Export] public AudioLibrary audioLibrary;
-	private int trackCounter;
+	private int trackCounter, measureCounter;
 	public bool isLoopingCurrentTrack;
 
 	public override void _EnterTree()
@@ -58,7 +58,12 @@ public partial class AudioManager : Node2D
 	{
 		if (isLoopingCurrentTrack)
 		{
+			measureCounter++;
 			beatPlayer.Play();
+		}
+		if(measureCounter >= 2)
+		{
+			AudioManager.Instance.PlayMusic(AudioManager.Instance.rhythmPlayer, AudioManager.Instance.audioLibrary.guitarTrack1, true);
 		}
 	}
 

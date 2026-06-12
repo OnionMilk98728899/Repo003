@@ -6,6 +6,7 @@ public partial class RhythmManager : Node
     public static RhythmManager Instance { get; private set; }
     [Export] public AudioStreamPlayer2D musicPlayer;
     [Export] public double BPM = 125;
+    
 
     private double secondsPerBeat;
 
@@ -40,7 +41,7 @@ public partial class RhythmManager : Node
     private void OnSceneLoaded()
     {
         musicPlayer = AudioManager.Instance.beatPlayer;
-        //AudioManager.Instance.PlayMusic(AudioManager.Instance.beatPlayer, AudioManager.Instance.audioLibrary.beat1, true);
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.beatPlayer, AudioManager.Instance.audioLibrary.beat1, true);
     }
 
     private void CheckHit()
@@ -66,6 +67,27 @@ public partial class RhythmManager : Node
         else
         {
             GD.Print("MISS");
+        }
+    }
+
+    public bool CheckInputForRhythm()
+    {
+        UpdateSongTime();
+        double error = DetectBeatWindow();
+        if(error < .1)
+        {
+            GD.Print("Perfect");
+            return true;
+            
+        }
+        else if (error < .2)
+        {
+            GD.Print("OK");
+            return false;
+        }
+        else
+        {
+            return false;
         }
     }
 
