@@ -8,11 +8,12 @@ public partial class PlayerMovement : Node2D
 	[Export] private AnimationPlayer playerAnim;
 	[Export] private CharacterBody2D playerBody;
 	[Export] private CollisionShape2D playerShape, dodgeShape;
-	[Export] private Timer landTimer, jumpTimer, dodgeTimer;
+	[Export] private Timer landTimer, jumpTimer, dodgeTimer, rollTimer, dodgeRollRecoverTimer;
 
 	[Export] private float moveSpeed, maxMoveSpeed, climbSpeed, maxClimbSpeed, jumpPower, gravity;
 	private Vector2 playerVelocity, inputDirection;
-	private bool isTouchingLadder, isClimbingUp, isClimbingDown, isJumping, isGravityReset, isDodging;
+	private bool isTouchingLadder, isClimbingUp, isClimbingDown, isJumping, isGravityReset, isDodging, isDodgeRollRecovering;
+	private int ceilingCounter;
 
 
 	public enum moveState
@@ -231,7 +232,15 @@ public partial class PlayerMovement : Node2D
 				currentState = moveState.Land;
 				landTimer.Start();
 			}
+
 		}
+		if(isDodgeRollRecovering && ceilingCounter > 0)
+		{
+			rollTimer.Start();
+			isDodging = true;
+			currentState = moveState.Roll;
+		}
+
 	}
 
 	public void EnableDodgeCollision()
@@ -243,10 +252,8 @@ public partial class PlayerMovement : Node2D
 	{
 		dodgeShape.Disabled = true;
 		playerShape.Disabled = false;
-		if (playerBody.IsOnCeiling())
-		{
-			
-		}
+		isDodging = false;
+		isDodgeRollRecovering = true;
 	}
 
 	private void CalculateDeathMovement()
@@ -268,10 +275,24 @@ public partial class PlayerMovement : Node2D
 	{
 		currentState = moveState.Dead;
 	}
+	private void OnCeilingSensorBodyEntered(Node2D body)
+	{
+		ceilingCounter++;
+	}
 
+	private void OnCeilingSensorBodyExited(Node2D body)
+	{
+		ceilingCounter--;
+	}
 	private void OnDodgeTimerTimeout()
+	{
+		isDodgeRollRecovering = false;
+	}
+
+	private void OnRollTimerTimeout()
 	{
 		isDodging = false;
 	}
+
 
 }
