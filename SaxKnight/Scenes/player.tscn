@@ -1,8 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://bn2tronkydc1x"]
+[gd_scene load_steps=30 format=3 uid="uid://bn2tronkydc1x"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/player.cs" id="1_uxvrr"]
 [ext_resource type="Script" path="res://Scripts/Nodes/PlayerMovement.cs" id="2_vok5p"]
-[ext_resource type="Texture2D" uid="uid://cntq0ifhe3l40" path="res://Artwork/Sprites/Player/PlayerAnimations96Spritesheet6.png" id="3_3h0m5"]
+[ext_resource type="Texture2D" uid="uid://b10hhjra26xn2" path="res://Artwork/Sprites/Player/PlayerAnimations89Spritesheet7.png" id="3_ioku2"]
+[ext_resource type="PackedScene" uid="uid://bx2dferqh4qt6" path="res://Scenes/hurtbox.tscn" id="3_jxjlb"]
+[ext_resource type="Script" path="res://Scripts/Nodes/PlayerAttacks.cs" id="3_xsmky"]
+[ext_resource type="PackedScene" uid="uid://5cf5518tmica" path="res://Scenes/magic.tscn" id="4_2w74r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ifld0"]
 size = Vector2(21, 28)
@@ -24,40 +27,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [67]
-}
-
-[sub_resource type="Animation" id="Animation_vrgjb"]
-resource_name = "Dodge"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [52, 53, 54, 55, 56, 57, 58, 59]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../..")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.2, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [],
-"method": &"EnableDodgeCollision"
-}, {
-"args": [],
-"method": &"DisableDodgeCollision"
-}]
+"values": [60]
 }
 
 [sub_resource type="Animation" id="Animation_grf1d"]
@@ -73,7 +43,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [60, 61, 62, 63, 64, 65, 66, 67]
+"values": [53, 54, 55, 56, 57, 58, 59, 60]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -120,7 +90,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [48, 49, 50, 51]
+"values": [40, 41, 42, 43]
 }
 
 [sub_resource type="Animation" id="Animation_du7u6"]
@@ -138,23 +108,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [8, 9, 10, 11, 12, 13, 14, 15]
-}
-
-[sub_resource type="Animation" id="Animation_b4y3o"]
-resource_name = "Jam"
-length = 0.8
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [32, 33, 34, 35, 36, 37, 38, 39]
 }
 
 [sub_resource type="Animation" id="Animation_18uql"]
@@ -187,22 +140,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [28, 29, 30, 31]
-}
-
-[sub_resource type="Animation" id="Animation_h5yeq"]
-resource_name = "Power1"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [40, 41, 42, 43, 44, 45, 46, 47]
 }
 
 [sub_resource type="Animation" id="Animation_hq2va"]
@@ -239,7 +176,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_bha1f"]
 resource_name = "Roll"
-length = 0.5
+length = 0.3
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -248,10 +185,10 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [55, 56, 57, 58, 59]
+"values": [48, 49, 50]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -260,14 +197,11 @@ tracks/1/path = NodePath("../..")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"EnableDodgeCollision"
-}, {
-"args": [],
-"method": &"DisableDodgeCollision"
+"method": &"OnRollAnimFinished"
 }]
 }
 
@@ -301,7 +235,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [68, 69, 70, 71, 72, 73, 74, 75]
+"values": [61, 62, 63, 64, 65, 66, 67, 68]
 }
 
 [sub_resource type="Animation" id="Animation_5l7e4"]
@@ -317,7 +251,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [76, 77, 78, 79]
+"values": [69, 70, 71, 72]
 }
 
 [sub_resource type="Animation" id="Animation_iiq4e"]
@@ -334,7 +268,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [80, 81, 82, 83, 84, 85, 86, 87]
+"values": [73, 74, 75, 76, 77, 78, 79, 80]
 }
 
 [sub_resource type="Animation" id="Animation_orsfe"]
@@ -351,7 +285,90 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [88, 89, 90, 91, 92, 93, 94, 95]
+"values": [81, 82, 83, 84, 85, 86, 87, 88]
+}
+
+[sub_resource type="Animation" id="Animation_tjie2"]
+resource_name = "Dive"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [44, 45, 46, 47]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"EnableDodgeCollision"
+}, {
+"args": [],
+"method": &"OnDiveAnimFinished"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_g5j70"]
+resource_name = "Recover"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [51, 52]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"DisableDodgeCollision"
+}, {
+"args": [],
+"method": &"OnRecoverAnimationFinished"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_b4y3o"]
+resource_name = "Power1"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 34, 35, 36, 37, 38, 39]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lkqcw"]
@@ -359,19 +376,19 @@ _data = {
 "Climb": SubResource("Animation_rgcsm"),
 "ClimbHurt": SubResource("Animation_5l7e4"),
 "Dead": SubResource("Animation_adek1"),
-"Dodge": SubResource("Animation_vrgjb"),
+"Dive": SubResource("Animation_tjie2"),
 "Dying": SubResource("Animation_grf1d"),
 "Fall": SubResource("Animation_b6ymh"),
 "FallHurt": SubResource("Animation_t1aha"),
 "Hurt": SubResource("Animation_twrne"),
 "Idle": SubResource("Animation_du7u6"),
-"Jam": SubResource("Animation_b4y3o"),
 "Jump": SubResource("Animation_18uql"),
 "Land": SubResource("Animation_gr0w1"),
-"Power1": SubResource("Animation_h5yeq"),
+"Power1": SubResource("Animation_b4y3o"),
 "Power2": SubResource("Animation_iiq4e"),
 "Power3": SubResource("Animation_orsfe"),
 "RESET": SubResource("Animation_hq2va"),
+"Recover": SubResource("Animation_g5j70"),
 "Roll": SubResource("Animation_bha1f"),
 "Walk": SubResource("Animation_wee20")
 }
@@ -385,7 +402,7 @@ size = Vector2(22, 5)
 [node name="Player" type="Node2D"]
 script = ExtResource("1_uxvrr")
 
-[node name="PlayerMovement" type="Node2D" parent="." node_paths=PackedStringArray("playerSprite", "playerAnim", "playerBody", "playerShape", "dodgeShape", "landTimer", "jumpTimer", "dodgeTimer", "rollTimer")]
+[node name="PlayerMovement" type="Node2D" parent="." node_paths=PackedStringArray("playerSprite", "playerAnim", "playerBody", "playerShape", "dodgeShape", "landTimer", "jumpTimer", "playerAttacks")]
 script = ExtResource("2_vok5p")
 playerSprite = NodePath("PlayerBody/PlayerSprite")
 playerAnim = NodePath("PlayerBody/PlayerAnim")
@@ -394,23 +411,29 @@ playerShape = NodePath("PlayerBody/PlayerShape")
 dodgeShape = NodePath("PlayerBody/DodgeShape")
 landTimer = NodePath("PlayerBody/LandTimer")
 jumpTimer = NodePath("PlayerBody/JumpTimer")
-dodgeTimer = NodePath("PlayerBody/DodgeTimer")
-rollTimer = NodePath("PlayerBody/RollTimer")
 moveSpeed = 50.0
 maxMoveSpeed = 65.0
 climbSpeed = 25.0
 maxClimbSpeed = 50.0
-jumpPower = 110.0
-gravity = 5.0
+jumpPower = 170.0
+gravity = 7.0
+playerAttacks = NodePath("PlayerBody/PlayerAttacks")
 
-[node name="PlayerBody" type="CharacterBody2D" parent="PlayerMovement"]
+[node name="PlayerBody" type="CharacterBody2D" parent="PlayerMovement" groups=["Player"]]
 collision_layer = 4
+
+[node name="Hurtbox" parent="PlayerMovement/PlayerBody" instance=ExtResource("3_jxjlb")]
+
+[node name="PlayerAttacks" type="Node2D" parent="PlayerMovement/PlayerBody"]
+position = Vector2(0, -12)
+script = ExtResource("3_xsmky")
+myMagicScene = ExtResource("4_2w74r")
 
 [node name="PlayerSprite" type="Sprite2D" parent="PlayerMovement/PlayerBody"]
 texture_filter = 1
 position = Vector2(7, -16)
-texture = ExtResource("3_3h0m5")
-hframes = 96
+texture = ExtResource("3_ioku2")
+hframes = 89
 
 [node name="PlayerShape" type="CollisionShape2D" parent="PlayerMovement/PlayerBody"]
 visible = false
@@ -435,16 +458,6 @@ one_shot = true
 wait_time = 0.4
 one_shot = true
 
-[node name="DodgeTimer" type="Timer" parent="PlayerMovement/PlayerBody"]
-wait_time = 0.8
-one_shot = true
-
-[node name="RollTimer" type="Timer" parent="PlayerMovement/PlayerBody"]
-wait_time = 0.5
-one_shot = true
-
-[node name="DodgeRollRecoverTimer" type="Timer" parent="PlayerMovement/PlayerBody"]
-
 [node name="SpikesDetector" type="Area2D" parent="PlayerMovement/PlayerBody"]
 collision_layer = 0
 collision_mask = 2
@@ -460,8 +473,7 @@ collision_layer = 0
 position = Vector2(9, -15)
 shape = SubResource("RectangleShape2D_rwv8t")
 
-[connection signal="timeout" from="PlayerMovement/PlayerBody/DodgeTimer" to="PlayerMovement" method="OnDodgeTimerTimeout"]
-[connection signal="timeout" from="PlayerMovement/PlayerBody/RollTimer" to="PlayerMovement" method="OnRollTimerTimeout"]
+[connection signal="timeout" from="PlayerMovement/PlayerBody/LandTimer" to="PlayerMovement" method="OnLandTimerTimeout"]
 [connection signal="body_entered" from="PlayerMovement/PlayerBody/SpikesDetector" to="PlayerMovement" method="OnSpikesDetectorBodyEntered"]
 [connection signal="body_entered" from="PlayerMovement/PlayerBody/CeilingSensor" to="PlayerMovement" method="OnCeilingSensorBodyEntered"]
 [connection signal="body_exited" from="PlayerMovement/PlayerBody/CeilingSensor" to="PlayerMovement" method="OnCeilingSensorBodyExited"]

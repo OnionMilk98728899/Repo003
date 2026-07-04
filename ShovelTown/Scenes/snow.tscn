@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://btpddj55rf522"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Snow.cs" id="1_d6j5n"]
+[ext_resource type="Texture2D" uid="uid://d0nivfroxj82t" path="res://SpritesAndTiles/Environment/Snow/SnowTileSheet.png" id="1_xqgm3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_higkr"]
+size = Vector2(8, 8)
+
+[node name="Snow" type="Node2D" node_paths=PackedStringArray("snowSprite")]
+z_index = 1
+script = ExtResource("1_d6j5n")
+snowSprite = NodePath("SnowBody/SnowSprite")
+depthCoeff = 5
+
+[node name="SnowBody" type="StaticBody2D" parent="." groups=["Snow"]]
+position = Vector2(4, 4)
+collision_layer = 4
+collision_mask = 0
+
+[node name="SnowCollder" type="CollisionShape2D" parent="SnowBody"]
+shape = SubResource("RectangleShape2D_higkr")
+
+[node name="SnowSprite" type="Sprite2D" parent="SnowBody"]
+texture_filter = 1
+texture = ExtResource("1_xqgm3")
+hframes = 27
+frame = 1
+
+[node name="SnowAnim" type="AnimationPlayer" parent="SnowBody"]

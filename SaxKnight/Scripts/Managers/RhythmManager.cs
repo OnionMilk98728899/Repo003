@@ -41,7 +41,7 @@ public partial class RhythmManager : Node
 	private void OnSceneLoaded()
 	{
 		musicPlayer = AudioManager.Instance.beatPlayer;
-		AudioManager.Instance.PlayMusic(AudioManager.Instance.beatPlayer, AudioManager.Instance.audioLibrary.beat1, true);
+		//AudioManager.Instance.PlayMusic(AudioManager.Instance.beatPlayer, AudioManager.Instance.audioLibrary.beat1, true);
 	}
 
 	private void CheckHit()

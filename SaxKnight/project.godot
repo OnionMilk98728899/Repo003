@@ -21,6 +21,7 @@ RhythmManager="*res://Scenes/rhythm_manager.tscn"
 AudioManager="*res://Scenes/audio_manager.tscn"
 GraphicInterface="*res://Scenes/graphic_interface.tscn"
 GameManager="*res://Scenes/game_manager.tscn"
+ProjectileManager="*res://Scenes/projectile_manager.tscn"
 
 [display]
 
@@ -62,8 +63,7 @@ Blue={
 2d_physics/layer_2="Spikes"
 2d_physics/layer_3="Player"
 2d_physics/layer_4="Enemy"
-2d_physics/layer_5="PlayerMagic"
-2d_physics/layer_6="EnemyMagic"
+2d_physics/layer_5="Magic"
 
 [rendering]
 

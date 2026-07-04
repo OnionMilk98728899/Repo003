@@ -3,43 +3,58 @@ using System;
 
 public partial class BasicEnemyMovement : Node2D
 {
-	[Signal] public delegate void EnterJamModeEventHandler(bool isInJamMode);
+	[Signal] public delegate void AttackReadyModeEventHandler(bool ready, Vector2 attackDirection);
 	[Export] private CharacterBody2D enemyBody;
+
 	[Export] private AnimationPlayer enemyAnim;
 	[Export] private Sprite2D enemySprite;
 	[Export] private float speed, maxSpeed;
+
 	private CharacterBody2D targetBody;
 	private Vector2 moveDirection, enemyVelocity;
 	private enum direction { left, right }
 	private direction currentDirection;
+	private bool isAwareOfPlayer;
 	private enum moveState
 	{
-		Walk, Idle, Jam, Attack, Hurt, Death
+		Walk, Attack, Hurt, Death
 	}
 	private moveState currentMoveState;
-
 
 
 	public override void _Ready()
 	{
 		RandomizeInitialPath();
+		currentMoveState = moveState.Walk;
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (currentMoveState == moveState.Walk || currentMoveState == moveState.Idle)
+		if (currentMoveState == moveState.Walk)
 		{
 			DetermineEnemyDirection();
 			Patrol(delta);
-		}
-		else if (currentMoveState == moveState.Jam || currentMoveState == moveState.Attack)
-		{
-			StopMoving();
-			if(targetBody != null)
+			if (isAwareOfPlayer)
 			{
-				FaceTarget(targetBody.GlobalPosition);
+				if (targetBody.GlobalPosition.X < enemyBody.GlobalPosition.X && currentDirection == direction.left ||
+				targetBody.GlobalPosition.X > enemyBody.GlobalPosition.X && currentDirection == direction.right)
+				{
+					EmitSignal(SignalName.AttackReadyMode, true, moveDirection);
+					GD.Print("Entered Attack Mode");
+				}
 			}
-			
+		}
+		if (currentMoveState == moveState.Attack)
+		{
+			if (targetBody.GlobalPosition.X < enemyBody.GlobalPosition.X && currentDirection == direction.right||
+			targetBody.GlobalPosition.X > enemyBody.GlobalPosition.X && currentDirection == direction.left)
+			{
+				currentMoveState = moveState.Walk;
+				EmitSignal(SignalName.AttackReadyMode, false, moveDirection);
+				GD.Print("Return To Walk");
+			}
+			DetermineEnemyDirection();
+			Patrol(delta);
 		}
 
 		AnimateEnemy();
@@ -92,24 +107,10 @@ public partial class BasicEnemyMovement : Node2D
 		enemyBody.Velocity = enemyVelocity;
 	}
 
-	private void BecomeAlertedToPlayer(Node2D body)
-	{
-		currentMoveState = moveState.Jam;
-		StopMoving();
-		EmitSignal(SignalName.EnterJamMode, true);
-	}
-
-	private void FaceTarget(Vector2 t)
-	{
-		if (enemyBody.GlobalPosition.X - t.X < 0)
-		{
-			enemySprite.FlipH = false;
-		}
-		else
-		{
-			enemySprite.FlipH = true;
-		}
-	}
+	// private void BecomeAlertedToPlayer(CharacterBody2D targetBody)
+	// {
+	// 	currentMoveState = moveState.Attack;
+	// }
 
 	private void AnimateEnemy()
 	{
@@ -119,19 +120,20 @@ public partial class BasicEnemyMovement : Node2D
 	private void OnLeftPatrolBoundaryEntered(Node2D body)
 	{
 		currentDirection = direction.right;
-		enemyVelocity.X = 0;
+		//enemyVelocity.X = 0;
 	}
 
 	private void OnRightPatrolBoundaryEntered(Node2D body)
 	{
 		currentDirection = direction.left;
-		enemyVelocity.X = 0;
+		//enemyVelocity.X = 0;
 	}
 
 	private void OnPlayerDetectorBodyEntered(Node2D body)
 	{
-		BecomeAlertedToPlayer(body);
 		targetBody = body.GetNode<CharacterBody2D>(".");
+		isAwareOfPlayer = true;
+		//BecomeAlertedToPlayer(targetBody);
 	}
 
 	private void OnPlayerDetectorExited(Node2D body)
@@ -139,9 +141,16 @@ public partial class BasicEnemyMovement : Node2D
 		currentMoveState = moveState.Walk;
 	}
 
-	private void OnEnterAttackMode()
+	// private void OnEnterAttackMode()
+	// {
+	// 	currentMoveState = moveState.Attack;
+	// }
+
+
+	private void OnAttackModeEntered()
 	{
 		currentMoveState = moveState.Attack;
+		GD.Print("Attack Entered");
 	}
 
 }

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dbyekcj8eld5d"]
+[gd_scene load_steps=7 format=3 uid="uid://dbyekcj8eld5d"]
 
 [ext_resource type="Texture2D" uid="uid://df8xeaqkmblk" path="res://Artwork/Tiles/DungeonTileset1.png" id="1_ccwlt"]
 [ext_resource type="PackedScene" uid="uid://bn2tronkydc1x" path="res://Scenes/player.tscn" id="1_t1flw"]
 [ext_resource type="PackedScene" uid="uid://ov31r72cnv40" path="res://Scenes/camera_manager.tscn" id="3_1abhy"]
+[ext_resource type="PackedScene" uid="uid://osgcnjk8umaa" path="res://Scenes/enemy_1.tscn" id="4_w2tb0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sgcn5"]
 texture = ExtResource("1_ccwlt")
@@ -126,3 +127,6 @@ layer_0/tile_data = PackedInt32Array(-1, 327680, 0, 65535, 327680, 0, 131071, 32
 position = Vector2(250, 124)
 
 [node name="CameraManager" parent="." instance=ExtResource("3_1abhy")]
+
+[node name="Enemy1" parent="." instance=ExtResource("4_w2tb0")]
+position = Vector2(646, 128)

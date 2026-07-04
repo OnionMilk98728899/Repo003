@@ -46,7 +46,7 @@ public partial class AudioManager : Node2D
 			player.Stream = _audioLibrary.track2;
 		}
 	
-		player.Play();
+		//player.Play();
 	}
 
 	private void OnMMusicPlayerFinished()

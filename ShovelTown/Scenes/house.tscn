@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyi3vlw5t4voh"]
+
+[ext_resource type="Texture2D" uid="uid://d0b8kjr72uxbw" path="res://SpritesAndTiles/Environment/Houses/Houses001.png" id="1_7i4xc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m64fu"]
+size = Vector2(80, 71)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4i8s5"]
+size = Vector2(40, 72)
+
+[node name="House" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="HouseSprite" type="Sprite2D" parent="StaticBody2D"]
+z_index = 1
+texture_filter = 1
+texture = ExtResource("1_7i4xc")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-24, 0.5)
+shape = SubResource("RectangleShape2D_m64fu")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(36, 8)
+shape = SubResource("RectangleShape2D_4i8s5")

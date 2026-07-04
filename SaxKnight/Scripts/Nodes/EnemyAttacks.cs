@@ -1,12 +1,15 @@
 using Godot;
 using System;
+using Game.MagicTypes;
 
 public partial class EnemyAttacks : Node2D
 {
 	[Signal] public delegate void EnterAttackModeEventHandler();
+	[Export] private PackedScene enemyMagicScene;
 	[Export] private Timer decisionTimer;
-	[Export] private float agression;
-	private Vector2 target;
+	[Export] private float agression, offsetNum;
+	private Vector2 target, attackDirection;
+	private Magic enemyMagic;
 
 
 
@@ -19,13 +22,16 @@ public partial class EnemyAttacks : Node2D
 	{
 
 	}
-
-
-	private void OnJamModeEntered(bool isInJamMode)
+	private void OnAttackReadyModeEntered(bool entered, Vector2 direction)
 	{
-		if (isInJamMode)
+		if (entered)
 		{
-			decisionTimer.Start();
+			if (decisionTimer.IsStopped())
+			{
+				decisionTimer.Start();
+				attackDirection = direction;
+			}
+			
 		}
 		else
 		{
@@ -35,6 +41,7 @@ public partial class EnemyAttacks : Node2D
 
 	private void OnDecisionTimerTimeout()
 	{
+		GD.Print("Decided!");
 		float randAggro = GD.RandRange(0, 100);
 		if (randAggro < agression)
 		{
@@ -49,7 +56,13 @@ public partial class EnemyAttacks : Node2D
 
 	private void EmitAttack()
 	{
-		
+		enemyMagic = enemyMagicScene.Instantiate<Magic>();
+        RhythmManager.Instance.AddChild(enemyMagic);
+		enemyMagic.SetNoteType();
+        enemyMagic.SetMagicStats(ProjectileColor.red, attackDirection, Magic.unitType.enemy, 90);
+		Vector2 offset = new Vector2 (GlobalPosition.X + 8, GlobalPosition.Y);
+        enemyMagic.GlobalPosition = offset;
+        GD.Print("MagicMade");
 	}
 
 

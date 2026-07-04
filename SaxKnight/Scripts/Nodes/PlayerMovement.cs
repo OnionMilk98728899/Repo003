@@ -1,4 +1,5 @@
 using Godot;
+using Game.MagicTypes;
 using System;
 using System.Data;
 
@@ -11,14 +12,15 @@ public partial class PlayerMovement : Node2D
 	[Export] private Timer landTimer, jumpTimer, dodgeTimer, rollTimer, dodgeRollRecoverTimer;
 
 	[Export] private float moveSpeed, maxMoveSpeed, climbSpeed, maxClimbSpeed, jumpPower, gravity;
+	[Export] private PlayerAttacks playerAttacks;
 	private Vector2 playerVelocity, inputDirection;
-	private bool isTouchingLadder, isClimbingUp, isClimbingDown, isJumping, isGravityReset, isDodging, isDodgeRollRecovering;
+	private bool isTouchingLadder, isClimbingUp, isClimbingDown, isJumping, isGravityReset, isDodging, isRecovering;
 	private int ceilingCounter;
 
 
 	public enum moveState
 	{
-		Idle, Walk, Jump, Fall, Land, Jam, Power1, Climb, ClimbIdle, Hurt, Dying, Dead, Dodge, Roll
+		Idle, Walk, Jump, Fall, Land, Power1, Climb, ClimbIdle, Hurt, Dying, Dead, Dive, Roll, Recover
 	}
 
 	public moveState currentState;
@@ -35,6 +37,7 @@ public partial class PlayerMovement : Node2D
 			HandleDirectionalInput(delta);
 			HandleJumpDodgeInput();
 			HandleClimbModeInput(delta);
+			HandleInstrumentInput();
 		}
 		else
 		{
@@ -86,45 +89,34 @@ public partial class PlayerMovement : Node2D
 			}
 			else
 			{
-				if (!isDodging)
+				if (!isDodging && !isRecovering)
 				{
 					currentState = moveState.Walk;
 				}
-
 			}
-
 		}
-
 	}
 
 	private void HandleInstrumentInput()
 	{
-		if (Input.IsActionJustPressed("red"))
+		if (Input.IsActionJustPressed("Red"))
 		{
-
+			playerAttacks.FireProjectile(ProjectileColor.red, inputDirection);
 		}
-		else if (Input.IsActionJustPressed("orange"))
+		else if (Input.IsActionJustPressed("Orange"))
 		{
-
+			playerAttacks.FireProjectile(ProjectileColor.orange, inputDirection);
 		}
-		else if (Input.IsActionJustPressed("green"))
+		else if (Input.IsActionJustPressed("Green"))
 		{
-
+			playerAttacks.FireProjectile(ProjectileColor.green, inputDirection);
 		}
-		else if (Input.IsActionJustPressed("blue"))
+		else if (Input.IsActionJustPressed("Blue"))
 		{
-
-		}
-		else if (Input.IsActionJustPressed("purple"))
-		{
-
+			playerAttacks.FireProjectile(ProjectileColor.blue, inputDirection);
 		}
 	}
 
-	private void FireProjectile()
-	{
-
-	}
 
 	private void HandleClimbModeInput(double delta)
 	{
@@ -198,9 +190,8 @@ public partial class PlayerMovement : Node2D
 				{
 					if (RhythmManager.Instance.CheckInputForRhythm())
 					{
-						currentState = moveState.Dodge;
+						currentState = moveState.Dive;
 						isDodging = true;
-						dodgeTimer.Start();
 					}
 				}
 			}
@@ -210,14 +201,13 @@ public partial class PlayerMovement : Node2D
 		{
 			playerVelocity.Y += gravity;
 			isGravityReset = false;
+			isDodging = false;
 			if (playerVelocity.Y < 0)
 			{
-				//currentAnim = "Jump";
 				currentState = moveState.Jump;
 			}
 			if (playerVelocity.Y > 0)
 			{
-				//currentAnim = "Fall";
 				currentState = moveState.Fall;
 			}
 		}
@@ -228,18 +218,17 @@ public partial class PlayerMovement : Node2D
 			{
 				playerVelocity.Y = 0;
 				isGravityReset = true;
-				//currentAnim = "Land";
 				currentState = moveState.Land;
 				landTimer.Start();
 			}
 
 		}
-		if(isDodgeRollRecovering && ceilingCounter > 0)
-		{
-			rollTimer.Start();
-			isDodging = true;
-			currentState = moveState.Roll;
-		}
+		// if(isDodgeRollRecovering && ceilingCounter > 0)
+		// {
+		// 	rollTimer.Start();
+		// 	isDodging = true;
+		// 	currentState = moveState.Roll;
+		// }
 
 	}
 
@@ -253,7 +242,6 @@ public partial class PlayerMovement : Node2D
 		dodgeShape.Disabled = true;
 		playerShape.Disabled = false;
 		isDodging = false;
-		isDodgeRollRecovering = true;
 	}
 
 	private void CalculateDeathMovement()
@@ -275,6 +263,32 @@ public partial class PlayerMovement : Node2D
 	{
 		currentState = moveState.Dead;
 	}
+
+	public void OnDiveAnimFinished()
+	{
+		currentState = moveState.Roll;
+	}
+
+	public void OnRollAnimFinished()
+	{
+		if (ceilingCounter > 0)
+		{
+			currentState = moveState.Roll;
+		}
+		else
+		{
+			GD.Print("Finished and moving to recover state");
+			currentState = moveState.Recover;
+			isDodging = false;
+			isRecovering = true;
+		}
+	}
+
+	public void OnRecoverAnimationFinished()
+	{
+		isRecovering = false;
+		currentState = moveState.Walk;
+	}
 	private void OnCeilingSensorBodyEntered(Node2D body)
 	{
 		ceilingCounter++;
@@ -284,14 +298,13 @@ public partial class PlayerMovement : Node2D
 	{
 		ceilingCounter--;
 	}
-	private void OnDodgeTimerTimeout()
-	{
-		isDodgeRollRecovering = false;
-	}
 
-	private void OnRollTimerTimeout()
+	private void OnLandTimerTimeout()
 	{
-		isDodging = false;
+		if (!isDodging)
+		{
+			currentState = moveState.Walk;
+		}
 	}
 
 

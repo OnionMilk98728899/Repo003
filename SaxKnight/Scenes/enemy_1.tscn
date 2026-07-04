@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://osgcnjk8umaa"]
+[gd_scene load_steps=16 format=3 uid="uid://osgcnjk8umaa"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Enemy1.cs" id="1_mkgqe"]
 [ext_resource type="Script" path="res://Scripts/Nodes/BasicEnemyMovement.cs" id="2_lngv6"]
-[ext_resource type="Texture2D" uid="uid://dpu0w4p3172yn" path="res://Artwork/Sprites/FluteGoblin/FluteGoblinAnimation46SpriteSheet.png" id="3_nsi7n"]
+[ext_resource type="Texture2D" uid="uid://dyhy5gw73bmo6" path="res://Artwork/Sprites/FluteGoblin/FluteGoblinAnimation40SpriteSheet3.png" id="3_jb3bm"]
 [ext_resource type="Script" path="res://Scripts/Nodes/EnemyAttacks.cs" id="4_3ui7y"]
+[ext_resource type="PackedScene" uid="uid://5cf5518tmica" path="res://Scenes/magic.tscn" id="5_0uxgy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u2ikr"]
 size = Vector2(15, 21)
@@ -22,12 +23,12 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [24, 25, 26, 27, 28, 29, 30, 31]
+"values": [8, 9, 10, 11, 12, 13, 14, 15]
 }
 
 [sub_resource type="Animation" id="Animation_ncl15"]
 resource_name = "Death"
-length = 0.5
+length = 1.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -35,47 +36,14 @@ tracks/0/path = NodePath("EnemySprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [40, 41, 42, 43, 44]
+"values": [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39]
 }
 
 [sub_resource type="Animation" id="Animation_8cs7q"]
 resource_name = "Hurt"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("EnemySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [32, 33, 34, 35, 36, 37, 38, 39]
-}
-
-[sub_resource type="Animation" id="Animation_1vbx2"]
-resource_name = "Idle"
-length = 0.8
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("EnemySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [8, 9, 10, 11, 12, 13, 14, 15]
-}
-
-[sub_resource type="Animation" id="Animation_iexfq"]
-resource_name = "Jam"
 length = 0.8
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -127,14 +95,12 @@ _data = {
 "Attack": SubResource("Animation_3kvax"),
 "Death": SubResource("Animation_ncl15"),
 "Hurt": SubResource("Animation_8cs7q"),
-"Idle": SubResource("Animation_1vbx2"),
-"Jam": SubResource("Animation_iexfq"),
 "RESET": SubResource("Animation_2h43x"),
 "Walk": SubResource("Animation_mqfyg")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2j443"]
-size = Vector2(152.5, 31)
+size = Vector2(169, 31)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nsswd"]
 size = Vector2(8, 20)
@@ -153,7 +119,7 @@ enemySprite = NodePath("EnemyBody/EnemySprite")
 speed = 30.0
 maxSpeed = 50.0
 
-[node name="EnemyBody" type="CharacterBody2D" parent="BasicEnemyMovement"]
+[node name="EnemyBody" type="CharacterBody2D" parent="BasicEnemyMovement" groups=["Enemy"]]
 collision_layer = 8
 
 [node name="EnemyCollider" type="CollisionShape2D" parent="BasicEnemyMovement/EnemyBody"]
@@ -163,8 +129,8 @@ shape = SubResource("RectangleShape2D_u2ikr")
 [node name="EnemySprite" type="Sprite2D" parent="BasicEnemyMovement/EnemyBody"]
 texture_filter = 1
 position = Vector2(0, -16)
-texture = ExtResource("3_nsi7n")
-hframes = 46
+texture = ExtResource("3_jb3bm")
+hframes = 40
 
 [node name="EnemyAnim" type="AnimationPlayer" parent="BasicEnemyMovement/EnemyBody"]
 libraries = {
@@ -176,17 +142,18 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="PlayerDetectCollider" type="CollisionShape2D" parent="BasicEnemyMovement/EnemyBody/PlayerDetectionBoundary"]
-position = Vector2(0, -15.5)
+position = Vector2(3.5, -15.5)
 shape = SubResource("RectangleShape2D_2j443")
 
 [node name="EnemyAttacks" type="Node2D" parent="BasicEnemyMovement/EnemyBody" node_paths=PackedStringArray("decisionTimer")]
 script = ExtResource("4_3ui7y")
+enemyMagicScene = ExtResource("5_0uxgy")
 decisionTimer = NodePath("DecisionTimer")
-agression = 80.0
+agression = 90.0
 
 [node name="DecisionTimer" type="Timer" parent="BasicEnemyMovement/EnemyBody/EnemyAttacks"]
+wait_time = 0.1
 one_shot = true
-autostart = true
 
 [node name="LeftPatrolBoundary" type="Area2D" parent="BasicEnemyMovement"]
 position = Vector2(-47, 0)
@@ -206,10 +173,10 @@ collision_mask = 8
 position = Vector2(-5, -8)
 shape = SubResource("RectangleShape2D_m3f5e")
 
-[connection signal="EnterJamMode" from="BasicEnemyMovement" to="BasicEnemyMovement/EnemyBody/EnemyAttacks" method="OnJamModeEntered"]
+[connection signal="AttackReadyMode" from="BasicEnemyMovement" to="BasicEnemyMovement/EnemyBody/EnemyAttacks" method="OnAttackReadyModeEntered"]
 [connection signal="body_entered" from="BasicEnemyMovement/EnemyBody/PlayerDetectionBoundary" to="BasicEnemyMovement" method="OnPlayerDetectorBodyEntered"]
 [connection signal="body_exited" from="BasicEnemyMovement/EnemyBody/PlayerDetectionBoundary" to="BasicEnemyMovement" method="OnPlayerDetectorExited"]
-[connection signal="EnterAttackMode" from="BasicEnemyMovement/EnemyBody/EnemyAttacks" to="BasicEnemyMovement" method="OnEnterAttackMode"]
+[connection signal="EnterAttackMode" from="BasicEnemyMovement/EnemyBody/EnemyAttacks" to="BasicEnemyMovement" method="OnAttackModeEntered"]
 [connection signal="timeout" from="BasicEnemyMovement/EnemyBody/EnemyAttacks/DecisionTimer" to="BasicEnemyMovement/EnemyBody/EnemyAttacks" method="OnDecisionTimerTimeout"]
 [connection signal="body_entered" from="BasicEnemyMovement/LeftPatrolBoundary" to="BasicEnemyMovement" method="OnLeftPatrolBoundaryEntered"]
 [connection signal="body_entered" from="BasicEnemyMovement/RightPatrolBoundary" to="BasicEnemyMovement" method="OnRightPatrolBoundaryEntered"]

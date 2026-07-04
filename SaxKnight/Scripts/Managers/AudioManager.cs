@@ -63,7 +63,7 @@ public partial class AudioManager : Node2D
 		}
 		if(measureCounter >= 2)
 		{
-			AudioManager.Instance.PlayMusic(AudioManager.Instance.rhythmPlayer, AudioManager.Instance.audioLibrary.guitarTrack1, true);
+			//AudioManager.Instance.PlayMusic(AudioManager.Instance.rhythmPlayer, AudioManager.Instance.audioLibrary.guitarTrack1, true);
 		}
 	}
 
