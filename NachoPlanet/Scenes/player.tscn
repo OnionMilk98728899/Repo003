@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://du5kqs0walvmd"]
+
+[ext_resource type="Texture2D" uid="uid://p8ytg8s15oe3" path="res://icon.svg" id="1_pq8wa"]
+[ext_resource type="Script" path="res://Scripts/Nodes/PlayerMovement.cs" id="1_s61cc"]
+
+[node name="Player" type="Node2D"]
+
+[node name="PlayerMovement" type="Node2D" parent="."]
+script = ExtResource("1_s61cc")
+
+[node name="PlayerBody" type="CharacterBody2D" parent="PlayerMovement"]
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerMovement/PlayerBody"]
+position = Vector2(294, 216)
+texture = ExtResource("1_pq8wa")

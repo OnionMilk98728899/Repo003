@@ -1,10 +1,522 @@
-[gd_scene load_steps=3 format=3 uid="uid://bnl6bycg83gic"]
+[gd_scene load_steps=34 format=3 uid="uid://bnl6bycg83gic"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Player.cs" id="1_bcjki"]
-[ext_resource type="Texture2D" uid="uid://c7j8jo61lqfgo" path="res://icon.svg" id="2_yxvuj"]
+[ext_resource type="Script" path="res://Scripts/Nodes/PlayerMovement.cs" id="2_r7uxk"]
+[ext_resource type="Texture2D" uid="uid://bawafnj781jnd" path="res://Sprites&Tiles/Carts/CartSpriteSheet001.png" id="3_sry81"]
+[ext_resource type="Texture2D" uid="uid://bmb1y3yai7x7k" path="res://Sprites&Tiles/Carts/DustSheet144-002.png" id="4_d2nsh"]
+[ext_resource type="Script" path="res://Scripts/Nodes/PlayerCam.cs" id="4_ryvva"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v3ln1"]
+
+[sub_resource type="Animation" id="Animation_tl3pi"]
+resource_name = "left"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_lh7hq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_cpw65"]
+resource_name = "downLeft"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10, 11, 12]
+}
+
+[sub_resource type="Animation" id="Animation_78q3y"]
+resource_name = "down"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [13, 14, 15, 16, 17, 18]
+}
+
+[sub_resource type="Animation" id="Animation_ljlrh"]
+resource_name = "downRight"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [19, 20, 21, 22, 23, 24]
+}
+
+[sub_resource type="Animation" id="Animation_ovkd5"]
+resource_name = "right"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [25, 26, 27, 28, 29, 30]
+}
+
+[sub_resource type="Animation" id="Animation_w7yk6"]
+resource_name = "upRight"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [31, 32, 33, 34, 35, 36]
+}
+
+[sub_resource type="Animation" id="Animation_wdkw7"]
+resource_name = "up"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [37, 38, 39, 40, 41, 42]
+}
+
+[sub_resource type="Animation" id="Animation_335f8"]
+resource_name = "upLeft"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [43, 44, 45, 46, 47, 48]
+}
+
+[sub_resource type="Animation" id="Animation_vng6j"]
+resource_name = "idle"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 0]
+}
+
+[sub_resource type="Animation" id="Animation_a5fvm"]
+resource_name = "left-1"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [49, 50, 51, 52, 53, 54]
+}
+
+[sub_resource type="Animation" id="Animation_6cfy5"]
+resource_name = "downLeft-1"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [55, 56, 57, 58, 59, 60]
+}
+
+[sub_resource type="Animation" id="Animation_s45qn"]
+resource_name = "down-1"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [61, 62, 63, 64, 65, 66]
+}
+
+[sub_resource type="Animation" id="Animation_1lfba"]
+resource_name = "right-1"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [73, 74, 75, 76, 77, 78]
+}
+
+[sub_resource type="Animation" id="Animation_q0tsm"]
+resource_name = "up-1"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [85, 86, 87, 88, 89, 90]
+}
+
+[sub_resource type="Animation" id="Animation_jatox"]
+resource_name = "upLeft-1"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [91, 92, 93, 94, 95, 96]
+}
+
+[sub_resource type="Animation" id="Animation_67vx8"]
+resource_name = "upRight-1"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [79, 80, 81, 82, 83, 84]
+}
+
+[sub_resource type="Animation" id="Animation_lfmpt"]
+resource_name = "downRight-1"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [67, 68, 69, 70, 71, 72]
+}
+
+[sub_resource type="Animation" id="Animation_5vfea"]
+resource_name = "down1"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [109, 110, 111, 112, 113, 114]
+}
+
+[sub_resource type="Animation" id="Animation_xgo64"]
+resource_name = "up1"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [133, 134, 135, 136, 137, 138]
+}
+
+[sub_resource type="Animation" id="Animation_kcqpe"]
+resource_name = "downLeft1"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [103, 104, 105, 106, 107, 108]
+}
+
+[sub_resource type="Animation" id="Animation_xhfqq"]
+resource_name = "downRight1"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [115, 116, 117, 118, 119, 120]
+}
+
+[sub_resource type="Animation" id="Animation_k30lo"]
+resource_name = "left1"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [97, 98, 99, 100, 101, 102]
+}
+
+[sub_resource type="Animation" id="Animation_ngrio"]
+resource_name = "right1"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [121, 122, 123, 124, 125, 126]
+}
+
+[sub_resource type="Animation" id="Animation_80nhr"]
+resource_name = "upLeft1"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [139, 140, 141, 142, 143, 144]
+}
+
+[sub_resource type="Animation" id="Animation_mkgsk"]
+resource_name = "upRight1"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [127, 128, 129, 130, 131, 132]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_prwgt"]
+_data = {
+"RESET": SubResource("Animation_lh7hq"),
+"down": SubResource("Animation_78q3y"),
+"down-1": SubResource("Animation_s45qn"),
+"down1": SubResource("Animation_5vfea"),
+"downLeft": SubResource("Animation_cpw65"),
+"downLeft-1": SubResource("Animation_6cfy5"),
+"downLeft1": SubResource("Animation_kcqpe"),
+"downRight": SubResource("Animation_ljlrh"),
+"downRight-1": SubResource("Animation_lfmpt"),
+"downRight1": SubResource("Animation_xhfqq"),
+"idle": SubResource("Animation_vng6j"),
+"left": SubResource("Animation_tl3pi"),
+"left-1": SubResource("Animation_a5fvm"),
+"left1": SubResource("Animation_k30lo"),
+"right": SubResource("Animation_ovkd5"),
+"right-1": SubResource("Animation_1lfba"),
+"right1": SubResource("Animation_ngrio"),
+"up": SubResource("Animation_wdkw7"),
+"up-1": SubResource("Animation_q0tsm"),
+"up1": SubResource("Animation_xgo64"),
+"upLeft": SubResource("Animation_335f8"),
+"upLeft-1": SubResource("Animation_jatox"),
+"upLeft1": SubResource("Animation_80nhr"),
+"upRight": SubResource("Animation_w7yk6"),
+"upRight-1": SubResource("Animation_67vx8"),
+"upRight1": SubResource("Animation_mkgsk")
+}
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_bcjki")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_yxvuj")
+[node name="PlayerMovement" type="Node2D" parent="." node_paths=PackedStringArray("playerBody", "playerSprite", "playerAnim", "dustAnim")]
+script = ExtResource("2_r7uxk")
+playerBody = NodePath("PlayerBody")
+playerSprite = NodePath("PlayerBody/PlayerSprite")
+playerAnim = NodePath("PlayerBody/PlayerAnim")
+dustAnim = NodePath("PlayerBody/DustTrail/DustAnim")
+acceleration = 35.0
+brakeStrength = 50.0
+maxSpeed = 75.0
+maxReverseSpeed = 50.0
+turnSpeed = 2.3
+drag = 50.0
+
+[node name="PlayerBody" type="CharacterBody2D" parent="PlayerMovement"]
+
+[node name="PlayerAnim" type="AnimationPlayer" parent="PlayerMovement/PlayerBody"]
+
+[node name="PlayerSprite" type="Sprite2D" parent="PlayerMovement/PlayerBody"]
+texture = ExtResource("3_sry81")
+hframes = 24
+
+[node name="PlayerCollider" type="CollisionShape2D" parent="PlayerMovement/PlayerBody"]
+shape = SubResource("RectangleShape2D_v3ln1")
+
+[node name="DustTrail" type="Node2D" parent="PlayerMovement/PlayerBody"]
+
+[node name="DustSprite" type="Sprite2D" parent="PlayerMovement/PlayerBody/DustTrail"]
+texture = ExtResource("4_d2nsh")
+hframes = 145
+
+[node name="DustAnim" type="AnimationPlayer" parent="PlayerMovement/PlayerBody/DustTrail"]
+libraries = {
+"": SubResource("AnimationLibrary_prwgt")
+}
+
+[node name="PlayerCam" type="Camera2D" parent="PlayerMovement" node_paths=PackedStringArray("player")]
+script = ExtResource("4_ryvva")
+player = NodePath("../PlayerBody")
+followSpeed = 5.0

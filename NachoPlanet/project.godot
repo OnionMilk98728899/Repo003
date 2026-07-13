@@ -10,23 +10,15 @@ config_version=5
 
 [application]
 
-config/name="OTBR"
-run/main_scene="res://Scenes/test_scene.tscn"
+config/name="NachoPlanet"
+run/main_scene="res://Scenes/player.tscn"
 config/features=PackedStringArray("4.2", "C#", "Mobile")
 config/icon="res://icon.svg"
 
-[display]
-
-window/size/viewport_width=1024
-window/size/viewport_height=576
-window/stretch/mode="viewport"
-window/stretch/scale=4.0
-
 [dotnet]
 
-project/assembly_name="OTBR"
+project/assembly_name="NachoPlanet"
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
