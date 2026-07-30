@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvlxxqi0mgwfa"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Projectile.cs" id="1_4yuqt"]
+[ext_resource type="Texture2D" uid="uid://bmnecghi4umq7" path="res://Art/Projectiles/CheeseBulletSpriteSheet1-10.png" id="2_82dcx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7psv1"]
+size = Vector2(2, 2)
+
+[node name="Projectile" type="Node2D" node_paths=PackedStringArray("projBody", "lifeTimer", "projSprite")]
+z_index = 2
+script = ExtResource("1_4yuqt")
+projBody = NodePath("ProjectileBody")
+lifetime = 2.0
+lifeTimer = NodePath("LifeTimer")
+projSprite = NodePath("ProjectileBody/ProjectileSprite")
+
+[node name="ProjectileBody" type="CharacterBody2D" parent="." groups=["Projectile"]]
+collision_layer = 4
+collision_mask = 0
+
+[node name="BulletShape" type="CollisionShape2D" parent="ProjectileBody"]
+shape = SubResource("RectangleShape2D_7psv1")
+
+[node name="ProjectileSprite" type="Sprite2D" parent="ProjectileBody"]
+position = Vector2(0, 1)
+texture = ExtResource("2_82dcx")
+hframes = 10
+
+[node name="LifeTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="LifeTimer" to="." method="OnLifeTimerTimeout"]

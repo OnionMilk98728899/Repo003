@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://ckgwxv4shixpq"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Player.cs" id="1_j18al"]
+[ext_resource type="Texture2D" uid="uid://b502u2baivm63" path="res://Art/Player/PlayerSpriteSheet112-003.png" id="2_8hvtf"]
+[ext_resource type="Texture2D" uid="uid://xf2hcragpn1k" path="res://Art/Player/PlayerLeftArmSpriteSheet112-003.png" id="3_05jan"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6s7w8"]
+size = Vector2(12, 22)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_j18al")
+
+[node name="PlayerSprites" type="Node2D" parent="."]
+position = Vector2(2, -11)
+
+[node name="BodySprite" type="Sprite2D" parent="PlayerSprites"]
+position = Vector2(-2, -1)
+texture = ExtResource("2_8hvtf")
+hframes = 112
+
+[node name="LeftArmSprite" type="Sprite2D" parent="PlayerSprites"]
+position = Vector2(-2, -1)
+texture = ExtResource("3_05jan")
+hframes = 112
+
+[node name="RightArmSprite" type="Sprite2D" parent="PlayerSprites"]
+position = Vector2(135, 123)
+
+[node name="GunArm" type="Sprite2D" parent="PlayerSprites"]
+position = Vector2(135, 123)
+
+[node name="BatArm" type="Sprite2D" parent="PlayerSprites"]
+position = Vector2(135, 123)
+
+[node name="PlayerAnim" type="AnimationPlayer" parent="."]
+
+[node name="PlayerCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -11)
+shape = SubResource("RectangleShape2D_6s7w8")
+
+[node name="PlayerCam" type="Camera2D" parent="."]

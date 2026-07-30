@@ -1,0 +1,27 @@
+using Godot;
+using System;
+
+public partial class GameManager : Node2D
+{
+	public static GameManager Instance { get; private set; }
+	public Player player;
+
+	public override void _EnterTree()
+	{
+		if (Instance == null)
+		{
+			Instance = this;
+		}
+		else
+		{
+			QueueFree();
+		}
+	}
+
+	public override void _Ready()
+	{
+
+	}
+
+
+}

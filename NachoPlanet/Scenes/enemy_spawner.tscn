@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://y67ymqdsx60a"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/EnemySpawner.cs" id="1_d36ff"]
+[ext_resource type="PackedScene" uid="uid://dg3egldsmowm8" path="res://Scenes/InheritedScenes/grub_enemy.tscn" id="2_xkt5e"]
+
+[node name="EnemySpawner" type="Node2D" node_paths=PackedStringArray("spawnPoints", "spawnTimer")]
+script = ExtResource("1_d36ff")
+spawnPoints = [NodePath("SpawnPoint"), NodePath("SpawnPoint2"), NodePath("SpawnPoint3")]
+myEnemyScenes = Array[PackedScene]([ExtResource("2_xkt5e")])
+spawnTimer = NodePath("SpawnTimer")
+spawnInterval = 6.0
+MAX_ENEMY_INDEX = 1
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 50.0
+one_shot = true
+
+[node name="SpawnPoint" type="Node2D" parent="."]
+
+[node name="SpawnPoint2" type="Node2D" parent="."]
+
+[node name="SpawnPoint3" type="Node2D" parent="."]
+
+[connection signal="timeout" from="SpawnTimer" to="." method="OnSpawnTimerTimeout"]

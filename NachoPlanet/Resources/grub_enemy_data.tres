@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3 uid="uid://b5fpn5bjesk1g"]
+
+[ext_resource type="Script" path="res://Scripts/GlobalResources/EnemyData.cs" id="1_17tyk"]
+[ext_resource type="Texture2D" uid="uid://bbmjnwnq7vg10" path="res://Art/Enemies/CheeseWorm/CheeseWormSpriteSheet102-005.png" id="2_hpafh"]
+
+[resource]
+script = ExtResource("1_17tyk")
+moveSpeed = 20.0
+maxHealth = 1000
+attackAggression = 100.0
+attackDamage = 10.0
+attackRange = 16.0
+spriteFrames = 102.0
+spriteTexture = ExtResource("2_hpafh")

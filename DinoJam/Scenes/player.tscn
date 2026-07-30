@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcb2yvli8ajsn"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Player.cs" id="1_tqv06"]
+[ext_resource type="Texture2D" uid="uid://dayswqvshim3q" path="res://Art/PlayerSprites/Placeholder.png" id="1_wxl12"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a7kwj"]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("playerSprite")]
+script = ExtResource("1_tqv06")
+playerSprite = NodePath("PlayerSprite")
+moveSpeed = 50.0
+maxMoveSpeed = 75.0
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_wxl12")
+
+[node name="PlayerCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_a7kwj")

@@ -1,0 +1,396 @@
+[gd_scene load_steps=26 format=3 uid="uid://dgt4gs7wday3m"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/BaseEnemy.cs" id="1_0ea5f"]
+[ext_resource type="Script" path="res://Scripts/Nodes/EnemyMovement.cs" id="1_1bpq0"]
+[ext_resource type="Texture2D" uid="uid://bbmjnwnq7vg10" path="res://Art/Enemies/CheeseWorm/CheeseWormSpriteSheet102-005.png" id="3_v6n10"]
+[ext_resource type="Script" path="res://Scripts/Nodes/Hurtbox.cs" id="3_vkfs1"]
+[ext_resource type="Script" path="res://Scripts/Nodes/HealthBar.cs" id="5_n4iy3"]
+[ext_resource type="Texture2D" uid="uid://qomk83ib2kys" path="res://Art/HealthBars/UnderBar.png" id="6_n5qrl"]
+[ext_resource type="Texture2D" uid="uid://b74ao8tn04vk8" path="res://Art/HealthBars/OverBar.png" id="7_gmejj"]
+[ext_resource type="Texture2D" uid="uid://bwrg0clf8ob63" path="res://Art/HealthBars/HealthSlider.png" id="8_5eww5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fbemn"]
+size = Vector2(7, 8)
+
+[sub_resource type="Animation" id="Animation_jqb3f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_usgvw"]
+resource_name = "attackdown"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 34, 35, 36, 37, 38, 39]
+}
+
+[sub_resource type="Animation" id="Animation_nw40o"]
+resource_name = "attackleft"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [48, 49, 50, 51, 52, 53, 54, 55]
+}
+
+[sub_resource type="Animation" id="Animation_qld0n"]
+resource_name = "attackright"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [56, 57, 58, 59, 60, 61, 62, 63]
+}
+
+[sub_resource type="Animation" id="Animation_smlex"]
+resource_name = "attackup"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [40, 41, 42, 43, 44, 45, 46, 47]
+}
+
+[sub_resource type="Animation" id="Animation_gg3ki"]
+resource_name = "hurtdown"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [64, 65, 66, 67, 68, 69, 70, 71]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"OnHurtAnimFinished"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_koilf"]
+resource_name = "hurtleft"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [80, 81, 82, 83, 84, 85, 86, 87]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"OnHurtAnimFinished"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_f23ny"]
+resource_name = "hurtright"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [88, 89, 90, 91, 92, 93, 94, 95]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"OnHurtAnimFinished"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_rg8kw"]
+resource_name = "hurtup"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [72, 73, 74, 75, 76, 77, 78, 79]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"OnHurtAnimFinished"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_ss1uh"]
+resource_name = "movedown"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_b1c3b"]
+resource_name = "moveleft"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19, 20, 21, 22, 23]
+}
+
+[sub_resource type="Animation" id="Animation_3q15u"]
+resource_name = "moveright"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [24, 25, 26, 27, 28, 29, 30, 31]
+}
+
+[sub_resource type="Animation" id="Animation_jjllb"]
+resource_name = "moveup"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 12, 13, 14, 15]
+}
+
+[sub_resource type="Animation" id="Animation_byqhq"]
+resource_name = "death"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [96, 97, 98, 99, 100, 101]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"OnDeathAnimFinished"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_disss"]
+_data = {
+"RESET": SubResource("Animation_jqb3f"),
+"attackdown": SubResource("Animation_usgvw"),
+"attackleft": SubResource("Animation_nw40o"),
+"attackright": SubResource("Animation_qld0n"),
+"attackup": SubResource("Animation_smlex"),
+"death": SubResource("Animation_byqhq"),
+"hurtdown": SubResource("Animation_gg3ki"),
+"hurtleft": SubResource("Animation_koilf"),
+"hurtright": SubResource("Animation_f23ny"),
+"hurtup": SubResource("Animation_rg8kw"),
+"movedown": SubResource("Animation_ss1uh"),
+"moveleft": SubResource("Animation_b1c3b"),
+"moveright": SubResource("Animation_3q15u"),
+"moveup": SubResource("Animation_jjllb")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gva2n"]
+size = Vector2(6, 8)
+
+[node name="BaseEnemy" type="Node2D"]
+z_index = 2
+script = ExtResource("1_0ea5f")
+
+[node name="EnemyMovement" type="Node2D" parent="." node_paths=PackedStringArray("enemyBody", "enemyAnim")]
+script = ExtResource("1_1bpq0")
+enemyBody = NodePath("EnemyBody")
+enemyAnim = NodePath("EnemyBody/EnemyAnim")
+moveSpeed = 20.0
+playerAggression = 100.0
+attackRange = 16.0
+
+[node name="EnemyBody" type="CharacterBody2D" parent="EnemyMovement"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="EnemyCollider" type="CollisionShape2D" parent="EnemyMovement/EnemyBody"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_fbemn")
+
+[node name="EnemySprite" type="Sprite2D" parent="EnemyMovement/EnemyBody"]
+texture = ExtResource("3_v6n10")
+hframes = 102
+
+[node name="EnemyAnim" type="AnimationPlayer" parent="EnemyMovement/EnemyBody"]
+libraries = {
+"": SubResource("AnimationLibrary_disss")
+}
+
+[node name="Hurtbox" type="Node2D" parent="EnemyMovement/EnemyBody"]
+script = ExtResource("3_vkfs1")
+health = 1000.0
+myUnitType = 1
+
+[node name="HurtArea" type="Area2D" parent="EnemyMovement/EnemyBody/Hurtbox"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="HurtCollider" type="CollisionShape2D" parent="EnemyMovement/EnemyBody/Hurtbox/HurtArea"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_gva2n")
+
+[node name="HealthBarNode" type="Node2D" parent="EnemyMovement/EnemyBody" node_paths=PackedStringArray("hurtBox", "healthBar")]
+position = Vector2(-24, -30)
+script = ExtResource("5_n4iy3")
+hurtBox = NodePath("../Hurtbox")
+healthBar = NodePath("HealthBar")
+
+[node name="HealthBar" type="TextureProgressBar" parent="EnemyMovement/EnemyBody/HealthBarNode"]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+max_value = 1000.0
+value = 1000.0
+texture_under = ExtResource("6_n5qrl")
+texture_over = ExtResource("7_gmejj")
+texture_progress = ExtResource("8_5eww5")
+
+[connection signal="DestroyEnemy" from="EnemyMovement" to="." method="OnEnemyDestroyed"]
+[connection signal="UnitDamaged" from="EnemyMovement/EnemyBody/Hurtbox" to="EnemyMovement" method="OnEnemyDamaged"]
+[connection signal="UnitDamaged" from="EnemyMovement/EnemyBody/Hurtbox" to="EnemyMovement/EnemyBody/HealthBarNode" method="OnHurtboxUnitDamaged"]
+[connection signal="UnitKilled" from="EnemyMovement/EnemyBody/Hurtbox" to="EnemyMovement" method="OnEnemyKilled"]
+[connection signal="body_entered" from="EnemyMovement/EnemyBody/Hurtbox/HurtArea" to="EnemyMovement/EnemyBody/Hurtbox" method="OnHurtAreaEntered"]

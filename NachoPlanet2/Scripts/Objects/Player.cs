@@ -1,12 +1,9 @@
 using Godot;
 using System;
 
-public partial class PlayerMovement : Node2D
+public partial class Player : CharacterBody2D
 {
-	[Export] private GunArm gunArm;
-	[Export] private BatArm batArm;
-	[Export] public CharacterBody2D playerBody;
-	[Export] private Sprite2D playerSprite, gunArmSprite, leftArmSprite, rightArmSprite;
+    [Export] private Sprite2D playerSprite, gunArmSprite, batArmSprite, leftArmSprite, rightArmSprite;
 	[Export] private AnimationPlayer playerAnim;
 	[Export] private Timer batChargeTimer;
 	[Export] private float walkSpeed, acceleration, maxWalkSpeed, batChargeTime;
@@ -20,18 +17,14 @@ public partial class PlayerMovement : Node2D
 	public playerState currentState;
 	public playerDirection currentDirection;
 	private bool isAttacking, isCharging;
-	//private bool isGunActive;
+    public override void _Ready()
+    {
+        GD.Print(GlobalPosition);
+    }
 
-	public override void _Ready()
-	{
-		currentWeapon = playerWeapon.bat;
-		gunArm.SetEnabled(false);
-	}
-
-	public override void _PhysicsProcess(double delta)
-	{
-
-		GetMouseDirection(playerBody);
+    public override void _PhysicsProcess(double delta)
+    {
+        GetMouseDirection();
 
 		GetMovementInput();
 		AnimatePlayer();
@@ -44,10 +37,10 @@ public partial class PlayerMovement : Node2D
 		{
 			HoldBat();
 		}
-		playerBody.MoveAndSlide();
-	}
+		MoveAndSlide();
+    }
 
-	private void GetMovementInput()
+    private void GetMovementInput()
 	{
 		inputDirection = Vector2.Zero;
 
@@ -70,12 +63,12 @@ public partial class PlayerMovement : Node2D
 
 		playerVelocity = inputDirection * walkSpeed;
 
-		playerBody.Velocity = playerVelocity;
+		Velocity = playerVelocity;
 	}
 
-	private void GetMouseDirection(CharacterBody2D character)
+	private void GetMouseDirection()
 	{
-		Vector2 direction = GetGlobalMousePosition() - character.GlobalPosition;
+		Vector2 direction = GetGlobalMousePosition() - GlobalPosition;
 		float angle = Mathf.RadToDeg(direction.Angle());
 
 		if (angle < 0) { angle += 360; }
@@ -202,7 +195,7 @@ public partial class PlayerMovement : Node2D
 			}
 			if (batChargeTimer.TimeLeft <= batChargeTime * .8)
 			{
-				batArm.ChargeBat();
+				//batArm.ChargeBat();
 				leftArmSprite.Visible = false;
 				isCharging = true;
 			}
@@ -220,15 +213,14 @@ public partial class PlayerMovement : Node2D
 		if (!isAttacking && !isCharging) { leftArmSprite.Visible = true; }
 	}
 
-	private void OnAttackAnimFinished()
-	{
-		isAttacking = false;
-		batArm.HideBat();
-		leftArmSprite.Visible = true;
-	}
-
-	private void AnimatePlayer()
+    	private void AnimatePlayer()
 	{
 		playerAnim.Play(currentState.ToString() + currentDirection.ToString());
 	}
+
+    public void ChargeBat()
+	{
+		batArmSprite.Visible = true;
+	}
+
 }
