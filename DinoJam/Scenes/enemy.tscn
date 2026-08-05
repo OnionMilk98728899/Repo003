@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://co3jyadn5tksr"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Enemy.cs" id="1_3ehsn"]
+[ext_resource type="Texture2D" uid="uid://dayswqvshim3q" path="res://Art/PlayerSprites/Placeholder.png" id="1_35bw8"]
+[ext_resource type="PackedScene" uid="uid://rmu0nyiiqb6j" path="res://Scenes/hurt_box.tscn" id="1_515td"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a1p0s"]
+size = Vector2(12, 12)
+
+[node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_3ehsn")
+
+[node name="EnemyCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_a1p0s")
+
+[node name="EnemySprite" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+texture = ExtResource("1_35bw8")
+
+[node name="EnemyAnim" type="AnimationPlayer" parent="."]
+
+[node name="HurtBox" parent="." instance=ExtResource("1_515td")]
+
+[node name="HurtBoxCollider" parent="HurtBox" index="0"]
+position = Vector2(0, -12)
+
+[editable path="HurtBox"]

@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://3owiv0140v8w"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Edible.cs" id="1_cp0a2"]
+[ext_resource type="Texture2D" uid="uid://dtwbhdte5or8j" path="res://Art/Edibles/Rock001.png" id="2_h2pyu"]
+[ext_resource type="FontFile" uid="uid://ct8h8r5refxgg" path="res://Fonts/BitRampageX.ttf" id="3_lxdru"]
+[ext_resource type="Texture2D" uid="uid://c4hu7s6xhp4fm" path="res://Art/Edibles/DustParticle001.png" id="4_05hbq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_em5he"]
+size = Vector2(10, 9)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0gcgu"]
+particles_animation = true
+particles_anim_h_frames = 6
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_su2cq"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 16.0
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 1.0
+anim_speed_max = 2.0
+anim_offset_max = 1.0
+
+[node name="Edible" type="CharacterBody2D" node_paths=PackedStringArray("edibleSprite", "edibleColl", "dustParticles", "destroyTimer") groups=["Edible"]]
+z_index = 1
+collision_layer = 32
+script = ExtResource("1_cp0a2")
+edibleSprite = NodePath("EdibleSprite")
+edibleColl = NodePath("EdibleCollider")
+gravity = 7.0
+speed = 4.0
+bounceVelocity = 100.0
+dustParticles = NodePath("DustParticles")
+destroyTimer = NodePath("DestroyTimer")
+
+[node name="EdibleCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_em5he")
+
+[node name="EdibleSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_h2pyu")
+
+[node name="EdibleAnim" type="AnimationPlayer" parent="."]
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -21.0
+offset_top = -19.0
+offset_right = 19.0
+offset_bottom = 4.0
+theme_override_fonts/font = ExtResource("3_lxdru")
+
+[node name="DustParticles" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_0gcgu")
+emitting = false
+amount = 25
+process_material = SubResource("ParticleProcessMaterial_su2cq")
+texture = ExtResource("4_05hbq")
+one_shot = true
+explosiveness = 0.8
+
+[node name="DestroyTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="timeout" from="DestroyTimer" to="." method="OnDestroyTimerTimeout"]
