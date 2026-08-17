@@ -1,0 +1,140 @@
+[gd_scene load_steps=14 format=3 uid="uid://cv3klpn11lvve"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/BreakableTile.cs" id="1_tgrwy"]
+[ext_resource type="Texture2D" uid="uid://c0lal6wiwepsa" path="res://Art/Interactables/BreakableTiles/BreakableTile01.png" id="2_bt4us"]
+[ext_resource type="Texture2D" uid="uid://c4hu7s6xhp4fm" path="res://Art/Edibles/DustParticle001.png" id="3_mdlal"]
+[ext_resource type="Texture2D" uid="uid://dhw5kmxu7uvhn" path="res://Art/Interactables/BreakableTiles/BreakableTIleChunkSheet001.png" id="4_bqmfo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_peglu"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3yibo"]
+size = Vector2(14, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q77lc"]
+size = Vector2(4.5, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ei0pj"]
+size = Vector2(4.5, 12)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fv1pp"]
+particles_animation = true
+particles_anim_h_frames = 6
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lupo7"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 16.0
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 1.0
+anim_speed_max = 2.0
+anim_offset_max = 1.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_k6wg6"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8d7b4"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(8, 8, 1)
+radial_velocity_min = 50.0
+radial_velocity_max = 50.0
+gravity = Vector3(0, 98, 0)
+anim_speed_min = 1.3
+anim_speed_max = 1.3
+collision_mode = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iveto"]
+size = Vector2(12, 4.5)
+
+[node name="BreakableTile" type="StaticBody2D" node_paths=PackedStringArray("blockSprite", "destroyTimer", "blockCollider", "topDetector", "leftDetector", "rightDetector", "bottomDetector", "blockParticles", "dustParticles")]
+collision_mask = 0
+script = ExtResource("1_tgrwy")
+blockSprite = NodePath("TileSprite")
+destroyTimer = NodePath("DestroyTimer")
+blockCollider = NodePath("TileCollider")
+topDetector = NodePath("TopDetector")
+leftDetector = NodePath("LeftDetector")
+rightDetector = NodePath("RightDetector")
+bottomDetector = NodePath("BottomDetector")
+blockParticles = NodePath("BlockParticles")
+dustParticles = NodePath("DustParticles")
+
+[node name="TileSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_bt4us")
+
+[node name="TileCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_peglu")
+
+[node name="TopDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 40
+
+[node name="TopShape" type="CollisionShape2D" parent="TopDetector"]
+position = Vector2(0, -9.5)
+shape = SubResource("RectangleShape2D_3yibo")
+
+[node name="LeftDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 40
+
+[node name="LeftShape" type="CollisionShape2D" parent="LeftDetector"]
+position = Vector2(-8.75, 0)
+shape = SubResource("RectangleShape2D_q77lc")
+
+[node name="RightDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 40
+
+[node name="RightShape" type="CollisionShape2D" parent="RightDetector"]
+position = Vector2(8.75, 0)
+shape = SubResource("RectangleShape2D_ei0pj")
+
+[node name="DustParticles" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_fv1pp")
+emitting = false
+amount = 25
+process_material = SubResource("ParticleProcessMaterial_lupo7")
+texture = ExtResource("3_mdlal")
+one_shot = true
+explosiveness = 0.8
+fixed_fps = 24
+
+[node name="BlockParticles" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_k6wg6")
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_8d7b4")
+texture = ExtResource("4_bqmfo")
+lifetime = 2.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.8
+randomness = 0.2
+fixed_fps = 24
+
+[node name="DestroyTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="BottomDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 40
+
+[node name="BottomShape" type="CollisionShape2D" parent="BottomDetector"]
+position = Vector2(0, 8.25)
+shape = SubResource("RectangleShape2D_iveto")
+
+[connection signal="body_entered" from="TopDetector" to="." method="OnTopDetectorEntered"]
+[connection signal="body_exited" from="TopDetector" to="." method="OnTopDetectorExited"]
+[connection signal="body_entered" from="LeftDetector" to="." method="OnLeftDetectorEntered"]
+[connection signal="body_exited" from="LeftDetector" to="." method="OnLeftDetectorExited"]
+[connection signal="body_entered" from="RightDetector" to="." method="OnRightDetectorEntered"]
+[connection signal="body_exited" from="RightDetector" to="." method="OnRightDetectorExited"]
+[connection signal="timeout" from="DestroyTimer" to="." method="OnDestroyTimerTimeout"]
+[connection signal="body_entered" from="BottomDetector" to="." method="OnBottomDetectorEntered"]
+[connection signal="body_exited" from="BottomDetector" to="." method="OnBottomDetectorExited"]

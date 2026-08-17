@@ -1,0 +1,94 @@
+[gd_scene load_steps=13 format=3 uid="uid://ukrgd33g4i28"]
+
+[ext_resource type="Texture2D" uid="uid://ldxj6ciq3tq5" path="res://Art/Interactables/Trees/TreetopSpriteSheet9-001.png" id="1_0qedv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eheus"]
+atlas = ExtResource("1_0qedv")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijm5t"]
+atlas = ExtResource("1_0qedv")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7e8g1"]
+atlas = ExtResource("1_0qedv")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cdxel"]
+atlas = ExtResource("1_0qedv")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vp553"]
+atlas = ExtResource("1_0qedv")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oshyw"]
+atlas = ExtResource("1_0qedv")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ds6i"]
+atlas = ExtResource("1_0qedv")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_467hb"]
+atlas = ExtResource("1_0qedv")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_777yt"]
+atlas = ExtResource("1_0qedv")
+region = Rect2(384, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_22i75"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eheus")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ijm5t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7e8g1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cdxel")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vp553")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oshyw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ds6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_467hb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_777yt")
+}],
+"loop": false,
+"name": &"shake",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jy6cx"]
+size = Vector2(16, 16)
+
+[node name="TreetopSprite" type="AnimatedSprite2D"]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_22i75")
+animation = &"idle"
+
+[node name="Treetop" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="TreetopShape" type="CollisionShape2D" parent="Treetop"]
+shape = SubResource("RectangleShape2D_jy6cx")
+one_way_collision = true

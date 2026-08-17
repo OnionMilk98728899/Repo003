@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxkg7jk30fusa"]
+
+[ext_resource type="Texture2D" uid="uid://c4hu7s6xhp4fm" path="res://Art/Edibles/DustParticle001.png" id="1_135il"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0gcgu"]
+particles_animation = true
+particles_anim_h_frames = 6
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_su2cq"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 16.0
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 1.0
+anim_speed_max = 2.0
+anim_offset_max = 1.0
+
+[node name="DustParticles" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_0gcgu")
+emitting = false
+amount = 25
+process_material = SubResource("ParticleProcessMaterial_su2cq")
+texture = ExtResource("1_135il")
+one_shot = true
+explosiveness = 0.8
+fixed_fps = 12

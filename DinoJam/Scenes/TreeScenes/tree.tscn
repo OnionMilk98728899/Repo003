@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://b3ovbsfuymem7"]
+
+[ext_resource type="PackedScene" uid="uid://puipbfkmhj1j" path="res://Scenes/TreeScenes/trunk.tscn" id="1_3cdds"]
+[ext_resource type="Script" path="res://Scripts/Objects/Tree.cs" id="1_5esux"]
+[ext_resource type="PackedScene" uid="uid://ukrgd33g4i28" path="res://Scenes/TreeScenes/treetop.tscn" id="2_x3dce"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ndm5v"]
+size = Vector2(6, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qtxa4"]
+size = Vector2(8, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gis5d"]
+size = Vector2(37, 15)
+
+[node name="Tree" type="StaticBody2D"]
+collision_layer = 1024
+collision_mask = 0
+script = ExtResource("1_5esux")
+treeTopScene = ExtResource("2_x3dce")
+trunkScene = ExtResource("1_3cdds")
+height = 5
+canopy = 2
+
+[node name="TreeShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_ndm5v")
+
+[node name="PlayerChargeDetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="PlayerChargeDetectShape" type="CollisionShape2D" parent="PlayerChargeDetectionArea"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_qtxa4")
+
+[node name="PlayerStompDetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="PlayerStompDetectShape" type="CollisionShape2D" parent="PlayerStompDetectionArea"]
+position = Vector2(0.5, -7.5)
+shape = SubResource("RectangleShape2D_gis5d")
+
+[node name="ShakeTimer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[connection signal="body_entered" from="PlayerChargeDetectionArea" to="." method="OnChargeDetectorEntered"]
+[connection signal="body_exited" from="PlayerChargeDetectionArea" to="." method="OnChargeDetectorExited"]
+[connection signal="body_entered" from="PlayerStompDetectionArea" to="." method="OnStompDetectorEntered"]
+[connection signal="body_exited" from="PlayerStompDetectionArea" to="." method="OnStompDetectorExited"]

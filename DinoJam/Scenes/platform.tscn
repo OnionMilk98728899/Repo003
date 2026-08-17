@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqy0mxfn4fqso"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Platform.cs" id="1_f6dpy"]
+[ext_resource type="Texture2D" uid="uid://ccjvgbx8t7tj5" path="res://Art/Interactables/Platforms/PlatfomTile1.png" id="2_ia3fy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_77w7o"]
+size = Vector2(16, 9)
+
+[node name="Platform" type="AnimatableBody2D" node_paths=PackedStringArray("startPoint", "endPoint")]
+script = ExtResource("1_f6dpy")
+startPoint = NodePath("StartPosition")
+endPoint = NodePath("EndPosition")
+moveTime = 5.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 1)
+texture = ExtResource("2_ia3fy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_77w7o")
+
+[node name="StartPosition" type="Node2D" parent="."]
+
+[node name="EndPosition" type="Node2D" parent="."]

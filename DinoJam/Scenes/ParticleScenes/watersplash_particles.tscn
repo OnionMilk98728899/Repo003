@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://bq3sy3ecal0hq"]
+
+[ext_resource type="Texture2D" uid="uid://cytrvwjk7r0pi" path="res://Art/Edibles/SplashSpritesheet7-004.png" id="1_bsexu"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wpx6q"]
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cnvug"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(0, 0, 0)
+emission_shape = 3
+emission_box_extents = Vector3(2, 2, 1)
+angle_max = 180.0
+direction = Vector3(1, 1, 0)
+spread = 180.0
+radial_velocity_min = 15.0
+radial_velocity_max = 15.0
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="WaterParticles" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_wpx6q")
+emitting = false
+amount = 3
+process_material = SubResource("ParticleProcessMaterial_cnvug")
+texture = ExtResource("1_bsexu")
+lifetime = 1.2
+one_shot = true
+speed_scale = 2.2
+explosiveness = 0.7
+fixed_fps = 12

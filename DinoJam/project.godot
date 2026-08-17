@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 EventBus="*res://Scripts/Managers/EventBus.cs"
 EdibleManager="*res://Scenes/edible_manager.tscn"
+EffectsManager="*res://Scenes/effects_manager.tscn"
 
 [display]
 
@@ -62,8 +63,12 @@ ActionV={
 2d_physics/layer_3="LadderTops"
 2d_physics/layer_4="Player"
 2d_physics/layer_5="Enemies"
-2d_physics/layer_6="Collectibles"
+2d_physics/layer_6="Edibles"
 2d_physics/layer_7="Hazards"
+2d_physics/layer_8="SoftFloor"
+2d_physics/layer_9="Ice"
+2d_physics/layer_10="Foliage"
+2d_physics/layer_11="Trees"
 
 [rendering]
 

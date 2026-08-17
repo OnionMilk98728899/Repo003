@@ -1,0 +1,84 @@
+[gd_scene load_steps=12 format=3 uid="uid://puipbfkmhj1j"]
+
+[ext_resource type="Texture2D" uid="uid://cx3vn86hy6toi" path="res://Art/Interactables/Trees/TrunkSpriteSheet9-001.png" id="1_t1wn7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oknwk"]
+atlas = ExtResource("1_t1wn7")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7usa"]
+atlas = ExtResource("1_t1wn7")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ljppq"]
+atlas = ExtResource("1_t1wn7")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2l4hi"]
+atlas = ExtResource("1_t1wn7")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3l4o"]
+atlas = ExtResource("1_t1wn7")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rlwi3"]
+atlas = ExtResource("1_t1wn7")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0s8wo"]
+atlas = ExtResource("1_t1wn7")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7rbuu"]
+atlas = ExtResource("1_t1wn7")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4dicd"]
+atlas = ExtResource("1_t1wn7")
+region = Rect2(384, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_klh7q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oknwk")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7usa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ljppq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2l4hi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3l4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rlwi3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0s8wo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7rbuu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4dicd")
+}],
+"loop": false,
+"name": &"shake",
+"speed": 10.0
+}]
+
+[node name="Trunk" type="AnimatedSprite2D"]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_klh7q")
+animation = &"idle"

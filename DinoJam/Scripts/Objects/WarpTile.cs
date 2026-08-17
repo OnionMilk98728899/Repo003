@@ -7,7 +7,7 @@ public partial class WarpTile : StaticBody2D
     [Export] private Sprite2D doorSprite;
     [Export] private AnimationPlayer doorAnim;
     [Export] private CollisionShape2D floorCollider;
-    public enum doorType{left, right, tube}
+    public enum doorType { left, right, tube }
     [Export] public doorType myDoorType;
     [Export] public WarpTile partnerTile;
     private Player myPlayer;
@@ -18,21 +18,22 @@ public partial class WarpTile : StaticBody2D
         switch (myDoorType)
         {
             case doorType.left:
-            doorSprite.Texture = leftDoorTexture;
-            inputKey = new Vector2(0,-1);
-            break;
+                doorSprite.Texture = leftDoorTexture;
+                inputKey = new Vector2(0, -1);
+                break;
             case doorType.right:
-            doorSprite.Texture = rightDoorTexture;
-            inputKey = new Vector2(0,-1);
-            break;
+                doorSprite.Texture = rightDoorTexture;
+                inputKey = new Vector2(0, -1);
+                break;
             case doorType.tube:
-             doorSprite.Texture = tubeTexture;
-             doorSprite.Hframes = 8;
-            inputKey = new Vector2(0,1);
-            floorCollider.Disabled = false;
-            break;
+                doorSprite.Texture = tubeTexture;
+                doorSprite.Hframes = 8;
+                inputKey = new Vector2(0, 1);
+                floorCollider.Disabled = false;
+                break;
         }
     }
+
 
 
     private void OnDoorAreaEntered(Node2D body)
@@ -54,12 +55,18 @@ public partial class WarpTile : StaticBody2D
         }
     }
 
-    public void WarpPlayer()
+    public void AnimateTube()
     {
-        myPlayer.GlobalPosition = partnerTile.GlobalPosition;
-        if(myDoorType == doorType.tube)
+        if (myDoorType == doorType.tube)
         {
             doorAnim.Play("enter");
         }
+    }
+
+    public void WarpPlayer()
+    {
+        myPlayer.GlobalPosition = partnerTile.GlobalPosition;
+        GD.Print("Warp Player is called and my door type is " + myDoorType);
+
     }
 }

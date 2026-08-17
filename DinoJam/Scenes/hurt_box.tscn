@@ -3,9 +3,11 @@
 [ext_resource type="Script" path="res://Scripts/Nodes/HurtBox.cs" id="1_0sq58"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_geqcj"]
-size = Vector2(14, 15)
+size = Vector2(8, 12.5)
 
 [node name="HurtBox" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_0sq58")
 
 [node name="HurtBoxCollider" type="CollisionShape2D" parent="."]

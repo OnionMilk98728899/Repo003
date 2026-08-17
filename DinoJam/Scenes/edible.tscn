@@ -1,48 +1,191 @@
-[gd_scene load_steps=8 format=3 uid="uid://3owiv0140v8w"]
+[gd_scene load_steps=19 format=3 uid="uid://3owiv0140v8w"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Edible.cs" id="1_cp0a2"]
 [ext_resource type="Texture2D" uid="uid://dtwbhdte5or8j" path="res://Art/Edibles/Rock001.png" id="2_h2pyu"]
+[ext_resource type="Texture2D" uid="uid://c8th5oy5uhdhw" path="res://Art/Edibles/EggSpriteSheet6-001.png" id="3_8lii8"]
 [ext_resource type="FontFile" uid="uid://ct8h8r5refxgg" path="res://Fonts/BitRampageX.ttf" id="3_lxdru"]
-[ext_resource type="Texture2D" uid="uid://c4hu7s6xhp4fm" path="res://Art/Edibles/DustParticle001.png" id="4_05hbq"]
+[ext_resource type="Texture2D" uid="uid://b2bgr4pesm24t" path="res://Art/Edibles/BombSpriteSheet17-001.png" id="4_q37t4"]
+[ext_resource type="Texture2D" uid="uid://db402auuokkth" path="res://Art/Edibles/BoneSpriteSheet5-001.png" id="5_eqvrh"]
+[ext_resource type="Texture2D" uid="uid://cqnysbvoph3xi" path="res://Art/Edibles/WaterEdibleSheet6-001.png" id="6_mmvay"]
+[ext_resource type="Texture2D" uid="uid://b5i8g06r0es7d" path="res://Art/Edibles/BugBallSpritesheet4-001.png" id="7_a7yyw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_em5he"]
 size = Vector2(10, 9)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0gcgu"]
-particles_animation = true
-particles_anim_h_frames = 6
-particles_anim_v_frames = 1
-particles_anim_loop = false
+[sub_resource type="Animation" id="Animation_wey70"]
+resource_name = "bombstatic"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EdibleSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_su2cq"]
-particle_flag_disable_z = true
-emission_shape = 1
-emission_sphere_radius = 16.0
-gravity = Vector3(0, 0, 0)
-anim_speed_min = 1.0
-anim_speed_max = 2.0
-anim_offset_max = 1.0
+[sub_resource type="Animation" id="Animation_hleq1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EdibleSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
-[node name="Edible" type="CharacterBody2D" node_paths=PackedStringArray("edibleSprite", "edibleColl", "dustParticles", "destroyTimer") groups=["Edible"]]
+[sub_resource type="Animation" id="Animation_af6w4"]
+resource_name = "bombcount"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EdibleSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_hw1ae"]
+resource_name = "bombexplode"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EdibleSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 12, 13, 14, 15, 16]
+}
+
+[sub_resource type="Animation" id="Animation_8ecjf"]
+resource_name = "bonefly"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EdibleSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_g0e8h"]
+resource_name = "bugfly"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EdibleSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_wp3ku"]
+resource_name = "eggglow"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EdibleSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_1polv"]
+resource_name = "waterfly"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EdibleSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5fj3e"]
+_data = {
+"RESET": SubResource("Animation_hleq1"),
+"bombcount": SubResource("Animation_af6w4"),
+"bombexplode": SubResource("Animation_hw1ae"),
+"bombstatic": SubResource("Animation_wey70"),
+"bonefly": SubResource("Animation_8ecjf"),
+"bugfly": SubResource("Animation_g0e8h"),
+"eggglow": SubResource("Animation_wp3ku"),
+"waterfly": SubResource("Animation_1polv")
+}
+
+[node name="Edible" type="CharacterBody2D" node_paths=PackedStringArray("edibleSprite", "edibleAnim", "destroyTimer") groups=["Edible"]]
 z_index = 1
 collision_layer = 32
 script = ExtResource("1_cp0a2")
 edibleSprite = NodePath("EdibleSprite")
-edibleColl = NodePath("EdibleCollider")
+edibleAnim = NodePath("EdibleAnim")
 gravity = 7.0
 speed = 4.0
 bounceVelocity = 100.0
-dustParticles = NodePath("DustParticles")
 destroyTimer = NodePath("DestroyTimer")
+rockTexture = ExtResource("2_h2pyu")
+eggTexture = ExtResource("3_8lii8")
+bombTexture = ExtResource("4_q37t4")
+boneTexture = ExtResource("5_eqvrh")
+waterTexture = ExtResource("6_mmvay")
+bugTexture = ExtResource("7_a7yyw")
 
 [node name="EdibleCollider" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_em5he")
 
 [node name="EdibleSprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_h2pyu")
+position = Vector2(0, -1)
+texture = ExtResource("6_mmvay")
+hframes = 6
 
 [node name="EdibleAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5fj3e")
+}
 
 [node name="DebugLabel" type="Label" parent="."]
 offset_left = -21.0
@@ -50,15 +193,6 @@ offset_top = -19.0
 offset_right = 19.0
 offset_bottom = 4.0
 theme_override_fonts/font = ExtResource("3_lxdru")
-
-[node name="DustParticles" type="GPUParticles2D" parent="."]
-material = SubResource("CanvasItemMaterial_0gcgu")
-emitting = false
-amount = 25
-process_material = SubResource("ParticleProcessMaterial_su2cq")
-texture = ExtResource("4_05hbq")
-one_shot = true
-explosiveness = 0.8
 
 [node name="DestroyTimer" type="Timer" parent="."]
 wait_time = 1.5

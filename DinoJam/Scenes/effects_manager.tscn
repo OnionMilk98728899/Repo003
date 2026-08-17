@@ -1,0 +1,19 @@
+[gd_scene load_steps=8 format=3 uid="uid://blnvu0p0xgta2"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/EffectsManager.cs" id="1_h3ysn"]
+[ext_resource type="PackedScene" uid="uid://bxkg7jk30fusa" path="res://Scenes/ParticleScenes/dust_particles.tscn" id="2_r8kfq"]
+[ext_resource type="PackedScene" uid="uid://6aa4qu8kq6pa" path="res://Scenes/ParticleScenes/rock_particles.tscn" id="3_4q1jf"]
+[ext_resource type="PackedScene" uid="uid://sebs6yq335rw" path="res://Scenes/ParticleScenes/eggshell_particles.tscn" id="4_6uiqr"]
+[ext_resource type="PackedScene" uid="uid://btxkfg64ar8vc" path="res://Scenes/ParticleScenes/yolk_particles.tscn" id="5_a5fjo"]
+[ext_resource type="PackedScene" uid="uid://blrnhbjlhmx44" path="res://Scenes/ParticleScenes/goo_particles.tscn" id="6_li3yx"]
+[ext_resource type="PackedScene" uid="uid://bq3sy3ecal0hq" path="res://Scenes/ParticleScenes/watersplash_particles.tscn" id="7_b2s5g"]
+
+[node name="EffectsManager" type="Node2D"]
+script = ExtResource("1_h3ysn")
+dustScene = ExtResource("2_r8kfq")
+rockScene = ExtResource("3_4q1jf")
+eggShellScene = ExtResource("4_6uiqr")
+yolkScene = ExtResource("5_a5fjo")
+gooScene = ExtResource("6_li3yx")
+waterScene = ExtResource("7_b2s5g")
+boneScene = ExtResource("4_6uiqr")

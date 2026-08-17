@@ -1,0 +1,81 @@
+[gd_scene load_steps=8 format=3 uid="uid://d4gqatk1pno11"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Bounceable.cs" id="1_arl85"]
+[ext_resource type="Texture2D" uid="uid://dw1sl24stc3ur" path="res://Art/Interactables/BlueMushroomSpriteSheet.png" id="2_skrsj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a4wtn"]
+size = Vector2(8, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m2lxn"]
+size = Vector2(2, 3.5)
+
+[sub_resource type="Animation" id="Animation_7m5mo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MushroomSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="Animation" id="Animation_v6ekk"]
+resource_name = "bounce"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MushroomSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kh6wx"]
+_data = {
+"RESET": SubResource("Animation_7m5mo"),
+"bounce": SubResource("Animation_v6ekk")
+}
+
+[node name="Mushroom" type="StaticBody2D" node_paths=PackedStringArray("bounceAnim")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_arl85")
+bouncePower = 220.0
+bounceAnim = NodePath("MushroomAnim")
+metadata/_edit_vertical_guides_ = [-79.0]
+
+[node name="MushroomShape" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -5.5)
+shape = SubResource("RectangleShape2D_a4wtn")
+
+[node name="MushroomSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("2_skrsj")
+hframes = 7
+frame = 6
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+position = Vector2(0, 2)
+collision_layer = 0
+collision_mask = 8
+
+[node name="DetectorShape" type="CollisionShape2D" parent="PlayerDetector"]
+position = Vector2(0, -13.25)
+shape = SubResource("RectangleShape2D_m2lxn")
+
+[node name="MushroomAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kh6wx")
+}
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="OnPlayerDetectorBodyEntered"]

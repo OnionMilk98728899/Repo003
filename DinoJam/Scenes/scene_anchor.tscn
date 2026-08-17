@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://6fqk16ieffxd"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/SceneAnchor.cs" id="1_btbax"]
+
+[node name="SceneAnchor" type="Node2D" node_paths=PackedStringArray("sceneAnchorPoints")]
+script = ExtResource("1_btbax")
+sceneAnchorPoints = []

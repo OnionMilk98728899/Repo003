@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://6aa4qu8kq6pa"]
+
+[ext_resource type="Texture2D" uid="uid://bk566v00hmk4i" path="res://Art/Edibles/RockParticle001.png" id="1_7dm80"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wpx6q"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cnvug"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(1, 1, 0)
+emission_shape = 3
+emission_box_extents = Vector3(2, 2, 1)
+spread = 180.0
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+radial_velocity_min = 20.0
+radial_velocity_max = 25.0
+gravity = Vector3(0, 25, 0)
+
+[node name="RockParticles" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_wpx6q")
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_cnvug")
+texture = ExtResource("1_7dm80")
+lifetime = 1.2
+one_shot = true
+speed_scale = 2.2
+explosiveness = 0.7
+fixed_fps = 12

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://co3jyadn5tksr"]
+[gd_scene load_steps=6 format=3 uid="uid://co3jyadn5tksr"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Enemy.cs" id="1_3ehsn"]
 [ext_resource type="Texture2D" uid="uid://dayswqvshim3q" path="res://Art/PlayerSprites/Placeholder.png" id="1_35bw8"]
 [ext_resource type="PackedScene" uid="uid://rmu0nyiiqb6j" path="res://Scenes/hurt_box.tscn" id="1_515td"]
+[ext_resource type="Script" path="res://Scripts/Nodes/HealthComponent.cs" id="4_a0mg7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a1p0s"]
 size = Vector2(12, 12)
@@ -23,8 +24,13 @@ texture = ExtResource("1_35bw8")
 [node name="EnemyAnim" type="AnimationPlayer" parent="."]
 
 [node name="HurtBox" parent="." instance=ExtResource("1_515td")]
+collision_mask = 8
+myHBoxType = 2
 
 [node name="HurtBoxCollider" parent="HurtBox" index="0"]
 position = Vector2(0, -12)
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("4_a0mg7")
 
 [editable path="HurtBox"]
