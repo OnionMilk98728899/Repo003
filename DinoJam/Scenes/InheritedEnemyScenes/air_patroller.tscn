@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://co7vgsgl8qpon"]
+
+[ext_resource type="PackedScene" uid="uid://co3jyadn5tksr" path="res://Scenes/enemy.tscn" id="1_r7txx"]
+[ext_resource type="Script" path="res://Scripts/Objects/Enemies/AirPatroller.cs" id="2_dwu7a"]
+
+[node name="AirPatroller" instance=ExtResource("1_r7txx")]
+script = ExtResource("2_dwu7a")
+
+[editable path="EnemySprite/FrontHurtBox"]
+[editable path="EnemySprite/BackHurtBox"]
+[editable path="HeadHurtBox"]

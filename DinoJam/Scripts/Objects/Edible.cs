@@ -21,33 +21,62 @@ public partial class Edible : CharacterBody2D
     [Export] public edibleType myEdibleType;
     private Vector2 edibleVelocity, initialVelocity, initialPosition;
     private int fXCounter, bounceCounter = 0;
-    private bool isFlying, hasBounced, isDestroyed, hasBeenEaten;
+    private bool hasBounced, isDestroyed, hasBeenEaten, isEnemyMaskSet;
+    public bool isFlying, isPoppingOut;
     private string flightAnimation, staticAnimation;
 
     public override void _Ready()
     {
         initialPosition = GlobalPosition;
-        SetParticlesAndSprites();
-
+        
+        if (myEdibleType == edibleType.bug && !hasBeenEaten)
+        {
+            return;
+        }
+        else
+        {
+            SetParticlesAndSprites();
+        }
     }
     public override void _PhysicsProcess(double delta)
     {
-        if (isFlying)
+        if (myEdibleType == edibleType.bug && !hasBeenEaten)
         {
-
-            if (myEdibleType == edibleType.bone && myPath == flightPath.straight) { ApplyBoomerangMotion(); }
-
-            if (!isDestroyed && IsOnFloor() || !isDestroyed && IsOnWall() || !isDestroyed && IsOnCeiling())
-            {
-                Destroy();
-            }
+            return;
         }
-        ApplyGravity();
-        Velocity = edibleVelocity;
-        MoveAndSlide();
-        AnimateEdible();
-        //debugLabel.Text = Mathf.Round(edibleVelocity.X).ToString();
+        else
+        {
+            if (isFlying)
+            {
 
+                if (myEdibleType == edibleType.bone && myPath == flightPath.straight) { ApplyBoomerangMotion(); }
+
+                if (!isDestroyed && IsOnFloor() || !isDestroyed && IsOnWall() || !isDestroyed && IsOnCeiling())
+                {
+                    Destroy();
+                }
+
+
+            }
+            ApplyGravity();
+            Velocity = edibleVelocity;
+            MoveAndSlide();
+            AnimateEdible();
+        }
+        if(isPoppingOut && !IsOnFloor())
+        {
+            edibleSprite.Rotation = edibleVelocity.Angle()-  Mathf.Pi / 2.0f;
+        }else if(isPoppingOut && IsOnFloor())
+        {
+            edibleSprite.Rotation = 0;
+            isPoppingOut = false;
+        }
+
+
+    }
+    public void SetInitialDirection(Vector2 direction)
+    {
+        edibleVelocity = direction;
     }
 
     public void SetFlight()
@@ -63,7 +92,6 @@ public partial class Edible : CharacterBody2D
                 break;
             case flightPath.lob:
                 initialVelocity = new Vector2(0, -200);
-                GD.Print("Lobbed one");
                 break;
             case flightPath.down:
                 initialVelocity = new Vector2(0, 200);
@@ -92,9 +120,11 @@ public partial class Edible : CharacterBody2D
                 edibleVelocity.Y = 0;
                 edibleVelocity.X = 0;
             }
+            SetEnemyCollisionMask();
         }
         else
         {
+
             if (!IsOnFloor())
             {
                 edibleVelocity.Y += gravity;
@@ -102,11 +132,28 @@ public partial class Edible : CharacterBody2D
             else
             {
                 edibleVelocity.Y = 0;
+                if(edibleVelocity.X > 0)
+                {
+                    edibleVelocity.X -= 1;
+                }else if(edibleVelocity.X < 0)
+                {
+                    edibleVelocity.X +=1;
+                }
             }
+
+
         }
 
     }
 
+    private void SetEnemyCollisionMask()
+    {
+        if (!isEnemyMaskSet)
+        {
+            SetCollisionMaskValue(5, true);
+            isEnemyMaskSet = true;
+        }
+    }
     private void ApplyBoomerangMotion()
     {
         float range = 200;
@@ -123,7 +170,6 @@ public partial class Edible : CharacterBody2D
         {
             if (IsOnFloor())
             {
-                GD.Print("BOunced");
                 edibleVelocity.Y = -bounceVelocity;
                 bounceCounter++;
             }
@@ -132,7 +178,6 @@ public partial class Edible : CharacterBody2D
                 if (edibleVelocity.X > 0) { edibleVelocity.X = -bounceVelocity; }
                 else if (edibleVelocity.X < 0) { edibleVelocity.X = bounceVelocity; }
                 bounceCounter++;
-                GD.Print("Bouncing with the power of = " + edibleVelocity.X);
             }
             if (IsOnCeiling())
             {
@@ -144,6 +189,19 @@ public partial class Edible : CharacterBody2D
         if (bounceCounter >= 3)
         {
             //QueueFree();
+        }
+    }
+
+    public void SetRandomEdibleType()
+    {
+        float rand = GD.Randf();
+        if(rand > .75)
+        {
+            myEdibleType = edibleType.egg;
+        }
+        else
+        {
+            myEdibleType = edibleType.rock;
         }
     }
 
@@ -205,18 +263,18 @@ public partial class Edible : CharacterBody2D
     {
         if (isFlying)
         {
-            if(edibleSprite.Hframes > 1)
+            if (edibleSprite.Hframes > 1)
             {
                 edibleAnim.Play(flightAnimation);
             }
         }
         else
         {
-            if(myEdibleType == edibleType.bomb || myEdibleType == edibleType.egg)
+            if (myEdibleType == edibleType.bomb || myEdibleType == edibleType.egg)
             {
                 edibleAnim.Play(staticAnimation);
             }
-            if(myEdibleType == edibleType.water)
+            if (myEdibleType == edibleType.water)
             {
                 if (IsOnFloor())
                 {

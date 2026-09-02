@@ -53,6 +53,7 @@ public partial class SceneCamera : Camera2D
                 newPos = new Vector2(GlobalPosition.X, GlobalPosition.Y + screenSizeY);
             }
             GlobalPosition = newPos;
+            EventBus.Instance.EmitSignal(EventBus.SignalName.RepositionPlayerOrigin);
         }
     }
 }

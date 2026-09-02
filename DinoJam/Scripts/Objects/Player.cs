@@ -7,48 +7,52 @@ public partial class Player : CharacterBody2D
 {
     [Export] Sprite2D playerSprite;
     [Export] AnimationPlayer playerAnim;
-    [Export] private float moveSpeed, maxMoveSpeed, jumpPower, hiJumpPower, gravity, climbSpeed, maxClimbSpeed, chargeSpeed, stompSpeed;
+    [Export] private float moveSpeed, maxMoveSpeed, jumpPower, hiJumpPower, gravity, maxGravity, climbSpeed, maxClimbSpeed, chargeSpeed, stompSpeed, bounceBack;
     [Export] private Label debugLabel;
-    [Export] private Timer recoverTimer, specialBufferTimer;
+    [Export] private Timer recoverTimer, specialBufferTimer, deathTimer;
     [Export] public Timer tileBreakBufferTimer;
     [Export] private CollisionShape2D playerColl;
-    public enum moveState { idle, walk, jump, fall, land, eat, climb, idleclimb }
+    public enum moveState { idle, walk, jump, fall, land, eat, digest, climb, idleclimb }
     public enum lifeState { alive, hurt, dying }
     public enum eatingState { full, empty }
     public enum specialState
     {
         none, charge, chargeland, stomp, stompland, spit, spitup,
-        spitdown, digest, doorenter, doorexit, tubeenter, tubeexit
+        spitdown, doorenter, doorexit, tubeenter, tubeexit
     }
     private moveState currentMoveState;
     private lifeState currentLifeState;
     private eatingState currentEatingState;
     private specialState currentspecialState;
     private List<Edible> edibleList = new List<Edible>();
-    [Export] private PackedScene edibleScene;
-    private Edible myEdible;
+    [Export] private PackedScene edibleScene, waterDropScene;
+    private Edible myEdible, myWaterDrop;
     private Edible.edibleType edibleInMouth;
     private WarpTile currentWarpTile, destinationWarpTile;
     private BreakableTile currentBreakableSideTile, currentBreakableTopTile, currentBreakableBottomTile;
     private Tree currentTree;
-    private Vector2 inputDirection, playerVelocity;
+    private Vector2 inputDirection, playerVelocity, levelOriginPosition;
     private Vector2 MOUTH_POSITION_OFFSET = new Vector2(0, -8);
     private bool isJumping, isJumpReset, isTouchingLadder, isClimbing, isAboveLadder, isSpitting, isCharging, isStomping, isFalling, isLanding,
-    isMoving, isHurt, canEat, isEating, isStompLanding, isChargeLanding, isEnteringDoor, isExitingDoor, isEnteringTube, isExitingTube, isCancellingCharge,
-    isBouncing, isTouchingBreakableTileLeft, isTouchingBreakableTileRight, isTouchingBreakableTileBottom, isTouchingBreakableTileTop, isTouchingTreeCharge, 
+    isMoving, isHurt, canEat, isEating, isDigesting, isStompLanding, isChargeLanding, isEnteringDoor, isExitingDoor, isEnteringTube, isExitingTube, isCancellingCharge,
+    isBouncing, isTouchingBreakableTileLeft, isTouchingBreakableTileRight, isTouchingBreakableTileBottom, isTouchingBreakableTileTop, isTouchingTreeCharge,
     isTouchingTreeStomp, isTreeDetectorOn, isShakingTree;
     public bool isTouchingDoor;
+    private string deathType;
     public Vector2 doorEntryInput;
 
     public override void _Ready()
     {
         EventBus.Instance.HurtPlayer += OnPlayerHurt;
+        EventBus.Instance.HurtPlayerTimeout += OnPlayerHurtTimeout;
+        EventBus.Instance.KillPlayer += OnPlayerKilled;
         EventBus.Instance.ChargeEnemy += BounceBackFromCharge;
-        EventBus.Instance.BouncePlayer += OnPlayerBouncedUpward;
-        //EventBus.Instance.BreakableTileBroken += OnBreakableTileBroken;
+        EventBus.Instance.BouncePlayerUpwards += OnPlayerBouncedUpward;
+        EventBus.Instance.RepositionPlayerOrigin += OnPlayerOriginRepositioned;
         inputDirection.X = 1;
         currentEatingState = eatingState.empty;
-        //Engine.TimeScale = .5;
+        levelOriginPosition = GlobalPosition;
+        //Engine.TimeScale = .5f;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -57,7 +61,7 @@ public partial class Player : CharacterBody2D
         if (currentLifeState != lifeState.alive)
         {
             HandleHurtPhysics();
-            HandleDirectionalInput();
+            //HandleDirectionalInput();
         }
         else if (currentspecialState != specialState.none)
         {
@@ -67,7 +71,6 @@ public partial class Player : CharacterBody2D
             {
                 HandleDirectionalInput();
             }
-            //DetectBreakableTiles();
         }
         else if (currentspecialState == specialState.none)
         {
@@ -79,13 +82,12 @@ public partial class Player : CharacterBody2D
             HandleTreeInput();
         }
 
+        DetectHazardsAsFloorIfHurt();
         ApplyGravity();
         AnimatePlayer(DetermineState());
         Velocity = playerVelocity;
         MoveAndSlide();
-
     }
-
 
     private void HandleDirectionalInput()
     {
@@ -139,8 +141,11 @@ public partial class Player : CharacterBody2D
     {
         if (!IsOnFloor() && !isClimbing)
         {
-            playerVelocity.Y += gravity;
-            isJumpReset = false;
+            if (playerVelocity.Y < maxGravity)
+            {
+                playerVelocity.Y += gravity;
+                isJumpReset = false;
+            }
         }
         if (IsOnFloor() && !isJumping && !isClimbing && !isBouncing)
         {
@@ -151,19 +156,24 @@ public partial class Player : CharacterBody2D
 
     private void HandleClimbInput()
     {
-        if (inputDirection.Y != 0 && isTouchingLadder || inputDirection.Y == 1 && isAboveLadder)
-        {
-            isClimbing = true;
-            isJumping = false;
-            playerVelocity.Y += inputDirection.Y * climbSpeed;
-            playerVelocity.Y = Mathf.Clamp(playerVelocity.Y, -maxClimbSpeed, maxClimbSpeed);
-        }
+       // if (!isEating && !isDigesting && !canEat)
+       // {
+            if (inputDirection.Y != 0 && isTouchingLadder || inputDirection.Y == 1 && isAboveLadder)
+            {
+                isClimbing = true;
+                isJumping = false;
+                playerVelocity.Y += inputDirection.Y * climbSpeed;
+                playerVelocity.Y = Mathf.Clamp(playerVelocity.Y, -maxClimbSpeed, maxClimbSpeed);
+            }
+        //}
+
         if (!isTouchingLadder)
         {
             isClimbing = false;
         }
-        if (inputDirection.Y == 1 && isAboveLadder)
-        {
+        if (inputDirection.Y == 1 && isAboveLadder 
+       // && currentMoveState != moveState.eat && currentMoveState != moveState.digest && currentEatingState == eatingState.empty
+        ){
             SetCollisionMaskValue(3, false);
         }
         if (isClimbing)
@@ -177,9 +187,15 @@ public partial class Player : CharacterBody2D
 
     }
 
+    private void DetectHazardsAsFloorIfHurt()
+    {
+        if (isHurt) { SetCollisionMaskValue(7, true); }
+        else { SetCollisionMaskValue(7, false); }
+    }
+
     private void HandleTreeInput()
     {
-        if(currentspecialState == specialState.none && isShakingTree)
+        if (currentspecialState == specialState.none && isShakingTree)
         {
             isShakingTree = false;
         }
@@ -249,7 +265,7 @@ public partial class Player : CharacterBody2D
                 {
                     if (wallIsLeft && playerSprite.FlipH || !wallIsLeft && !playerSprite.FlipH)
                     {
-                        BounceBackFromCharge(0, 0);
+                        BounceBackFromCharge(0, Vector2.Zero);
                         DetectBreakableTiles();
                     }
 
@@ -309,19 +325,39 @@ public partial class Player : CharacterBody2D
 
     private void HandleHurtPhysics()
     {
-        if (isHurt && inputDirection == Vector2.Zero)
+        if (isHurt && IsOnFloor())
         {
-            if (playerSprite.FlipH)
+            if (playerVelocity.X > 0)
             {
-                playerVelocity.X -= .05f * moveSpeed;
+                playerVelocity.X -= .1f * moveSpeed;
             }
             else
             {
-                playerVelocity.X += .05f * moveSpeed;
+                playerVelocity.X += .1f * moveSpeed;
+            }
+
+
+            if (Input.IsActionJustPressed("ActionZ") && isJumpReset)
+            {
+                if (inputDirection.Y < 0) { playerVelocity.Y -= hiJumpPower; }
+                else { playerVelocity.Y -= jumpPower; }
+                isJumping = true;
+                isClimbing = false;
+                isEating = false;
             }
 
         }
+        else if (isHurt && !IsOnFloor())
+        {
+            HandleDirectionalInput();
+        }
         if (IsOnFloor()) { isJumpReset = true; }
+        if (currentLifeState == lifeState.dying)
+        {
+            playerVelocity = Vector2.Zero;
+        }
+
+
     }
 
     private void DetectBreakableTiles()
@@ -338,14 +374,13 @@ public partial class Player : CharacterBody2D
 
         if (isTouchingBreakableTileBottom && inputDirection.Y == -1 && !isCharging && !isChargeLanding && !isStomping && tileBreakBufferTimer.IsStopped())
         {
-            GD.Print("Breaking tile from bottom with timer: " +tileBreakBufferTimer.TimeLeft );
             EventBus.Instance.EmitSignal(EventBus.SignalName.BreakableTileBroken, currentBreakableTopTile);
             isTouchingBreakableTileBottom = false;
         }
 
-        if (isStomping || isStompLanding )
+        if (isStomping || isStompLanding)
         {
-            if (isTouchingBreakableTileTop )
+            if (isTouchingBreakableTileTop)
             {
                 EventBus.Instance.EmitSignal(EventBus.SignalName.BreakableTileBroken, currentBreakableBottomTile);
                 isTouchingBreakableTileTop = false;
@@ -362,13 +397,14 @@ public partial class Player : CharacterBody2D
         {
             SetCollisionMaskValue(11, true);
             isTreeDetectorOn = true;
-        }else
+        }
+        else
         {
             SetCollisionMaskValue(11, false);
-            isTreeDetectorOn =false;
+            isTreeDetectorOn = false;
         }
 
-        if(isChargeLanding && IsOnWall() && isTouchingTreeCharge && currentTree != null && !isShakingTree|| 
+        if (isChargeLanding && IsOnWall() && isTouchingTreeCharge && currentTree != null && !isShakingTree ||
         isStompLanding && IsOnFloor() && isTouchingTreeStomp && currentTree != null && !isShakingTree)
         {
             EventBus.Instance.EmitSignal(EventBus.SignalName.ShakeTree, currentTree);
@@ -381,7 +417,15 @@ public partial class Player : CharacterBody2D
         string state = "";
         if (currentLifeState != lifeState.alive)
         {
-            state = currentLifeState.ToString();
+            if (currentLifeState == lifeState.hurt)
+            {
+                state = currentLifeState.ToString();
+            }
+            else if (currentLifeState == lifeState.dying)
+            {
+                state = currentLifeState + deathType;
+            }
+
         }
         else
         {
@@ -452,12 +496,25 @@ public partial class Player : CharacterBody2D
                     {
                         if (playerVelocity.X == 0) { currentMoveState = moveState.idle; }
                         else { currentMoveState = moveState.walk; }
+                        if (isDigesting && currentEatingState == eatingState.empty) { currentMoveState = moveState.digest; }
                     }
-                    if (inputDirection.Y == 1 && canEat)
+                    if (inputDirection.Y == 1 && canEat && currentEatingState == eatingState.empty && !isAboveLadder)
                     {
+
                         isEating = true;
                         currentMoveState = moveState.eat;
                         EatNearestEdible();
+                    }
+                    if (inputDirection.Y == 1 && currentEatingState == eatingState.full && !isAboveLadder)
+                    {
+                        if (currentMoveState == moveState.idle || currentMoveState == moveState.walk)
+                        {
+                            currentEatingState = eatingState.empty;
+                            currentMoveState = moveState.digest;
+                            isDigesting = true;
+                            DigestEdible();
+                        }
+
                     }
 
                 }
@@ -466,11 +523,13 @@ public partial class Player : CharacterBody2D
                     if (!isClimbing)
                     {
                         if (isJumping) { currentMoveState = moveState.jump; }
-                        if (playerVelocity.Y > 0) { isJumping = false; isFalling = true; isBouncing = false; currentMoveState = moveState.fall; }
+                        if (playerVelocity.Y > 0 && !isEating) { isJumping = false; isFalling = true; isBouncing = false; currentMoveState = moveState.fall; }
 
-                        if (inputDirection.Y == 1 && canEat)
+                        if (inputDirection.Y == 1 && canEat && currentEatingState == eatingState.empty)
                         {
                             currentMoveState = moveState.eat;
+                            isEating = true;
+                            isJumping = false;
                             EatNearestEdible();
                         }
                     }
@@ -494,8 +553,8 @@ public partial class Player : CharacterBody2D
             }
         }
 
-        debugLabel.Text = $"{tileBreakBufferTimer.TimeLeft}";
-        
+        debugLabel.Text = $"{currentMoveState}";
+
         return state;
     }
 
@@ -522,12 +581,7 @@ public partial class Player : CharacterBody2D
             closestEdible.ConsumeEdible();
             currentEatingState = eatingState.full;
 
-            if (edibleList.Count <= 0)
-            {
-                canEat = false;
-            }
-
-
+            canEat = false;
         }
         else
         {
@@ -538,9 +592,10 @@ public partial class Player : CharacterBody2D
     private void SpitOutEdible()
     {
         myEdible = edibleScene.Instantiate<Edible>();
+        myEdible.SetEatenProperty(true);
         myEdible.myEdibleType = edibleInMouth;
         //myEdible.SetParticlesAndSprites();
-        myEdible.SetEatenProperty(true);
+        //myEdible.SetEatenProperty(true);
         myEdible.GlobalPosition = GlobalPosition + MOUTH_POSITION_OFFSET;
         EdibleManager.Instance.AddChild(myEdible);
 
@@ -569,8 +624,43 @@ public partial class Player : CharacterBody2D
             myEdible.myPath = Edible.flightPath.lob;
         }
 
+        if (edibleList.Count > 0)
+        {
+            canEat = true;
+        }
+
         myEdible.SetFlight();
     }
+    private void DigestEdible()
+    {
+        if (edibleInMouth == Edible.edibleType.water)
+        {
+            GlobalStats.Instance.SetPlayerHealth(1);
+        }
+    }
+
+
+    private void EmitWater()
+    {
+        for (int i = 0; i < GlobalStats.Instance.playerHealth; i++)
+        {
+            myWaterDrop = waterDropScene.Instantiate<Edible>();
+            EdibleManager.Instance.CallDeferred(Node.MethodName.AddChild, myWaterDrop);
+            myWaterDrop.isPoppingOut = true;
+            myWaterDrop.myEdibleType = Edible.edibleType.water;
+            myWaterDrop.SetParticlesAndSprites();
+            myWaterDrop.GlobalPosition = GlobalPosition + MOUTH_POSITION_OFFSET;
+            int randX = GD.RandRange(-50, 50);
+            Vector2 direction = new Vector2(randX, -200);
+            myWaterDrop.SetInitialDirection(direction);
+
+        }
+    }
+
+    // private void AddNodeToEdibleManager()
+    // {
+    //      EdibleManager.Instance.AddChild(myWaterDrop);
+    // }
 
     private void InteractWithDoors()
     {
@@ -612,27 +702,50 @@ public partial class Player : CharacterBody2D
         return false;
     }
 
+
+
     //////////////////////////////////////////////////// EVENT BUS SIGNAL CALLS  //////////////////////////////////////////////////////////
 
-    private void BounceBackFromCharge(int damage, ulong enemyID)   //// damage argument is hold-over from Event Signal
+    private void BounceBackFromCharge(ulong enemyID, Vector2 strikeVelocity)   //// arguments are a hold-over from Event Signal
     {
         playerVelocity.X = -playerVelocity.X;
         isCharging = false;
         isChargeLanding = true;
     }
-    private void OnPlayerHurt(int damage)
+    private void OnPlayerHurt(Vector2 attackerPos)
     {
         currentLifeState = lifeState.hurt;
-        if (playerSprite.FlipH)
+        if (currentMoveState == moveState.fall || attackerPos.Y > GlobalPosition.Y)
         {
-            playerVelocity.X = 2 * moveSpeed;
+            playerVelocity.Y = -bounceBack;
+            isBouncing = true;
         }
         else
         {
-            playerVelocity.X = -2 * moveSpeed;
+            if (GlobalPosition.X > attackerPos.X)
+            {
+                playerVelocity.X = bounceBack;
+            }
+            else
+            {
+                playerVelocity.X = -bounceBack;
+            }
         }
 
         isHurt = true;
+        EmitWater();
+    }
+
+    private void OnPlayerHurtTimeout()
+    {
+        isHurt = false;
+    }
+    private void OnPlayerKilled(string death)
+    {
+        isHurt = true;
+        currentLifeState = lifeState.dying;
+        deathType = death;
+        deathTimer.Start();
     }
 
     private void OnPlayerBouncedUpward(float bouncePower)
@@ -650,9 +763,24 @@ public partial class Player : CharacterBody2D
         isBouncing = true;
     }
 
+    private void OnPlayerOriginRepositioned()
+    {
+        levelOriginPosition = GlobalPosition;
+    }
 
+    // private void OnPlayerBouncedHorizontally(Vector2 bouncerPos, float bouncePower)
+    // {
+    //     GD.Print("Player bounced horizontally");
+    //     if (GlobalPosition.X > bouncerPos.X)
+    //     {
+    //         playerVelocity.X = bouncePower;
+    //     }
+    //     else
+    //     {
+    //         playerVelocity.X = -bouncePower;
+    //     }
 
-
+    // }
 
     ///////////////////////////////////////////////////// CALL METHOD TRACKS ///////////////////////////////////////////////////////////////////
 
@@ -697,12 +825,16 @@ public partial class Player : CharacterBody2D
         currentspecialState = specialState.none;
         isFalling = false;
         isStomping = false;
-        
+
     }
 
     private void OnEatAnimationFinished()
     {
         isEating = false;
+    }
+    private void OnDigestAnimationFinished()
+    {
+        isDigesting = false;
     }
 
     //////////////////////////////////////////////////////////   DETECTORS    ////////////////////////////////////////////////////
@@ -798,13 +930,13 @@ public partial class Player : CharacterBody2D
     public void SetTouchingTreeChargeDetector(bool isTouching, Tree tree)
     {
         isTouchingTreeCharge = isTouching;
-        if(isTouching){currentTree = tree;}
+        if (isTouching) { currentTree = tree; }
     }
 
     public void SetTouchingTreeStompDetector(bool isTouching, Tree tree)
     {
         isTouchingTreeStomp = isTouching;
-        if(isTouching){currentTree = tree;}
+        if (isTouching) { currentTree = tree; }
     }
 
     ////////////////////////////////////////////////////////////  TIMERS  ///////////////////////////////////////////
@@ -817,6 +949,15 @@ public partial class Player : CharacterBody2D
             isFalling = false;
             currentspecialState = specialState.none;
         }
+    }
+
+    private void OnDeathTimerTimeout()
+    {
+        GlobalPosition = levelOriginPosition;
+        currentLifeState = lifeState.alive;
+        currentspecialState = specialState.none;
+        currentMoveState = moveState.idle;
+        if(isStomping){isStomping= false;}
     }
 
     private void OnSpecialBufferTimerTimeout()
@@ -854,6 +995,10 @@ public partial class Player : CharacterBody2D
     public Vector2 GetInputDirection()
     {
         return inputDirection;
+    }
+    public Vector2 GetVelocity()
+    {
+        return playerVelocity;
     }
 
     public void SetCurrentWarpTiles(WarpTile currentDoor, WarpTile targetDoor)

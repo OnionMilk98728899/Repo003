@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://fo16pl6r4hx3"]
+
+[ext_resource type="PackedScene" uid="uid://bjqt0wekldwch" path="res://Scenes/enemy_attacker.tscn" id="1_vqb51"]
+[ext_resource type="Script" path="res://Scripts/Nodes/RangedAttacker.cs" id="2_m6kps"]
+
+[node name="RangedAttacker" instance=ExtResource("1_vqb51")]
+script = ExtResource("2_m6kps")

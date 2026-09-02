@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bfrplkg7an4ck"]
+[gd_scene load_steps=8 format=3 uid="uid://bfrplkg7an4ck"]
 
 [ext_resource type="Texture2D" uid="uid://ihdqh15btra3" path="res://Art/Interactables/WaterSource/WaterDripSpriteSheet16-001.png" id="1_8bkrg"]
 [ext_resource type="Script" path="res://Scripts/Objects/WaterSource.cs" id="1_gnkjf"]
+[ext_resource type="PackedScene" uid="uid://3owiv0140v8w" path="res://Scenes/edible.tscn" id="2_ax08x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qkti5"]
 
@@ -36,6 +37,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"CreateDroplet"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e8swt"]
 _data = {
@@ -43,10 +58,12 @@ _data = {
 "drip": SubResource("Animation_k8xg2")
 }
 
-[node name="WaterSource" type="StaticBody2D"]
+[node name="WaterSource" type="StaticBody2D" node_paths=PackedStringArray("waterAnim")]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_gnkjf")
+dropletScene = ExtResource("2_ax08x")
+waterAnim = NodePath("WaterSourceAnim")
 
 [node name="WaterSource" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_qkti5")

@@ -4,6 +4,8 @@ using System;
 public partial class Foliage : StaticBody2D
 {
     [Export] private Texture2D foliage1Texture, foliage2Texture, foliage3Texture;
+    [Export] private PackedScene myEdibleScene;
+    private Edible myEdible;
     [Export] private AnimationPlayer plantAnim;
     [Export] private Sprite2D foliageSprite;
     [Export] private Timer destroyTimer;
@@ -33,6 +35,7 @@ public partial class Foliage : StaticBody2D
     private void DestroyPlant()
     {
         foliageSprite.Visible = false;
+        CreateRandomEdible();
         leafParticles.Restart();
         destroyTimer.Start();
     }
@@ -48,6 +51,24 @@ public partial class Foliage : StaticBody2D
             {
                 DestroyPlant();
             }
+        }
+    }
+
+    private void CreateRandomEdible()
+    {
+        float rand = GD.Randf();
+        if (rand > .5)
+        {
+            myEdible = myEdibleScene.Instantiate<Edible>();
+            EdibleManager.Instance.CallDeferred(Node.MethodName.AddChild, myEdible);
+            myEdible.isPoppingOut = true;
+            myEdible.SetRandomEdibleType();
+            myEdible.SetParticlesAndSprites();
+            int randX = GD.RandRange(-50, 50);
+            Vector2 direction = new Vector2(randX, -100);
+            myEdible.GlobalPosition = GlobalPosition;
+            myEdible.SetInitialDirection(direction);
+            
         }
     }
 

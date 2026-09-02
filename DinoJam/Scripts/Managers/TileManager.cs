@@ -7,13 +7,15 @@ public partial class TileManager : Node2D
 
     [Export] private TileMap breakableTileMap;
     [Export] private PackedScene breakableTileScene;
+    public enum tileType{breakable, crate, eggcrate}
+    public tileType myTileType;
     private BreakableTile myBreakableTile;
     private Godot.Collections.Array<Vector2I> activeTiles;
     private List<Vector2> tilePositionList = new List<Vector2>();
 
     public override void _Ready()
     {
-        ConvertTileMapToBreakableTiles();
+        ConvertTileMapToObject(breakableTileMap, tileType.breakable);
     }
     public bool CheckForOtherAdjacentSideTilesDetectingPlayer(bool isLeft)
     {
@@ -67,9 +69,9 @@ public partial class TileManager : Node2D
         return anyActive;
     }
 
-    public void ConvertTileMapToBreakableTiles()
+    public void ConvertTileMapToObject(TileMap map,  tileType type)
     {
-        activeTiles = breakableTileMap.GetUsedCells(0);
+        activeTiles = map.GetUsedCells(0);
         foreach(Vector2I cell in activeTiles)
         {
             tilePositionList.Add(breakableTileMap.MapToLocal(cell));
@@ -78,9 +80,27 @@ public partial class TileManager : Node2D
 
         foreach(Vector2 cell in tilePositionList)
         {
+            // myBreakableTile = breakableTileScene.Instantiate<BreakableTile>();
+            // myBreakableTile.GlobalPosition = cell;
+            // AddChild(myBreakableTile);
+            CreateTileObjectOfType(cell, type);
+        }
+    }
+
+    private void CreateTileObjectOfType(Vector2 position, tileType type)
+    {
+        switch (type)
+        {
+            case tileType.breakable:
             myBreakableTile = breakableTileScene.Instantiate<BreakableTile>();
-            myBreakableTile.GlobalPosition = cell;
+            myBreakableTile.GlobalPosition = position;
             AddChild(myBreakableTile);
+            break;
+            case tileType.crate:
+            break;
+            case tileType.eggcrate:
+            break;
+
         }
     }
 }

@@ -16,6 +16,8 @@ public partial class WaterSource : StaticBody2D
     {
         myDrop = dropletScene.Instantiate<Edible>();
         AddChild(myDrop);
+        myDrop.myEdibleType = Edible.edibleType.water;
+        myDrop.SetParticlesAndSprites();
         myDrop.GlobalPosition = GlobalPosition;
     }
 

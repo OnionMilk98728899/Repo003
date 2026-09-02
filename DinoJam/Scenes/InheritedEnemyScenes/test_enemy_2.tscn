@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhgb6rts6rm4a"]
+
+[ext_resource type="PackedScene" uid="uid://co7vgsgl8qpon" path="res://Scenes/InheritedEnemyScenes/air_patroller.tscn" id="1_gs2o1"]
+
+[node name="AirPatroller" instance=ExtResource("1_gs2o1")]
+
+[editable path="EnemySprite/FrontHurtBox"]
+[editable path="EnemySprite/BackHurtBox"]
+[editable path="HeadHurtBox"]

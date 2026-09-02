@@ -12,7 +12,7 @@ public partial class Bounceable : StaticBody2D
             if(body.GetNode<Player>(".").GetMoveState() == Player.moveState.fall || 
             body.GetNode<Player>(".").GetSpecialState() == Player.specialState.stomp)
             {
-                EventBus.Instance.EmitSignal(EventBus.SignalName.BouncePlayer, bouncePower);
+                EventBus.Instance.EmitSignal(EventBus.SignalName.BouncePlayerUpwards, bouncePower);
                 bounceAnim.Play("bounce");
             }
         }

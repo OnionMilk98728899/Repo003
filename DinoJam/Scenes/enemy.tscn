@@ -1,17 +1,31 @@
-[gd_scene load_steps=6 format=3 uid="uid://co3jyadn5tksr"]
+[gd_scene load_steps=9 format=3 uid="uid://co3jyadn5tksr"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Enemy.cs" id="1_3ehsn"]
 [ext_resource type="Texture2D" uid="uid://dayswqvshim3q" path="res://Art/PlayerSprites/Placeholder.png" id="1_35bw8"]
 [ext_resource type="PackedScene" uid="uid://rmu0nyiiqb6j" path="res://Scenes/hurt_box.tscn" id="1_515td"]
-[ext_resource type="Script" path="res://Scripts/Nodes/HealthComponent.cs" id="4_a0mg7"]
+[ext_resource type="PackedScene" uid="uid://0tg7ejowc15p" path="res://Scenes/health_component.tscn" id="4_8oafq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a1p0s"]
-size = Vector2(12, 12)
+size = Vector2(15, 16)
 
-[node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_181jv"]
+size = Vector2(3, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x408x"]
+size = Vector2(3, 13)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_og4sc"]
+radius = 34.0
+
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("healthComp", "hurtTimer", "attackDelayTimer", "deathTimer", "prepareTimer") groups=["Enemy"]]
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_3ehsn")
+healthComp = NodePath("HealthComponent")
+hurtTimer = NodePath("HurtTimer")
+attackDelayTimer = NodePath("AttackDelayTimer")
+deathTimer = NodePath("DeathTimer")
+prepareTimer = NodePath("PrepareTimer")
 
 [node name="EnemyCollider" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
@@ -21,16 +35,60 @@ shape = SubResource("RectangleShape2D_a1p0s")
 position = Vector2(0, -6)
 texture = ExtResource("1_35bw8")
 
+[node name="FrontHurtBox" parent="EnemySprite" node_paths=PackedStringArray("healthComp") instance=ExtResource("1_515td")]
+position = Vector2(-11, 7)
+collision_mask = 8
+myHBoxType = 1
+healthComp = NodePath("../../HealthComponent")
+
+[node name="HurtBoxCollider" parent="EnemySprite/FrontHurtBox" index="0"]
+position = Vector2(3.5, -7.5)
+shape = SubResource("RectangleShape2D_181jv")
+
+[node name="BackHurtBox" parent="EnemySprite" node_paths=PackedStringArray("healthComp") instance=ExtResource("1_515td")]
+position = Vector2(10, 7)
+collision_mask = 8
+myHBoxType = 1
+healthComp = NodePath("../../HealthComponent")
+
+[node name="HurtBoxCollider" parent="EnemySprite/BackHurtBox" index="0"]
+position = Vector2(-2.5, -7.5)
+shape = SubResource("RectangleShape2D_x408x")
+
 [node name="EnemyAnim" type="AnimationPlayer" parent="."]
 
-[node name="HurtBox" parent="." instance=ExtResource("1_515td")]
+[node name="HeadHurtBox" parent="." instance=ExtResource("1_515td")]
 collision_mask = 8
 myHBoxType = 2
 
-[node name="HurtBoxCollider" parent="HurtBox" index="0"]
+[node name="HurtBoxCollider" parent="HeadHurtBox" index="0"]
 position = Vector2(0, -12)
 
-[node name="HealthComponent" type="Node2D" parent="."]
-script = ExtResource("4_a0mg7")
+[node name="HealthComponent" parent="." instance=ExtResource("4_8oafq")]
 
-[editable path="HurtBox"]
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="PlayerDetectorShape" type="CollisionShape2D" parent="PlayerDetector"]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_og4sc")
+
+[node name="HurtTimer" type="Timer" parent="."]
+
+[node name="AttackDelayTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[node name="PrepareTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="OnPlayerDetectorEntered"]
+[connection signal="timeout" from="DeathTimer" to="." method="OnDeathTimerTimeout"]
+[connection signal="timeout" from="PrepareTimer" to="." method="OnPrepareTimerTimeout"]
+
+[editable path="EnemySprite/FrontHurtBox"]
+[editable path="EnemySprite/BackHurtBox"]
+[editable path="HeadHurtBox"]

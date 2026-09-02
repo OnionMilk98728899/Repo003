@@ -1,0 +1,73 @@
+[gd_scene load_steps=8 format=3 uid="uid://4ttixcu3w6m8"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/PlayerPlatform.cs" id="1_72err"]
+[ext_resource type="Texture2D" uid="uid://c18w0bybktv8e" path="res://Art/LeafPlatformSpriteSheet.png" id="1_ewbe2"]
+[ext_resource type="FontFile" uid="uid://ct8h8r5refxgg" path="res://Fonts/BitRampageX.ttf" id="3_ruvq4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_myse4"]
+size = Vector2(16, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bwgrq"]
+size = Vector2(14, 5.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dgomd"]
+size = Vector2(16, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pfwya"]
+size = Vector2(14, 6)
+
+[node name="PlayerPlatform" type="CharacterBody2D" node_paths=PackedStringArray("debugLabel")]
+collision_mask = 65
+script = ExtResource("1_72err")
+moveSpeed = 75.0
+gravity = 10.0
+maxGravity = 150.0
+debugLabel = NodePath("Label")
+
+[node name="PlatformCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_myse4")
+
+[node name="PlatformSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("1_ewbe2")
+hframes = 3
+
+[node name="WaterDetector" type="Area2D" parent="."]
+position = Vector2(0, -1)
+collision_layer = 0
+collision_mask = 64
+
+[node name="WaterDetectorCollider" type="CollisionShape2D" parent="WaterDetector"]
+position = Vector2(0, 5.375)
+shape = SubResource("RectangleShape2D_bwgrq")
+debug_color = Color(0.950621, 4.81307e-07, 0.567699, 0.42)
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="PlayerDetectCollider" type="CollisionShape2D" parent="PlayerDetector"]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_dgomd")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -20.0
+offset_top = 3.0
+offset_right = 20.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("3_ruvq4")
+
+[node name="WaterfallDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2048
+
+[node name="WaterfallCollider" type="CollisionShape2D" parent="WaterfallDetector"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_pfwya")
+
+[connection signal="body_entered" from="WaterDetector" to="." method="OnWaterDetectorBodyEntered"]
+[connection signal="body_exited" from="WaterDetector" to="." method="OnWaterDetectorBodyExited"]
+[connection signal="body_entered" from="PlayerDetector" to="." method="OnPlayerDetectorBodyEntered"]
+[connection signal="body_entered" from="WaterfallDetector" to="." method="OnWaterfallDetectorBodyEntered"]
+[connection signal="body_exited" from="WaterfallDetector" to="." method="OnWaterfallDetectorBodyExited"]

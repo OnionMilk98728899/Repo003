@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bkcpdpy6aps2j"]
+
+[ext_resource type="Texture2D" uid="uid://ces8wqu5cc78s" path="res://Art/Enemies/Caveman/spearspritesheet.png" id="1_qoxud"]
+[ext_resource type="Script" path="res://Scripts/Objects/EnemyProjectile.cs" id="1_y31oj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iovhd"]
+size = Vector2(10, 1)
+
+[node name="EnemyProjectile" type="CharacterBody2D" node_paths=PackedStringArray("projSprite")]
+script = ExtResource("1_y31oj")
+projSprite = NodePath("ProjectileSprite")
+
+[node name="ProjectileCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_iovhd")
+
+[node name="ProjectileSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_qoxud")
+hframes = 3
+
+[node name="ProjectileAnim" type="AnimationPlayer" parent="."]

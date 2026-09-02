@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://di6oaet241fj6"]
+
+[ext_resource type="PackedScene" uid="uid://co3jyadn5tksr" path="res://Scenes/enemy.tscn" id="1_6gcut"]
+[ext_resource type="Script" path="res://Scripts/Objects/Enemies/GroundPatroller.cs" id="2_ga3mv"]
+
+[node name="GroundPatroller" instance=ExtResource("1_6gcut")]
+collision_mask = 1
+script = ExtResource("2_ga3mv")
+moveSpeed = 20.0
+gravity = 15.0
+maxGravity = 150.0
+leftDistance = 2.0
+rightDistance = 2.0
+attackDelay = 4.0
+bounceBack = 50.0
+
+[node name="HeadHurtBox" parent="." index="3" node_paths=PackedStringArray("healthComp")]
+healthComp = NodePath("../HealthComponent")
+
+[editable path="EnemySprite/FrontHurtBox"]
+[editable path="EnemySprite/BackHurtBox"]
+[editable path="HeadHurtBox"]

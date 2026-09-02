@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dlvgv718dja16"]
+
+[ext_resource type="PackedScene" uid="uid://di6oaet241fj6" path="res://Scenes/InheritedEnemyScenes/ground_patroller.tscn" id="1_s2iig"]
+[ext_resource type="PackedScene" uid="uid://dmg1ym827cuie" path="res://Scenes/InheritedAttackerScenes/contact_attacker.tscn" id="2_e47lf"]
+[ext_resource type="FontFile" uid="uid://ct8h8r5refxgg" path="res://Fonts/BitRampageX.ttf" id="3_wutc3"]
+
+[node name="GroundPatroller" node_paths=PackedStringArray("debugLabel", "attacker") instance=ExtResource("1_s2iig")]
+debugLabel = NodePath("DebugLabel")
+attacker = NodePath("ContactAttacker")
+
+[node name="ContactAttacker" parent="." index="10" instance=ExtResource("2_e47lf")]
+attackSpeed = 50.0
+
+[node name="DebugLabel" type="Label" parent="." index="11"]
+offset_left = -18.0
+offset_top = -29.0
+offset_right = 22.0
+offset_bottom = -6.0
+theme_override_fonts/font = ExtResource("3_wutc3")
+
+[editable path="EnemySprite/FrontHurtBox"]
+[editable path="EnemySprite/BackHurtBox"]
+[editable path="HeadHurtBox"]

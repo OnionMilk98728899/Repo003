@@ -5,13 +5,19 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_geqcj"]
 size = Vector2(8, 12.5)
 
-[node name="HurtBox" type="Area2D"]
+[node name="HurtBox" type="Area2D" node_paths=PackedStringArray("hurtTimer")]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_0sq58")
+hurtTimer = NodePath("HurtTimer")
 
 [node name="HurtBoxCollider" type="CollisionShape2D" parent="."]
 position = Vector2(0, -7.5)
 shape = SubResource("RectangleShape2D_geqcj")
 
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="OnHurtBoxEntered"]
+[connection signal="timeout" from="HurtTimer" to="." method="OnHurtTimerTimeout"]

@@ -69,7 +69,6 @@ public partial class Tree : StaticBody2D
     {
         if (tree == this && !hasBeenShaken)
         {
-            GD.Print("Shook me all night long");
             foreach (AnimatedSprite2D trunk in trunkArray)
             {
                 trunk.Play("shake");

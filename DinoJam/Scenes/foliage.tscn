@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://j4s7u4m66b6g"]
+[gd_scene load_steps=14 format=3 uid="uid://j4s7u4m66b6g"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Foliage.cs" id="1_0jgih"]
 [ext_resource type="Texture2D" uid="uid://c4hyb3rkrn6pg" path="res://Art/Interactables/Plants/PlantSpriteSheet12-001.png" id="2_43j0a"]
 [ext_resource type="Texture2D" uid="uid://c28upq4os2wkg" path="res://Art/Interactables/Plants/PlantSpriteSheet12-002.png" id="3_x3w3v"]
 [ext_resource type="Texture2D" uid="uid://cr5v5y3h1ddos" path="res://Art/Interactables/Plants/PlantSpriteSheet12-003.png" id="4_84wra"]
+[ext_resource type="PackedScene" uid="uid://3owiv0140v8w" path="res://Scenes/edible.tscn" id="5_cvwaa"]
 [ext_resource type="Texture2D" uid="uid://b54l1fnjt4fty" path="res://Art/Interactables/Plants/LeafSpriteSheet12-001.png" id="5_kgafy"]
 
 [sub_resource type="Animation" id="Animation_f64m6"]
@@ -73,6 +74,7 @@ script = ExtResource("1_0jgih")
 foliage1Texture = ExtResource("2_43j0a")
 foliage2Texture = ExtResource("3_x3w3v")
 foliage3Texture = ExtResource("4_84wra")
+myEdibleScene = ExtResource("5_cvwaa")
 plantAnim = NodePath("FoliageAnim")
 foliageSprite = NodePath("FoliageSprite")
 destroyTimer = NodePath("DestroyTimer")
