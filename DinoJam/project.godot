@@ -21,6 +21,8 @@ EventBus="*res://Scripts/Managers/EventBus.cs"
 EdibleManager="*res://Scenes/edible_manager.tscn"
 EffectsManager="*res://Scenes/effects_manager.tscn"
 GlobalStats="*res://Scenes/global_stats.tscn"
+ProjectileManager="*res://Scenes/projectile_manager.tscn"
+AudioManager="*res://Scenes/audio_manager.tscn"
 
 [display]
 
@@ -71,6 +73,8 @@ ActionV={
 2d_physics/layer_10="Foliage"
 2d_physics/layer_11="Trees"
 2d_physics/layer_12="Waterfalls"
+2d_physics/layer_13="LavaJets"
+2d_physics/layer_14="EnemyProjectiles"
 
 [rendering]
 

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cu8vc5l1xex2s"]
+
+[ext_resource type="Script" path="res://Scripts/Nodes/SceneCamera.cs" id="1_3q20m"]
+
+[node name="SceneCamera" type="Camera2D" node_paths=PackedStringArray("shakeTimer")]
+anchor_mode = 0
+script = ExtResource("1_3q20m")
+screenSizeX = 384
+screenSizeY = 216
+shakeTimer = NodePath("ShakeTimer")
+
+[node name="ShakeTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="ShakeTimer" to="." method="OnShakeTimerTimeout"]

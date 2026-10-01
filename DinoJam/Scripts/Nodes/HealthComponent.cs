@@ -23,30 +23,32 @@ public partial class HealthComponent : Node2D
         enemyId = enemy.enemyId;
     }
 
-    public void OnEnemyHurt(int damage, ulong ID, Vector2 strikeVelocity)
+    public void OnEnemyHurt(int damage, ulong ID, Vector2 strikeVelocity, Vector2 position)
     {
         enemyHealth -= damage;
+        GD.Print("Enemy hurt with strikeVelocity of " +strikeVelocity);
         if(enemyHealth <= 0)
         {
-            EventBus.Instance.EmitSignal(EventBus.SignalName.KillEnemy, ID, strikeVelocity);
+            EventBus.Instance.EmitSignal(EventBus.SignalName.KillEnemy, ID, strikeVelocity, position);
         }
         else
         {
-            EventBus.Instance.EmitSignal(EventBus.SignalName.HurtEnemy, ID);
+            EventBus.Instance.EmitSignal(EventBus.SignalName.HurtEnemy, ID, position);
         }
     }
 
-    public void OnEnemyCharged(int damage, ulong ID, Vector2 strikeVelocity)
+    public void OnEnemyCharged(int damage, ulong ID, Vector2 strikeVelocity, Vector2 position)
     {   
         enemyHealth-= damage;
-
+        
         if(enemyHealth <= 0)
         {
-            EventBus.Instance.EmitSignal(EventBus.SignalName.KillEnemy, enemyId, strikeVelocity);
+            EventBus.Instance.EmitSignal(EventBus.SignalName.KillEnemy, enemyId, strikeVelocity, position);
         }
         else
         {
-            EventBus.Instance.EmitSignal(EventBus.SignalName.ChargeEnemy, ID, strikeVelocity);
+            EventBus.Instance.EmitSignal(EventBus.SignalName.ChargeEnemy, ID, strikeVelocity, position);
+           
         }
     }
 

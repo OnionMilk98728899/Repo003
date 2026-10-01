@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://cv3klpn11lvve"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/BreakableTile.cs" id="1_tgrwy"]
-[ext_resource type="Texture2D" uid="uid://c0lal6wiwepsa" path="res://Art/Interactables/BreakableTiles/BreakableTile01.png" id="2_bt4us"]
+[ext_resource type="Texture2D" uid="uid://0iyolufscx17" path="res://Art/Tiles/BreakableTIleSheet2.png" id="2_bf10d"]
 [ext_resource type="Texture2D" uid="uid://c4hu7s6xhp4fm" path="res://Art/Edibles/DustParticle001.png" id="3_mdlal"]
 [ext_resource type="Texture2D" uid="uid://dhw5kmxu7uvhn" path="res://Art/Interactables/BreakableTiles/BreakableTIleChunkSheet001.png" id="4_bqmfo"]
 
@@ -66,7 +66,9 @@ blockParticles = NodePath("BlockParticles")
 dustParticles = NodePath("DustParticles")
 
 [node name="TileSprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_bt4us")
+texture = ExtResource("2_bf10d")
+hframes = 5
+vframes = 2
 
 [node name="TileCollider" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_peglu")

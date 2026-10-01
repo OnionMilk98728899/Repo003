@@ -1,0 +1,142 @@
+[gd_scene load_steps=21 format=3 uid="uid://cayhvgwaxhr4t"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/JetSegment.cs" id="1_162lv"]
+[ext_resource type="Texture2D" uid="uid://bccw4fnj387lb" path="res://Art/Interactables/Jets/LavaJetTile09-001.png" id="1_nmis3"]
+[ext_resource type="Texture2D" uid="uid://cxm6weeacfl1h" path="res://Art/Interactables/Jets/WaterJetTile09-001.png" id="2_rl2sp"]
+[ext_resource type="PackedScene" uid="uid://bsr7w14cvvxet" path="res://Scenes/elemental_tile.tscn" id="4_p7jkp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctrso"]
+atlas = ExtResource("1_nmis3")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cdgeu"]
+atlas = ExtResource("1_nmis3")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hhvd7"]
+atlas = ExtResource("1_nmis3")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yb2ap"]
+atlas = ExtResource("1_nmis3")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jln60"]
+atlas = ExtResource("1_nmis3")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arrt6"]
+atlas = ExtResource("1_nmis3")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8pknu"]
+atlas = ExtResource("1_nmis3")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwswt"]
+atlas = ExtResource("2_rl2sp")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6dm0"]
+atlas = ExtResource("2_rl2sp")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tr26"]
+atlas = ExtResource("2_rl2sp")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nr7ow"]
+atlas = ExtResource("2_rl2sp")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0i0aq"]
+atlas = ExtResource("2_rl2sp")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qulx8"]
+atlas = ExtResource("2_rl2sp")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlcv7"]
+atlas = ExtResource("2_rl2sp")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bloaf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctrso")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cdgeu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hhvd7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yb2ap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jln60")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arrt6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8pknu")
+}],
+"loop": true,
+"name": &"move",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gwswt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j6dm0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tr26")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nr7ow")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0i0aq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qulx8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nlcv7")
+}],
+"loop": true,
+"name": &"watermove",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jdt26"]
+size = Vector2(12, 16)
+
+[node name="JetSegment" type="StaticBody2D" node_paths=PackedStringArray("collision", "jetSprite") groups=["LavaJet"]]
+z_index = 2
+collision_layer = 4096
+collision_mask = 0
+script = ExtResource("1_162lv")
+collision = NodePath("JetCollider")
+jetSprite = NodePath("JetSegmentSprite")
+
+[node name="JetSegmentSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_bloaf")
+animation = &"watermove"
+
+[node name="JetCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jdt26")
+debug_color = Color(0.962026, 0, 0.506965, 0.42)
+
+[node name="ElementalTile" parent="." node_paths=PackedStringArray("myBody") instance=ExtResource("4_p7jkp")]
+myTileType = 2
+myBody = NodePath("..")
+
+[editable path="ElementalTile"]

@@ -1,9 +1,12 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
 public partial class BreakableTile : StaticBody2D
 {
-    [Export] private Sprite2D blockSprite;
+    public enum directionalType { none, top, bottom, left, right }
+    public directionalType myDirectionType;
+    [Export] public Sprite2D blockSprite;
     [Export] private Timer destroyTimer;
     [Export] private CollisionShape2D blockCollider;
     [Export] private Area2D topDetector, leftDetector, rightDetector, bottomDetector;
@@ -16,6 +19,7 @@ public partial class BreakableTile : StaticBody2D
     public override void _Ready()
     {
         EventBus.Instance.BreakableTileBroken += OnBreakableTileBroken;
+       
     }
 
     private void BreakTile()
@@ -30,7 +34,7 @@ public partial class BreakableTile : StaticBody2D
             dustParticles.Restart();
             destroyTimer.Start();
             isBroken = true;
-            if(player!=null){player.tileBreakBufferTimer.Start();}
+            if (player != null) { player.tileBreakBufferTimer.Start(); }
             ///EventBus.Instance.EmitSignal(EventBus.SignalName.BreakableTileBroken);
         }
 
@@ -181,15 +185,44 @@ public partial class BreakableTile : StaticBody2D
         }
     }
 
-    private void DisableCollisions()
+    public void InitializeCollisions()
     {
-            leftDetector.SetCollisionMaskValue(4, false);
-            rightDetector.SetCollisionMaskValue(4, false);
-            topDetector.SetCollisionMaskValue(4, false);
-            bottomDetector.SetCollisionMaskValue(4, false);
+        switch (myDirectionType)
+        {
+            case directionalType.none:
+                return;
+            case directionalType.top:
+                leftDetector.SetCollisionMaskValue(4, false);
+                rightDetector.SetCollisionMaskValue(4, false);
+                bottomDetector.SetCollisionMaskValue(4, false);
+                break;
+            case directionalType.bottom:
+                leftDetector.SetCollisionMaskValue(4, false);
+                rightDetector.SetCollisionMaskValue(4, false);
+                topDetector.SetCollisionMaskValue(4, false);
+                break;
+            case directionalType.left:
+
+                rightDetector.SetCollisionMaskValue(4, false);
+                topDetector.SetCollisionMaskValue(4, false);
+                bottomDetector.SetCollisionMaskValue(4, false);
+                break;
+            case directionalType.right:
+                leftDetector.SetCollisionMaskValue(4, false);
+                topDetector.SetCollisionMaskValue(4, false);
+                bottomDetector.SetCollisionMaskValue(4, false);
+                break;
+
+        }
     }
 
-
+    private void DisableCollisions()
+    {
+        leftDetector.SetCollisionMaskValue(4, false);
+        rightDetector.SetCollisionMaskValue(4, false);
+        topDetector.SetCollisionMaskValue(4, false);
+        bottomDetector.SetCollisionMaskValue(4, false);
+    }
 
     private void OnDestroyTimerTimeout()
     {

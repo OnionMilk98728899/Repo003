@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="AudioLibrary" load_steps=14 format=3 uid="uid://ctlm1wsen4jbl"]
+
+[ext_resource type="AudioStream" uid="uid://clfxtchwp4dcg" path="res://Audio/EnemyHit.wav" id="1_jsfv3"]
+[ext_resource type="AudioStream" uid="uid://f1a7b1etc6di" path="res://Audio/EnemyDie2.wav" id="1_oong2"]
+[ext_resource type="Script" path="res://Scripts/Resources/AudioLibrary.cs" id="1_qytaq"]
+[ext_resource type="AudioStream" uid="uid://dvltci7pa2f4t" path="res://Audio/Homebound-001.wav" id="1_tsulk"]
+[ext_resource type="AudioStream" uid="uid://cu52loqbo4y3v" path="res://Audio/Crash.wav" id="2_5i23r"]
+[ext_resource type="AudioStream" uid="uid://bhjpm2b1sajnl" path="res://Audio/ChargeStep4.wav" id="2_78eov"]
+[ext_resource type="AudioStream" uid="uid://b8keg1y6qejn2" path="res://Audio/Ouch.wav" id="3_okbnl"]
+[ext_resource type="AudioStream" uid="uid://spa4q8boxaa0" path="res://Audio/Jump.wav" id="3_pb1j3"]
+[ext_resource type="AudioStream" uid="uid://cs46pup40oqy1" path="res://Audio/Digest.wav" id="3_y11ec"]
+[ext_resource type="AudioStream" uid="uid://eptu5lahrboc" path="res://Audio/Eat.wav" id="4_a7qdh"]
+[ext_resource type="AudioStream" uid="uid://doulcld3q452j" path="res://Audio/Land.wav" id="5_ruf1r"]
+[ext_resource type="AudioStream" uid="uid://ca2csaxj5gbpx" path="res://Audio/Spit.wav" id="6_yw0kq"]
+[ext_resource type="AudioStream" uid="uid://bujmk6h1edpme" path="res://Audio/SwitchFlip.wav" id="11_hkddq"]
+
+[resource]
+script = ExtResource("1_qytaq")
+musicLevel1 = ExtResource("1_tsulk")
+playerJump = ExtResource("3_pb1j3")
+playerLand = ExtResource("5_ruf1r")
+playerEat = ExtResource("4_a7qdh")
+playerCollide = ExtResource("2_5i23r")
+playerHurt = ExtResource("3_okbnl")
+playerSpit = ExtResource("6_yw0kq")
+playerDigest = ExtResource("3_y11ec")
+playerChargeStep = ExtResource("2_78eov")
+switchFlip = ExtResource("11_hkddq")
+enemyHurt = ExtResource("1_jsfv3")
+enemyDie = ExtResource("1_oong2")

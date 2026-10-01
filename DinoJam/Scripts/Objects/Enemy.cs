@@ -2,15 +2,17 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public enum enemyMoveState { move, prepare, attack, jump, hurt, dying }
-public enum enemyDeathType{splat, spin}
+public enum enemyMoveState { move, emerge, emergeprep, prepare, stun, attack, jump, hurt, dying, flee }
+public enum enemyDeathType { splat, spin }
 public partial class Enemy : CharacterBody2D
 {
     [Export] public EnemyAttacker attacker;
     [Export] public EnemyDeath death;
-    [Export] public float attackDelay;
-    [Export] private float bounceBack;
+    [Export] public float attackDelay, gravity, maxGravity;
+    [Export] private float bounceBack, aggression;
     [Export] private HealthComponent healthComp;
+    [Export] public AnimationPlayer enemyAnim;
+    [Export] public Sprite2D enemySprite;
     [Export] private Timer hurtTimer, attackDelayTimer, deathTimer, prepareTimer;
     public ulong enemyId { get; private set; }
     public enemyMoveState currentMoveState;
@@ -18,7 +20,8 @@ public partial class Enemy : CharacterBody2D
     public Player myPlayer;
     public Vector2 enemyVelocity, deathVelocity;
     public bool isBounced;
-    private List<HurtBox> hurtBoxes = new();
+    //private List<HurtBox> hurtBoxes = new();
+    [Export] private HurtBox[] hurtBoxes;
     public override void _Ready()
     {
         EventBus.Instance.HurtEnemy += OnEnemyHurt;
@@ -27,7 +30,7 @@ public partial class Enemy : CharacterBody2D
         EventBus.Instance.HurtEnemyTimeout += OnHurtEnemyTimeout;
 
         enemyId = GetInstanceId();
-
+        death.SetGravity(gravity, maxGravity);
         GetHurtboxes();
         GetHealthComponent();
         attackDelayTimer.WaitTime = attackDelay;
@@ -35,13 +38,9 @@ public partial class Enemy : CharacterBody2D
 
     private void GetHurtboxes()
     {
-        foreach (Node node in GetChildren())
+        foreach (HurtBox box in hurtBoxes)
         {
-            if (node is HurtBox hurtBox)
-            {
-                hurtBoxes.Add(hurtBox);
-                hurtBox.Initialize(this);
-            }
+            box.Initialize(this);
         }
     }
 
@@ -62,17 +61,34 @@ public partial class Enemy : CharacterBody2D
 
     public virtual void PlayerDetected()
     {
-        currentMoveState = enemyMoveState.prepare;
-        attackDelayTimer.Start();
-        prepareTimer.Start();
+        float r = GD.Randf();
+
+        if (r < aggression / 100)
+        {
+            currentMoveState = enemyMoveState.prepare;
+            attackDelayTimer.Start();
+            prepareTimer.Start();
+        }
+
+    }
+    public void StunEnemy()
+    {
+        if (currentMoveState != enemyMoveState.hurt && currentMoveState != enemyMoveState.dying)
+        {
+            currentMoveState = enemyMoveState.stun;
+        }
     }
 
 
-    private void OnEnemyHurt(ulong ID)
+    private void OnEnemyHurt(ulong ID, Vector2 position)
     {
         if (enemyId == ID)
         {
             currentMoveState = enemyMoveState.hurt;
+            GD.Print("Calling Hurt");
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.enemySFX1, AudioManager.Instance.audioLibrary.enemyHurt);
+            Vector2 smackPosition = GlobalPosition + ((position - GlobalPosition) / 2);
+            EffectsManager.Instance.PlaySmackEffect(smackPosition, 1);
         }
     }
 
@@ -81,22 +97,24 @@ public partial class Enemy : CharacterBody2D
         currentMoveState = enemyMoveState.move;
     }
 
-    private void OnEnemyKilled(ulong ID, Vector2 strikeVelocity)
+    private void OnEnemyKilled(ulong ID, Vector2 strikeVelocity, Vector2 position)
     {
         if (enemyId == ID)
         {
             Vector2 newVel = Vector2.Zero;
-            if(strikeVelocity.Y == 0)
+            if (strikeVelocity.Y == 0)
             {
-                
+
                 newVel = new Vector2(strikeVelocity.X * 3, -300);
             }
             else
             {
                 SetCollisionMaskValue(1, false);
-                newVel = new Vector2(0,strikeVelocity.Y * 2);
+                newVel = new Vector2(0, strikeVelocity.Y * 2);
             }
-            
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.enemySFX1, AudioManager.Instance.audioLibrary.enemyDie);
+            Vector2 smackPosition = GlobalPosition + ((position - GlobalPosition) / 2);
+            EffectsManager.Instance.PlaySmackEffect(smackPosition, 2);
             deathVelocity = newVel;
             currentMoveState = enemyMoveState.dying;
             isBounced = true;
@@ -105,8 +123,9 @@ public partial class Enemy : CharacterBody2D
         }
     }
 
-    private void OnEnemyCharged(ulong ID, Vector2 strikeVelocity)
+    private void OnEnemyCharged(ulong ID, Vector2 strikeVelocity, Vector2 position)
     {
+
         if (enemyId == ID)
         {
             currentMoveState = enemyMoveState.hurt;
@@ -122,14 +141,56 @@ public partial class Enemy : CharacterBody2D
                 }
                 //enemyVelocity.X
             }
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.enemySFX1, AudioManager.Instance.audioLibrary.enemyHurt);
+            Vector2 smackPosition = GlobalPosition + ((position - GlobalPosition) / 2);
+            EffectsManager.Instance.PlaySmackEffect(smackPosition, 1);
+        }
+    }
+
+    public virtual void ApplyGravity()
+    {
+        if (!IsOnFloor())
+        {
+            if (enemyVelocity.Y < maxGravity)
+            {
+                enemyVelocity.Y += gravity;
+            }
+        }
+        else
+        {
+            if (!isBounced && enemyVelocity.Y != 0)
+            {
+                enemyVelocity.Y = 0;
+            }
         }
     }
     private void OnPrepareTimerTimeout()
     {
-        if(currentMoveState != enemyMoveState.hurt && currentMoveState != enemyMoveState.dying)
+        if (currentMoveState != enemyMoveState.hurt && currentMoveState != enemyMoveState.dying)
         {
-            currentMoveState = enemyMoveState.attack;
+            InitiateAttack();
         }
+    }
+
+    public virtual void AnimateEnemy()
+    {
+        enemyAnim.Play(currentMoveState.ToString());
+        if (currentMoveState != enemyMoveState.hurt && currentMoveState != enemyMoveState.dying)
+        {
+            if (enemyVelocity.X < 0)
+            {
+                enemySprite.FlipH = false;
+            }
+            else if (enemyVelocity.X > 0)
+            {
+                enemySprite.FlipH = true;
+            }
+        }
+    }
+
+    public virtual void InitiateAttack()
+    {
+        currentMoveState = enemyMoveState.attack;
     }
     private void OnDeathTimerTimeout()
     {

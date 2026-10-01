@@ -9,7 +9,7 @@ public partial class Player : CharacterBody2D
     [Export] AnimationPlayer playerAnim;
     [Export] private float moveSpeed, maxMoveSpeed, jumpPower, hiJumpPower, gravity, maxGravity, climbSpeed, maxClimbSpeed, chargeSpeed, stompSpeed, bounceBack;
     [Export] private Label debugLabel;
-    [Export] private Timer recoverTimer, specialBufferTimer, deathTimer;
+    [Export] private Timer recoverTimer, specialBufferTimer, deathTimer, chargeStepBuffer;
     [Export] public Timer tileBreakBufferTimer;
     [Export] private CollisionShape2D playerColl;
     public enum moveState { idle, walk, jump, fall, land, eat, digest, climb, idleclimb }
@@ -36,8 +36,9 @@ public partial class Player : CharacterBody2D
     private bool isJumping, isJumpReset, isTouchingLadder, isClimbing, isAboveLadder, isSpitting, isCharging, isStomping, isFalling, isLanding,
     isMoving, isHurt, canEat, isEating, isDigesting, isStompLanding, isChargeLanding, isEnteringDoor, isExitingDoor, isEnteringTube, isExitingTube, isCancellingCharge,
     isBouncing, isTouchingBreakableTileLeft, isTouchingBreakableTileRight, isTouchingBreakableTileBottom, isTouchingBreakableTileTop, isTouchingTreeCharge,
-    isTouchingTreeStomp, isTreeDetectorOn, isShakingTree;
+    isTouchingTreeStomp, isTreeDetectorOn, isShakingTree, onFloorLastFrame, onFloorThisFrame;
     public bool isTouchingDoor;
+    private float lastFrameYVel, thisFrameYVel;
     private string deathType;
     public Vector2 doorEntryInput;
 
@@ -52,12 +53,14 @@ public partial class Player : CharacterBody2D
         inputDirection.X = 1;
         currentEatingState = eatingState.empty;
         levelOriginPosition = GlobalPosition;
-        //Engine.TimeScale = .5f;
+        // Engine.PhysicsTicksPerSecond = 30;
+        // Engine.TimeScale = .5;
     }
 
     public override void _PhysicsProcess(double delta)
     {
-
+        thisFrameYVel = playerVelocity.Y;
+        onFloorThisFrame = IsOnFloor();
         if (currentLifeState != lifeState.alive)
         {
             HandleHurtPhysics();
@@ -83,10 +86,13 @@ public partial class Player : CharacterBody2D
         }
 
         DetectHazardsAsFloorIfHurt();
+        HandleDustEffects();
         ApplyGravity();
         AnimatePlayer(DetermineState());
         Velocity = playerVelocity;
         MoveAndSlide();
+        onFloorLastFrame = onFloorThisFrame;
+        lastFrameYVel = thisFrameYVel;
     }
 
     private void HandleDirectionalInput()
@@ -117,18 +123,28 @@ public partial class Player : CharacterBody2D
         {
             playerVelocity.X = 0;
         }
+        if (isDigesting)
+        {
+            playerVelocity.X = 0;
+        }
+        // if(playerVelocity.X != 0 && IsOnFloor() && currentspecialState == specialState.none)
+        // {
+
+        //     EffectsManager.Instance.PlayDustEffect(GlobalPosition, "walkdust", playerSprite.FlipH);
+        // }
     }
     private void HandleJumpInput()
     {
-        if (IsOnFloor())
+        if (IsOnFloor() || onFloorLastFrame)
         {
-            if (Input.IsActionJustPressed("ActionZ") && isJumpReset)
+            if (Input.IsActionJustPressed("ActionZ") && isJumpReset && !isDigesting)
             {
                 if (inputDirection.Y < 0) { playerVelocity.Y -= hiJumpPower; }
                 else { playerVelocity.Y -= jumpPower; }
                 isJumping = true;
                 isClimbing = false;
                 isEating = false;
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerJump);
             }
         }
         if (IsOnCeiling() && inputDirection.Y == -1 && currentBreakableTopTile != null)
@@ -240,6 +256,8 @@ public partial class Player : CharacterBody2D
                         }
 
                         isCharging = true;
+                        
+                        //EffectsManager.Instance.PlayDustEffect(GlobalPosition, "chargedust", playerSprite.FlipH);
                     }
                     else if (!IsOnFloor() && !isStompLanding && !isBouncing)
                     {
@@ -248,6 +266,10 @@ public partial class Player : CharacterBody2D
                         //currentspecialState = specialState.stomp;
                     }
                 }
+                // if (isCharging && IsOnFloor())
+                // {
+                    
+                // }
             }
             else     ////////// Spit logic
             {
@@ -265,7 +287,8 @@ public partial class Player : CharacterBody2D
                 {
                     if (wallIsLeft && playerSprite.FlipH || !wallIsLeft && !playerSprite.FlipH)
                     {
-                        BounceBackFromCharge(0, Vector2.Zero);
+                        AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerCollide);
+                        BounceBackFromCharge(0, Vector2.Zero, Vector2.Zero);
                         DetectBreakableTiles();
                     }
 
@@ -276,6 +299,12 @@ public partial class Player : CharacterBody2D
             {
                 isCancellingCharge = true;
                 specialBufferTimer.Stop();
+            }
+            if (IsOnFloor() && !IsOnWall()&& chargeStepBuffer.IsStopped())
+            {
+                GD.Print("Calling chargestep");
+                chargeStepBuffer.Start();
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerChargeStep);
             }
         }
         if (IsOnFloor())
@@ -306,6 +335,7 @@ public partial class Player : CharacterBody2D
                 isStomping = false;
                 recoverTimer.Start();
                 DetectBreakableTiles();
+                //EffectsManager.Instance.PlayDustEffect(GlobalPosition, "stomplanddust", playerSprite.FlipH);
             }
             else
             {
@@ -387,8 +417,29 @@ public partial class Player : CharacterBody2D
                 playerVelocity.Y *= .5f;
             }
         }
+    }
 
-
+    private void HandleDustEffects()
+    {
+        if(!onFloorLastFrame && onFloorThisFrame)
+        {
+            EffectsManager.Instance.PlayDustEffect(GlobalPosition, lastFrameYVel, "landdust", playerSprite.FlipH);
+            if(lastFrameYVel > 0)
+            {
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerLand);
+            }
+            
+        }
+        if (IsOnFloor())
+        {
+            if (isCharging)
+            {
+                EffectsManager.Instance.PlayDustEffect(GlobalPosition, lastFrameYVel, "chargedust", playerSprite.FlipH);
+            }else if (currentMoveState == moveState.walk)
+            {
+                 EffectsManager.Instance.PlayDustEffect(GlobalPosition, lastFrameYVel, "walkdust", playerSprite.FlipH);
+            }
+        }
     }
 
     private void DetectTrees()
@@ -485,6 +536,7 @@ public partial class Player : CharacterBody2D
                         isLanding = true;
                         if (!canEat) { isEating = false; }
                         recoverTimer.Start();
+                        //EffectsManager.Instance.PlayDustEffect(GlobalPosition, "landdust", playerSprite.FlipH);
                     }
                     if (isBouncing && isFalling)
                     {
@@ -553,7 +605,7 @@ public partial class Player : CharacterBody2D
             }
         }
 
-        debugLabel.Text = $"{currentMoveState}";
+        debugLabel.Text = $"";
 
         return state;
     }
@@ -580,6 +632,7 @@ public partial class Player : CharacterBody2D
             edibleInMouth = closestEdible.myEdibleType;
             closestEdible.ConsumeEdible();
             currentEatingState = eatingState.full;
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerEat);
 
             canEat = false;
         }
@@ -598,6 +651,7 @@ public partial class Player : CharacterBody2D
         //myEdible.SetEatenProperty(true);
         myEdible.GlobalPosition = GlobalPosition + MOUTH_POSITION_OFFSET;
         EdibleManager.Instance.AddChild(myEdible);
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerSpit);
 
         if (playerSprite.FlipH) { myEdible.myDirection = Edible.flightDirection.left; }
         else { myEdible.myDirection = Edible.flightDirection.right; }
@@ -633,6 +687,7 @@ public partial class Player : CharacterBody2D
     }
     private void DigestEdible()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerDigest);
         if (edibleInMouth == Edible.edibleType.water)
         {
             GlobalStats.Instance.SetPlayerHealth(1);
@@ -706,7 +761,7 @@ public partial class Player : CharacterBody2D
 
     //////////////////////////////////////////////////// EVENT BUS SIGNAL CALLS  //////////////////////////////////////////////////////////
 
-    private void BounceBackFromCharge(ulong enemyID, Vector2 strikeVelocity)   //// arguments are a hold-over from Event Signal
+    private void BounceBackFromCharge(ulong enemyID, Vector2 strikeVelocity, Vector2 position)   //// arguments are a hold-over from Event Signal
     {
         playerVelocity.X = -playerVelocity.X;
         isCharging = false;
@@ -732,6 +787,11 @@ public partial class Player : CharacterBody2D
             }
         }
 
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerHurt);
+        isDigesting = false;
+        isEating = false;
+        isCharging = false;
+        isStomping = false;
         isHurt = true;
         EmitWater();
     }
@@ -743,6 +803,11 @@ public partial class Player : CharacterBody2D
     private void OnPlayerKilled(string death)
     {
         isHurt = true;
+        isClimbing = false;
+        isDigesting = false;
+        isCharging = false;
+        isStomping = false;
+        isEating = false;
         currentLifeState = lifeState.dying;
         deathType = death;
         deathTimer.Start();
@@ -939,6 +1004,14 @@ public partial class Player : CharacterBody2D
         if (isTouching) { currentTree = tree; }
     }
 
+    private void OnStunDetectorBodyEntered(Node2D body)
+    {
+        if(body is Enemy enemy)
+        {
+            enemy.StunEnemy();
+        }
+    }
+
     ////////////////////////////////////////////////////////////  TIMERS  ///////////////////////////////////////////
     private void OnRecoverTimerTimeout()
     {
@@ -999,6 +1072,11 @@ public partial class Player : CharacterBody2D
     public Vector2 GetVelocity()
     {
         return playerVelocity;
+    }
+
+    public void InfluencePlayerVelocity(Vector2 velocity)
+    {
+        playerVelocity += velocity;
     }
 
     public void SetCurrentWarpTiles(WarpTile currentDoor, WarpTile targetDoor)

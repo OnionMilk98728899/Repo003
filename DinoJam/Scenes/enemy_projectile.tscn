@@ -1,14 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://bkcpdpy6aps2j"]
+[gd_scene load_steps=5 format=3 uid="uid://bkcpdpy6aps2j"]
 
 [ext_resource type="Texture2D" uid="uid://ces8wqu5cc78s" path="res://Art/Enemies/Caveman/spearspritesheet.png" id="1_qoxud"]
 [ext_resource type="Script" path="res://Scripts/Objects/EnemyProjectile.cs" id="1_y31oj"]
+[ext_resource type="FontFile" uid="uid://ct8h8r5refxgg" path="res://Fonts/BitRampageX.ttf" id="3_wxprm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iovhd"]
 size = Vector2(10, 1)
 
-[node name="EnemyProjectile" type="CharacterBody2D" node_paths=PackedStringArray("projSprite")]
+[node name="EnemyProjectile" type="CharacterBody2D" node_paths=PackedStringArray("projSprite", "debugLabel", "destroyTimer") groups=["EnemyProjectile"]]
+z_index = 2
+position = Vector2(-2, 1)
+collision_layer = 8192
+collision_mask = 0
 script = ExtResource("1_y31oj")
 projSprite = NodePath("ProjectileSprite")
+debugLabel = NodePath("DebugLabel")
+destroyTimer = NodePath("DestroyTimer")
 
 [node name="ProjectileCollider" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)
@@ -19,3 +26,14 @@ texture = ExtResource("1_qoxud")
 hframes = 3
 
 [node name="ProjectileAnim" type="AnimationPlayer" parent="."]
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("3_wxprm")
+
+[node name="DestroyTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="DestroyTimer" to="." method="OnDestroyTimerTimeout"]

@@ -7,11 +7,11 @@
 collision_mask = 1
 script = ExtResource("2_ga3mv")
 moveSpeed = 20.0
-gravity = 15.0
-maxGravity = 150.0
 leftDistance = 2.0
 rightDistance = 2.0
 attackDelay = 4.0
+gravity = 15.0
+maxGravity = 150.0
 bounceBack = 50.0
 
 [node name="HeadHurtBox" parent="." index="3" node_paths=PackedStringArray("healthComp")]

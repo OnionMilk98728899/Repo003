@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://blrnhbjlhmx44"]
 
-[ext_resource type="Texture2D" uid="uid://ca60pj0fa285o" path="res://Art/Edibles/SplashSpritesheet7-005.png" id="1_f35vq"]
+[ext_resource type="Texture2D" uid="uid://befnkrs60lq8a" path="res://Art/FX/GooParticle.png" id="1_5apt3"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wpx6q"]
 particles_animation = true
-particles_anim_h_frames = 7
+particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
@@ -16,20 +16,21 @@ emission_box_extents = Vector3(2, 2, 1)
 angle_max = 180.0
 direction = Vector3(1, 1, 0)
 spread = 180.0
-radial_velocity_min = 15.0
-radial_velocity_max = 15.0
-gravity = Vector3(0, 0, 0)
-anim_speed_min = 1.0
-anim_speed_max = 1.0
+radial_velocity_min = 2.0
+radial_velocity_max = 30.0
+gravity = Vector3(0, 10, 0)
+scale_min = 0.0
+anim_speed_min = 2.19
+anim_speed_max = 2.19
 
 [node name="GooParticles" type="GPUParticles2D"]
 material = SubResource("CanvasItemMaterial_wpx6q")
 emitting = false
-amount = 3
+amount = 22
 process_material = SubResource("ParticleProcessMaterial_cnvug")
-texture = ExtResource("1_f35vq")
+texture = ExtResource("1_5apt3")
 lifetime = 1.2
 one_shot = true
-speed_scale = 2.2
-explosiveness = 0.7
+speed_scale = 2.64
+explosiveness = 0.53
 fixed_fps = 12

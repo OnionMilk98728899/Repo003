@@ -1,0 +1,75 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmfmlvenxi7kh"]
+
+[ext_resource type="PackedScene" uid="uid://co3jyadn5tksr" path="res://Scenes/enemy.tscn" id="1_x4vfm"]
+[ext_resource type="Script" path="res://Scripts/Objects/Enemies/GroundJumper.cs" id="2_422ad"]
+[ext_resource type="FontFile" uid="uid://ct8h8r5refxgg" path="res://Fonts/BitRampageX.ttf" id="3_40ocm"]
+
+[node name="Enemy" node_paths=PackedStringArray("frontFloorChecker", "backFloorChecker", "frontWallChecker", "backWallChecker", "frontLedgeChecker", "backLedgeChecker", "turnBuffer", "jumpTimer", "jumpBuffer", "debugLabel") instance=ExtResource("1_x4vfm")]
+collision_mask = 1
+script = ExtResource("2_422ad")
+frontFloorChecker = NodePath("FrontFloorChecker")
+backFloorChecker = NodePath("BackFloorChecker")
+frontWallChecker = NodePath("FrontWallChecker")
+backWallChecker = NodePath("BackWallChecker")
+frontLedgeChecker = NodePath("FrontLedgeChecker")
+backLedgeChecker = NodePath("BackLedgeChecker")
+turnBuffer = NodePath("TurnBufferTimer")
+jumpTimer = NodePath("JumpTimer")
+jumpBuffer = NodePath("JumpBufferTimer")
+moveSpeed = 40.0
+jumpPower = 40.0
+debugLabel = NodePath("DebugLabel")
+attackDelay = 3.0
+gravity = 30.0
+maxGravity = 100.0
+bounceBack = 20.0
+aggression = 100.0
+
+[node name="FrontFloorChecker" type="RayCast2D" parent="." index="9"]
+position = Vector2(-13, -5)
+target_position = Vector2(0, 16)
+
+[node name="BackFloorChecker" type="RayCast2D" parent="." index="10"]
+position = Vector2(13, -5)
+target_position = Vector2(0, 16)
+
+[node name="TurnBufferTimer" type="Timer" parent="." index="11"]
+one_shot = true
+
+[node name="DebugLabel" type="Label" parent="." index="12"]
+offset_left = -13.0
+offset_top = -22.0
+offset_right = 27.0
+offset_bottom = 1.0
+theme_override_fonts/font = ExtResource("3_40ocm")
+
+[node name="BackWallChecker" type="RayCast2D" parent="." index="13"]
+position = Vector2(6, -7)
+target_position = Vector2(13, 0)
+
+[node name="FrontWallChecker" type="RayCast2D" parent="." index="14"]
+position = Vector2(-6, -7)
+target_position = Vector2(-13, 0)
+collision_mask = 9
+
+[node name="JumpTimer" type="Timer" parent="." index="15"]
+wait_time = 0.8
+one_shot = true
+
+[node name="FrontLedgeChecker" type="RayCast2D" parent="." index="16"]
+position = Vector2(0, -20)
+target_position = Vector2(-19, 0)
+
+[node name="BackLedgeChecker" type="RayCast2D" parent="." index="17"]
+position = Vector2(0, -20)
+target_position = Vector2(19, 0)
+
+[node name="JumpBufferTimer" type="Timer" parent="." index="18"]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="JumpTimer" to="." method="OnJumpTimerTimeout"]
+
+[editable path="EnemySprite/FrontHurtBox"]
+[editable path="EnemySprite/BackHurtBox"]
+[editable path="HeadHurtBox"]

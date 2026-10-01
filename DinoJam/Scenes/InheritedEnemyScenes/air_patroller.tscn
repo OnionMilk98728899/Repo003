@@ -5,6 +5,8 @@
 
 [node name="AirPatroller" instance=ExtResource("1_r7txx")]
 script = ExtResource("2_dwu7a")
+moveSpeed = 0.0
+moveRadius = 0.0
 
 [editable path="EnemySprite/FrontHurtBox"]
 [editable path="EnemySprite/BackHurtBox"]

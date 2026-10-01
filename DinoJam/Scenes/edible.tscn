@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://3owiv0140v8w"]
+[gd_scene load_steps=22 format=3 uid="uid://3owiv0140v8w"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Edible.cs" id="1_cp0a2"]
 [ext_resource type="Texture2D" uid="uid://dtwbhdte5or8j" path="res://Art/Edibles/Rock001.png" id="2_h2pyu"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://db402auuokkth" path="res://Art/Edibles/BoneSpriteSheet5-001.png" id="5_eqvrh"]
 [ext_resource type="Texture2D" uid="uid://cqnysbvoph3xi" path="res://Art/Edibles/WaterEdibleSheet6-001.png" id="6_mmvay"]
 [ext_resource type="Texture2D" uid="uid://b5i8g06r0es7d" path="res://Art/Edibles/BugBallSpritesheet4-001.png" id="7_a7yyw"]
+[ext_resource type="Texture2D" uid="uid://ccwqxncdfsjrt" path="res://Art/Edibles/FireEdibleSheet4-001.png" id="7_t1mdj"]
+[ext_resource type="Texture2D" uid="uid://wk0m0kq83u4n" path="res://Art/Edibles/AirEdibleSheet4-001.png" id="8_a2n10"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_em5he"]
 size = Vector2(10, 9)
@@ -144,6 +146,23 @@ tracks/0/keys = {
 "values": [2, 3, 4, 5]
 }
 
+[sub_resource type="Animation" id="Animation_s6gh4"]
+resource_name = "bubblefloat"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EdibleSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5fj3e"]
 _data = {
 "RESET": SubResource("Animation_hleq1"),
@@ -151,6 +170,7 @@ _data = {
 "bombexplode": SubResource("Animation_hw1ae"),
 "bombstatic": SubResource("Animation_wey70"),
 "bonefly": SubResource("Animation_8ecjf"),
+"bubblefloat": SubResource("Animation_s6gh4"),
 "bugfly": SubResource("Animation_g0e8h"),
 "eggglow": SubResource("Animation_wp3ku"),
 "waterfly": SubResource("Animation_1polv")
@@ -171,6 +191,8 @@ eggTexture = ExtResource("3_8lii8")
 bombTexture = ExtResource("4_q37t4")
 boneTexture = ExtResource("5_eqvrh")
 waterTexture = ExtResource("6_mmvay")
+fireTexture = ExtResource("7_t1mdj")
+airTexture = ExtResource("8_a2n10")
 bugTexture = ExtResource("7_a7yyw")
 
 [node name="EdibleCollider" type="CollisionShape2D" parent="."]
@@ -179,7 +201,8 @@ shape = SubResource("RectangleShape2D_em5he")
 
 [node name="EdibleSprite" type="Sprite2D" parent="."]
 position = Vector2(0, -1)
-texture = ExtResource("2_h2pyu")
+texture = ExtResource("8_a2n10")
+hframes = 4
 
 [node name="EdibleAnim" type="AnimationPlayer" parent="."]
 libraries = {

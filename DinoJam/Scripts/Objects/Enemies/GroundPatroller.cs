@@ -3,10 +3,10 @@ using System;
 
 public partial class GroundPatroller : Enemy
 {
-    [Export] public float moveSpeed, gravity, maxGravity;
+    [Export] public float moveSpeed;
     [Export] private float leftDistance, rightDistance;
-    [Export] public AnimationPlayer enemyAnim;
-    [Export] private Sprite2D enemySprite;
+    //[Export] public AnimationPlayer enemyAnim;
+    //[Export] private Sprite2D enemySprite;
     [Export] private Label debugLabel;
     private Vector2 target, leftBoundary, rightBoundary;
     private float distance;
@@ -22,10 +22,11 @@ public partial class GroundPatroller : Enemy
     public override void _PhysicsProcess(double delta)
     {
         DetermineBehavior();
-        ApplyGravity();
+
+
         Velocity = enemyVelocity;
         MoveAndSlide();
-        debugLabel.Text = currentMoveState.ToString();
+
     }
 
     private void DetermineBehavior()
@@ -38,8 +39,11 @@ public partial class GroundPatroller : Enemy
             case enemyMoveState.prepare:
                 enemyVelocity = Vector2.Zero;
                 break;
+            case enemyMoveState.stun:
+                enemyVelocity.X = 0;
+                break;
             case enemyMoveState.attack:
-                enemyVelocity = attacker.Attack(myPlayer.GlobalPosition, enemyVelocity);
+                attacker.Attack(myPlayer.GlobalPosition, enemyVelocity);
                 break;
             case enemyMoveState.hurt:
 
@@ -79,24 +83,27 @@ public partial class GroundPatroller : Enemy
         enemyVelocity = new Vector2(direction * moveSpeed, enemyVelocity.Y);
     }
 
-    private void ApplyGravity()
-    {
-        if (!IsOnFloor())
-        {
-            if (enemyVelocity.Y < maxGravity)
-            {
-                enemyVelocity.Y += gravity;
-            }
-        }
-        else
-        {
-            if (!isBounced && enemyVelocity.Y != 0)
-            {
-                enemyVelocity.Y = 0;
-            }
+    // private void ApplyGravity()
+    // {
+    //     if (!IsOnFloor())
+    //     {
+    //         if (enemyVelocity.Y < maxGravity)
+    //         {
+    //             enemyVelocity.Y += gravity;
+    //         }
+    //     }
+    //     else
+    //     {
+    //         if (!isBounced && enemyVelocity.Y != 0)
+    //         {
+    //             enemyVelocity.Y = 0;
+    //         }
 
-        }
-    }
+    //     }
+    // }
+
+
+
 
     private void OnAttackFinished()
     {

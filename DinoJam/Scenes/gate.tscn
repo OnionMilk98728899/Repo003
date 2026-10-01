@@ -1,0 +1,115 @@
+[gd_scene load_steps=8 format=3 uid="uid://8yxl7dxdsgxf"]
+
+[ext_resource type="Texture2D" uid="uid://vlpgrvvtnwbd" path="res://Art/Interactables/Switch/GateSpriteSheet10-001.png" id="1_apylg"]
+[ext_resource type="Script" path="res://Scripts/Objects/Gate.cs" id="1_ncgx5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i51xe"]
+size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_dax73"]
+resource_name = "gateopen"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GateSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GateCollider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_vjcfm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GateSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GateCollider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_6is78"]
+resource_name = "gateclose"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GateSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 9]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GateCollider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tnluu"]
+_data = {
+"RESET": SubResource("Animation_vjcfm"),
+"gateclose": SubResource("Animation_6is78"),
+"gateopen": SubResource("Animation_dax73")
+}
+
+[node name="Gate" type="StaticBody2D" node_paths=PackedStringArray("gateSprite", "gateAnim")]
+collision_mask = 0
+script = ExtResource("1_ncgx5")
+gateSprite = NodePath("GateSprite")
+gateAnim = NodePath("GateAnim")
+
+[node name="GateCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_i51xe")
+
+[node name="GateSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_apylg")
+hframes = 10
+
+[node name="GateAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tnluu")
+}

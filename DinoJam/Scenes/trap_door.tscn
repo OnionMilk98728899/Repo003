@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpjcwiv1304ey"]
+
+[ext_resource type="PackedScene" uid="uid://8yxl7dxdsgxf" path="res://Scenes/gate.tscn" id="1_6lfy7"]
+[ext_resource type="Texture2D" uid="uid://bsxa7avdbc08m" path="res://Art/Interactables/Switch/TrapDoorSpriteSheet10-001.png" id="2_mn7n8"]
+
+[node name="TrapDoor" instance=ExtResource("1_6lfy7")]
+
+[node name="GateCollider" parent="." index="0"]
+position = Vector2(0, 3)
+
+[node name="GateSprite" parent="." index="1"]
+position = Vector2(0, 3)
+texture = ExtResource("2_mn7n8")

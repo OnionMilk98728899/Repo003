@@ -1,0 +1,200 @@
+[gd_scene load_steps=15 format=3 uid="uid://c1v1pggd134rj"]
+
+[ext_resource type="PackedScene" uid="uid://bmfmlvenxi7kh" path="res://Scenes/InheritedEnemyScenes/ground_jumper.tscn" id="1_40inr"]
+[ext_resource type="Texture2D" uid="uid://dm4ko3ke7o0mo" path="res://Art/Enemies/Raptor/RaptorAnimationsSpriteSheet48-001.png" id="2_dam4u"]
+[ext_resource type="PackedScene" uid="uid://dmg1ym827cuie" path="res://Scenes/InheritedAttackerScenes/contact_attacker.tscn" id="3_fr2sb"]
+[ext_resource type="PackedScene" uid="uid://bmqf6kkosu6g6" path="res://Scenes/InheritedDeathScenes/spin_death.tscn" id="4_3553o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hu8e4"]
+size = Vector2(29, 5.5)
+
+[sub_resource type="Animation" id="Animation_4tikl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_dlyxl"]
+resource_name = "attack"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [24, 25, 26, 27, 28, 29, 30, 31]
+}
+
+[sub_resource type="Animation" id="Animation_v80bm"]
+resource_name = "dying"
+
+[sub_resource type="Animation" id="Animation_kdaau"]
+resource_name = "hurt"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [40, 41, 42, 43, 44, 45, 46, 47]
+}
+
+[sub_resource type="Animation" id="Animation_3wldq"]
+resource_name = "jump"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 34, 35, 36, 37, 38, 39]
+}
+
+[sub_resource type="Animation" id="Animation_6a30i"]
+resource_name = "move"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_6qk4m"]
+resource_name = "prepare"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+}
+
+[sub_resource type="Animation" id="Animation_vnqkm"]
+resource_name = "stun"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [40, 41, 42, 43, 44, 45, 46, 47]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g64rl"]
+_data = {
+"RESET": SubResource("Animation_4tikl"),
+"attack": SubResource("Animation_dlyxl"),
+"dying": SubResource("Animation_v80bm"),
+"hurt": SubResource("Animation_kdaau"),
+"jump": SubResource("Animation_3wldq"),
+"move": SubResource("Animation_6a30i"),
+"prepare": SubResource("Animation_6qk4m"),
+"stun": SubResource("Animation_vnqkm")
+}
+
+[node name="Enemy" node_paths=PackedStringArray("attacker", "death", "enemyAnim", "hurtBoxes") instance=ExtResource("1_40inr")]
+position = Vector2(0, -1)
+jumpPower = 220.0
+attacker = NodePath("ContactAttacker")
+death = NodePath("SpinDeath")
+gravity = 15.0
+maxGravity = 150.0
+enemyAnim = NodePath("EnemyAnim")
+hurtBoxes = [NodePath("EnemySprite/FrontHurtBox"), NodePath("EnemySprite/BackHurtBox"), NodePath("HeadHurtBox")]
+
+[node name="EnemyCollider" parent="." index="0"]
+position = Vector2(-1, -2.5)
+
+[node name="EnemySprite" parent="." index="1"]
+position = Vector2(1, -12)
+texture = ExtResource("2_dam4u")
+hframes = 48
+
+[node name="HurtBoxCollider" parent="EnemySprite/FrontHurtBox" index="0"]
+position = Vector2(-3.5, 1.25)
+
+[node name="HurtBoxCollider" parent="EnemySprite/BackHurtBox" index="0"]
+position = Vector2(-2, 2)
+
+[node name="HurtBoxCollider" parent="HeadHurtBox" index="0"]
+position = Vector2(-2, -12)
+shape = SubResource("RectangleShape2D_hu8e4")
+
+[node name="HealthComponent" parent="." index="3"]
+enemyHealth = 3
+
+[node name="FrontFloorChecker" parent="." index="9"]
+position = Vector2(-18, -5)
+
+[node name="BackFloorChecker" parent="." index="10"]
+position = Vector2(15, -5)
+
+[node name="BackWallChecker" parent="." index="13"]
+position = Vector2(6, -8)
+
+[node name="FrontWallChecker" parent="." index="14"]
+position = Vector2(-7, -7)
+
+[node name="FrontLedgeChecker" parent="." index="16"]
+position = Vector2(-1, -20)
+
+[node name="ContactAttacker" parent="." index="19" instance=ExtResource("3_fr2sb")]
+myAttackType = 0
+attackSpeed = 40.0
+
+[node name="SpinDeath" parent="." index="20" node_paths=PackedStringArray("enemyBody", "enemySprite") instance=ExtResource("4_3553o")]
+enemyBody = NodePath("..")
+enemySprite = NodePath("../EnemySprite")
+
+[node name="EnemyAnim" type="AnimationPlayer" parent="." index="21"]
+libraries = {
+"": SubResource("AnimationLibrary_g64rl")
+}
+
+[connection signal="AttackFinished" from="ContactAttacker" to="." method="OnAttackFinished"]
+
+[editable path="EnemySprite/FrontHurtBox"]
+[editable path="EnemySprite/BackHurtBox"]
+[editable path="HeadHurtBox"]

@@ -4,7 +4,17 @@ using System;
 public partial class SceneCamera : Camera2D
 {
     [Export] private Player player;
-    [Export]private int screenSizeX, screenSizeY;
+    [Export] private int screenSizeX, screenSizeY;
+    [Export] private Timer shakeTimer;
+    private int shakeIntensity;
+    private Vector2 shakePosition, oldPosition;
+    private bool isShaking;
+
+    public override void _Ready()
+    {
+        EventBus.Instance.ScreenShake += OnScreenShake;
+    }
+
     public override void _PhysicsProcess(double delta)
     {
         ShiftScreen();
@@ -34,26 +44,55 @@ public partial class SceneCamera : Camera2D
 
         if (!IsObjectOnScreen(player))
         {
-            Rect2 bounds = GetCameraBounds();
-            Vector2 newPos = Vector2.Zero;
-            if (player.GlobalPosition.X < bounds.Position.X)
+            if (isShaking)
             {
-                newPos = new Vector2(GlobalPosition.X - screenSizeX, GlobalPosition.Y);
+                isShaking = false;
+                GlobalPosition = oldPosition;
             }
-            else if (player.GlobalPosition.X > bounds.End.X)
-            {
-                newPos = new Vector2(GlobalPosition.X +screenSizeX, GlobalPosition.Y);
-            }
-            else if (player.GlobalPosition.Y < bounds.Position.Y)
-            {
-                newPos = new Vector2(GlobalPosition.X, GlobalPosition.Y - screenSizeY);
-            }
-            else if (player.GlobalPosition.Y > bounds.End.Y)
-            {
-                newPos = new Vector2(GlobalPosition.X, GlobalPosition.Y + screenSizeY);
-            }
-            GlobalPosition = newPos;
-            EventBus.Instance.EmitSignal(EventBus.SignalName.RepositionPlayerOrigin);
+                Rect2 bounds = GetCameraBounds();
+                Vector2 newPos = Vector2.Zero;
+                if (player.GlobalPosition.X < bounds.Position.X)
+                {
+                    newPos = new Vector2(GlobalPosition.X - screenSizeX, GlobalPosition.Y);
+                }
+                else if (player.GlobalPosition.X > bounds.End.X)
+                {
+                    newPos = new Vector2(GlobalPosition.X + screenSizeX, GlobalPosition.Y);
+                }
+                else if (player.GlobalPosition.Y < bounds.Position.Y)
+                {
+                    newPos = new Vector2(GlobalPosition.X, GlobalPosition.Y - screenSizeY);
+                }
+                else if (player.GlobalPosition.Y > bounds.End.Y)
+                {
+                    newPos = new Vector2(GlobalPosition.X, GlobalPosition.Y + screenSizeY);
+                }
+                GlobalPosition = newPos;
+                EventBus.Instance.EmitSignal(EventBus.SignalName.RepositionPlayerOrigin);
         }
+        else
+        {
+            if (isShaking)
+            {
+                 GlobalPosition = GlobalPosition.MoveToward(oldPosition, .1f* shakeIntensity);
+            }
+       
+        } 
+    }
+
+    private void OnScreenShake(int intensity, float duration)
+    {
+        isShaking = true;
+        shakePosition = new Vector2(GlobalPosition.X, GlobalPosition.Y - intensity);
+        oldPosition = GlobalPosition;
+        GlobalPosition = shakePosition;
+        shakeIntensity = intensity;
+        shakeTimer.Start();
+        
+    }
+
+    private void OnShakeTimerTimeout()
+    {
+        isShaking = false;
     }
 }

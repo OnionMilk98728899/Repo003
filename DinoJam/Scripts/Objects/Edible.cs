@@ -11,9 +11,9 @@ public partial class Edible : CharacterBody2D
     private GpuParticles2D myParticles1, myParticles2;
     private effectType fXType1, fXType2;
     [Export] private Timer destroyTimer;
-    [Export] private Texture2D rockTexture, eggTexture, bombTexture, boneTexture, waterTexture, bugTexture, keyTexture;
+    [Export] private Texture2D rockTexture, eggTexture, bombTexture, boneTexture, waterTexture, fireTexture, airTexture, bugTexture, keyTexture;
     private float elapsedTime;
-    public enum edibleType { rock, egg, bomb, bone, water, bug, key }
+    public enum edibleType { rock, egg, bomb, bone, water, fire, air, bug, key }
     public enum flightDirection { left, right }
     public enum flightPath { straight, arc, lob, down }
     public flightDirection myDirection;
@@ -28,9 +28,10 @@ public partial class Edible : CharacterBody2D
     public override void _Ready()
     {
         initialPosition = GlobalPosition;
-        
+
         if (myEdibleType == edibleType.bug && !hasBeenEaten)
         {
+            edibleSprite.Visible = false;
             return;
         }
         else
@@ -43,8 +44,7 @@ public partial class Edible : CharacterBody2D
         if (myEdibleType == edibleType.bug && !hasBeenEaten)
         {
             return;
-        }
-        else
+        }else
         {
             if (isFlying)
             {
@@ -63,15 +63,15 @@ public partial class Edible : CharacterBody2D
             MoveAndSlide();
             AnimateEdible();
         }
-        if(isPoppingOut && !IsOnFloor())
+        if (isPoppingOut && !IsOnFloor())
         {
-            edibleSprite.Rotation = edibleVelocity.Angle()-  Mathf.Pi / 2.0f;
-        }else if(isPoppingOut && IsOnFloor())
+            edibleSprite.Rotation = edibleVelocity.Angle() - Mathf.Pi / 2.0f;
+        }
+        else if (isPoppingOut && IsOnFloor())
         {
             edibleSprite.Rotation = 0;
             isPoppingOut = false;
         }
-
 
     }
     public void SetInitialDirection(Vector2 direction)
@@ -124,26 +124,36 @@ public partial class Edible : CharacterBody2D
         }
         else
         {
-
-            if (!IsOnFloor())
+            if (myEdibleType == edibleType.air)
             {
-                edibleVelocity.Y += gravity;
+                edibleVelocity.Y = -20;
+                if (IsOnCeiling() && !isDestroyed)
+                {
+                    Destroy();
+                    isDestroyed = true;
+                }
             }
             else
             {
-                edibleVelocity.Y = 0;
-                if(edibleVelocity.X > 0)
+                if (!IsOnFloor())
                 {
-                    edibleVelocity.X -= 1;
-                }else if(edibleVelocity.X < 0)
+                    edibleVelocity.Y += gravity;
+                }
+                else
                 {
-                    edibleVelocity.X +=1;
+                    edibleVelocity.Y = 0;
+                    if (edibleVelocity.X > 0)
+                    {
+                        edibleVelocity.X -= 1;
+                    }
+                    else if (edibleVelocity.X < 0)
+                    {
+                        edibleVelocity.X += 1;
+                    }
                 }
             }
 
-
         }
-
     }
 
     private void SetEnemyCollisionMask()
@@ -195,7 +205,7 @@ public partial class Edible : CharacterBody2D
     public void SetRandomEdibleType()
     {
         float rand = GD.Randf();
-        if(rand > .75)
+        if (rand > .75)
         {
             myEdibleType = edibleType.egg;
         }
@@ -238,6 +248,13 @@ public partial class Edible : CharacterBody2D
                 edibleSprite.Texture = boneTexture;
                 edibleSprite.Hframes = 4;
                 flightAnimation = "bonefly";
+                break;
+                case edibleType.air:
+                fXType1 = effectType.dust;
+                fXCounter = 1;
+                edibleSprite.Texture = airTexture;
+                edibleSprite.Hframes = 4;
+                flightAnimation = "bubblefloat";
                 break;
             case edibleType.water:
                 fXType1 = effectType.water;

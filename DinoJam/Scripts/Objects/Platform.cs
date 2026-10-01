@@ -21,19 +21,10 @@ public partial class Platform : AnimatableBody2D
 
         tween.SetLoops();
 
-        tween.TweenProperty(
-            this,
-            "global_position",
-            endPosition,
-            moveTime
-        );
-
-        tween.TweenProperty(
-            this,
-            "global_position",
-            startPosition,
-            moveTime
-        );
+        tween.TweenProperty(this,"global_position", endPosition, moveTime);
+        tween.TweenProperty(this,"global_position", startPosition,moveTime);
     }
+
+    
 
 }

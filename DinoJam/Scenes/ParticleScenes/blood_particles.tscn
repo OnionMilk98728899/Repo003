@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://boqmbiw3la64k"]
+
+[ext_resource type="Texture2D" uid="uid://dye1bm5s8tb4l" path="res://Art/FX/BloodParticle.png" id="1_fa6k2"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wpx6q"]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u5aaf"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(2, 2, 1)
+spread = 180.0
+radial_velocity_min = 2.0
+radial_velocity_max = 30.0
+gravity = Vector3(0, 50, 0)
+scale_min = 0.6
+
+[node name="BloodParticles" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_wpx6q")
+emitting = false
+amount = 22
+process_material = SubResource("ParticleProcessMaterial_u5aaf")
+texture = ExtResource("1_fa6k2")
+lifetime = 1.2
+one_shot = true
+speed_scale = 2.64
+explosiveness = 0.53
+fixed_fps = 12

@@ -7,8 +7,8 @@ public partial class EnemyAttacker : Node2D
     [Export] public Timer attackTimer;
     [Export] public float  attackSpeed;
     public Vector2 attackTarget;
-    public float direction;
-    public bool hasTarget;
+    public float xDirection, yDirection;
+    public bool hasTarget, hasAttacked;
     public virtual Vector2 Attack(Vector2 target, Vector2 velocity)
     {
 
@@ -17,6 +17,7 @@ public partial class EnemyAttacker : Node2D
 
     private void OnAttackTimerTimeout()
     {
+        hasAttacked = false;
         hasTarget = false;
         EmitSignal(SignalName.AttackFinished);
     }

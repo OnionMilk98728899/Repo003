@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyr0s82kabfds"]
+
+[ext_resource type="Script" path="res://Scripts/Nodes/SplatDeath.cs" id="1_uodd5"]
+
+[node name="SplatDeath" type="Node2D"]
+script = ExtResource("1_uodd5")

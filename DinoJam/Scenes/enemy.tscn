@@ -6,26 +6,28 @@
 [ext_resource type="PackedScene" uid="uid://0tg7ejowc15p" path="res://Scenes/health_component.tscn" id="4_8oafq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a1p0s"]
-size = Vector2(15, 16)
+size = Vector2(20.5, 13)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_181jv"]
-size = Vector2(3, 13)
+size = Vector2(3, 18.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x408x"]
-size = Vector2(3, 13)
+size = Vector2(3, 13.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_og4sc"]
 radius = 34.0
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("healthComp", "hurtTimer", "attackDelayTimer", "deathTimer", "prepareTimer") groups=["Enemy"]]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("healthComp", "enemySprite", "hurtTimer", "attackDelayTimer", "deathTimer", "prepareTimer", "hurtBoxes") groups=["Enemy"]]
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_3ehsn")
 healthComp = NodePath("HealthComponent")
+enemySprite = NodePath("EnemySprite")
 hurtTimer = NodePath("HurtTimer")
 attackDelayTimer = NodePath("AttackDelayTimer")
 deathTimer = NodePath("DeathTimer")
 prepareTimer = NodePath("PrepareTimer")
+hurtBoxes = []
 
 [node name="EnemyCollider" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
@@ -55,11 +57,10 @@ healthComp = NodePath("../../HealthComponent")
 position = Vector2(-2.5, -7.5)
 shape = SubResource("RectangleShape2D_x408x")
 
-[node name="EnemyAnim" type="AnimationPlayer" parent="."]
-
-[node name="HeadHurtBox" parent="." instance=ExtResource("1_515td")]
+[node name="HeadHurtBox" parent="." node_paths=PackedStringArray("healthComp") instance=ExtResource("1_515td")]
 collision_mask = 8
 myHBoxType = 2
+healthComp = NodePath("../HealthComponent")
 
 [node name="HurtBoxCollider" parent="HeadHurtBox" index="0"]
 position = Vector2(0, -12)
@@ -84,6 +85,7 @@ wait_time = 0.8
 one_shot = true
 
 [node name="PrepareTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="OnPlayerDetectorEntered"]
 [connection signal="timeout" from="DeathTimer" to="." method="OnDeathTimerTimeout"]

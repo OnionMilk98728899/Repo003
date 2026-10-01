@@ -1,9 +1,39 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhgb6rts6rm4a"]
+[gd_scene load_steps=5 format=3 uid="uid://dhgb6rts6rm4a"]
 
 [ext_resource type="PackedScene" uid="uid://co7vgsgl8qpon" path="res://Scenes/InheritedEnemyScenes/air_patroller.tscn" id="1_gs2o1"]
+[ext_resource type="PackedScene" uid="uid://fo16pl6r4hx3" path="res://Scenes/InheritedAttackerScenes/ranged_attacker.tscn" id="3_i06j8"]
+[ext_resource type="FontFile" uid="uid://ct8h8r5refxgg" path="res://Fonts/BitRampageX.ttf" id="3_sp1i0"]
+[ext_resource type="PackedScene" uid="uid://bkcpdpy6aps2j" path="res://Scenes/enemy_projectile.tscn" id="4_gh4fg"]
 
-[node name="AirPatroller" instance=ExtResource("1_gs2o1")]
+[node name="AirPatroller" node_paths=PackedStringArray("debugLabel", "attacker") instance=ExtResource("1_gs2o1")]
+moveSpeed = 25.0
+leftDistance = 0.0
+rightDistance = 0.0
+acceleration = 0.0
+frequency = 0.0
+amplitude = 0.0
+waveDepth = 0.0
+debugLabel = NodePath("DebugLabel")
+attacker = NodePath("RangedAttacker")
+attackDelay = 1.0
+bounceBack = 1.0
+
+[node name="HurtBoxCollider" parent="HeadHurtBox" index="0"]
+position = Vector2(-0.5, -10.375)
+
+[node name="DebugLabel" type="Label" parent="." index="9"]
+offset_left = -18.0
+offset_top = -22.0
+offset_right = 22.0
+offset_bottom = 1.0
+theme_override_fonts/font = ExtResource("3_sp1i0")
+
+[node name="RangedAttacker" parent="." index="10" instance=ExtResource("3_i06j8")]
+projectileScene = ExtResource("4_gh4fg")
+projectileCount = 1
+projSpeed = 30.0
 
 [editable path="EnemySprite/FrontHurtBox"]
 [editable path="EnemySprite/BackHurtBox"]
 [editable path="HeadHurtBox"]
+[editable path="RangedAttacker"]

@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://diccsdyq67d3q"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/AudioManager.cs" id="1_rairl"]
+[ext_resource type="Resource" uid="uid://ctlm1wsen4jbl" path="res://Resources/audio_bank.tres" id="2_dckb4"]
+
+[node name="AudioManager" type="Node2D" node_paths=PackedStringArray("musicPlayer", "sfx1Player", "sfx2Player", "enemySFX1")]
+script = ExtResource("1_rairl")
+musicPlayer = NodePath("MusicPlayer")
+sfx1Player = NodePath("SFXPlayer1")
+sfx2Player = NodePath("SFXPlayer2")
+enemySFX1 = NodePath("EnemySFXPlayer1")
+audioLibrary = ExtResource("2_dckb4")
+
+[node name="MusicPlayer" type="AudioStreamPlayer2D" parent="."]
+
+[node name="SFXPlayer1" type="AudioStreamPlayer2D" parent="."]
+
+[node name="SFXPlayer2" type="AudioStreamPlayer2D" parent="."]
+
+[node name="EnemySFXPlayer1" type="AudioStreamPlayer2D" parent="."]

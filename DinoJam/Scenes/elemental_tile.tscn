@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsr7w14cvvxet"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/ElementalTile.cs" id="1_tikwy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cbohr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ge5a"]
+size = Vector2(14, 16)
+
+[node name="ElementalTile" type="StaticBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_tikwy")
+
+[node name="BlockSprite" type="Sprite2D" parent="."]
+
+[node name="TileAnim" type="AnimationPlayer" parent="."]
+
+[node name="BlockCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cbohr")
+
+[node name="ElementDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="DetectorCollider" type="CollisionShape2D" parent="ElementDetector"]
+shape = SubResource("RectangleShape2D_1ge5a")
+
+[connection signal="body_entered" from="ElementDetector" to="." method="OnElementDetectorBodyEntered"]

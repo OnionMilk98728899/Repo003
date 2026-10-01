@@ -1,0 +1,130 @@
+[gd_scene load_steps=8 format=3 uid="uid://bylakhhoxjb0g"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/AutoSpikes.cs" id="1_m2mtn"]
+[ext_resource type="Texture2D" uid="uid://jvwh7nqpi4cd" path="res://Art/Interactables/AutoSpikes/AutoSpikesSpritesheet10-001.png" id="1_nxlch"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xbbm7"]
+size = Vector2(16, 7)
+
+[sub_resource type="Animation" id="Animation_nflce"]
+resource_name = "spikeson"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpikeSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpikeCollider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_7raue"]
+resource_name = "spikesoff"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpikeSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 9]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpikeCollider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_j2um0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpikeSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpikeCollider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m76mh"]
+_data = {
+"RESET": SubResource("Animation_j2um0"),
+"spikesoff": SubResource("Animation_7raue"),
+"spikeson": SubResource("Animation_nflce")
+}
+
+[node name="AutoSpikes" type="StaticBody2D" node_paths=PackedStringArray("onTimer", "offTimer", "spikeAnim")]
+collision_layer = 64
+collision_mask = 0
+script = ExtResource("1_m2mtn")
+onTimer = NodePath("OnTimer")
+offTimer = NodePath("OffTimer")
+spikeAnim = NodePath("SpikeAnim")
+
+[node name="SpikeCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -11.5)
+shape = SubResource("RectangleShape2D_xbbm7")
+disabled = true
+
+[node name="SpikeAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_m76mh")
+}
+
+[node name="SpikeSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_nxlch")
+hframes = 10
+
+[node name="OnTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="OffTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="OnTimer" to="." method="OnOnTimerTimeout"]
+[connection signal="timeout" from="OffTimer" to="." method="OnOffTimerTimeout"]
