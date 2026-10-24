@@ -1,16 +1,18 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public enum jetType { lava, water }
 public partial class JetTile : StaticBody2D
 {
     [Export] private int height;
     [Export] private float onTime, offTime, platformSpeed;
-    [Export] private Timer onTimer, offTimer;
+    [Export] private Timer onTimer, offTimer, disableTimer;
     [Export] private PackedScene jetSegmentScene, jetTopScene;
     [Export] public jetType myJetType;
     [Export] private PackedScene myPlatformScene;
+    [Export] public bool isLocked;
     private WaterPlatform myPlatform;
     private JetSegment myJetSegment;
     private StaticBody2D myJetTop;
@@ -20,11 +22,17 @@ public partial class JetTile : StaticBody2D
 
     public override void _Ready()
     {
-        offTimer.Start();
+
         GenerateJets();
         AnimateJet();
-        onTimer.WaitTime = onTime;
-        offTimer.WaitTime = offTime;
+
+        if (!isLocked)
+        {
+            offTimer.Start();
+            onTimer.WaitTime = onTime;
+            offTimer.WaitTime = offTime;
+        }
+
         if (myJetType == jetType.water)
         {
             InitializeWaterPlatform();
@@ -58,7 +66,7 @@ public partial class JetTile : StaticBody2D
                 AddChild(myJetSegment);
                 Vector2 position = new Vector2(GlobalPosition.X, GlobalPosition.Y - (i * 16) - 16);
                 myJetSegment.GlobalPosition = position;
-                myJetSegment.myJetType = myJetType;
+                myJetSegment.SetJetType(myJetType);
                 jetSegments.Add(myJetSegment);
             }
 
@@ -197,6 +205,17 @@ public partial class JetTile : StaticBody2D
         }
     }
 
+    public void DisableLavaJet()
+    {
+        disableTimer.Start();
+        foreach (JetSegment segment in jetSegments)
+        {
+            segment.Visible = false;
+        }
+        myJetTop.Visible = false;
+        CallDeferred("DisableEnableColliders");
+    }
+
     private void InitializeWaterPlatform()
     {
         myPlatform = myPlatformScene.Instantiate<WaterPlatform>();
@@ -204,6 +223,39 @@ public partial class JetTile : StaticBody2D
         myPlatform.GlobalPosition = GlobalPosition;
         Vector2 peakPosition = new Vector2(GlobalPosition.X, GlobalPosition.Y - 16 * height - 8);
         myPlatform.InitializeValues(platformSpeed, peakPosition);
+
+    }
+
+    private async void OnDisableTimerTimeout()
+    {
+        int index = 0;
+        foreach (JetSegment segment in jetSegments)
+        {
+            if (index == 0)
+            {
+                segment.Visible = true;
+            }
+            index++;
+            GD.Print("Index is " + index);
+        }
+        myJetTop.Visible = true;
+
+        Vector2 pos = new Vector2(GlobalPosition.X, GlobalPosition.Y - 16);
+        myJetTop.GlobalPosition = pos;
+        DisableEnableColliders();
+        await ShowRestOfJet();
+    }
+
+    private async Task ShowRestOfJet()
+    {
+        await ToSignal(GetTree().CreateTimer(.1), SceneTreeTimer.SignalName.Timeout);
+        foreach (JetSegment segment in jetSegments)
+        {
+            segment.Visible = true;
+        }
+        Vector2 pos = new Vector2(GlobalPosition.X, GlobalPosition.Y - height * 16);
+        myJetTop.GlobalPosition = pos;
+        DisableEnableColliders();
 
     }
     private void OnTimerTimeout()

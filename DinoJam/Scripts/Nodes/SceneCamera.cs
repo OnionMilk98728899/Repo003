@@ -7,18 +7,18 @@ public partial class SceneCamera : Camera2D
     [Export] private int screenSizeX, screenSizeY;
     [Export] private Timer shakeTimer;
     private int shakeIntensity;
-    private Vector2 shakePosition, oldPosition;
+    private Vector2 shakePosition, oldPosition, lockedPosition;
     private bool isShaking;
 
     public override void _Ready()
     {
         EventBus.Instance.ScreenShake += OnScreenShake;
+        //lockedPosition = Vector2.Zero;
     }
 
     public override void _PhysicsProcess(double delta)
     {
         ShiftScreen();
-
     }
 
     private bool IsObjectOnScreen(Node2D objectToCheck)
@@ -41,13 +41,12 @@ public partial class SceneCamera : Camera2D
 
     private void ShiftScreen()
     {
-
         if (!IsObjectOnScreen(player))
         {
             if (isShaking)
             {
                 isShaking = false;
-                GlobalPosition = oldPosition;
+                //GlobalPosition = oldPosition;
             }
                 Rect2 bounds = GetCameraBounds();
                 Vector2 newPos = Vector2.Zero;
@@ -68,6 +67,7 @@ public partial class SceneCamera : Camera2D
                     newPos = new Vector2(GlobalPosition.X, GlobalPosition.Y + screenSizeY);
                 }
                 GlobalPosition = newPos;
+                //lockedPosition = newPos;
                 EventBus.Instance.EmitSignal(EventBus.SignalName.RepositionPlayerOrigin);
         }
         else
@@ -82,11 +82,15 @@ public partial class SceneCamera : Camera2D
 
     private void OnScreenShake(int intensity, float duration)
     {
+        if(!isShaking)
+        {
+            oldPosition = GlobalPosition;
+        }
         isShaking = true;
         shakePosition = new Vector2(GlobalPosition.X, GlobalPosition.Y - intensity);
-        oldPosition = GlobalPosition;
         GlobalPosition = shakePosition;
         shakeIntensity = intensity;
+        shakeTimer.WaitTime = duration;
         shakeTimer.Start();
         
     }
@@ -94,5 +98,6 @@ public partial class SceneCamera : Camera2D
     private void OnShakeTimerTimeout()
     {
         isShaking = false;
+        GlobalPosition = oldPosition;
     }
 }

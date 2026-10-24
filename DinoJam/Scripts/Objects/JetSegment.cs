@@ -6,6 +6,16 @@ public partial class JetSegment : StaticBody2D
     [Export] private CollisionShape2D collision;
     [Export] private AnimatedSprite2D jetSprite;
     public jetType myJetType;
+
+
+    public void SetJetType(jetType type)
+    {
+        myJetType = type;
+        // if(myJetType == jetType.lava)
+        // {
+        //     SetCollisionLayerValue(1,true);
+        // }
+    }
     public void DisableEnableCollider(bool isEnabled)
     {
         collision.Disabled = isEnabled;

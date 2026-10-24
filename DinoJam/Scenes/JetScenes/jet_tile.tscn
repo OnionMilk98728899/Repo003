@@ -221,7 +221,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="JetTile" type="StaticBody2D" node_paths=PackedStringArray("onTimer", "offTimer")]
+[node name="JetTile" type="StaticBody2D" node_paths=PackedStringArray("onTimer", "offTimer", "disableTimer")]
 collision_mask = 0
 script = ExtResource("1_1swv5")
 height = 6
@@ -229,6 +229,7 @@ onTime = 3.5
 offTime = 7.0
 onTimer = NodePath("OnTimer")
 offTimer = NodePath("OffTimer")
+disableTimer = NodePath("DisableTimer")
 jetSegmentScene = ExtResource("2_fwadf")
 jetTopScene = ExtResource("3_3y2p3")
 myPlatformScene = ExtResource("4_ubiu5")
@@ -246,5 +247,10 @@ one_shot = true
 [node name="OffTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="DisableTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="timeout" from="OnTimer" to="." method="OnTimerTimeout"]
 [connection signal="timeout" from="OffTimer" to="." method="OffTimerTimeout"]
+[connection signal="timeout" from="DisableTimer" to="." method="OnDisableTimerTimeout"]

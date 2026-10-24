@@ -26,7 +26,6 @@ public partial class HealthComponent : Node2D
     public void OnEnemyHurt(int damage, ulong ID, Vector2 strikeVelocity, Vector2 position)
     {
         enemyHealth -= damage;
-        GD.Print("Enemy hurt with strikeVelocity of " +strikeVelocity);
         if(enemyHealth <= 0)
         {
             EventBus.Instance.EmitSignal(EventBus.SignalName.KillEnemy, ID, strikeVelocity, position);
@@ -52,6 +51,7 @@ public partial class HealthComponent : Node2D
         }
     }
 
+
     public void HurtPlayer(Vector2 hurterPosition, string deathType)
     {
        if(GlobalStats.Instance.playerHealth > 0)
@@ -62,9 +62,20 @@ public partial class HealthComponent : Node2D
         }
         else
         {
-            EventBus.Instance.EmitSignal(EventBus.SignalName.KillPlayer, deathType);
+            EventBus.Instance.EmitSignal(EventBus.SignalName.KillPlayer, deathType, hurterPosition);
         }
 
+    }
+
+    public void OnBossHit()
+    {
+        EventBus.Instance.EmitSignal(EventBus.SignalName.HitBoss);
+    }
+
+    public void OnBossStunned()
+    {
+        GD.Print("The boss was stunned by a rock!");
+        EventBus.Instance.EmitSignal(EventBus.SignalName.StunBoss);
     }
 
 }

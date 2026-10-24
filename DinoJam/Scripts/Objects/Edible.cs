@@ -22,7 +22,7 @@ public partial class Edible : CharacterBody2D
     private Vector2 edibleVelocity, initialVelocity, initialPosition;
     private int fXCounter, bounceCounter = 0;
     private bool hasBounced, isDestroyed, hasBeenEaten, isEnemyMaskSet;
-    public bool isFlying, isPoppingOut;
+    public bool isFlying, isPoppingOut, hasTriggeredElement, isPlayerDamaging;
     private string flightAnimation, staticAnimation;
 
     public override void _Ready()
@@ -44,20 +44,20 @@ public partial class Edible : CharacterBody2D
         if (myEdibleType == edibleType.bug && !hasBeenEaten)
         {
             return;
-        }else
+        }
+        else
         {
-            if (isFlying)
+            if (isFlying || isPlayerDamaging)
             {
-
                 if (myEdibleType == edibleType.bone && myPath == flightPath.straight) { ApplyBoomerangMotion(); }
 
                 if (!isDestroyed && IsOnFloor() || !isDestroyed && IsOnWall() || !isDestroyed && IsOnCeiling())
                 {
                     Destroy();
+                    
                 }
-
-
             }
+
             ApplyGravity();
             Velocity = edibleVelocity;
             MoveAndSlide();
@@ -73,6 +73,12 @@ public partial class Edible : CharacterBody2D
             isPoppingOut = false;
         }
 
+
+    }
+    public void SetPlayerDamagingComponent()
+    {
+        isPlayerDamaging = true;
+        SetCollisionLayerValue(14, true);
     }
     public void SetInitialDirection(Vector2 direction)
     {
@@ -223,6 +229,7 @@ public partial class Edible : CharacterBody2D
                 fXType1 = effectType.dust;
                 fXType2 = effectType.rocks;
                 edibleSprite.Texture = rockTexture;
+                edibleSprite.Hframes = 1;
                 fXCounter = 2;
                 break;
             case edibleType.egg:
@@ -249,12 +256,20 @@ public partial class Edible : CharacterBody2D
                 edibleSprite.Hframes = 4;
                 flightAnimation = "bonefly";
                 break;
-                case edibleType.air:
+            case edibleType.air:
                 fXType1 = effectType.dust;
                 fXCounter = 1;
                 edibleSprite.Texture = airTexture;
                 edibleSprite.Hframes = 4;
                 flightAnimation = "bubblefloat";
+                break;
+            case edibleType.fire:
+                fXType1 = effectType.dust;
+                fXCounter = 1;
+                edibleSprite.Texture = fireTexture;
+                edibleSprite.Hframes = 13;
+                flightAnimation = "firefloat";
+                staticAnimation = "fireidle";
                 break;
             case edibleType.water:
                 fXType1 = effectType.water;
@@ -287,7 +302,7 @@ public partial class Edible : CharacterBody2D
         }
         else
         {
-            if (myEdibleType == edibleType.bomb || myEdibleType == edibleType.egg)
+            if (myEdibleType == edibleType.bomb || myEdibleType == edibleType.egg || myEdibleType == edibleType.fire)
             {
                 edibleAnim.Play(staticAnimation);
             }
@@ -309,7 +324,8 @@ public partial class Edible : CharacterBody2D
     public void Destroy()
     {
         edibleSprite.Visible = false;
-
+        if(isPlayerDamaging){SetCollisionLayerValue(14, false);}
+        SetCollisionLayerValue(6, false);
         if (fXCounter >= 1)
         {
             myParticles1 = EffectsManager.Instance.GetParticleScene(fXType1).Instantiate<GpuParticles2D>();
@@ -328,6 +344,10 @@ public partial class Edible : CharacterBody2D
 
     public void ConsumeEdible()
     {
+        if (myEdibleType == edibleType.fire && GetParent() is WaterSource source)
+        {
+            source.StartFlameRespawn();
+        }
         if (myEdibleType == edibleType.bug)
         {
             EmitSignal(SignalName.EdibleEnemyConsumed);
@@ -339,6 +359,7 @@ public partial class Edible : CharacterBody2D
         }
 
     }
+
 
     private void OnDestroyTimerTimeout()
     {

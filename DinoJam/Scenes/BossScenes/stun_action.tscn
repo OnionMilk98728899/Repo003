@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7mslkep7bpn0"]
+
+[ext_resource type="PackedScene" uid="uid://byxad58muoi7r" path="res://Scenes/BossScenes/boss_action.tscn" id="1_h6y4n"]
+[ext_resource type="Script" path="res://Scripts/Objects/Bosses/StunAction.cs" id="2_oq5eh"]
+
+[node name="StunAction" instance=ExtResource("1_h6y4n")]
+script = ExtResource("2_oq5eh")
+stunAnim = "stun"
+preStunAnim = "swallow"
+hasPreStunPhase = true
+
+[node name="ActionTimer" parent="." index="0"]
+wait_time = 7.2
+one_shot = true

@@ -11,4 +11,5 @@ public partial class EdibleManager : Node2D
         Instance = this;  
     }
 
+    
 }

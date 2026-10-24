@@ -8,7 +8,7 @@ public partial class EventBus : Node2D
     [Signal] public delegate void RepositionPlayerOriginEventHandler();
     [Signal] public delegate void HurtPlayerEventHandler(Vector2 position);
     [Signal] public delegate void HurtPlayerTimeoutEventHandler();
-    [Signal] public delegate void KillPlayerEventHandler(string deathType);
+    [Signal] public delegate void KillPlayerEventHandler(string deathType, Vector2 position);
     [Signal] public delegate void HurtEnemyEventHandler(ulong enemyID, Vector2 position);
     [Signal] public delegate void HurtEnemyTimeoutEventHandler();
     [Signal] public delegate void ChargeEnemyEventHandler( ulong enemyID, Vector2 strikeVelocity, Vector2 position);
@@ -18,6 +18,10 @@ public partial class EventBus : Node2D
     [Signal] public delegate void ShakeTreeEventHandler(Tree tree);
     [Signal] public delegate void ActivateSwitchDoorEventHandler(int gateid, bool open);
     [Signal] public delegate void ScreenShakeEventHandler(int intensity, float duration);
+    [Signal] public delegate void StunBossEventHandler();
+    [Signal] public delegate void HitBossEventHandler();
+
+    //[Signal] public delegate void 
 
     public override void _EnterTree()
     {

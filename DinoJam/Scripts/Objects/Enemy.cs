@@ -85,7 +85,6 @@ public partial class Enemy : CharacterBody2D
         if (enemyId == ID)
         {
             currentMoveState = enemyMoveState.hurt;
-            GD.Print("Calling Hurt");
             AudioManager.Instance.PlaySFX(AudioManager.Instance.enemySFX1, AudioManager.Instance.audioLibrary.enemyHurt);
             Vector2 smackPosition = GlobalPosition + ((position - GlobalPosition) / 2);
             EffectsManager.Instance.PlaySmackEffect(smackPosition, 1);
@@ -111,6 +110,7 @@ public partial class Enemy : CharacterBody2D
             {
                 SetCollisionMaskValue(1, false);
                 newVel = new Vector2(0, strikeVelocity.Y * 2);
+                //EventBus.Instance.EmitSignal(EventBus.SignalName.InfluencePlayerVelocity, strikeVelocity * -2);
             }
             AudioManager.Instance.PlaySFX(AudioManager.Instance.enemySFX1, AudioManager.Instance.audioLibrary.enemyDie);
             Vector2 smackPosition = GlobalPosition + ((position - GlobalPosition) / 2);

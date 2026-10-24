@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://byxad58muoi7r"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Bosses/BossAction.cs" id="1_8kriq"]
+
+[node name="BossAction" type="Node2D" node_paths=PackedStringArray("actionTimer")]
+script = ExtResource("1_8kriq")
+actionTimer = NodePath("ActionTimer")
+
+[node name="ActionTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="ActionTimer" to="." method="OnActionTimerTimeout"]

@@ -75,6 +75,7 @@ ActionV={
 2d_physics/layer_12="Waterfalls"
 2d_physics/layer_13="LavaJets"
 2d_physics/layer_14="EnemyProjectiles"
+2d_physics/layer_15="PoisonGas"
 
 [rendering]
 

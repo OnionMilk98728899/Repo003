@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://cntmao3bquj0s"]
+
+[ext_resource type="Texture2D" uid="uid://dm1j0mb4c4hoo" path="res://Art/FX/DustParticle.png" id="1_67vjj"]
+[ext_resource type="Script" path="res://Scripts/Objects/Particles/TimedParticles.cs" id="2_tedun"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ehglq"]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sgsgf"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(8, 8, 1)
+direction = Vector3(1, 1, 0)
+gravity = Vector3(0, 10, 0)
+radial_accel_max = 25.0
+scale_min = 0.0
+
+[node name="TimedParticles" type="GPUParticles2D" node_paths=PackedStringArray("lifeTimer")]
+z_index = 1
+material = SubResource("CanvasItemMaterial_ehglq")
+emitting = false
+amount = 18
+process_material = SubResource("ParticleProcessMaterial_sgsgf")
+texture = ExtResource("1_67vjj")
+lifetime = 0.4
+fixed_fps = 12
+visibility_rect = Rect2(-16, -16, 32, 32)
+script = ExtResource("2_tedun")
+lifeTimer = NodePath("LifeTimer")
+
+[node name="LifeTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="LifeTimer" to="." method="OnLifeTimerTimeout"]

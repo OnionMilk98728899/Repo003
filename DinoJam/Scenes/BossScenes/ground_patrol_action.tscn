@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://c84lnew1ymtoa"]
+
+[ext_resource type="PackedScene" uid="uid://byxad58muoi7r" path="res://Scenes/BossScenes/boss_action.tscn" id="1_jwogr"]
+[ext_resource type="Script" path="res://Scripts/Objects/Bosses/GroundPatrolAction.cs" id="2_nehgl"]
+
+[node name="GroundPatrolAction" node_paths=PackedStringArray("leftBoundaryNode", "rightBoundaryNode") instance=ExtResource("1_jwogr")]
+script = ExtResource("2_nehgl")
+moveSpeed = 0.0
+leftBoundaryNode = NodePath("LeftBound")
+rightBoundaryNode = NodePath("RightBound")
+
+[node name="ActionTimer" parent="." index="0"]
+one_shot = true
+
+[node name="LeftBound" type="Node2D" parent="." index="1"]
+
+[node name="RightBound" type="Node2D" parent="." index="2"]

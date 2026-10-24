@@ -7,7 +7,6 @@ public partial class PlayerPlatform : CharacterBody2D
     private Player myPlayer;
     private TileMap myTileMap;
     [Export] private float moveSpeed, gravity, maxGravity;
-
     private Vector2I tilePosition;
     private Vector2 platformVelocity, waterVelocity;
     private bool isTouchingWater, isTouchingWaterfall, isTouchingPlayer;

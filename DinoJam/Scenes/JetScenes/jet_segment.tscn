@@ -136,7 +136,10 @@ shape = SubResource("RectangleShape2D_jdt26")
 debug_color = Color(0.962026, 0, 0.506965, 0.42)
 
 [node name="ElementalTile" parent="." node_paths=PackedStringArray("myBody") instance=ExtResource("4_p7jkp")]
-myTileType = 2
+myTileType = 4
 myBody = NodePath("..")
+
+[node name="BlockSprite" parent="ElementalTile" index="0"]
+visible = false
 
 [editable path="ElementalTile"]

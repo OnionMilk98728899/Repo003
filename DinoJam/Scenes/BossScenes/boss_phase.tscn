@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3sfn747ubb3p"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Bosses/BossPhase.cs" id="1_58p0w"]
+
+[node name="BossPhase1" type="Node2D" node_paths=PackedStringArray("phaseActions", "hitTimer")]
+script = ExtResource("1_58p0w")
+phaseActions = []
+hitTimer = NodePath("HitTimer")
+
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="HitTimer" to="." method="OnHitTimerTimeout"]

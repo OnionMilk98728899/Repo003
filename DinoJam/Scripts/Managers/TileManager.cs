@@ -5,18 +5,21 @@ public partial class TileManager : Node2D
 {
     private bool anyActive;
 
-    [Export] private TileMap breakableTileMap;
+    [Export] private TileMap breakableTileMap, mainTilemap;
     [Export] private PackedScene breakableTileScene, elementalTileScene;
     [Export] private Sprite2D blockSprite;
-    public enum tileType{breakable, crate, eggcrate}
+    public enum tileType{breakable, crate, eggcrate, elemental}
     public tileType myTileType;
     private BreakableTile myBreakableTile;
+    private ElementalTile myElementalTile;
     private Godot.Collections.Array<Vector2I> activeTiles;
     private List<Vector2> tilePositionList = new List<Vector2>();
 
     public override void _Ready()
     {
         ConvertTileMapToObject(breakableTileMap, tileType.breakable, 0);
+        ConvertTileMapToObject(breakableTileMap, tileType.elemental, 1);
+        GlobalStats.Instance.InitializeTilemapReference(mainTilemap);
     }
     public bool CheckForOtherAdjacentSideTilesDetectingPlayer(bool isLeft)
     {
@@ -74,21 +77,24 @@ public partial class TileManager : Node2D
     {
         activeTiles = map.GetUsedCells(layer);
 
-        foreach(Vector2I cell in activeTiles)
-        {
-            GD.Print(cell);
-        }
+        // foreach(Vector2I cell in activeTiles)
+        // {
+        //     GD.Print(cell);
+        // }
 
         foreach(Vector2I cell in activeTiles)
         {
 
-            tilePositionList.Add(breakableTileMap.MapToLocal(cell));
-            CreateTileObjectOfType(breakableTileMap.MapToLocal(cell), type);
-            if(map == breakableTileMap)
+            tilePositionList.Add(map.MapToLocal(cell));
+            CreateTileObjectOfType(map.MapToLocal(cell), type);
+            if(layer == 0)
             {
                 ConvertBreakableTileDirectionalData(map);
             }
-            
+            if(layer == 1)
+            {
+                ConvertElementalTileData(map);
+            }
         }
 
         foreach(Vector2I cell in activeTiles)
@@ -110,6 +116,11 @@ public partial class TileManager : Node2D
             break;
             case tileType.eggcrate:
             break;
+            case tileType.elemental:
+            myElementalTile = elementalTileScene.Instantiate<ElementalTile>();
+            myElementalTile.GlobalPosition = position;
+            AddChild(myElementalTile);
+            break;
 
         }
     }
@@ -120,8 +131,6 @@ public partial class TileManager : Node2D
         {  
             if(node is BreakableTile tile)
             {
-                // Vector2 newPos = (tile.GlobalPosition/16) - new Vector2(.5f, .5f);
-                // GD.Print("Tile position is "+ newPos);
                 int direction = (int)tMap.GetCellTileData(0, (Vector2I)tile.GlobalPosition/16).GetCustomData("directionInt");
                 int color = (int)tMap.GetCellTileData(0, (Vector2I)tile.GlobalPosition/16).GetCustomData("colorInt");
 
@@ -143,6 +152,18 @@ public partial class TileManager : Node2D
                     break;
                 }
                 tile.InitializeCollisions();
+            }
+        }
+    }
+
+    private void ConvertElementalTileData(TileMap tMap)
+    {
+        foreach(Node node in GetChildren())
+        {
+            if(node is ElementalTile tile)
+            {
+                int element = (int)tMap.GetCellTileData(1, (Vector2I)tile.GlobalPosition/16).GetCustomData("elementTypeInt");
+                tile.SetTileType(element);
             }
         }
     }

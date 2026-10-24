@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Objects/Player.cs" id="1_tqv06"]
 [ext_resource type="PackedScene" uid="uid://3owiv0140v8w" path="res://Scenes/edible.tscn" id="2_81lcb"]
-[ext_resource type="Texture2D" uid="uid://d1gtwmih64j7t" path="res://Art/PlayerSprites/PlayerSpriteSheet195-011.png" id="4_mghbx"]
+[ext_resource type="Texture2D" uid="uid://d0xdbesfn553x" path="res://Art/PlayerSprites/PlayerSpriteSheet195-013.png" id="4_mts40"]
 [ext_resource type="FontFile" uid="uid://ct8h8r5refxgg" path="res://Fonts/BitRampageX.ttf" id="4_rp4iv"]
 [ext_resource type="PackedScene" uid="uid://rmu0nyiiqb6j" path="res://Scenes/hurt_box.tscn" id="5_mksho"]
 [ext_resource type="PackedScene" uid="uid://0tg7ejowc15p" path="res://Scenes/health_component.tscn" id="6_ox4s7"]
@@ -801,13 +801,14 @@ size = Vector2(14, 2)
 radius = 5.75
 height = 15.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tyury"]
-size = Vector2(18, 17)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pg8iw"]
+radius = 13.0
+height = 26.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_expm8"]
 size = Vector2(69, 9)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("playerSprite", "playerAnim", "debugLabel", "recoverTimer", "specialBufferTimer", "deathTimer", "chargeStepBuffer", "tileBreakBufferTimer") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("playerSprite", "playerAnim", "debugLabel", "recoverTimer", "specialBufferTimer", "deathTimer", "soundStepBuffer", "tileBreakBufferTimer") groups=["Player"]]
 z_index = 4
 collision_layer = 8
 collision_mask = 5
@@ -829,7 +830,7 @@ debugLabel = NodePath("DebugLabel")
 recoverTimer = NodePath("RecoverTimer")
 specialBufferTimer = NodePath("SpecialBufferTimer")
 deathTimer = NodePath("DeathTimer")
-chargeStepBuffer = NodePath("ChargeStepBufferTimer")
+soundStepBuffer = NodePath("SoundStepBufferTimer")
 tileBreakBufferTimer = NodePath("TileBreakerBufferTimer")
 edibleScene = ExtResource("2_81lcb")
 waterDropScene = ExtResource("2_81lcb")
@@ -850,15 +851,15 @@ one_shot = true
 wait_time = 0.8
 one_shot = true
 
-[node name="ChargeStepBufferTimer" type="Timer" parent="."]
+[node name="SoundStepBufferTimer" type="Timer" parent="."]
 wait_time = 0.07
 one_shot = true
 
 [node name="DebugLabel" type="Label" parent="."]
-offset_left = -61.0
-offset_top = -48.0
-offset_right = 37.0
-offset_bottom = -10.0
+offset_left = -48.0
+offset_top = 1.0
+offset_right = 50.0
+offset_bottom = 39.0
 theme_override_fonts/font = ExtResource("4_rp4iv")
 
 [node name="PlayerAnim" type="AnimationPlayer" parent="."]
@@ -867,9 +868,9 @@ libraries = {
 }
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
-position = Vector2(7, -28)
-texture = ExtResource("4_mghbx")
-offset = Vector2(-7, 12)
+position = Vector2(0, -7)
+texture = ExtResource("4_mts40")
+offset = Vector2(0, -1)
 hframes = 195
 
 [node name="PlayerCollider" type="CollisionShape2D" parent="."]
@@ -895,7 +896,7 @@ shape = SubResource("RectangleShape2D_b33ce")
 
 [node name="HurtBox" parent="." node_paths=PackedStringArray("healthComp") instance=ExtResource("5_mksho")]
 visible = false
-collision_mask = 12368
+collision_mask = 28752
 healthComp = NodePath("../HealthComponent")
 
 [node name="HurtBoxCollider" parent="HurtBox" index="0"]
@@ -903,13 +904,12 @@ position = Vector2(1, -8)
 shape = SubResource("CapsuleShape2D_q1lrj")
 
 [node name="EdibleDetector" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 32
 
 [node name="EdibleCollider" type="CollisionShape2D" parent="EdibleDetector"]
 position = Vector2(0, -8.5)
-shape = SubResource("RectangleShape2D_tyury")
+shape = SubResource("CapsuleShape2D_pg8iw")
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_ox4s7")]
 position = Vector2(1, -1)

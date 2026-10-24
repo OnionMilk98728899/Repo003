@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmqenxrdmtng4"]
+
+[ext_resource type="PackedScene" uid="uid://byxad58muoi7r" path="res://Scenes/BossScenes/boss_action.tscn" id="1_p37aq"]
+[ext_resource type="Script" path="res://Scripts/Objects/Bosses/IdleAction.cs" id="2_odv5n"]
+
+[node name="IdleAction" instance=ExtResource("1_p37aq")]
+script = ExtResource("2_odv5n")

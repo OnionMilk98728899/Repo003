@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbtjxworyx6h1"]
+
+[ext_resource type="PackedScene" uid="uid://byxad58muoi7r" path="res://Scenes/BossScenes/boss_action.tscn" id="1_eun21"]
+[ext_resource type="Script" path="res://Scripts/Objects/Bosses/RageAction.cs" id="1_tbm7f"]
+
+[node name="RageAction" node_paths=PackedStringArray("leftCeilingLimit", "rightCeilingLimit", "screenShakeTimer") instance=ExtResource("1_eun21")]
+script = ExtResource("1_tbm7f")
+leftCeilingLimit = NodePath("LeftCeilingLimit")
+rightCeilingLimit = NodePath("RightCeilingLimit")
+screenShakeTimer = NodePath("ScreenShakeTimer")
+
+[node name="ActionTimer" parent="." index="0"]
+wait_time = 3.2
+one_shot = true
+
+[node name="ScreenShakeTimer" type="Timer" parent="." index="1"]
+wait_time = 0.2
+one_shot = true
+
+[node name="LeftCeilingLimit" type="Node2D" parent="." index="2"]
+position = Vector2(-118, -3)
+
+[node name="RightCeilingLimit" type="Node2D" parent="." index="3"]
+position = Vector2(110, -1)

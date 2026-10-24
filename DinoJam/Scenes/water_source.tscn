@@ -23,37 +23,6 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_k8xg2"]
-resource_name = "drip"
-length = 1.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("WaterSourceSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.8),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"CreateDroplet"
-}]
-}
-
 [sub_resource type="Animation" id="Animation_u242v"]
 resource_name = "bubble"
 length = 2.6
@@ -85,6 +54,37 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_k8xg2"]
+resource_name = "drip"
+length = 1.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WaterSourceSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"CreateDroplet"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e8swt"]
 _data = {
 "RESET": SubResource("Animation_bwdkg"),
@@ -92,7 +92,7 @@ _data = {
 "drip": SubResource("Animation_k8xg2")
 }
 
-[node name="WaterSource" type="StaticBody2D" node_paths=PackedStringArray("waterAnim", "sourceSprite")]
+[node name="WaterSource" type="StaticBody2D" node_paths=PackedStringArray("waterAnim", "flameRespawnTimer", "sourceSprite")]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_gnkjf")
@@ -100,6 +100,7 @@ waterSourceTexture = ExtResource("1_8bkrg")
 airSourceTexture = ExtResource("3_jkhro")
 dropletScene = ExtResource("2_ax08x")
 waterAnim = NodePath("WaterSourceAnim")
+flameRespawnTimer = NodePath("FlameRespawnTimer")
 sourceSprite = NodePath("WaterSourceSprite")
 
 [node name="WaterSource" type="CollisionShape2D" parent="."]
@@ -115,3 +116,9 @@ hframes = 26
 libraries = {
 "": SubResource("AnimationLibrary_e8swt")
 }
+
+[node name="FlameRespawnTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="FlameRespawnTimer" to="." method="OnFlameRespawnTimerTimeout"]

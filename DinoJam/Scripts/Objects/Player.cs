@@ -9,7 +9,7 @@ public partial class Player : CharacterBody2D
     [Export] AnimationPlayer playerAnim;
     [Export] private float moveSpeed, maxMoveSpeed, jumpPower, hiJumpPower, gravity, maxGravity, climbSpeed, maxClimbSpeed, chargeSpeed, stompSpeed, bounceBack;
     [Export] private Label debugLabel;
-    [Export] private Timer recoverTimer, specialBufferTimer, deathTimer, chargeStepBuffer;
+    [Export] private Timer recoverTimer, specialBufferTimer, deathTimer, soundStepBuffer;
     [Export] public Timer tileBreakBufferTimer;
     [Export] private CollisionShape2D playerColl;
     public enum moveState { idle, walk, jump, fall, land, eat, digest, climb, idleclimb }
@@ -50,11 +50,11 @@ public partial class Player : CharacterBody2D
         EventBus.Instance.ChargeEnemy += BounceBackFromCharge;
         EventBus.Instance.BouncePlayerUpwards += OnPlayerBouncedUpward;
         EventBus.Instance.RepositionPlayerOrigin += OnPlayerOriginRepositioned;
+        //EventBus.Instance.InfluencePlayerVelocity += InfluencePlayerVelocity;
         inputDirection.X = 1;
         currentEatingState = eatingState.empty;
         levelOriginPosition = GlobalPosition;
-        // Engine.PhysicsTicksPerSecond = 30;
-        // Engine.TimeScale = .5;
+        GlobalStats.Instance.InitializePlayerReference(this);
     }
 
     public override void _PhysicsProcess(double delta)
@@ -172,24 +172,26 @@ public partial class Player : CharacterBody2D
 
     private void HandleClimbInput()
     {
-       // if (!isEating && !isDigesting && !canEat)
-       // {
-            if (inputDirection.Y != 0 && isTouchingLadder || inputDirection.Y == 1 && isAboveLadder)
-            {
-                isClimbing = true;
-                isJumping = false;
-                playerVelocity.Y += inputDirection.Y * climbSpeed;
-                playerVelocity.Y = Mathf.Clamp(playerVelocity.Y, -maxClimbSpeed, maxClimbSpeed);
-            }
+        // if (!isEating && !isDigesting && !canEat)
+        // {
+        if (inputDirection.Y != 0 && isTouchingLadder || inputDirection.Y == 1 && isAboveLadder)
+        {
+            isClimbing = true;
+            isJumping = false;
+            isEating = false;
+            playerVelocity.Y += inputDirection.Y * climbSpeed;
+            playerVelocity.Y = Mathf.Clamp(playerVelocity.Y, -maxClimbSpeed, maxClimbSpeed);
+        }
         //}
 
         if (!isTouchingLadder)
         {
             isClimbing = false;
         }
-        if (inputDirection.Y == 1 && isAboveLadder 
-       // && currentMoveState != moveState.eat && currentMoveState != moveState.digest && currentEatingState == eatingState.empty
-        ){
+        if (inputDirection.Y == 1 && isAboveLadder
+        // && currentMoveState != moveState.eat && currentMoveState != moveState.digest && currentEatingState == eatingState.empty
+        )
+        {
             SetCollisionMaskValue(3, false);
         }
         if (isClimbing)
@@ -238,7 +240,7 @@ public partial class Player : CharacterBody2D
             {
                 if (!isCharging && !isStomping && specialBufferTimer.IsStopped())
                 {
-                    if (IsOnFloor() && !isStompLanding && !isChargeLanding)
+                    if (IsOnFloor() && !isStompLanding && !isChargeLanding && !isDigesting)
                     {
 
                         if (playerSprite.FlipH)
@@ -256,7 +258,7 @@ public partial class Player : CharacterBody2D
                         }
 
                         isCharging = true;
-                        
+
                         //EffectsManager.Instance.PlayDustEffect(GlobalPosition, "chargedust", playerSprite.FlipH);
                     }
                     else if (!IsOnFloor() && !isStompLanding && !isBouncing)
@@ -268,14 +270,18 @@ public partial class Player : CharacterBody2D
                 }
                 // if (isCharging && IsOnFloor())
                 // {
-                    
+
                 // }
             }
             else     ////////// Spit logic
             {
-                SpitOutEdible();
-                isSpitting = true;
-                if (inputDirection.X == 0) { playerVelocity.X = 0; }
+                if (!isEating && !isDigesting && !isSpitting)
+                {
+                    SpitOutEdible();
+                    isSpitting = true;
+                    if (inputDirection.X == 0) { playerVelocity.X = 0; }
+                }
+
             }
 
         }
@@ -300,10 +306,9 @@ public partial class Player : CharacterBody2D
                 isCancellingCharge = true;
                 specialBufferTimer.Stop();
             }
-            if (IsOnFloor() && !IsOnWall()&& chargeStepBuffer.IsStopped())
+            if (IsOnFloor() && !IsOnWall() && soundStepBuffer.IsStopped())
             {
-                GD.Print("Calling chargestep");
-                chargeStepBuffer.Start();
+                soundStepBuffer.Start();
                 AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerChargeStep);
             }
         }
@@ -325,6 +330,7 @@ public partial class Player : CharacterBody2D
 
         if (isStomping)
         {
+            
             if (IsOnFloor())
             {
                 playerVelocity.X = 0;
@@ -335,11 +341,19 @@ public partial class Player : CharacterBody2D
                 isStomping = false;
                 recoverTimer.Start();
                 DetectBreakableTiles();
+                EffectsManager.Instance.PlaySmackEffect(GlobalPosition, 1);
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerStompLand);
                 //EffectsManager.Instance.PlayDustEffect(GlobalPosition, "stomplanddust", playerSprite.FlipH);
             }
             else
             {
                 playerVelocity.X = 0;
+                if (soundStepBuffer.IsStopped())
+                {
+                   AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerStomp);
+                   soundStepBuffer.Start(); 
+                }
+                
             }
         }
         if (isSpitting)
@@ -380,11 +394,19 @@ public partial class Player : CharacterBody2D
         else if (isHurt && !IsOnFloor())
         {
             HandleDirectionalInput();
+            // if (playerVelocity.X > 0)
+            // {
+            //     playerVelocity.X -= .1f * moveSpeed;
+            // }
+            // else
+            // {
+            //     playerVelocity.X += .1f * moveSpeed;
+            // }
         }
-        if (IsOnFloor()) { isJumpReset = true; }
+        if (IsOnFloor()) { isJumpReset = true; isJumping = false; }
         if (currentLifeState == lifeState.dying)
         {
-            playerVelocity = Vector2.Zero;
+            playerSprite.Rotation += 6;
         }
 
 
@@ -421,23 +443,24 @@ public partial class Player : CharacterBody2D
 
     private void HandleDustEffects()
     {
-        if(!onFloorLastFrame && onFloorThisFrame)
+        if (!onFloorLastFrame && onFloorThisFrame)
         {
             EffectsManager.Instance.PlayDustEffect(GlobalPosition, lastFrameYVel, "landdust", playerSprite.FlipH);
-            if(lastFrameYVel > 0)
+
+            if (lastFrameYVel > 0 && !isStompLanding)
             {
                 AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerLand);
             }
-            
         }
         if (IsOnFloor())
         {
             if (isCharging)
             {
                 EffectsManager.Instance.PlayDustEffect(GlobalPosition, lastFrameYVel, "chargedust", playerSprite.FlipH);
-            }else if (currentMoveState == moveState.walk)
+            }
+            else if (currentMoveState == moveState.walk)
             {
-                 EffectsManager.Instance.PlayDustEffect(GlobalPosition, lastFrameYVel, "walkdust", playerSprite.FlipH);
+                EffectsManager.Instance.PlayDustEffect(GlobalPosition, lastFrameYVel, "walkdust", playerSprite.FlipH);
             }
         }
     }
@@ -550,7 +573,8 @@ public partial class Player : CharacterBody2D
                         else { currentMoveState = moveState.walk; }
                         if (isDigesting && currentEatingState == eatingState.empty) { currentMoveState = moveState.digest; }
                     }
-                    if (inputDirection.Y == 1 && canEat && currentEatingState == eatingState.empty && !isAboveLadder)
+                    if (inputDirection.Y == 1 && canEat && currentEatingState == eatingState.empty
+                    && !isAboveLadder && currentMoveState != moveState.digest)
                     {
 
                         isEating = true;
@@ -577,7 +601,8 @@ public partial class Player : CharacterBody2D
                         if (isJumping) { currentMoveState = moveState.jump; }
                         if (playerVelocity.Y > 0 && !isEating) { isJumping = false; isFalling = true; isBouncing = false; currentMoveState = moveState.fall; }
 
-                        if (inputDirection.Y == 1 && canEat && currentEatingState == eatingState.empty)
+                        if (inputDirection.Y == 1 && canEat && currentEatingState == eatingState.empty
+                        && currentMoveState != moveState.digest)
                         {
                             currentMoveState = moveState.eat;
                             isEating = true;
@@ -605,7 +630,8 @@ public partial class Player : CharacterBody2D
             }
         }
 
-        debugLabel.Text = $"";
+        //debugLabel.Text = $"{GlobalPosition}";
+        //\neat:{isEating} \nboun:{isBouncing}";
 
         return state;
     }
@@ -626,7 +652,6 @@ public partial class Player : CharacterBody2D
                     closestEdible = edible;
                 }
             }
-
 
             edibleList.Remove(closestEdible);
             edibleInMouth = closestEdible.myEdibleType;
@@ -758,6 +783,31 @@ public partial class Player : CharacterBody2D
     }
 
 
+    private void BouncePlayer(Vector2 bouncerPos, float intensity)
+    {
+        if (currentMoveState == moveState.fall || bouncerPos.Y > GlobalPosition.Y)
+        {
+            playerVelocity.Y = -bounceBack * intensity;
+            isBouncing = true;
+        }
+        else
+        {
+            if (GlobalPosition.X > bouncerPos.X)
+            {
+                playerVelocity.X = bounceBack * intensity;
+            }
+            else
+            {
+                playerVelocity.X = -bounceBack * intensity;
+            }
+        }
+
+
+
+
+    }
+
+
 
     //////////////////////////////////////////////////// EVENT BUS SIGNAL CALLS  //////////////////////////////////////////////////////////
 
@@ -766,41 +816,29 @@ public partial class Player : CharacterBody2D
         playerVelocity.X = -playerVelocity.X;
         isCharging = false;
         isChargeLanding = true;
+        Vector2 fxPos = new Vector2(GlobalPosition.X, GlobalPosition.Y - 4);
+        EffectsManager.Instance.PlaySmackEffect(fxPos, 1);
     }
     private void OnPlayerHurt(Vector2 attackerPos)
     {
         currentLifeState = lifeState.hurt;
-        if (currentMoveState == moveState.fall || attackerPos.Y > GlobalPosition.Y)
-        {
-            playerVelocity.Y = -bounceBack;
-            isBouncing = true;
-        }
-        else
-        {
-            if (GlobalPosition.X > attackerPos.X)
-            {
-                playerVelocity.X = bounceBack;
-            }
-            else
-            {
-                playerVelocity.X = -bounceBack;
-            }
-        }
-
+        BouncePlayer(attackerPos, 1);
         AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerHurt);
         isDigesting = false;
         isEating = false;
         isCharging = false;
         isStomping = false;
         isHurt = true;
+        SetCollisionMaskValue(13, true);
         EmitWater();
     }
 
     private void OnPlayerHurtTimeout()
     {
         isHurt = false;
+        SetCollisionMaskValue(13, false);
     }
-    private void OnPlayerKilled(string death)
+    private void OnPlayerKilled(string death, Vector2 attackerPos)
     {
         isHurt = true;
         isClimbing = false;
@@ -811,17 +849,26 @@ public partial class Player : CharacterBody2D
         currentLifeState = lifeState.dying;
         deathType = death;
         deathTimer.Start();
+        BouncePlayer(attackerPos, 1.5f);
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerDie);
+        //SetCollisionMaskValue(1,false);
+
     }
 
     private void OnPlayerBouncedUpward(float bouncePower)
     {
+        float modifiedPower = bouncePower;
+        if (Engine.TimeScale != 1)
+        {
+            modifiedPower *= 1.8f;
+        }
         if (Input.IsActionPressed("ActionZ"))
         {
-            playerVelocity.Y = -bouncePower * 1.2f;
+            playerVelocity.Y = -modifiedPower * 1.2f;
         }
         else
         {
-            playerVelocity.Y = -bouncePower;
+            playerVelocity.Y = -modifiedPower;
         }
         if (isStomping) { currentspecialState = specialState.none; isStomping = false; }
         isJumping = true;
@@ -835,7 +882,7 @@ public partial class Player : CharacterBody2D
 
     // private void OnPlayerBouncedHorizontally(Vector2 bouncerPos, float bouncePower)
     // {
-    //     GD.Print("Player bounced horizontally");
+
     //     if (GlobalPosition.X > bouncerPos.X)
     //     {
     //         playerVelocity.X = bouncePower;
@@ -1006,7 +1053,7 @@ public partial class Player : CharacterBody2D
 
     private void OnStunDetectorBodyEntered(Node2D body)
     {
-        if(body is Enemy enemy)
+        if (body is Enemy enemy)
         {
             enemy.StunEnemy();
         }
@@ -1027,10 +1074,13 @@ public partial class Player : CharacterBody2D
     private void OnDeathTimerTimeout()
     {
         GlobalPosition = levelOriginPosition;
+        playerSprite.Rotation = 0;
         currentLifeState = lifeState.alive;
         currentspecialState = specialState.none;
         currentMoveState = moveState.idle;
-        if(isStomping){isStomping= false;}
+        isJumping = false;
+        isBouncing = false;
+        if (isStomping) { isStomping = false; }
     }
 
     private void OnSpecialBufferTimerTimeout()
