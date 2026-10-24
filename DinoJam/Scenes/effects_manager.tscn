@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://blrnhbjlhmx44" path="res://Scenes/ParticleScenes/goo_particles.tscn" id="6_li3yx"]
 [ext_resource type="PackedScene" uid="uid://bq3sy3ecal0hq" path="res://Scenes/ParticleScenes/watersplash_particles.tscn" id="7_b2s5g"]
 [ext_resource type="PackedScene" uid="uid://boqmbiw3la64k" path="res://Scenes/ParticleScenes/blood_particles.tscn" id="8_hicpu"]
-[ext_resource type="Texture2D" uid="uid://bun38cn68xaq4" path="res://Art/FX/DustAnimationsSpriteSheet31-005.png" id="9_ke7jk"]
+[ext_resource type="Texture2D" uid="uid://6fdiqf25usj6" path="res://Art/FX/DustAnimationsSpriteSheet44-006.png" id="9_h3rot"]
 [ext_resource type="Texture2D" uid="uid://bk20misx3npxq" path="res://Art/FX/SmackSpriteSheet10-002.png" id="10_7apb1"]
 
 [sub_resource type="Animation" id="Animation_tbo0e"]
@@ -223,8 +223,8 @@ libraries = {
 [node name="DustSprite" type="Sprite2D" parent="."]
 z_index = 3
 position = Vector2(0, -32)
-texture = ExtResource("9_ke7jk")
-hframes = 31
+texture = ExtResource("9_h3rot")
+hframes = 44
 
 [node name="SmackAnim" type="AnimationPlayer" parent="."]
 libraries = {
