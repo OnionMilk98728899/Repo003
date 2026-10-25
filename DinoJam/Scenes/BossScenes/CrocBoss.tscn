@@ -1,11 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://cucn2eru73yki"]
+[gd_scene load_steps=32 format=3 uid="uid://cucn2eru73yki"]
 
 [ext_resource type="PackedScene" uid="uid://bhns7v8cx1ktr" path="res://Scenes/boss_controller.tscn" id="1_gu7bu"]
 [ext_resource type="Shader" path="res://Resources/Shaders/WhitePalleteShader.gdshader" id="2_dsfan"]
-[ext_resource type="Texture2D" uid="uid://dtqe8c61cihsq" path="res://Art/Bosses/CrocBoss/CrocBossSpriteSheet68-002.png" id="2_m125u"]
 [ext_resource type="Texture2D" uid="uid://dceypvnrfm51x" path="res://Resources/Shaders/whitepallete.png" id="3_7sl23"]
 [ext_resource type="PackedScene" uid="uid://b3sfn747ubb3p" path="res://Scenes/BossScenes/boss_phase.tscn" id="3_lyjgt"]
 [ext_resource type="PackedScene" uid="uid://rmu0nyiiqb6j" path="res://Scenes/hurt_box.tscn" id="4_inf27"]
+[ext_resource type="Texture2D" uid="uid://coyfwgeaxrkug" path="res://Art/Bosses/CrocBoss/CrocBossSpriteSheet61x2-008.png" id="4_mmf1t"]
 [ext_resource type="FontFile" uid="uid://ct8h8r5refxgg" path="res://Fonts/BitRampageX.ttf" id="6_4gscv"]
 [ext_resource type="PackedScene" uid="uid://cmqenxrdmtng4" path="res://Scenes/BossScenes/idle_action.tscn" id="6_8v7ch"]
 [ext_resource type="PackedScene" uid="uid://c84lnew1ymtoa" path="res://Scenes/BossScenes/ground_patrol_action.tscn" id="7_frksf"]
@@ -162,14 +162,100 @@ tracks/0/keys = {
 "values": [8, 9, 10, 11, 12, 13, 14, 15]
 }
 
+[sub_resource type="Animation" id="Animation_pr51e"]
+resource_name = "death"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteRoot/BossSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67]
+}
+
+[sub_resource type="Animation" id="Animation_xasav"]
+resource_name = "dive"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteRoot/BossSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79]
+}
+
+[sub_resource type="Animation" id="Animation_0w624"]
+resource_name = "swim"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteRoot/BossSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [80, 81, 82, 83, 84, 85, 86, 87]
+}
+
+[sub_resource type="Animation" id="Animation_0th0v"]
+resource_name = "snap"
+length = 2.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteRoot/BossSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110]
+}
+
+[sub_resource type="Animation" id="Animation_ny2ed"]
+resource_name = "emerge"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteRoot/BossSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_14nu4"]
 _data = {
 "RESET": SubResource("Animation_qoadj"),
+"death": SubResource("Animation_pr51e"),
+"dive": SubResource("Animation_xasav"),
+"emerge": SubResource("Animation_ny2ed"),
 "idle": SubResource("Animation_sy45a"),
 "rage": SubResource("Animation_ehhpl"),
 "run": SubResource("Animation_ugpad"),
+"snap": SubResource("Animation_0th0v"),
 "stun": SubResource("Animation_jol30"),
 "swallow": SubResource("Animation_ninay"),
+"swim": SubResource("Animation_0w624"),
 "walk": SubResource("Animation_yacca")
 }
 
@@ -178,16 +264,18 @@ size = Vector2(85, 9)
 
 [node name="BossController" node_paths=PackedStringArray("bossPhases", "hurtBoxes", "debugLabel", "bossSpriteRoot") groups=["Boss"] instance=ExtResource("1_gu7bu")]
 collision_layer = 16
-bossPhases = [NodePath("BossPhase1")]
+bossPhases = [NodePath("NormalPhase"), NodePath("SwimPhase")]
 hurtBoxes = [NodePath("SpriteRoot/BossSprite/HurtBox"), NodePath("SpriteRoot/BossSprite/HurtBox2"), NodePath("SpriteRoot/BossSprite/HurtBox3"), NodePath("SpriteRoot/BossSprite/HurtBox4")]
 debugLabel = NodePath("Label")
 bossSpriteRoot = NodePath("SpriteRoot")
 
 [node name="BossSprite" parent="SpriteRoot" index="0"]
 material = SubResource("ShaderMaterial_vlkkc")
+use_parent_material = true
 position = Vector2(0, -19)
-texture = ExtResource("2_m125u")
-hframes = 68
+texture = ExtResource("4_mmf1t")
+hframes = 61
+vframes = 2
 
 [node name="HurtBox" parent="SpriteRoot/BossSprite" index="0" node_paths=PackedStringArray("healthComp") instance=ExtResource("4_inf27")]
 z_index = 2
@@ -259,19 +347,23 @@ offset_right = 14.0
 offset_bottom = -3.0
 theme_override_fonts/font = ExtResource("6_4gscv")
 
-[node name="BossPhase1" parent="." index="5" node_paths=PackedStringArray("phaseActions", "stunAction", "bossSprite") instance=ExtResource("3_lyjgt")]
+[node name="NormalPhase" parent="." index="6" node_paths=PackedStringArray("phaseActions", "stunAction", "bossSprite") instance=ExtResource("3_lyjgt")]
 phaseActions = [NodePath("../IdleAction"), NodePath("../GroundPatrolAction"), NodePath("../RageAction")]
 stunAction = NodePath("../StunAction")
 bossSprite = NodePath("../SpriteRoot/BossSprite")
 
-[node name="IdleAction" parent="." index="6" node_paths=PackedStringArray("actionAnim") instance=ExtResource("6_8v7ch")]
+[node name="SwimPhase" parent="." index="7" node_paths=PackedStringArray("stunAction", "bossSprite") instance=ExtResource("3_lyjgt")]
+stunAction = NodePath("../StunAction")
+bossSprite = NodePath("../SpriteRoot/BossSprite")
+
+[node name="IdleAction" parent="." index="8" node_paths=PackedStringArray("actionAnim") instance=ExtResource("6_8v7ch")]
 actionAnim = NodePath("../CrocAnim")
 
 [node name="ActionTimer" parent="IdleAction" index="0"]
 wait_time = 2.4
 one_shot = true
 
-[node name="GroundPatrolAction" parent="." index="7" node_paths=PackedStringArray("bossSpriteRoot", "actionAnim") instance=ExtResource("7_frksf")]
+[node name="GroundPatrolAction" parent="." index="9" node_paths=PackedStringArray("bossSpriteRoot", "actionAnim") instance=ExtResource("7_frksf")]
 moveSpeed = 30.0
 bossSpriteRoot = NodePath("../SpriteRoot")
 actionAnim = NodePath("../CrocAnim")
@@ -280,11 +372,11 @@ gravity = 15.0
 [node name="ActionTimer" parent="GroundPatrolAction" index="0"]
 wait_time = 8.0
 
-[node name="RageAction" parent="." index="8" node_paths=PackedStringArray("mouthHurtbox", "actionAnim") instance=ExtResource("8_e5iyg")]
+[node name="RageAction" parent="." index="10" node_paths=PackedStringArray("mouthHurtbox", "actionAnim") instance=ExtResource("8_e5iyg")]
 mouthHurtbox = NodePath("../SpriteRoot/BossSprite/HurtBox5")
 actionAnim = NodePath("../CrocAnim")
 
-[node name="StunAction" parent="." index="10" node_paths=PackedStringArray("actionAnim") instance=ExtResource("9_3filt")]
+[node name="StunAction" parent="." index="11" node_paths=PackedStringArray("actionAnim") instance=ExtResource("9_3filt")]
 actionAnim = NodePath("../CrocAnim")
 
 [editable path="SpriteRoot/BossSprite/HurtBox"]

@@ -29,25 +29,12 @@ public partial class GroundPatrolAction : BossAction
     {
         if (isActive)
         {
-
-            // if(bossVelocity.X < 0 && facingRight || bossVelocity.X > 0 && !facingRight)
-            // {
-            //    bossSpriteRoot.Scale = new Vector2(facingRight ? 1 : -1, 1); 
-            //    facingRight = bossSpriteRoot.Scale.X < 0;
-            // }
             myBoss.FlipBossHorizontally(bossVelocity);
             Patrol();
             ApplyGravity(myBoss);
 
         }
     }
-
-
-    // public override bool IsFinished()
-    // {
-    //     return isFinished;
-    // }
-
     private void Patrol()
     {
         target = movingToB ? rightBoundary : leftBoundary;

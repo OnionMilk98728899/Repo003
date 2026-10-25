@@ -9,7 +9,7 @@ public partial class BossAction : Node2D
     [Export] private float gravity;
     public BossController myBoss;
     public Vector2 bossVelocity;
-    public bool isActive;
+    public bool isActive, isDying;
     // private ulong enemyId;
     public virtual void StartAction(BossController boss)
     {
@@ -32,6 +32,10 @@ public partial class BossAction : Node2D
     public virtual void OnActionTimerTimeout()
     {
         isActive = false;
-        myBoss.GetPhase().SelectRandomActionFromPhase();
+        if (!isDying)
+        {
+            myBoss.GetPhase().SelectRandomActionFromPhase();
+        }
+        
     }
 }

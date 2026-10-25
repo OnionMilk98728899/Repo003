@@ -445,7 +445,7 @@ public partial class Player : CharacterBody2D
     {
         if (!onFloorLastFrame && onFloorThisFrame)
         {
-            EffectsManager.Instance.PlayDustEffect(GlobalPosition, lastFrameYVel, "landdust", playerSprite.FlipH);
+            EffectsManager.Instance.PlayDustEffect(GlobalPosition, lastFrameYVel, "land", playerSprite.FlipH);
 
             if (lastFrameYVel > 0 && !isStompLanding)
             {
@@ -456,11 +456,11 @@ public partial class Player : CharacterBody2D
         {
             if (isCharging)
             {
-                EffectsManager.Instance.PlayDustEffect(GlobalPosition, lastFrameYVel, "chargedust", playerSprite.FlipH);
+                EffectsManager.Instance.PlayDustEffect(GlobalPosition, lastFrameYVel, "charge", playerSprite.FlipH);
             }
             else if (currentMoveState == moveState.walk)
             {
-                EffectsManager.Instance.PlayDustEffect(GlobalPosition, lastFrameYVel, "walkdust", playerSprite.FlipH);
+                EffectsManager.Instance.PlayDustEffect(GlobalPosition, lastFrameYVel, "walk", playerSprite.FlipH);
             }
         }
     }

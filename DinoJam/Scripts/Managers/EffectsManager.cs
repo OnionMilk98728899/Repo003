@@ -31,6 +31,7 @@ public partial class EffectsManager : Node2D
                 Engine.TimeScale = 1;
             }
         }
+
     }
 
     public PackedScene GetParticleScene(effectType type)
@@ -51,14 +52,14 @@ public partial class EffectsManager : Node2D
 
     public void PlayDustEffect(Vector2 position, float yVelocity, string effect, bool flip)
     {
-        if (!dustAnim.IsPlaying() || effect == "landdust" || dustAnim.CurrentAnimation == "walkdust" && effect != "walkdust")
+        if (!dustAnim.IsPlaying() || effect == "land" || dustAnim.CurrentAnimation == "walkdust" && effect != "walk")
         {
-            string floorType = (string)GlobalStats.Instance.myMap.GetCellTileData(1, (Vector2I)new Vector2(position.X, position.Y + 4)/16)?.GetCustomData("floorType");
-            //GD.Print("FloorType = " + (floorType?.ToString() ?? "null"));
+            string floorType = (string)GlobalStats.Instance.myMap.GetCellTileData(1,(Vector2I)new Vector2(position.X, position.Y + 4)/16)?.GetCustomData("floorType");
             string num = "";
-            if (effect == "landdust" && floorType == "dirt")
-            {
 
+            if (floorType == null) { return; }
+            if (effect == "land" && floorType == "dirt")
+            {
                 if (yVelocity >= 200)
                 {
                     num = "3";
@@ -77,13 +78,19 @@ public partial class EffectsManager : Node2D
                 }
                 EventBus.Instance.EmitSignal(EventBus.SignalName.ScreenShake, 3, 3);
             }
+            if (floorType == "water")
+            {
+                if (effect == "walk")
+                {
+                    return;
+                }
+            }
+
             dustAnim.Stop();
             dustSprite.GlobalPosition = position + dustOffset;
             dustSprite.FlipH = flip;
-            dustAnim.Play(effect + num);
-
+            dustAnim.Play(effect + floorType  + num);
         }
-
     }
 
     public void PlaySmackEffect(Vector2 position, int intensity)
@@ -91,18 +98,18 @@ public partial class EffectsManager : Node2D
         // GD.Print("has Played: " +hasSmackPlayed);
         // if (!hasSmackPlayed)
         // {
-            smackSprite.GlobalPosition = position;
-            switch (intensity)
-            {
-                case 1:
-                    smackAnim.Play("smack");
-                    break;
-                case 2:
-                    smackAnim.Play("deathsmack");
-                    smackTimer.Start();
-                    Engine.TimeScale = .3f;
-                    break;
-            }
+        smackSprite.GlobalPosition = position;
+        switch (intensity)
+        {
+            case 1:
+                smackAnim.Play("smack");
+                break;
+            case 2:
+                smackAnim.Play("deathsmack");
+                smackTimer.Start();
+                Engine.TimeScale = .3f;
+                break;
+        }
         //     hasSmackPlayed = true;
         // }
     }

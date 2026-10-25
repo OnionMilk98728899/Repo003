@@ -56,6 +56,11 @@ public partial class BossController : CharacterBody2D
         currentPhase.HitBoss(this);
     }
 
+    public void KillBoss()
+    {
+        QueueFree();
+    }
+
     public void SetPhase(BossPhase thisPhase)
     {
         currentPhase = thisPhase;
