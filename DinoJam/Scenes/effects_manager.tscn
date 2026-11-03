@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://blnvu0p0xgta2"]
+[gd_scene load_steps=24 format=3 uid="uid://blnvu0p0xgta2"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/EffectsManager.cs" id="1_h3ysn"]
 [ext_resource type="PackedScene" uid="uid://bxkg7jk30fusa" path="res://Scenes/ParticleScenes/dust_particles.tscn" id="2_r8kfq"]
@@ -26,8 +26,8 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_i6wnt"]
-resource_name = "chargedust"
+[sub_resource type="Animation" id="Animation_ullqc"]
+resource_name = "chargewater"
 length = 0.7
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -39,11 +39,27 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [10, 11, 12, 13, 14, 15, 16]
+"values": [37, 38, 39, 40, 41, 42, 43]
+}
+
+[sub_resource type="Animation" id="Animation_4k85e"]
+resource_name = "landwater"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [31, 32, 33, 34, 35, 36]
 }
 
 [sub_resource type="Animation" id="Animation_pkgkl"]
-resource_name = "landdust1"
+resource_name = "landdirt1"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -58,8 +74,24 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4]
 }
 
+[sub_resource type="Animation" id="Animation_i6wnt"]
+resource_name = "chargedirt"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13, 14, 15, 16]
+}
+
 [sub_resource type="Animation" id="Animation_rld0i"]
-resource_name = "landdust2"
+resource_name = "landdirt2"
 length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -75,7 +107,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_oyhmv"]
-resource_name = "landdust3"
+resource_name = "landdirt3"
 length = 0.7
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -91,7 +123,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_2uv6u"]
-resource_name = "walkdust"
+resource_name = "walkdirt"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -109,11 +141,13 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gwcfl"]
 _data = {
 "RESET": SubResource("Animation_tbo0e"),
-"chargedust": SubResource("Animation_i6wnt"),
-"landdust1": SubResource("Animation_pkgkl"),
-"landdust2": SubResource("Animation_rld0i"),
-"landdust3": SubResource("Animation_oyhmv"),
-"walkdust": SubResource("Animation_2uv6u")
+"chargedirt": SubResource("Animation_i6wnt"),
+"chargewater": SubResource("Animation_ullqc"),
+"landdirt1": SubResource("Animation_pkgkl"),
+"landdirt2": SubResource("Animation_rld0i"),
+"landdirt3": SubResource("Animation_oyhmv"),
+"landwater": SubResource("Animation_4k85e"),
+"walkdirt": SubResource("Animation_2uv6u")
 }
 
 [sub_resource type="Animation" id="Animation_np7bj"]

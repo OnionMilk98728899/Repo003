@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://byik0hs5x4uhn"]
+
+[ext_resource type="PackedScene" uid="uid://byxad58muoi7r" path="res://Scenes/BossScenes/boss_action.tscn" id="1_ccgqh"]
+[ext_resource type="Script" path="res://Scripts/Objects/Bosses/WaterDiveAction.cs" id="2_d0h5d"]
+
+[node name="WaterDiveAction" node_paths=PackedStringArray("hurtBoxes") instance=ExtResource("1_ccgqh")]
+script = ExtResource("2_d0h5d")
+hurtBoxes = []

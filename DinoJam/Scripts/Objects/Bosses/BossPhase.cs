@@ -61,6 +61,16 @@ public partial class BossPhase : Node2D
         }
     }
 
+    public void KillBoss(BossController boss)
+    {
+        boss.KillBoss();
+    }
+
+    private void MoveToNextPhase()
+    {
+        
+    }
+
     private void OnStunActionExpired()
     {
         isStunned = false;

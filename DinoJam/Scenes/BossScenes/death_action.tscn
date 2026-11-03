@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6comy0p14d8f"]
+
+[ext_resource type="PackedScene" uid="uid://byxad58muoi7r" path="res://Scenes/BossScenes/boss_action.tscn" id="1_yiaar"]
+[ext_resource type="Script" path="res://Scripts/Objects/Bosses/DeathAction.cs" id="2_yohj5"]
+
+[node name="DeathAction" instance=ExtResource("1_yiaar")]
+script = ExtResource("2_yohj5")

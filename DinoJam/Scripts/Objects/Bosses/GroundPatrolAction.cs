@@ -1,12 +1,17 @@
 using Godot;
 using System;
 
+public enum moveType
+{
+    walk, swim, fly, run
+}
 public partial class GroundPatrolAction : BossAction
 {
     private BossController boss;
-    [Export] float moveSpeed;
+    [Export] float walkSpeed, swimSpeed, runSpeed, acceleration, slowDownDistance;
     [Export] private Node2D leftBoundaryNode, rightBoundaryNode;
     [Export] private Node2D bossSpriteRoot;
+    [Export] public moveType myMoveType;
     private Vector2 leftBoundary, rightBoundary, target;
     //private BossController myBoss;
     private bool isFinished, movingToB, facingLeft, facingRight;
@@ -29,26 +34,13 @@ public partial class GroundPatrolAction : BossAction
     {
         if (isActive)
         {
-
-            // if(bossVelocity.X < 0 && facingRight || bossVelocity.X > 0 && !facingRight)
-            // {
-            //    bossSpriteRoot.Scale = new Vector2(facingRight ? 1 : -1, 1); 
-            //    facingRight = bossSpriteRoot.Scale.X < 0;
-            // }
             myBoss.FlipBossHorizontally(bossVelocity);
-            Patrol();
+            Patrol(walkSpeed, delta);
             ApplyGravity(myBoss);
 
         }
     }
-
-
-    // public override bool IsFinished()
-    // {
-    //     return isFinished;
-    // }
-
-    private void Patrol()
+    private void Patrol(float speed, double delta)
     {
         target = movingToB ? rightBoundary : leftBoundary;
         distance = target.X - GlobalPosition.X;
@@ -63,7 +55,20 @@ public partial class GroundPatrolAction : BossAction
         }
 
         float direction = Mathf.Sign(distance);
-        bossVelocity = new Vector2(direction * moveSpeed, bossVelocity.Y);
+
+        if (myMoveType == moveType.walk || myMoveType == moveType.run)
+        {
+            bossVelocity = new Vector2(direction * speed, bossVelocity.Y);
+        }
+        else if (myMoveType == moveType.swim || myMoveType == moveType.fly)
+        {
+
+            float speedFactor = Mathf.Min(1.0f, Mathf.Abs(distance) / slowDownDistance);
+            float targetSpeed = direction * speed * speedFactor;
+
+            bossVelocity.X = Mathf.MoveToward(bossVelocity.X, targetSpeed, acceleration * (float)delta);
+        }
+
     }
 
 
