@@ -43,7 +43,7 @@ public partial class Tree : StaticBody2D
             AddChild(treeTrunk);
             trunkArray[i] = treeTrunk;
             treeTrunk.GlobalPosition = new Vector2(baseTrunkPosition.X, baseTrunkPosition.Y - (16 * i));
-            GD.Print("Printed trunk at " + treeTrunk.GlobalPosition);
+
         }
 
         treeTop = treeTopScene.Instantiate<AnimatedSprite2D>();

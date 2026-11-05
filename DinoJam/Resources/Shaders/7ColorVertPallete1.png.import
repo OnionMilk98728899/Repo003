@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dou35cvpq31sg"
-path="res://.godot/imported/greenshader.png-2a2014244a265e3a70a279230ad4d56d.ctex"
+uid="uid://cnc6txofvyq38"
+path="res://.godot/imported/7ColorVertPallete1.png-2604b73ef4363aa091590ecc99450005.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Shaders/greenshader.png"
-dest_files=["res://.godot/imported/greenshader.png-2a2014244a265e3a70a279230ad4d56d.ctex"]
+source_file="res://Resources/Shaders/7ColorVertPallete1.png"
+dest_files=["res://.godot/imported/7ColorVertPallete1.png-2604b73ef4363aa091590ecc99450005.ctex"]
 
 [params]
 

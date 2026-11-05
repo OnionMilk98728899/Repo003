@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cucn2eru73yki"]
+[gd_scene load_steps=34 format=3 uid="uid://cucn2eru73yki"]
 
 [ext_resource type="PackedScene" uid="uid://bhns7v8cx1ktr" path="res://Scenes/boss_controller.tscn" id="1_gu7bu"]
 [ext_resource type="Shader" path="res://Resources/Shaders/WhitePalleteShader.gdshader" id="2_dsfan"]
@@ -10,7 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://cmqenxrdmtng4" path="res://Scenes/BossScenes/idle_action.tscn" id="6_8v7ch"]
 [ext_resource type="PackedScene" uid="uid://c84lnew1ymtoa" path="res://Scenes/BossScenes/ground_patrol_action.tscn" id="7_frksf"]
 [ext_resource type="PackedScene" uid="uid://dbtjxworyx6h1" path="res://Scenes/BossScenes/rage_action.tscn" id="8_e5iyg"]
+[ext_resource type="PackedScene" uid="uid://byik0hs5x4uhn" path="res://Scenes/BossScenes/water_dive_action.tscn" id="8_lo7u8"]
 [ext_resource type="PackedScene" uid="uid://c7mslkep7bpn0" path="res://Scenes/BossScenes/stun_action.tscn" id="9_3filt"]
+[ext_resource type="PackedScene" uid="uid://b6comy0p14d8f" path="res://Scenes/BossScenes/death_action.tscn" id="12_xuphn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vlkkc"]
 shader = ExtResource("2_dsfan")
@@ -45,6 +47,56 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_pr51e"]
+resource_name = "death"
+length = 1.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteRoot/BossSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67]
+}
+
+[sub_resource type="Animation" id="Animation_xasav"]
+resource_name = "dive"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteRoot/BossSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79]
+}
+
+[sub_resource type="Animation" id="Animation_ny2ed"]
+resource_name = "emerge"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteRoot/BossSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 118]
 }
 
 [sub_resource type="Animation" id="Animation_sy45a"]
@@ -98,6 +150,22 @@ tracks/0/keys = {
 "values": [48, 49, 50, 51]
 }
 
+[sub_resource type="Animation" id="Animation_0th0v"]
+resource_name = "snap"
+length = 2.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteRoot/BossSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110]
+}
+
 [sub_resource type="Animation" id="Animation_jol30"]
 resource_name = "stun"
 length = 0.8
@@ -145,55 +213,6 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_yacca"]
-resource_name = "walk"
-length = 0.8
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SpriteRoot/BossSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [8, 9, 10, 11, 12, 13, 14, 15]
-}
-
-[sub_resource type="Animation" id="Animation_pr51e"]
-resource_name = "death"
-length = 1.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SpriteRoot/BossSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67]
-}
-
-[sub_resource type="Animation" id="Animation_xasav"]
-resource_name = "dive"
-length = 1.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SpriteRoot/BossSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79]
-}
-
 [sub_resource type="Animation" id="Animation_0w624"]
 resource_name = "swim"
 length = 0.8
@@ -211,9 +230,10 @@ tracks/0/keys = {
 "values": [80, 81, 82, 83, 84, 85, 86, 87]
 }
 
-[sub_resource type="Animation" id="Animation_0th0v"]
-resource_name = "snap"
-length = 2.3
+[sub_resource type="Animation" id="Animation_yacca"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -221,26 +241,10 @@ tracks/0/path = NodePath("SpriteRoot/BossSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110]
-}
-
-[sub_resource type="Animation" id="Animation_ny2ed"]
-resource_name = "emerge"
-length = 1.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SpriteRoot/BossSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121]
+"values": [8, 9, 10, 11, 12, 13, 14, 15]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_14nu4"]
@@ -264,7 +268,7 @@ size = Vector2(85, 9)
 
 [node name="BossController" node_paths=PackedStringArray("bossPhases", "hurtBoxes", "debugLabel", "bossSpriteRoot") groups=["Boss"] instance=ExtResource("1_gu7bu")]
 collision_layer = 16
-bossPhases = [NodePath("NormalPhase"), NodePath("SwimPhase")]
+bossPhases = [NodePath("EmergePhase"), NodePath("FirstPhase"), NodePath("SecondPhase"), NodePath("DeathPhase")]
 hurtBoxes = [NodePath("SpriteRoot/BossSprite/HurtBox"), NodePath("SpriteRoot/BossSprite/HurtBox2"), NodePath("SpriteRoot/BossSprite/HurtBox3"), NodePath("SpriteRoot/BossSprite/HurtBox4")]
 debugLabel = NodePath("Label")
 bossSpriteRoot = NodePath("SpriteRoot")
@@ -280,7 +284,6 @@ vframes = 2
 [node name="HurtBox" parent="SpriteRoot/BossSprite" index="0" node_paths=PackedStringArray("healthComp") instance=ExtResource("4_inf27")]
 z_index = 2
 position = Vector2(-16, 1)
-collision_mask = 8
 myHBoxType = 1
 healthComp = NodePath("../../../HealthComponent")
 
@@ -291,7 +294,6 @@ shape = SubResource("RectangleShape2D_5bxm5")
 [node name="HurtBox2" parent="SpriteRoot/BossSprite" index="1" node_paths=PackedStringArray("healthComp") instance=ExtResource("4_inf27")]
 z_index = 2
 position = Vector2(-47, 20)
-collision_mask = 8
 myHBoxType = 1
 healthComp = NodePath("../../../HealthComponent")
 
@@ -302,7 +304,6 @@ shape = SubResource("RectangleShape2D_mfdep")
 [node name="HurtBox3" parent="SpriteRoot/BossSprite" index="2" node_paths=PackedStringArray("healthComp") instance=ExtResource("4_inf27")]
 z_index = 2
 position = Vector2(-72, 34)
-collision_mask = 8
 myHBoxType = 2
 healthComp = NodePath("../../../HealthComponent")
 
@@ -313,7 +314,6 @@ shape = SubResource("RectangleShape2D_7okqb")
 [node name="HurtBox4" parent="SpriteRoot/BossSprite" index="3" node_paths=PackedStringArray("healthComp") instance=ExtResource("4_inf27")]
 z_index = 2
 position = Vector2(68, 33)
-collision_mask = 8
 myHBoxType = 1
 healthComp = NodePath("../../../HealthComponent")
 
@@ -336,47 +336,143 @@ libraries = {
 "": SubResource("AnimationLibrary_14nu4")
 }
 
+[node name="BossCollider" parent="." index="2"]
+disabled = true
+
 [node name="BossCollider2" type="CollisionShape2D" parent="." index="3"]
 position = Vector2(-0.5, 8.5)
 shape = SubResource("RectangleShape2D_wkxx8")
+disabled = true
 
 [node name="Label" type="Label" parent="." index="4"]
-offset_left = -26.0
-offset_top = -26.0
-offset_right = 14.0
-offset_bottom = -3.0
+offset_left = -27.0
+offset_top = -41.0
+offset_right = 13.0
+offset_bottom = -18.0
 theme_override_fonts/font = ExtResource("6_4gscv")
 
-[node name="NormalPhase" parent="." index="6" node_paths=PackedStringArray("phaseActions", "stunAction", "bossSprite") instance=ExtResource("3_lyjgt")]
-phaseActions = [NodePath("../IdleAction"), NodePath("../GroundPatrolAction"), NodePath("../RageAction")]
-stunAction = NodePath("../StunAction")
+[node name="HealthComponent" parent="." index="5"]
+enemyHealth = 10
+
+[node name="EmergePhase" parent="." index="6" node_paths=PackedStringArray("phaseActions", "bossSprite") instance=ExtResource("3_lyjgt")]
+phaseActions = [NodePath("SwimAction"), NodePath("WaterDiveAction"), NodePath("IdleAction")]
 bossSprite = NodePath("../SpriteRoot/BossSprite")
 
-[node name="SwimPhase" parent="." index="7" node_paths=PackedStringArray("stunAction", "bossSprite") instance=ExtResource("3_lyjgt")]
-stunAction = NodePath("../StunAction")
-bossSprite = NodePath("../SpriteRoot/BossSprite")
+[node name="WaterDiveAction" parent="EmergePhase" index="1" node_paths=PackedStringArray("hurtBoxes", "colliders", "actionAnim") instance=ExtResource("8_lo7u8")]
+hurtBoxes = [NodePath("../../SpriteRoot/BossSprite/HurtBox"), NodePath("../../SpriteRoot/BossSprite/HurtBox2"), NodePath("../../SpriteRoot/BossSprite/HurtBox3"), NodePath("../../SpriteRoot/BossSprite/HurtBox4")]
+colliders = [NodePath("../../BossCollider"), NodePath("../../BossCollider2")]
+actionAnim = NodePath("../../CrocAnim")
 
-[node name="IdleAction" parent="." index="8" node_paths=PackedStringArray("actionAnim") instance=ExtResource("6_8v7ch")]
-actionAnim = NodePath("../CrocAnim")
+[node name="SwimAction" parent="EmergePhase" index="2" node_paths=PackedStringArray("bossSpriteRoot", "actionAnim") instance=ExtResource("7_frksf")]
+walkSpeed = 0.0
+swimSpeed = 40.0
+runSpeed = 0.0
+flySpeed = 0.0
+acceleration = 20.0
+slowDownDistance = 20.0
+bossSpriteRoot = NodePath("../../SpriteRoot")
+myMoveType = 1
+isSeekingPlayer = false
+actionAnim = NodePath("../../CrocAnim")
 
-[node name="ActionTimer" parent="IdleAction" index="0"]
+[node name="IdleAction" parent="EmergePhase" index="3" node_paths=PackedStringArray("actionAnim") instance=ExtResource("6_8v7ch")]
+actionAnim = NodePath("../../CrocAnim")
+
+[node name="ActionTimer" parent="EmergePhase/IdleAction" index="0"]
 wait_time = 2.4
 one_shot = true
 
-[node name="GroundPatrolAction" parent="." index="9" node_paths=PackedStringArray("bossSpriteRoot", "actionAnim") instance=ExtResource("7_frksf")]
-moveSpeed = 30.0
-bossSpriteRoot = NodePath("../SpriteRoot")
-actionAnim = NodePath("../CrocAnim")
+[node name="FirstPhase" parent="." index="7" node_paths=PackedStringArray("phaseActions", "stunAction", "bossSprite") instance=ExtResource("3_lyjgt")]
+phaseActions = [NodePath("GroundPatrolAction"), NodePath("RageAction")]
+stunAction = NodePath("../StunAction")
+bossSprite = NodePath("../SpriteRoot/BossSprite")
+isLooping = true
+healthTrigger = 5
+
+[node name="GroundPatrolAction" parent="FirstPhase" index="1" node_paths=PackedStringArray("bossSpriteRoot", "actionAnim") instance=ExtResource("7_frksf")]
+walkSpeed = 25.0
+swimSpeed = 0.0
+runSpeed = 0.0
+flySpeed = 0.0
+acceleration = 0.0
+slowDownDistance = 0.0
+bossSpriteRoot = NodePath("../../SpriteRoot")
+myMoveType = 0
+isSeekingPlayer = false
+actionAnim = NodePath("../../CrocAnim")
 gravity = 15.0
 
-[node name="ActionTimer" parent="GroundPatrolAction" index="0"]
+[node name="ActionTimer" parent="FirstPhase/GroundPatrolAction" index="0"]
 wait_time = 8.0
 
-[node name="RageAction" parent="." index="10" node_paths=PackedStringArray("mouthHurtbox", "actionAnim") instance=ExtResource("8_e5iyg")]
-mouthHurtbox = NodePath("../SpriteRoot/BossSprite/HurtBox5")
-actionAnim = NodePath("../CrocAnim")
+[node name="RageAction" parent="FirstPhase" index="2" node_paths=PackedStringArray("mouthHurtbox", "actionAnim") instance=ExtResource("8_e5iyg")]
+mouthHurtbox = NodePath("../../SpriteRoot/BossSprite/HurtBox5")
+actionAnim = NodePath("../../CrocAnim")
 
-[node name="StunAction" parent="." index="11" node_paths=PackedStringArray("actionAnim") instance=ExtResource("9_3filt")]
+[node name="SecondPhase" parent="." index="8" node_paths=PackedStringArray("phaseActions", "stunAction", "bossSprite") instance=ExtResource("3_lyjgt")]
+phaseActions = [NodePath("RunAction"), NodePath("RageAction"), NodePath("WaterDiveAction"), NodePath("SwimAction2"), NodePath("WaterDiveAction2")]
+stunAction = NodePath("../StunAction")
+bossSprite = NodePath("../SpriteRoot/BossSprite")
+isLooping = true
+healthTrigger = 1
+
+[node name="RunAction" parent="SecondPhase" index="0" node_paths=PackedStringArray("leftBoundaryNode", "rightBoundaryNode", "bossSpriteRoot", "actionAnim", "actionTimer") instance=ExtResource("7_frksf")]
+walkSpeed = 0.0
+swimSpeed = 0.0
+runSpeed = 55.0
+flySpeed = 0.0
+acceleration = 20.0
+slowDownDistance = 20.0
+leftBoundaryNode = NodePath("../../EmergePhase/SwimAction/LeftBound")
+rightBoundaryNode = NodePath("../../EmergePhase/SwimAction/RightBound")
+bossSpriteRoot = NodePath("../../SpriteRoot")
+myMoveType = 3
+isSeekingPlayer = false
+actionAnim = NodePath("../../CrocAnim")
+actionTimer = NodePath("../../EmergePhase/SwimAction/ActionTimer")
+
+[node name="RageAction" parent="SecondPhase" index="2" node_paths=PackedStringArray("mouthHurtbox", "actionAnim") instance=ExtResource("8_e5iyg")]
+mouthHurtbox = NodePath("../../SpriteRoot/BossSprite/HurtBox5")
+actionAnim = NodePath("../../CrocAnim")
+
+[node name="WaterDiveAction" parent="SecondPhase" index="3" node_paths=PackedStringArray("hurtBoxes", "colliders", "actionAnim") instance=ExtResource("8_lo7u8")]
+hurtBoxes = [NodePath("../../SpriteRoot/BossSprite/HurtBox"), NodePath("../../SpriteRoot/BossSprite/HurtBox2"), NodePath("../../SpriteRoot/BossSprite/HurtBox3"), NodePath("../../SpriteRoot/BossSprite/HurtBox4")]
+colliders = [NodePath("../../BossCollider"), NodePath("../../BossCollider2")]
+isEntering = true
+actionAnim = NodePath("../../CrocAnim")
+
+[node name="SwimAction2" parent="SecondPhase" index="4" node_paths=PackedStringArray("leftBoundaryNode", "rightBoundaryNode", "bossSpriteRoot", "actionAnim", "actionTimer") instance=ExtResource("7_frksf")]
+walkSpeed = 0.0
+swimSpeed = 40.0
+runSpeed = 0.0
+flySpeed = 0.0
+acceleration = 20.0
+slowDownDistance = 20.0
+leftBoundaryNode = NodePath("../../EmergePhase/SwimAction/LeftBound")
+rightBoundaryNode = NodePath("../../EmergePhase/SwimAction/RightBound")
+bossSpriteRoot = NodePath("../../SpriteRoot")
+myMoveType = 1
+isSeekingPlayer = false
+actionAnim = NodePath("../../CrocAnim")
+actionTimer = NodePath("../../EmergePhase/SwimAction/ActionTimer")
+
+[node name="WaterDiveAction2" parent="SecondPhase" index="5" node_paths=PackedStringArray("hurtBoxes", "colliders", "actionAnim", "actionTimer") instance=ExtResource("8_lo7u8")]
+hurtBoxes = [NodePath("../../SpriteRoot/BossSprite/HurtBox"), NodePath("../../SpriteRoot/BossSprite/HurtBox2"), NodePath("../../SpriteRoot/BossSprite/HurtBox3"), NodePath("../../SpriteRoot/BossSprite/HurtBox4")]
+colliders = [NodePath("../../BossCollider"), NodePath("../../BossCollider2")]
+actionAnim = NodePath("../../CrocAnim")
+actionTimer = NodePath("../WaterDiveAction/ActionTimer")
+
+[node name="DeathPhase" parent="." index="9" node_paths=PackedStringArray("bossSprite") instance=ExtResource("3_lyjgt")]
+bossSprite = NodePath("../SpriteRoot/BossSprite")
+
+[node name="DeathAction" parent="DeathPhase" index="1" node_paths=PackedStringArray("actionAnim") instance=ExtResource("12_xuphn")]
+actionAnim = NodePath("../../CrocAnim")
+
+[node name="ActionTimer" parent="DeathPhase/DeathAction" index="0"]
+wait_time = 3.6
+one_shot = true
+
+[node name="StunAction" parent="." index="10" node_paths=PackedStringArray("actionAnim") instance=ExtResource("9_3filt")]
 actionAnim = NodePath("../CrocAnim")
 
 [editable path="SpriteRoot/BossSprite/HurtBox"]
@@ -384,7 +480,8 @@ actionAnim = NodePath("../CrocAnim")
 [editable path="SpriteRoot/BossSprite/HurtBox3"]
 [editable path="SpriteRoot/BossSprite/HurtBox4"]
 [editable path="SpriteRoot/BossSprite/HurtBox5"]
-[editable path="IdleAction"]
-[editable path="GroundPatrolAction"]
-[editable path="RageAction"]
+[editable path="EmergePhase/IdleAction"]
+[editable path="FirstPhase/GroundPatrolAction"]
+[editable path="FirstPhase/RageAction"]
+[editable path="DeathPhase/DeathAction"]
 [editable path="StunAction"]

@@ -5,8 +5,10 @@ public partial class HealthComponent : Node2D
 {
     public enum unitType{player, enemy}
     [Export] public unitType myUnitType;
-    [Export] private int enemyHealth;
+    [Export] public int enemyHealth;
+    private BossController myBoss;
     private ulong enemyId;
+    
     public override void _Ready()
     {
         //EventBus.Instance.HurtEnemy += OnEnemyHurt;
@@ -21,6 +23,11 @@ public partial class HealthComponent : Node2D
     public void Initialize(Enemy enemy)
     {
         enemyId = enemy.enemyId;
+    }
+
+    public void InitializeBoss(BossController boss)
+    {
+        myBoss = boss;
     }
 
     public void OnEnemyHurt(int damage, ulong ID, Vector2 strikeVelocity, Vector2 position)
@@ -67,15 +74,26 @@ public partial class HealthComponent : Node2D
 
     }
 
+    public int GetEnemyHealth()
+    {
+        return enemyHealth;
+    }
+
+    public void SubtractEnemyHealth(int dmg)
+    {
+        enemyHealth -= dmg;
+    }
+
     public void OnBossHit()
     {
-        EventBus.Instance.EmitSignal(EventBus.SignalName.HitBoss);
+        //EventBus.Instance.EmitSignal(EventBus.SignalName.HitBoss);
+        myBoss.HitBoss(enemyHealth);
     }
 
     public void OnBossStunned()
     {
-        GD.Print("The boss was stunned by a rock!");
-        EventBus.Instance.EmitSignal(EventBus.SignalName.StunBoss);
+        //EventBus.Instance.EmitSignal(EventBus.SignalName.StunBoss);
+        myBoss.StunBoss();
     }
 
 }

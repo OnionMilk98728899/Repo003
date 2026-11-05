@@ -9,13 +9,13 @@ public partial class PlayerCam : Camera2D
     [Export]
     private float followSpeed ;
 
-    public override void _PhysicsProcess(double delta)
-    {
-        float weight = followSpeed * (float)delta;
+    // public override void _PhysicsProcess(double delta)
+    // {
+    //     float weight = followSpeed * (float)delta;
 
-        GlobalPosition = GlobalPosition.Lerp(
-            player.GlobalPosition,
-            weight
-        );
-    }
+    //     GlobalPosition = GlobalPosition.Lerp(
+    //         player.GlobalPosition,
+    //         weight
+    //     );
+    // }
 }

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdvsun7c0jkmk"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Player.cs" id="1_rrpny"]
+[ext_resource type="Script" path="res://Scripts/Nodes/PlayerMovement.cs" id="2_pyp8t"]
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_rrpny")
+
+[node name="PlayerMovement" type="CharacterBody2D" parent="."]
+script = ExtResource("2_pyp8t")

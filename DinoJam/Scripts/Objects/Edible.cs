@@ -49,8 +49,6 @@ public partial class Edible : CharacterBody2D
         {
             if (isFlying || isPlayerDamaging)
             {
-                if (myEdibleType == edibleType.bone && myPath == flightPath.straight) { ApplyBoomerangMotion(); }
-
                 if (!isDestroyed && IsOnFloor() || !isDestroyed && IsOnWall() || !isDestroyed && IsOnCeiling())
                 {
                     Destroy();
@@ -170,43 +168,43 @@ public partial class Edible : CharacterBody2D
             isEnemyMaskSet = true;
         }
     }
-    private void ApplyBoomerangMotion()
-    {
-        float range = 200;
-        if (myDirection == flightDirection.left) { range = -200; }
-        Vector2 target = new Vector2(initialPosition.X + range, initialPosition.Y);
-        float distance = target.Length();
+    // private void ApplyBoomerangMotion()
+    // {
+    //     float range = 200;
+    //     if (myDirection == flightDirection.left) { range = -200; }
+    //     Vector2 target = new Vector2(initialPosition.X + range, initialPosition.Y);
+    //     float distance = target.Length();
 
-        edibleVelocity.X -= 1 / distance;
-    }
+    //     edibleVelocity.X -= 1 / distance;
+    // }
 
-    private void Bounce()
-    {
-        if (bounceCounter < 3)
-        {
-            if (IsOnFloor())
-            {
-                edibleVelocity.Y = -bounceVelocity;
-                bounceCounter++;
-            }
-            if (IsOnWall())
-            {
-                if (edibleVelocity.X > 0) { edibleVelocity.X = -bounceVelocity; }
-                else if (edibleVelocity.X < 0) { edibleVelocity.X = bounceVelocity; }
-                bounceCounter++;
-            }
-            if (IsOnCeiling())
-            {
-                edibleVelocity.Y = bounceVelocity;
-                bounceCounter++;
-            }
-        }
+    // private void Bounce()
+    // {
+    //     if (bounceCounter < 3)
+    //     {
+    //         if (IsOnFloor())
+    //         {
+    //             edibleVelocity.Y = -bounceVelocity;
+    //             bounceCounter++;
+    //         }
+    //         if (IsOnWall())
+    //         {
+    //             if (edibleVelocity.X > 0) { edibleVelocity.X = -bounceVelocity; }
+    //             else if (edibleVelocity.X < 0) { edibleVelocity.X = bounceVelocity; }
+    //             bounceCounter++;
+    //         }
+    //         if (IsOnCeiling())
+    //         {
+    //             edibleVelocity.Y = bounceVelocity;
+    //             bounceCounter++;
+    //         }
+    //     }
 
-        if (bounceCounter >= 3)
-        {
-            //QueueFree();
-        }
-    }
+    //     if (bounceCounter >= 3)
+    //     {
+    //         //QueueFree();
+    //     }
+    // }
 
     public void SetRandomEdibleType()
     {
@@ -282,8 +280,8 @@ public partial class Edible : CharacterBody2D
                 fXType1 = effectType.goo;
                 fXCounter = 1;
                 edibleSprite.Texture = bugTexture;
-                edibleSprite.Hframes = 4;
-                flightAnimation = "bugfly";
+                edibleSprite.Hframes = 1;
+                //flightAnimation = "bugfly";
                 break;
             case edibleType.key:
                 fXCounter = 0;
@@ -298,6 +296,10 @@ public partial class Edible : CharacterBody2D
             if (edibleSprite.Hframes > 1)
             {
                 edibleAnim.Play(flightAnimation);
+            }
+            else
+            {
+                edibleSprite.Rotation += 2;
             }
         }
         else

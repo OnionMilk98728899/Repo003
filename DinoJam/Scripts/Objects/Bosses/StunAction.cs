@@ -3,9 +3,10 @@ using System;
 
 public partial class StunAction : BossAction
 {
-    [Signal] public delegate void StunExpiredEventHandler();
+    //[Signal] public delegate void StunExpiredEventHandler();
     [Export] private string stunAnim, preStunAnim;
     [Export] private bool hasPreStunPhase;
+    //private BossPhase currentPhase;
     //[Export] private Sprite2D
     public override void StartAction(BossController boss)
     {
@@ -29,7 +30,7 @@ public partial class StunAction : BossAction
     public override void OnActionTimerTimeout()
     {
         base.OnActionTimerTimeout();
-        EmitSignal(SignalName.StunExpired);
-
+        myBoss.GetCurrentPhase().OnStunActionExpired();
+       // EmitSignal(SignalName.StunExpired);
     }
 }

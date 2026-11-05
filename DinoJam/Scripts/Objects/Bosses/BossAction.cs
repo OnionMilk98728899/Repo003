@@ -17,6 +17,11 @@ public partial class BossAction : Node2D
         isActive = true;
         actionTimer.Start();
     }
+
+    // public virtual void StopAction()
+    // {
+        
+    // }
     public virtual void ApplyGravity(BossController boss)
     {
         if (!boss.IsOnFloor())
@@ -34,7 +39,8 @@ public partial class BossAction : Node2D
         isActive = false;
         if (!isDying)
         {
-            myBoss.GetPhase().SelectRandomActionFromPhase();
+            GD.Print("Finished action " + Name);
+            myBoss.GetPhase().OnActionFinished();
         }
         
     }

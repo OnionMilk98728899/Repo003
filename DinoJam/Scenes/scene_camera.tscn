@@ -1,15 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://cu8vc5l1xex2s"]
+[gd_scene load_steps=3 format=3 uid="uid://cu8vc5l1xex2s"]
 
-[ext_resource type="Script" path="res://Scripts/Nodes/SceneCamera.cs" id="1_3q20m"]
+[ext_resource type="Script" path="res://Scripts/Nodes/SnapCamera.cs" id="1_3y3xy"]
+[ext_resource type="Texture2D" uid="uid://dd6suc5x851th" path="res://Art/Tiles/Backgrounds/EggValleyBackground001.png" id="2_ut7oj"]
 
-[node name="SceneCamera" type="Camera2D" node_paths=PackedStringArray("shakeTimer")]
+[node name="SceneCamera" type="Camera2D" node_paths=PackedStringArray("backGroundSprite")]
 anchor_mode = 0
-script = ExtResource("1_3q20m")
-screenSizeX = 384
-screenSizeY = 216
-shakeTimer = NodePath("ShakeTimer")
+script = ExtResource("1_3y3xy")
+screenSize = Vector2(384, 216)
+backGroundOffset = Vector2(192, 108)
+eggValleyBackGround = ExtResource("2_ut7oj")
+backGroundSprite = NodePath("BackgroundSprite")
 
 [node name="ShakeTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="BackgroundSprite" type="Sprite2D" parent="."]
+position = Vector2(192, 108)
+texture = ExtResource("2_ut7oj")
 
 [connection signal="timeout" from="ShakeTimer" to="." method="OnShakeTimerTimeout"]

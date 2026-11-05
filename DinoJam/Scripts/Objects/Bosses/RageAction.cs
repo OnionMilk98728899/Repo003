@@ -16,12 +16,12 @@ public partial class RageAction : BossAction
         // rightCeilingBoundary = rightCeilingChecker.GetCollisionPoint();
         leftCeilingBoundary = leftCeilingLimit.GlobalPosition;
         rightCeilingBoundary = rightCeilingLimit.GlobalPosition;
-        GD.Print("Left: " +leftCeilingBoundary + " right : "+ rightCeilingBoundary);
     }
     public override void StartAction(BossController boss)
     {
         base.StartAction(boss);
         actionAnim.Play("rage");
+        //GD.Print("started rage action" );
         ExposeMouthHurtbox(true);
     }
 
@@ -29,25 +29,12 @@ public partial class RageAction : BossAction
     {
         if (isActive)
         {
-            // if (leftCeilingChecker.IsColliding())
-            // {
-            //     leftCeilingBoundary = leftCeilingChecker.GetCollisionPoint();
-            // }
-            // if (rightCeilingChecker.IsColliding())
-            // {
-            //     rightCeilingBoundary = rightCeilingChecker.GetCollisionPoint();
-
-            // }
-            // if (leftCeilingChecker.IsColliding() && rightCeilingChecker.IsColliding())
-            // {
-                if (screenShakeTimer.IsStopped())
-                {
-                    screenShakeTimer.Start();
-                    EventBus.Instance.EmitSignal(EventBus.SignalName.ScreenShake, 3, 3);
-                    GenerateCeilingProjectile();
-                }
-
-            //}
+            if (screenShakeTimer.IsStopped())
+            {
+                screenShakeTimer.Start();
+                EventBus.Instance.EmitSignal(EventBus.SignalName.ScreenShake, 3, 3);
+                GenerateCeilingProjectile();
+            }
         }
     }
 
@@ -57,13 +44,13 @@ public partial class RageAction : BossAction
         double difference = Mathf.Abs(leftCeilingBoundary.X - rightCeilingBoundary.X);
         double randSpot = GD.RandRange(0, difference);
         Vector2 position = new Vector2(leftCeilingBoundary.X + (float)randSpot, leftCeilingBoundary.Y);
-        
+
         ProjectileManager.Instance.GenerateCeilingCrumble(position, 2);
     }
 
     private void ExposeMouthHurtbox(bool exposed)
     {
-        mouthHurtbox.SetCollisionMaskValue(6,exposed);
+        mouthHurtbox.SetCollisionMaskValue(6, exposed);
     }
 
     public override void OnActionTimerTimeout()

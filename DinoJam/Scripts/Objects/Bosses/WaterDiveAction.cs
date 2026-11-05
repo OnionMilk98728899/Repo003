@@ -4,17 +4,37 @@ using System;
 public partial class WaterDiveAction : BossAction
 {
     [Export] HurtBox[] hurtBoxes;
+    [Export] CollisionShape2D[] colliders;
+    [Export] private bool isEntering;
     public override void StartAction(BossController boss)
     {
+        if (isEntering)
+        {
+            actionAnim.Play("dive");
+        }
+        else
+        {
+            actionAnim.Play("emerge");
+        }
         base.StartAction(boss);
-        actionAnim.Play("dive");
+        DisableEnableColliders();
     }
 
-    private void OnDiveAnimationInitiated()
+    // public void SetEnteringStatus(bool entering)
+    // {
+    //     isEntering = entering;
+    // }
+
+    private void DisableEnableColliders()
     {
-        foreach(HurtBox box in hurtBoxes)
+        foreach (HurtBox box in hurtBoxes)
         {
-            box.SetCollisionMaskValue(4, false);
+            box.SetCollisionMaskValue(4, !isEntering);
+        }
+
+        foreach (CollisionShape2D coll in colliders)
+        {
+            coll.Disabled = isEntering;
         }
     }
 }

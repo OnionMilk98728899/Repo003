@@ -9,7 +9,7 @@ public partial class Player : CharacterBody2D
     [Export] AnimationPlayer playerAnim;
     [Export] private float moveSpeed, maxMoveSpeed, jumpPower, hiJumpPower, gravity, maxGravity, climbSpeed, maxClimbSpeed, chargeSpeed, stompSpeed, bounceBack;
     [Export] private Label debugLabel;
-    [Export] private Timer recoverTimer, specialBufferTimer, deathTimer, soundStepBuffer;
+    [Export] private Timer recoverTimer, specialBufferTimer, deathTimer, soundStepBuffer, softFloorResetTimer;
     [Export] public Timer tileBreakBufferTimer;
     [Export] private CollisionShape2D playerColl;
     public enum moveState { idle, walk, jump, fall, land, eat, digest, climb, idleclimb }
@@ -139,12 +139,23 @@ public partial class Player : CharacterBody2D
         {
             if (Input.IsActionJustPressed("ActionZ") && isJumpReset && !isDigesting)
             {
-                if (inputDirection.Y < 0) { playerVelocity.Y -= hiJumpPower; }
-                else { playerVelocity.Y -= jumpPower; }
-                isJumping = true;
-                isClimbing = false;
-                isEating = false;
-                AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerJump);
+                if (Input.IsActionPressed("ui_down"))
+                {
+                    GD.Print("Jumping through soft floor");
+                    SetCollisionMaskValue(8, false);
+                    softFloorResetTimer.Start();
+                }
+                else
+                {
+                    if (inputDirection.Y < 0) { playerVelocity.Y -= hiJumpPower; }
+                    else { playerVelocity.Y -= jumpPower; }
+                    isJumping = true;
+                    isClimbing = false;
+                    isEating = false;
+                    AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerJump);
+                    
+                }
+
             }
         }
         if (IsOnCeiling() && inputDirection.Y == -1 && currentBreakableTopTile != null)
@@ -162,6 +173,7 @@ public partial class Player : CharacterBody2D
                 playerVelocity.Y += gravity;
                 isJumpReset = false;
             }
+            
         }
         if (IsOnFloor() && !isJumping && !isClimbing && !isBouncing)
         {
@@ -330,7 +342,7 @@ public partial class Player : CharacterBody2D
 
         if (isStomping)
         {
-            
+
             if (IsOnFloor())
             {
                 playerVelocity.X = 0;
@@ -350,10 +362,10 @@ public partial class Player : CharacterBody2D
                 playerVelocity.X = 0;
                 if (soundStepBuffer.IsStopped())
                 {
-                   AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerStomp);
-                   soundStepBuffer.Start(); 
+                    AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerStomp);
+                    soundStepBuffer.Start();
                 }
-                
+
             }
         }
         if (isSpitting)
@@ -1081,6 +1093,11 @@ public partial class Player : CharacterBody2D
         isJumping = false;
         isBouncing = false;
         if (isStomping) { isStomping = false; }
+    }
+
+    private void OnSoftFloorResetTimerTimeout()
+    {
+        SetCollisionMaskValue(8, true);
     }
 
     private void OnSpecialBufferTimerTimeout()

@@ -41,7 +41,7 @@ public partial class GlobalStats : Node2D
     public void ZeroPlayerHealth()
     {
         playerHealth = 0;
-        myHud.SetDropCount(playerHealth);
+        //myHud.SetDropCount(playerHealth);
     }
     
 }

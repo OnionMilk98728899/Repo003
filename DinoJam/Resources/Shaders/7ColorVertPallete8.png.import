@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnre6hrvwkbag"
-path="res://.godot/imported/redvertshader.png-3e8334d269f92aef38314196ee7f3e04.ctex"
+uid="uid://bdysiodm41qda"
+path="res://.godot/imported/7ColorVertPallete8.png-ee4ccf1264afb1fb3be9fdbe6f000b92.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Shaders/redvertshader.png"
-dest_files=["res://.godot/imported/redvertshader.png-3e8334d269f92aef38314196ee7f3e04.ctex"]
+source_file="res://Resources/Shaders/7ColorVertPallete8.png"
+dest_files=["res://.godot/imported/7ColorVertPallete8.png-ee4ccf1264afb1fb3be9fdbe6f000b92.ctex"]
 
 [params]
 

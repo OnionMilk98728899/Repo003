@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ba6mvnqavhsf7"
-path="res://.godot/imported/blackWhiteshader2.png-9aba6d943fd2410936c0ad42ea092775.ctex"
+uid="uid://87ss3k3urd7o"
+path="res://.godot/imported/RedPallete.png-9fc0aebf1a2a54396d18578be443cbb0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Shaders/blackWhiteshader2.png"
-dest_files=["res://.godot/imported/blackWhiteshader2.png-9aba6d943fd2410936c0ad42ea092775.ctex"]
+source_file="res://Resources/Shaders/RedPallete.png"
+dest_files=["res://.godot/imported/RedPallete.png-9fc0aebf1a2a54396d18578be443cbb0.ctex"]
 
 [params]
 

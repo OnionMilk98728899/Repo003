@@ -157,7 +157,6 @@ public partial class HurtBox : Area2D
             {
                 if (edible.myEdibleType == Edible.edibleType.rock && edible.isFlying)
                 {
-                    GD.Print("STUNNED BOSS");
                     edible.ConsumeEdible();
                     healthComp.OnBossStunned();
                     hurtTimer.Start();

@@ -8,24 +8,20 @@ public partial class BossPhase : Node2D
     [Export] BossAction stunAction;
     [Export] private Sprite2D bossSprite;
     [Export] private Timer hitTimer;
+    [Export] private bool isLooping;
+    [Export] public int healthTrigger;
     public BossAction currentAction;
     private BossController myBoss;
     private ulong enemyId;
-    private int actionCounter;
-    private bool isStunned;
+    public int actionCounter = 0;
+    public bool isStunned, isNextPhaseQueued;
+    private bool isDying;
 
     public override void _Ready()
     {
         bossSprite.UseParentMaterial = true;
     }
-    // public void InitializeID(BossController boss)
-    // {
-    //     enemyId = boss.enemyId;
-    //     foreach(BossAction action in phaseActions)
-    //     {
-    //         action.InitializeID(enemyId);
-    //     }
-    // }
+
     public void StartPhase(BossController boss)
     {
         phaseActions[actionCounter].StartAction(boss);
@@ -33,15 +29,43 @@ public partial class BossPhase : Node2D
         myBoss = boss;
     }
 
-    public void SelectRandomActionFromPhase()
+    private void StartAction(BossController boss, BossAction action)
     {
-        if (!isStunned)
+        action.StartAction(boss);
+        currentAction = action;
+    }
+
+    public void OnActionFinished()
+    {
+        if (!isStunned && !isDying)
         {
-            int rand = GD.RandRange(0, phaseActions.Count() - 1);
-            phaseActions[rand].StartAction(myBoss);
-            currentAction = phaseActions[rand];
+            if (actionCounter <= phaseActions.Count() - 2)
+            {
+                actionCounter++;
+                //GD.Print("Action counter increased");
+                StartAction(myBoss, phaseActions[actionCounter]);
+            }
+            else if (actionCounter == phaseActions.Count() - 1 && isLooping)
+            {
+                actionCounter = 0;
+                StartAction(myBoss, phaseActions[actionCounter]);
+            }
+            else if (actionCounter == phaseActions.Count() - 1 && !isLooping)
+            {
+                MoveToNextPhase();
+            }
         }
     }
+
+    // public void SelectRandomActionFromPhase()
+    // {
+    //     if (!isStunned)
+    //     {
+    //         int rand = GD.RandRange(0, phaseActions.Count() - 1);
+    //         phaseActions[rand].StartAction(myBoss);
+    //         currentAction = phaseActions[rand];
+    //     }
+    // }
 
     public void StunBoss(BossController boss)
     {
@@ -51,34 +75,43 @@ public partial class BossPhase : Node2D
         myBoss = boss;
     }
 
-    public void HitBoss(BossController boss)
+    public void HitBoss(BossController boss, int health)
     {
         if (isStunned && hitTimer.IsStopped())
         {
-            
             bossSprite.UseParentMaterial = false;
             hitTimer.Start();
         }
     }
 
-    public void KillBoss(BossController boss)
+    public void SetDying()
     {
-        boss.KillBoss();
+        // boss.KillBoss();
+        isDying = true;
     }
 
     private void MoveToNextPhase()
     {
-        
+        myBoss.MoveToNextPhase();
     }
 
-    private void OnStunActionExpired()
+    public void MoveToTargetAction(BossAction action)
+    {
+
+    }
+
+    public void OnStunActionExpired()
     {
         isStunned = false;
-        SelectRandomActionFromPhase();
+        //OnActionFinished();
+        if (isNextPhaseQueued)
+        {
+            MoveToNextPhase();
+        }
+        //SelectRandomActionFromPhase();
     }
     private void OnHitTimerTimeout()
     {
-        GD.Print("Hit timer timed out!");
         bossSprite.UseParentMaterial = true;
     }
 }

@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://c12tkfhmtnk1w"]
+
+[ext_resource type="PackedScene" uid="uid://byxad58muoi7r" path="res://Scenes/BossScenes/boss_action.tscn" id="1_bnjlk"]
+[ext_resource type="Script" path="res://Scripts/Objects/Bosses/AttackAction.cs" id="2_3kf76"]
+
+[node name="AttackAction" instance=ExtResource("1_bnjlk")]
+script = ExtResource("2_3kf76")

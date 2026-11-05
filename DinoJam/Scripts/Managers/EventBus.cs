@@ -18,8 +18,8 @@ public partial class EventBus : Node2D
     [Signal] public delegate void ShakeTreeEventHandler(Tree tree);
     [Signal] public delegate void ActivateSwitchDoorEventHandler(int gateid, bool open);
     [Signal] public delegate void ScreenShakeEventHandler(int intensity, float duration);
-    [Signal] public delegate void StunBossEventHandler();
-    [Signal] public delegate void HitBossEventHandler();
+    // [Signal] public delegate void StunBossEventHandler();
+    // [Signal] public delegate void HitBossEventHandler();
 
     //[Signal] public delegate void 
 

@@ -6,11 +6,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omk0k"]
 size = Vector2(48, 18)
 
-[node name="BossController" type="CharacterBody2D" node_paths=PackedStringArray("bossPhases", "hurtBoxes", "colliders")]
+[node name="BossController" type="CharacterBody2D" node_paths=PackedStringArray("bossPhases", "hurtBoxes", "colliders", "healthComp")]
 script = ExtResource("1_o0x04")
 bossPhases = []
 hurtBoxes = []
 colliders = []
+healthComp = NodePath("HealthComponent")
 
 [node name="SpriteRoot" type="Node2D" parent="."]
 
