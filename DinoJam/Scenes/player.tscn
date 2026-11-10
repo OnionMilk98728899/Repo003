@@ -815,7 +815,7 @@ height = 26.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_expm8"]
 size = Vector2(69, 9)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("playerSprite", "playerAnim", "debugLabel", "recoverTimer", "specialBufferTimer", "deathTimer", "soundStepBuffer", "softFloorResetTimer", "tileBreakBufferTimer") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("playerSprite", "playerAnim", "debugLabel", "recoverTimer", "specialBufferTimer", "deathTimer", "soundStepBuffer", "softFloorResetTimer", "enemyImmunityTimer", "tileBreakBufferTimer") groups=["Player"]]
 z_index = 4
 collision_layer = 8
 collision_mask = 133
@@ -839,6 +839,7 @@ specialBufferTimer = NodePath("SpecialBufferTimer")
 deathTimer = NodePath("DeathTimer")
 soundStepBuffer = NodePath("SoundStepBufferTimer")
 softFloorResetTimer = NodePath("SoftFloorResetTimer")
+enemyImmunityTimer = NodePath("EnemyImmunityTimer")
 tileBreakBufferTimer = NodePath("TileBreakerBufferTimer")
 edibleScene = ExtResource("2_81lcb")
 waterDropScene = ExtResource("2_81lcb")
@@ -859,6 +860,10 @@ one_shot = true
 wait_time = 0.8
 one_shot = true
 
+[node name="EnemyImmunityTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
 [node name="SoundStepBufferTimer" type="Timer" parent="."]
 wait_time = 0.07
 one_shot = true
@@ -868,10 +873,10 @@ wait_time = 0.1
 one_shot = true
 
 [node name="DebugLabel" type="Label" parent="."]
-offset_left = -48.0
-offset_top = 1.0
-offset_right = 50.0
-offset_bottom = 39.0
+offset_left = -29.0
+offset_top = -35.0
+offset_right = 69.0
+offset_bottom = 3.0
 theme_override_fonts/font = ExtResource("4_rp4iv")
 
 [node name="PlayerAnim" type="AnimationPlayer" parent="."]
@@ -881,6 +886,7 @@ libraries = {
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_titm8")
+use_parent_material = true
 position = Vector2(0, -7)
 texture = ExtResource("4_mts40")
 offset = Vector2(0, -1)

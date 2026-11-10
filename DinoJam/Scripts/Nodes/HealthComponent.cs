@@ -54,22 +54,21 @@ public partial class HealthComponent : Node2D
         else
         {
             EventBus.Instance.EmitSignal(EventBus.SignalName.ChargeEnemy, ID, strikeVelocity, position);
-           
         }
     }
 
 
-    public void HurtPlayer(Vector2 hurterPosition, string deathType)
+    public void HurtPlayer(Vector2 hurterPosition, string deathType, ulong hurterID)
     {
        if(GlobalStats.Instance.playerHealth > 0)
         {
             
-            EventBus.Instance.EmitSignal(EventBus.SignalName.HurtPlayer, hurterPosition);
+            EventBus.Instance.EmitSignal(EventBus.SignalName.HurtPlayer, hurterPosition, hurterID);
             GlobalStats.Instance.ZeroPlayerHealth();
         }
         else
         {
-            EventBus.Instance.EmitSignal(EventBus.SignalName.KillPlayer, deathType, hurterPosition);
+            EventBus.Instance.EmitSignal(EventBus.SignalName.KillPlayer, deathType, hurterPosition, hurterID);
         }
 
     }

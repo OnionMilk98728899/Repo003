@@ -13,7 +13,7 @@ public partial class Edible : CharacterBody2D
     [Export] private Timer destroyTimer;
     [Export] private Texture2D rockTexture, eggTexture, bombTexture, boneTexture, waterTexture, fireTexture, airTexture, bugTexture, keyTexture;
     private float elapsedTime;
-    public enum edibleType { rock, egg, bomb, bone, water, fire, air, bug, key }
+    public enum edibleType { rock, egg, bomb, bone, water, fire, air, bug, key, misc}
     public enum flightDirection { left, right }
     public enum flightPath { straight, arc, lob, down }
     public flightDirection myDirection;
@@ -235,9 +235,7 @@ public partial class Edible : CharacterBody2D
                 fXType2 = effectType.yolk;
                 fXCounter = 2;
                 edibleSprite.Texture = eggTexture;
-                edibleSprite.Hframes = 6;
-                flightAnimation = "eggglow";
-                staticAnimation = "eggglow";
+                edibleSprite.Hframes = 1;
                 break;
             case edibleType.bomb:
                 fXType1 = effectType.bombbits;
@@ -247,13 +245,13 @@ public partial class Edible : CharacterBody2D
                 flightAnimation = "bombfly";
                 staticAnimation = "bombstatic";
                 break;
-            case edibleType.bone:
-                fXType1 = effectType.bones;
-                fXCounter = 1;
-                edibleSprite.Texture = boneTexture;
-                edibleSprite.Hframes = 4;
-                flightAnimation = "bonefly";
-                break;
+            // case edibleType.bone:
+            //     fXType1 = effectType.bones;
+            //     fXCounter = 1;
+            //     edibleSprite.Texture = boneTexture;
+            //     edibleSprite.Hframes = 4;
+            //     flightAnimation = "bonefly";
+            //     break;
             case edibleType.air:
                 fXType1 = effectType.dust;
                 fXCounter = 1;
@@ -299,12 +297,12 @@ public partial class Edible : CharacterBody2D
             }
             else
             {
-                edibleSprite.Rotation += 2;
+                edibleSprite.Rotation += .2f;
             }
         }
         else
         {
-            if (myEdibleType == edibleType.bomb || myEdibleType == edibleType.egg || myEdibleType == edibleType.fire)
+            if (myEdibleType == edibleType.bomb || myEdibleType == edibleType.fire)
             {
                 edibleAnim.Play(staticAnimation);
             }

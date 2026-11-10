@@ -1,10 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://cdvsun7c0jkmk"]
+[gd_scene load_steps=5 format=3 uid="uid://cdvsun7c0jkmk"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Player.cs" id="1_rrpny"]
 [ext_resource type="Script" path="res://Scripts/Nodes/PlayerMovement.cs" id="2_pyp8t"]
+[ext_resource type="Texture2D" uid="uid://bdgwlpfx6cnj8" path="res://Art/Sprites/Player/CharacterPlaceholder.png" id="3_yw848"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ve31u"]
+size = Vector2(13, 17)
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_rrpny")
 
 [node name="PlayerMovement" type="CharacterBody2D" parent="."]
 script = ExtResource("2_pyp8t")
+moveSpeed = 70.0
+
+[node name="PlayerCollider" type="CollisionShape2D" parent="PlayerMovement"]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_ve31u")
+
+[node name="PlayerSprite" type="Sprite2D" parent="PlayerMovement"]
+texture = ExtResource("3_yw848")

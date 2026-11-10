@@ -1,19 +1,48 @@
-using Godot;
 using System;
 using System.Collections.Generic;
+using Godot;
 
 public enum effectType
 {
-    dust, rocks, eggshells, bombbits, yolk, goo, water, bones, blood
+    dust,
+    rocks,
+    eggshells,
+    bombbits,
+    yolk,
+    goo,
+    water,
+    bones,
+    blood,
 }
+
 public partial class EffectsManager : Node2D
 {
     public static EffectsManager Instance { get; private set; }
-    [Export] private PackedScene dustScene, rockScene, eggShellScene, yolkScene, gooScene, waterScene, boneScene, bloodScene;
-    [Export] private AnimationPlayer dustAnim, smackAnim;
-    [Export] private Timer smackTimer;
-    [Export] private Sprite2D dustSprite, smackSprite;
-    [Export] private Vector2 dustOffset;
+
+    [Export]
+    private PackedScene dustScene,
+        rockScene,
+        eggShellScene,
+        yolkScene,
+        gooScene,
+        waterScene,
+        boneScene,
+        bloodScene;
+
+    [Export]
+    private AnimationPlayer dustAnim,
+        smackAnim;
+
+    [Export]
+    private Timer smackTimer;
+
+    [Export]
+    private Sprite2D dustSprite,
+        smackSprite;
+
+    [Export]
+    private Vector2 dustOffset;
+
     //private bool hasSmackPlayed;
 
     public override void _EnterTree()
@@ -31,7 +60,6 @@ public partial class EffectsManager : Node2D
                 Engine.TimeScale = 1;
             }
         }
-
     }
 
     public PackedScene GetParticleScene(effectType type)
@@ -46,18 +74,31 @@ public partial class EffectsManager : Node2D
             effectType.water => waterScene,
             effectType.bones => boneScene,
             effectType.blood => bloodScene,
-            _ => null
+            _ => null,
         };
     }
 
     public void PlayDustEffect(Vector2 position, float yVelocity, string effect, bool flip)
     {
-        if (!dustAnim.IsPlaying() || effect == "land" || dustAnim.CurrentAnimation == "walkdust" && effect != "walk")
+        if (
+            !dustAnim.IsPlaying()
+            || effect == "land"
+            || dustAnim.CurrentAnimation == "walkdust" && effect != "walk"
+        )
         {
-            string floorType = (string)GlobalStats.Instance.myMap.GetCellTileData(1,(Vector2I)new Vector2(position.X, position.Y + 4)/16)?.GetCustomData("floorType");
+            string floorType = (string)
+                GlobalStats
+                    .Instance.myMap.GetCellTileData(
+                        1,
+                        (Vector2I)new Vector2(position.X, position.Y + 4) / 16
+                    )
+                    ?.GetCustomData("floorType");
             string num = "";
 
-            if (floorType == null) { return; }
+            if (floorType == null)
+            {
+                return;
+            }
             if (effect == "land" && floorType == "dirt")
             {
                 if (yVelocity >= 200)
@@ -89,7 +130,7 @@ public partial class EffectsManager : Node2D
             dustAnim.Stop();
             dustSprite.GlobalPosition = position + dustOffset;
             dustSprite.FlipH = flip;
-            dustAnim.Play(effect + floorType  + num);
+            dustAnim.Play(effect + floorType + num);
         }
     }
 

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dl6yi6e2fkjkb"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Machine.cs" id="1_0lohu"]
+[ext_resource type="Texture2D" uid="uid://cjya6f8mqf2dj" path="res://Art/Sprites/Machines/Block1.png" id="2_3rg2r"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oat30"]
+radius = 16.0
+height = 32.0
+
+[node name="Machine" type="StaticBody2D"]
+script = ExtResource("1_0lohu")
+
+[node name="MachineSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_3rg2r")
+
+[node name="MachineCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("CapsuleShape2D_oat30")
+
+[node name="CreateTimer" type="Timer" parent="."]

@@ -21,7 +21,7 @@ public partial class GroundJumper : Enemy
         ApplyGravity();
         Velocity = enemyVelocity;
         MoveAndSlide();
-        //debugLabel.Text = currentMoveState.ToString();
+        debugLabel.Text = enemyId.ToString();
     }
 
     private void DetermineBehavior()

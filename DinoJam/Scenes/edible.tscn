@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://Scripts/Objects/Edible.cs" id="1_cp0a2"]
 [ext_resource type="Texture2D" uid="uid://dtwbhdte5or8j" path="res://Art/Edibles/Rock001.png" id="2_h2pyu"]
-[ext_resource type="Texture2D" uid="uid://c8th5oy5uhdhw" path="res://Art/Edibles/EggSpriteSheet6-001.png" id="3_8lii8"]
 [ext_resource type="FontFile" uid="uid://ct8h8r5refxgg" path="res://Fonts/BitRampageX.ttf" id="3_lxdru"]
+[ext_resource type="Texture2D" uid="uid://clbjwji8jvstn" path="res://Art/Edibles/Egg.png" id="3_slcpa"]
 [ext_resource type="Texture2D" uid="uid://b2bgr4pesm24t" path="res://Art/Edibles/BombSpriteSheet17-001.png" id="4_q37t4"]
 [ext_resource type="Texture2D" uid="uid://db402auuokkth" path="res://Art/Edibles/BoneSpriteSheet5-001.png" id="5_eqvrh"]
 [ext_resource type="Texture2D" uid="uid://cqnysbvoph3xi" path="res://Art/Edibles/WaterEdibleSheet6-001.png" id="6_mmvay"]
@@ -222,7 +222,7 @@ speed = 4.0
 bounceVelocity = 100.0
 destroyTimer = NodePath("DestroyTimer")
 rockTexture = ExtResource("2_h2pyu")
-eggTexture = ExtResource("3_8lii8")
+eggTexture = ExtResource("3_slcpa")
 bombTexture = ExtResource("4_q37t4")
 boneTexture = ExtResource("5_eqvrh")
 waterTexture = ExtResource("6_mmvay")
@@ -236,8 +236,7 @@ shape = SubResource("RectangleShape2D_em5he")
 
 [node name="EdibleSprite" type="Sprite2D" parent="."]
 position = Vector2(0, -1)
-texture = ExtResource("7_jxw2c")
-hframes = 13
+texture = ExtResource("3_slcpa")
 
 [node name="EdibleAnim" type="AnimationPlayer" parent="."]
 libraries = {

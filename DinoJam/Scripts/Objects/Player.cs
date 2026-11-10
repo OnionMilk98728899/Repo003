@@ -9,7 +9,7 @@ public partial class Player : CharacterBody2D
     [Export] AnimationPlayer playerAnim;
     [Export] private float moveSpeed, maxMoveSpeed, jumpPower, hiJumpPower, gravity, maxGravity, climbSpeed, maxClimbSpeed, chargeSpeed, stompSpeed, bounceBack;
     [Export] private Label debugLabel;
-    [Export] private Timer recoverTimer, specialBufferTimer, deathTimer, soundStepBuffer, softFloorResetTimer;
+    [Export] private Timer recoverTimer, specialBufferTimer, deathTimer, soundStepBuffer, softFloorResetTimer, enemyImmunityTimer;
     [Export] public Timer tileBreakBufferTimer;
     [Export] private CollisionShape2D playerColl;
     public enum moveState { idle, walk, jump, fall, land, eat, digest, climb, idleclimb }
@@ -40,6 +40,7 @@ public partial class Player : CharacterBody2D
     public bool isTouchingDoor;
     private float lastFrameYVel, thisFrameYVel;
     private string deathType;
+    private ulong enemyImmunityID;
     public Vector2 doorEntryInput;
 
     public override void _Ready()
@@ -48,6 +49,8 @@ public partial class Player : CharacterBody2D
         EventBus.Instance.HurtPlayerTimeout += OnPlayerHurtTimeout;
         EventBus.Instance.KillPlayer += OnPlayerKilled;
         EventBus.Instance.ChargeEnemy += BounceBackFromCharge;
+        EventBus.Instance.HurtEnemy += OnEnemyHurt;
+        EventBus.Instance.KillEnemy += OnEnemyKilled;
         EventBus.Instance.BouncePlayerUpwards += OnPlayerBouncedUpward;
         EventBus.Instance.RepositionPlayerOrigin += OnPlayerOriginRepositioned;
         //EventBus.Instance.InfluencePlayerVelocity += InfluencePlayerVelocity;
@@ -153,7 +156,7 @@ public partial class Player : CharacterBody2D
                     isClimbing = false;
                     isEating = false;
                     AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerJump);
-                    
+
                 }
 
             }
@@ -173,7 +176,7 @@ public partial class Player : CharacterBody2D
                 playerVelocity.Y += gravity;
                 isJumpReset = false;
             }
-            
+
         }
         if (IsOnFloor() && !isJumping && !isClimbing && !isBouncing)
         {
@@ -588,10 +591,10 @@ public partial class Player : CharacterBody2D
                     if (inputDirection.Y == 1 && canEat && currentEatingState == eatingState.empty
                     && !isAboveLadder && currentMoveState != moveState.digest)
                     {
-
                         isEating = true;
-                        currentMoveState = moveState.eat;
                         EatNearestEdible();
+                        currentMoveState = moveState.eat;
+
                     }
                     if (inputDirection.Y == 1 && currentEatingState == eatingState.full && !isAboveLadder)
                     {
@@ -599,8 +602,10 @@ public partial class Player : CharacterBody2D
                         {
                             currentEatingState = eatingState.empty;
                             currentMoveState = moveState.digest;
+                            GD.Print("Digesting is true");
                             isDigesting = true;
                             DigestEdible();
+
                         }
 
                     }
@@ -642,7 +647,7 @@ public partial class Player : CharacterBody2D
             }
         }
 
-        //debugLabel.Text = $"{GlobalPosition}";
+        debugLabel.Text = $"{currentMoveState}";
         //\neat:{isEating} \nboun:{isBouncing}";
 
         return state;
@@ -668,6 +673,7 @@ public partial class Player : CharacterBody2D
             edibleList.Remove(closestEdible);
             edibleInMouth = closestEdible.myEdibleType;
             closestEdible.ConsumeEdible();
+
             currentEatingState = eatingState.full;
             AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerEat);
 
@@ -725,10 +731,10 @@ public partial class Player : CharacterBody2D
     private void DigestEdible()
     {
         AudioManager.Instance.PlaySFX(AudioManager.Instance.sfx1Player, AudioManager.Instance.audioLibrary.playerDigest);
-        if (edibleInMouth == Edible.edibleType.water)
-        {
-            GlobalStats.Instance.SetPlayerHealth(1);
-        }
+        // if (edibleInMouth == Edible.edibleType.water)
+        // {
+        //     GlobalStats.Instance.SetPlayerHealth(1);
+        // }
     }
 
 
@@ -831,7 +837,7 @@ public partial class Player : CharacterBody2D
         Vector2 fxPos = new Vector2(GlobalPosition.X, GlobalPosition.Y - 4);
         EffectsManager.Instance.PlaySmackEffect(fxPos, 1);
     }
-    private void OnPlayerHurt(Vector2 attackerPos)
+    private void OnPlayerHurt(Vector2 attackerPos, ulong hurterID)
     {
         currentLifeState = lifeState.hurt;
         BouncePlayer(attackerPos, 1);
@@ -842,7 +848,7 @@ public partial class Player : CharacterBody2D
         isStomping = false;
         isHurt = true;
         SetCollisionMaskValue(13, true);
-        EmitWater();
+        //EmitWater();
     }
 
     private void OnPlayerHurtTimeout()
@@ -850,8 +856,14 @@ public partial class Player : CharacterBody2D
         isHurt = false;
         SetCollisionMaskValue(13, false);
     }
-    private void OnPlayerKilled(string death, Vector2 attackerPos)
+    private void OnPlayerKilled(string death, Vector2 attackerPos, ulong hurterID)
     {
+        GD.Print("Player hurt, timer.Stopped = " + enemyImmunityTimer.IsStopped());
+        if (!enemyImmunityTimer.IsStopped() && hurterID == enemyImmunityID)
+        {
+            GD.Print("Player took damage from this enemy but it was IGNORED!");
+            return;
+        }
         isHurt = true;
         isClimbing = false;
         isDigesting = false;
@@ -890,6 +902,27 @@ public partial class Player : CharacterBody2D
     private void OnPlayerOriginRepositioned()
     {
         levelOriginPosition = GlobalPosition;
+    }
+
+    private void OnEnemyHurt(ulong enemyID, Vector2 position)
+    {
+        
+        if (enemyID != 0)
+        {
+            enemyImmunityID = enemyID;
+            enemyImmunityTimer.Start();
+            GD.Print("Enemy hurt, ID = " + enemyID + " Timer started!");
+        }
+
+    }
+
+    private void OnEnemyKilled(ulong enemyID, Vector2 strikeVelocity, Vector2 position)
+    {
+        if (enemyImmunityID != 0)
+        {
+            enemyImmunityID = enemyID;
+            enemyImmunityTimer.Start();
+        }
     }
 
     // private void OnPlayerBouncedHorizontally(Vector2 bouncerPos, float bouncePower)
@@ -955,9 +988,11 @@ public partial class Player : CharacterBody2D
     private void OnEatAnimationFinished()
     {
         isEating = false;
+        GD.Print("Eating =  false");
     }
     private void OnDigestAnimationFinished()
     {
+        GD.Print("Digesting is false");
         isDigesting = false;
     }
 

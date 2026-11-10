@@ -7,6 +7,7 @@ public partial class HurtBox : Area2D
     [Export] private hurtBoxType myHBoxType;
     [Export] private Timer hurtTimer;
     [Export] private HealthComponent healthComp;
+    //[Export] private Player myPlayer;
     private Enemy myEnemy;
     private BossController myBoss;
     private Edible myEdible;
@@ -31,30 +32,30 @@ public partial class HurtBox : Area2D
         {
             if (myHBoxType == hurtBoxType.player && hurtTimer.IsStopped())
             {
-                if (body.IsInGroup("Enemy") && body is Enemy en)
+                if (body.IsInGroup("Enemy") && body is Enemy en )
                 {
                     myEnemy = en;
-                    healthComp.HurtPlayer(myEnemy.GlobalPosition, "standard");
+                    healthComp.HurtPlayer(myEnemy.GlobalPosition, "standard", en.enemyId);
                     hurtTimer.Start();
                 }
                 if (body.IsInGroup("EnemyProjectile") && body is EnemyProjectile proj)
                 {
                     myProj = proj;
-                    healthComp.HurtPlayer(myProj.GlobalPosition, "standard");
+                    healthComp.HurtPlayer(myProj.GlobalPosition, "standard", 0);
                     hurtTimer.Start();
 
                 }
-                if (body.IsInGroup("Boss") && body is BossController boss)
+                if (body.IsInGroup("Boss") && body is BossController boss )
                 {
                     myBoss = boss;
-                    healthComp.HurtPlayer(myBoss.GlobalPosition, "standard");
+                    healthComp.HurtPlayer(myBoss.GlobalPosition, "standard", 0);
                     hurtTimer.Start();
                 }
                 if (body.IsInGroup("Edible") && body is Edible edib)
                 {
                     if (edib.isPlayerDamaging)
                     {
-                        healthComp.HurtPlayer(edib.GlobalPosition, "standard");
+                        healthComp.HurtPlayer(edib.GlobalPosition, "standard", 0);
                         hurtTimer.Start();
                     }
 
@@ -175,7 +176,7 @@ public partial class HurtBox : Area2D
                 {
                     Vector2 reflectPos = new Vector2(GlobalPosition.X, GlobalPosition.Y + 16);
 
-                    healthComp.HurtPlayer(reflectPos, deathType);
+                    healthComp.HurtPlayer(reflectPos, deathType, 0);
                     hurtTimer.Start();
                 }
 
@@ -191,7 +192,7 @@ public partial class HurtBox : Area2D
                     if (jetSeg.myJetType == jetType.lava)
                     {
                         deathType = "standard";
-                        healthComp.HurtPlayer(jetSeg.GlobalPosition, deathType);
+                        healthComp.HurtPlayer(jetSeg.GlobalPosition, deathType, 0);
                         hurtTimer.Start();
                     }
                 }
@@ -207,14 +208,14 @@ public partial class HurtBox : Area2D
                     {
                         deathType = "standard";
                     }
-                    healthComp.HurtPlayer(GlobalPosition, deathType);
+                    healthComp.HurtPlayer(GlobalPosition, deathType, 0);
                     hurtTimer.Start();
                 }
 
             }
             if (myHBoxType == hurtBoxType.player && body is AutoSpikes && hurtTimer.IsStopped())
             {
-                healthComp.HurtPlayer(GlobalPosition, "standard");
+                healthComp.HurtPlayer(GlobalPosition, "standard", 0);
                 hurtTimer.Start();
             }
         }

@@ -6,9 +6,9 @@ public partial class EventBus : Node2D
     public static EventBus Instance {get; private set;}
     [Signal] public delegate void SetCameraAnchorsEventHandler(Node2D[] points);
     [Signal] public delegate void RepositionPlayerOriginEventHandler();
-    [Signal] public delegate void HurtPlayerEventHandler(Vector2 position);
+    [Signal] public delegate void HurtPlayerEventHandler(Vector2 position, ulong hurterID);
     [Signal] public delegate void HurtPlayerTimeoutEventHandler();
-    [Signal] public delegate void KillPlayerEventHandler(string deathType, Vector2 position);
+    [Signal] public delegate void KillPlayerEventHandler(string deathType, Vector2 position, ulong hurterID);
     [Signal] public delegate void HurtEnemyEventHandler(ulong enemyID, Vector2 position);
     [Signal] public delegate void HurtEnemyTimeoutEventHandler();
     [Signal] public delegate void ChargeEnemyEventHandler( ulong enemyID, Vector2 strikeVelocity, Vector2 position);
